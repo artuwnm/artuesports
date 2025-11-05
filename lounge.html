@@ -4,9 +4,971 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lounge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Urbanist', sans-serif;
+            background-color: #050708;
+            color: #fcfcfc;
+            line-height: 1.5;
+        }
+        
+        @font-face {
+            font-family: 'Pressio';
+            src: local('Pressio No. 44 Bold Condensed');
+            font-weight: 700;
+        }
+        
+        @font-face {
+            font-family: 'Urbanist';
+            src: local('Urbanist');
+            font-weight: 400;
+        }
+        
+        @font-face {
+            font-family: 'Urbanist';
+            src: local('Urbanist Medium');
+            font-weight: 500;
+        }
+        
+        @font-face {
+            font-family: 'Urbanist';
+            src: local('Urbanist SemiBold');
+            font-weight: 600;
+        }
+        
+        .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: flex-start;
+            background-color: #050708;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background-color: #1d252c;
+            display: flex;
+            height: 96px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 36px;
+            width: 100%;
+        }
+        
+        .logo {
+            width: 141.75px;
+            height: 57.828px;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+            font-family: 'Pressio', sans-serif;
+            font-size: 28px;
+            color: #fcfcfc;
+            white-space: nowrap;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            gap: 37px;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .hero-image-container {
+            width: 1654px;
+            height: 1007px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 972px;
+            object-fit: cover;
+        }
+        
+        .hero-indicator {
+            width: 228px;
+            height: 20px;
+        }
+        
+        .hero-content {
+            padding: 0 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: flex-start;
+            width: 100%;
+        }
+        
+        .hero-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 128px;
+            line-height: 119px;
+            letter-spacing: -2.56px;
+            text-transform: uppercase;
+            color: #fcfcfc;
+            width: 100%;
+        }
+        
+        .hero-description {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 500;
+            font-size: 26px;
+            letter-spacing: -0.52px;
+            color: #fcfcfc;
+            width: 100%;
+        }
+        
+        /* Lounge Cards Section */
+        .lounge-cards {
+            display: flex;
+            gap: 22px;
+            height: 504px;
+            align-items: center;
+            padding: 0 30px;
+            width: 100%;
+        }
+        
+        .lounge-card {
+            flex: 1;
+            aspect-ratio: 416 / 256.42;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .lounge-card-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            padding: 94px 24px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .lounge-card-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            border-radius: 16px;
+        }
+        
+        .lounge-card-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 128px;
+            line-height: normal;
+            letter-spacing: -2.56px;
+            text-transform: uppercase;
+            color: #fcfcfc;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Location Section */
+        .location-section {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        
+        .location-content {
+            width: 840px;
+            padding: 0 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 29px;
+            align-items: flex-start;
+        }
+        
+        .location-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 128px;
+            line-height: 120px;
+            letter-spacing: -2.56px;
+            text-transform: uppercase;
+            color: #fcfcfc;
+            width: 100%;
+        }
+        
+        .location-info {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            font-family: 'Urbanist', sans-serif;
+            width: 100%;
+        }
+        
+        .location-column {
+            width: 394px;
+            height: 459px;
+        }
+        
+        .location-column-right {
+            width: 358px;
+            height: 459px;
+        }
+        
+        .location-label {
+            font-family: 'Pressio', sans-serif;
+            font-size: 32px;
+            letter-spacing: -0.64px;
+            margin-bottom: 0;
+        }
+        
+        .location-text {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: -0.28px;
+            margin-bottom: 0;
+        }
+        
+        .location-spacer {
+            font-size: 32px;
+            margin-bottom: 0;
+        }
+        
+        .map-container {
+            width: 805px;
+            height: 652px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        
+        /* Tour Video Section */
+        .tour-section {
+            padding: 0 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: flex-start;
+            width: 100%;
+        }
+        
+        .tour-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 128px;
+            line-height: 119px;
+            letter-spacing: -2.56px;
+            text-transform: uppercase;
+            color: #fcfcfc;
+            width: 100%;
+        }
+        
+        .video-player {
+            background-color: #000;
+            width: 100%;
+            height: 931px;
+            position: relative;
+        }
+        
+        .video-cover {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 110px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.31) 51.562%, rgba(0,0,0,0.7));
+        }
+        
+        .video-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 8px;
+            right: 8px;
+            height: 44px;
+        }
+        
+        .video-actions {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        
+        .video-play {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .video-button {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .video-time {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: white;
+            white-space: nowrap;
+        }
+        
+        .video-timeline {
+            position: absolute;
+            bottom: -4px;
+            left: 12px;
+            right: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+        
+        .timeline-bar {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+        }
+        
+        .timeline-knot {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 78px;
+            width: 12px;
+            height: 12px;
+        }
+        
+        /* Featured Content Section */
+        .featured-section {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            padding: 0 36px;
+            width: 100%;
+        }
+        
+        .event-card {
+            background-color: #1d252c;
+            width: 805px;
+            height: 798px;
+            padding: 17px 15px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 392.862px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-image img {
+            width: 391px;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .event-date {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 500;
+            font-size: 26px;
+            letter-spacing: -0.52px;
+            color: #fcfcfc;
+        }
+        
+        .event-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 128px;
+            letter-spacing: -2.56px;
+            text-transform: uppercase;
+            color: #fcfcfc;
+        }
+        
+        .event-streaming {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 500;
+            font-size: 26px;
+            letter-spacing: -0.52px;
+            color: #fcfcfc;
+        }
+        
+        .event-indicator {
+            background-color: #fcfcfc;
+            width: 30px;
+            height: 29px;
+            border-radius: 6px;
+        }
+        
+        .featured-content {
+            width: 820px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        
+        .featured-card {
+            width: 803px;
+            height: 370px;
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .featured-bg {
+            position: absolute;
+            inset: 0;
+            width: 820px;
+            height: 446px;
+        }
+        
+        .featured-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .featured-overlay {
+            position: absolute;
+            inset: 0;
+            backdrop-filter: blur(12.5px);
+            border: 1.5px solid #405464;
+            border-radius: 8px;
+            width: 820px;
+            height: 411px;
+        }
+        
+        .featured-content-inner {
+            position: absolute;
+            inset: 0;
+            padding: 54px 134px;
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+            align-items: flex-start;
+        }
+        
+        .featured-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .featured-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 128px;
+            letter-spacing: -2.56px;
+            text-transform: uppercase;
+            color: #fcfcfc;
+            white-space: nowrap;
+        }
+        
+        .featured-button {
+            background-color: #ed1f33;
+            width: 154px;
+            height: 44px;
+            padding: 12px 54px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .featured-button-text {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 500;
+            font-size: 26px;
+            letter-spacing: -0.52px;
+            color: #fcfcfc;
+            white-space: nowrap;
+        }
+        
+        .featured-description {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+            color: #fcfcfc;
+            width: 100%;
+        }
+        
+        .community-card {
+            width: 803px;
+            height: 412px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .community-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        
+        .community-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(64,84,100,0.31) 38.593%, rgba(5,7,8,0.75));
+            backdrop-filter: blur(6px);
+            border-radius: 16px;
+        }
+        
+        .community-content {
+            position: absolute;
+            inset: 0;
+            padding: 21px 140px 21px 135px;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            align-items: flex-start;
+        }
+        
+        .community-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 128px;
+            letter-spacing: -2.56px;
+            text-transform: uppercase;
+            color: #fcfcfc;
+            height: 57px;
+        }
+        
+        .community-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+            width: 587px;
+        }
+        
+        .community-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            height: 41.803px;
+        }
+        
+        .social-icon {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .community-description {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+            color: #f2f2f2;
+            height: 130.982px;
+        }
+        
+        /* Footer */
+        .footer {
+            display: flex;
+            flex-direction: column;
+            gap: 37px;
+            align-items: flex-start;
+            width: 100%;
+            height: 397px;
+        }
+        
+        .footer-top {
+            background-color: #1d252c;
+            padding: 16px 36px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .footer-left {
+            width: 252px;
+            display: flex;
+            flex-direction: column;
+            gap: 160px;
+            align-items: flex-start;
+        }
+        
+        .footer-logo {
+            width: 100%;
+            aspect-ratio: 1265.82 / 516.402;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .social-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 40px;
+        }
+        
+        .social-button-red {
+            background-color: #ed1f33;
+            padding: 8px 6px;
+        }
+        
+        .footer-right {
+            width: 644px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        
+        .footer-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: flex-start;
+            padding-top: 16px;
+        }
+        
+        .footer-column-title {
+            font-family: 'Pressio', sans-serif;
+            font-size: 64px;
+            letter-spacing: -1.28px;
+            color: #fcfcfc;
+            width: 100%;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 500;
+            font-size: 26px;
+            letter-spacing: -0.52px;
+            color: #f2f2f2;
+            white-space: nowrap;
+        }
+        
+        .footer-bottom {
+            background-color: #050708;
+            padding: 21px 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .footer-copyright {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+            color: #f2f2f2;
+            text-align: center;
+            white-space: nowrap;
+        }
+        
+        .footer-legal {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: -0.4px;
+            color: #f2f2f2;
+            text-align: center;
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="http://localhost:3845/assets/8c45d48ad9647e61d53a4a21a56dc8436bc070c2.png" alt="Logo">
+            </div>
+            <div class="nav-menu">
+                <p>TEAMS ▾</p>
+                <p>LOUNGE ▾</p>
+                <p>EVENTS ▾</p>
+                <p>CONNECT ▾</p>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-image-container">
+                <img src="http://localhost:3845/assets/fb872a5e08d6e360f429900e97cc5c61309292cb.png" alt="Hero" class="hero-image">
+                <img src="http://localhost:3845/assets/77b5954811218048928bf27bedd86de704cb9b2f.svg" alt="Indicator" class="hero-indicator">
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">GAME LOUNGE</h1>
+                <p class="hero-description">
+                    The ArtU Game Lounge (AKA: The Knight Arcade) is an on-campus hub for gamers of all levels; open play, team practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. All the students, staff, and faculty, are welcome. Drop in to play, meet teammates, and learn production skills, where we provide a variety of the most popular games at ArtU.
+                </p>
+            </div>
+        </section>
+
+        <!-- Lounge Cards Section -->
+        <section class="lounge-cards">
+            <div class="lounge-card">
+                <div class="lounge-card-content">
+                    <img src="http://localhost:3845/assets/d88b49c21c7ea320a8a8c75ba02c7b3b0b75f1cb.png" alt="Background" class="lounge-card-bg">
+                    <h2 class="lounge-card-title">Knight Arcade</h2>
+                </div>
+            </div>
+            <div class="lounge-card">
+                <div class="lounge-card-content">
+                    <img src="http://localhost:3845/assets/d88b49c21c7ea320a8a8c75ba02c7b3b0b75f1cb.png" alt="Background" class="lounge-card-bg">
+                    <h2 class="lounge-card-title">Board Game Room</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section class="location-section">
+            <div class="location-content">
+                <h2 class="location-title">LOCATION / HOUR</h2>
+                <div class="location-info">
+                    <div class="location-column">
+                        <p class="location-label">Location:</p>
+                        <p class="location-text">180 New Montgomery St.</p>
+                        <p class="location-text">7th Floor, Room 707</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-label">Knight Arcade</p>
+                        <p class="location-label">Hours:</p>
+                        <p class="location-text">Mon–Sat [12:00–8:00 pm]</p>
+                        <p class="location-text">Sun [12:00-5:00pm]</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-text">*Closed during Holidays</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-spacer">&nbsp;</p>
+                    </div>
+                    <div class="location-column-right">
+                        <p class="location-label">Board Game Room Hours:</p>
+                        <p class="location-text">Mon–Wed, Sat [12:00–8:00 pm]</p>
+                        <p class="location-text">Thu [12:00-9:00pm]</p>
+                        <p class="location-text">Fri [12:00-6:00pm]</p>
+                        <p class="location-text">Sun [12:00-5:00pm]</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-spacer">&nbsp;</p>
+                        <p class="location-spacer">&nbsp;</p>
+                    </div>
+                </div>
+            </div>
+            <div class="map-container">
+                <img src="http://localhost:3845/assets/462991c098fcbd1a9ce6668876a55d0d14ff07eb.png" alt="Map" class="map-image">
+            </div>
+        </section>
+
+        <!-- Tour Video Section -->
+        <section class="tour-section">
+            <h2 class="tour-title">TOUR VIDEO</h2>
+            <div class="video-player">
+                <img src="http://localhost:3845/assets/f9107d83de59a4c13c497642eefd657bf981729b.png" alt="Video Cover" class="video-cover">
+                <div class="video-overlay"></div>
+                <div class="video-controls">
+                    <div class="video-actions">
+                        <div class="video-play">
+                            <button class="video-button">
+                                <img src="http://localhost:3845/assets/d32e75c1dc6a70abbd0e461ebaece23f0fb621ee.svg" alt="Play" style="width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            </button>
+                            <p class="video-time">0:00 / 0:10</p>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <div style="width: 112px; height: 40px; position: relative;">
+                                <img src="http://localhost:3845/assets/d6095e26ff404d0ca596d318ceac06cacd5f0090.svg" alt="Volume" style="width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            </div>
+                            <button class="video-button">
+                                <img src="http://localhost:3845/assets/1742cd76961eb90cab24e06b95a1d9915630d9d1.svg" alt="Fullscreen" style="width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            </button>
+                            <button class="video-button">
+                                <img src="http://localhost:3845/assets/2e868f203c1354b8d59a9c1759c9cb137f378fbf.svg" alt="More" style="width: 20px; height: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="video-timeline">
+                        <div class="timeline-bar"></div>
+                        <img src="http://localhost:3845/assets/bbc25f4d98824d4d8df6762f416ee46960b3f2c1.svg" alt="Knot" class="timeline-knot">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Content Section -->
+        <section class="featured-section">
+            <div class="event-card">
+                <div class="event-image">
+                    <img src="http://localhost:3845/assets/7ed87f09f8072a0354ece44401c08d3a5b06a434.png" alt="Event">
+                </div>
+                <p class="event-date">Thursday, October 12th | 10/16/25</p>
+                <h3 class="event-title">ECAC Tournament</h3>
+                <div class="event-streaming">
+                    <img src="http://localhost:3845/assets/e34cbc83a6d441ad6352f0ebc817e0bc9cb7796d.svg" alt="Twitch" style="width: 8.5px; height: 18px;">
+                    <p>Streaming on twitch</p>
+                </div>
+                <div class="event-indicator"></div>
+            </div>
+            <div class="featured-content">
+                <div class="featured-card">
+                    <div class="featured-bg">
+                        <img src="http://localhost:3845/assets/d7d2fb82375951d8aaa2c42e60ee6622559f490f.png" alt="Teams">
+                    </div>
+                    <div class="featured-overlay">
+                        <div class="featured-content-inner">
+                            <div class="featured-header">
+                                <h3 class="featured-title">TEAMS</h3>
+                                <div class="featured-button">
+                                    <p class="featured-button-text">Learn More</p>
+                                </div>
+                            </div>
+                            <p class="featured-description">
+                                A comprehensive guide to the ArtU Esports program. Not sure where to start? we got you covered.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="community-card">
+                    <img src="http://localhost:3845/assets/b5df4f63fa5e7043df103fcd460c8c7d91c2e122.png" alt="Community" class="community-bg">
+                    <div class="community-overlay"></div>
+                    <div class="community-content">
+                        <h3 class="community-title">COMMUNITY</h3>
+                        <div class="community-info">
+                            <div class="community-header">
+                                <div class="social-icons">
+                                    <div class="social-icon" style="background-color: #ed1f33; border-radius: 40px; position: relative;">
+                                        <img src="http://localhost:3845/assets/e03a0f92140a53c5fd63a99081ba1ca8e3e25c29.svg" alt="Discord" style="width: 18px; height: 14px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                                    </div>
+                                    <img src="http://localhost:3845/assets/b393f07a214dea013e275e1f462a3ed815c5c6a0.svg" alt="Social" class="social-icon">
+                                </div>
+                                <div class="featured-button">
+                                    <p class="featured-button-text">Learn More</p>
+                                </div>
+                            </div>
+                            <p class="community-description">
+                                Our community is built on the pillars of teamwork, craft, and a shared passion for play. Whether you're aiming for a varsity spot, want to join a broadcast crew, or just want to meet new friends in the game lounge, there's a place for you here. The conversation, team-finding, and event announcements happen 24/7 on our official Discord server. It's the best way to connect with fellow players and become part of our home for gamers.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-top">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <img src="http://localhost:3845/assets/8c45d48ad9647e61d53a4a21a56dc8436bc070c2.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="footer-social">
+                        <div class="social-button social-button-red">
+                            <img src="http://localhost:3845/assets/94cb5fcd27c55e1649c51eaff1438af79e965e17.svg" alt="Social" style="width: 100%; height: 100%;">
+                        </div>
+                        <img src="http://localhost:3845/assets/e3b017d822bc9d301e584d2802ec47ee641f6462.svg" alt="Social" class="social-button">
+                        <img src="http://localhost:3845/assets/1b7389e294f1ba168a214f44f1878ff516550c90.svg" alt="Social" class="social-button">
+                    </div>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Contact</h4>
+                        <div class="footer-links">
+                            <p>+(1)415-000-0000</p>
+                            <p>gamedev@art.edu</p>
+                            <p>Get Directions</p>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Explore</h4>
+                        <div class="footer-links">
+                            <p>Home</p>
+                            <p>Lounge</p>
+                            <p>Events</p>
+                            <p>Connect</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 Academy of Art University</p>
+                <div class="footer-legal">
+                    <p>Privacy</p>
+                    <p>Terms</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
-
