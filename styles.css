@@ -19,7 +19,9 @@
     
     /* Typography */
     --font-urbanist: 'Urbanist', sans-serif;
-    --font-pressio: 'Pressio', 'Arial Black', sans-serif;
+    /* Pressio variants - add specific font families from Adobe Fonts kit */
+    --font-pressio-bold-condensed: 'pressio-condensed', 'Arial Black', sans-serif; /* No. 44 Bold Condensed */
+    --font-pressio-medium-condensed: 'pressio-condensed', 'Arial Black', sans-serif; /* No. 43 Medium Condensed */
     
     /* Spacing */
     --spacing-section: 37px;
@@ -45,13 +47,15 @@ body {
    Custom Font Classes
    ============================================ */
 .font-pressio {
-    font-family: var(--font-pressio);
-    font-weight: 700;
+    /* No. 44 Bold Condensed */
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700; /* No. 44 Bold Condensed */
 }
 
 .font-pressio-medium {
-    font-family: var(--font-pressio);
-    font-weight: 600;
+    /* No. 43 Medium Condensed */
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500; /* No. 43 Medium Condensed */
 }
 
 /* ============================================
@@ -163,7 +167,7 @@ body {
 }
 
 .section-heading-medium {
-    font-family: var(--font-pressio-medium);
+    font-family: var(--font-pressio-medium-condensed);
     font-size: 64px;
     line-height: normal;
     letter-spacing: -1.28px;
@@ -541,7 +545,8 @@ img {
     max-width: 100%;
 }
 
-.event-card-image {
+/* Legacy event-card-image rule - overridden by .event-card .event-card-image */
+.event-card-large .event-card-image {
     height: 392.862px;
 }
 
@@ -704,6 +709,275 @@ img {
     letter-spacing: -0.4px;
     height: 130.982px;
     color: var(--color-text-secondary);
+}
+
+/* Events Page */
+.events-page {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+    padding: 72px var(--spacing-container) 120px;
+    width: 100%;
+    margin: 0;
+}
+
+.events-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.events-hero-header {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.events-title {
+    font-size: 128px;
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.events-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.events-filter {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.events-filter-chip {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.events-filter-chip:hover,
+.events-filter-chip:focus {
+    color: var(--color-primary);
+    outline: none;
+}
+
+.events-filter-chip.is-active {
+    color: var(--color-primary);
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 10px;
+    align-items: stretch;
+}
+
+.event-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 12px;
+    border-radius: 12px;
+    border: 4px solid var(--color-bg-primary);
+    background-color: var(--color-primary);
+    color: var(--color-text-primary);
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.event-card--secondary {
+    background-color: var(--color-bg-secondary);
+}
+
+.event-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.event-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    flex-shrink: 0; /* Prevent flex from constraining the image */
+}
+
+.event-card .event-card-image {
+    width: 100%;
+    height: auto !important; /* Force override any fixed height */
+    min-height: 0; /* Allow height to shrink */
+    aspect-ratio: 190 / 110; /* Maintains aspect ratio across all breakpoints */
+    border-radius: 8px;
+    background-color: var(--color-placeholder);
+    object-fit: cover; /* Ensure image fills the container while maintaining aspect ratio */
+}
+
+.event-card-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 20px; /* P2 Desktop */
+    line-height: 1;
+    letter-spacing: -0.4px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+.event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.event-card-date {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 20px; /* P2 Desktop */
+    letter-spacing: -0.4px;
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.event-card-title {
+    font-size: 72px;
+    letter-spacing: -1.44px;
+    margin: 0;
+    color: var(--color-text-primary);
+    overflow-wrap: anywhere;
+}
+
+.event-card-title.font-pressio-medium {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500; /* Ensure medium weight is applied */
+}
+
+.event-card-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 26px;
+    letter-spacing: -0.52px;
+    line-height: 1;
+    margin: 0;
+    color: var(--color-text-primary);
+    overflow-wrap: anywhere;
+}
+
+.event-card-footer {
+    display: flex;
+    align-items: flex-start;
+    margin-top: auto;
+}
+
+.event-card-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.events-recaps {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.events-recaps-title {
+    font-size: 128px;
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.events-recaps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+}
+
+.events-calendar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.events-calendar-title {
+    font-size: 128px;
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.events-calendar-container {
+    width: 100%;
+    height: 520px;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #405464;
+}
+
+.events-calendar-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 16px;
+}
+
+.viewport-widget {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background-color: rgba(5, 7, 8, 0.85);
+    color: var(--color-text-primary);
+    border: 1px solid rgba(242, 242, 242, 0.2);
+    border-radius: 12px;
+    font-family: var(--font-urbanist);
+    font-size: 14px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.viewport-label {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.viewport-value {
+    font-family: var(--font-pressio);
+    font-size: 20px;
+    letter-spacing: -0.4px;
 }
 
 /* Social Icon Container */
@@ -1010,6 +1284,44 @@ img {
 /* ============================================
    Responsive Adjustments
    ============================================ */
+@media (max-width: 1200px) {
+    .events-grid,
+    .events-recaps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* H1 - Tablet: 128px (no change) */
+    .events-title,
+    .events-recaps-title,
+    .events-calendar-title,
+    .event-overlay-title {
+        font-size: 128px;
+    }
+
+    /* H2 - Tablet: 48px */
+    .event-card-title,
+    .event-overlay-subheading,
+    .event-overlay-date,
+    .event-overlay-time {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+
+    /* P1 - Tablet: 20px */
+    .event-card-description,
+    .event-overlay-description {
+        font-size: 20px;
+        letter-spacing: -0.4px;
+    }
+
+    /* P2 - Tablet: 18px */
+    .event-card-date,
+    .event-card-tag {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+}
+
 @media (max-width: 768px) {
     .section-heading {
         font-size: 64px;
@@ -1022,6 +1334,303 @@ img {
     .nav-menu {
         font-size: 18px;
         gap: 24px;
+    }
+
+    .events-page {
+        padding: 48px 16px 72px;
+        gap: 48px;
+    }
+
+    /* H1 - Mobile: 64px */
+    .events-title,
+    .events-recaps-title,
+    .events-calendar-title,
+    .event-overlay-title {
+        font-size: 64px;
+        letter-spacing: -1.28px;
+    }
+
+    /* H2 - Mobile: 40px (overlay only) */
+    .event-overlay-subheading,
+    .event-overlay-date,
+    .event-overlay-time {
+        font-size: 40px;
+        letter-spacing: -0.8px;
+    }
+
+    /* H3 - Mobile: 32px (event card titles) */
+    .event-card-title {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+    }
+
+    /* P1 - Mobile: 14px */
+    .event-overlay-description {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+    }
+
+    /* Hide event card description on mobile */
+    .event-card-description {
+        display: none;
+    }
+
+    /* P2 - Mobile: 12px */
+    .event-card-date,
+    .event-card-tag {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+    }
+
+    .events-filter {
+        gap: 24px;
+    }
+
+    .events-filter-chip {
+        font-size: 24px;
+    }
+
+    /* Mobile: 2-column layout for event cards */
+    .events-grid,
+    .events-recaps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+
+    .events-calendar-container {
+        height: 360px;
+    }
+
+    .events-calendar-embed {
+        height: 360px;
+    }
+}
+
+/* ============================================
+   Event Overlay Styles
+   ============================================ */
+.event-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg-primary);
+    z-index: 1000;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.event-overlay.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.event-overlay-close {
+    position: fixed;
+    top: 24px;
+    right: 36px;
+    width: 48px;
+    height: 48px;
+    background: none;
+    border: 3px solid var(--color-text-primary);
+    border-radius: 50%;
+    color: var(--color-text-primary);
+    font-size: 32px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    padding: 0;
+    margin: 0;
+}
+
+.event-overlay-close:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+.event-overlay-content {
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+    padding: 35px 36px;
+    max-width: 100%;
+    min-height: 100vh;
+}
+
+.event-overlay-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-overlay-title {
+    font-size: 128px;
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    text-align: center;
+    width: 657px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.event-overlay-main {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+}
+
+.event-overlay-left {
+    display: flex;
+    flex-direction: column;
+    gap: 31px;
+    flex: 1;
+    max-width: 1076px;
+}
+
+.event-overlay-subheading {
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -1.44px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: min-content;
+}
+
+.event-overlay-description {
+    font-family: var(--font-urbanist);
+    font-weight: 400;
+    font-size: 26px; /* P1 Desktop */
+    line-height: 1.2;
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: 763px;
+}
+
+.event-overlay-right {
+    display: flex;
+    flex-direction: column;
+    gap: 54px;
+    align-items: flex-end;
+    width: 305px;
+    flex-shrink: 0;
+}
+
+.event-overlay-datetime {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-end;
+    width: 202px;
+}
+
+.event-overlay-date,
+.event-overlay-time {
+    font-size: 72px; /* H2 Desktop */
+    line-height: 1;
+    letter-spacing: -1.44px;
+    color: var(--color-text-primary);
+    margin: 0;
+    text-align: right;
+    width: 100%;
+}
+
+.event-overlay-calendar-btn {
+    border: 3px solid var(--color-text-primary);
+    background: transparent;
+    padding: 16px 36px;
+    border-radius: 16px;
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.8px;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.event-overlay-calendar-btn:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+.event-overlay-media {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+}
+
+.event-overlay-image {
+    width: 100%;
+    height: 2143px;
+    background-color: var(--color-placeholder);
+    border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+    .event-overlay-content {
+        padding: 24px 16px;
+        gap: 40px;
+    }
+
+    .event-overlay-title {
+        width: 100%;
+    }
+
+    .event-overlay-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .event-overlay-left {
+        max-width: 100%;
+    }
+
+    .event-overlay-right {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .event-overlay-datetime {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .event-overlay-date,
+    .event-overlay-time {
+        text-align: left;
+    }
+
+    .event-overlay-description {
+        max-width: 100%;
+    }
+
+    .event-overlay-image {
+        height: 400px;
+    }
+
+    .event-overlay-close {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
     }
 }
 
