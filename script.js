@@ -221,3 +221,43 @@ $(function(){
 		}
 	}
 })
+
+// Navigation Active State Management
+$(function(){
+	// Get current page filename, handling various URL formats
+	let currentPage = window.location.pathname.split('/').pop();
+	
+	// Handle cases where there's no filename (root/index)
+	if (!currentPage || currentPage === '') {
+		currentPage = 'index.html';
+	}
+	
+	// Remove query strings and hash if present
+	currentPage = currentPage.split('?')[0].split('#')[0];
+	
+	// Remove active class from all nav items first
+	$('.nav-item').removeClass('active');
+	
+	// Map of page files to their corresponding nav links
+	const pageMap = {
+		'index.html': null, // Home page - no active nav item
+		'team.html': 'team.html',
+		'lounge.html': 'lounge.html',
+		'knightarcade.html': 'lounge.html', // Knight Arcade is under Lounge dropdown
+		'boardgameroom.html': 'lounge.html', // Board Game Room is under Lounge dropdown
+		'events.html': 'events.html',
+		'connect.html': 'connect.html',
+		'privacy.html': null,
+		'admin.html': null,
+		'admin-login.html': null,
+		'events-admin.html': null
+	};
+	
+	// Find the nav link that should be active
+	const activeLink = pageMap[currentPage];
+	
+	if (activeLink) {
+		// Find and activate the matching nav link
+		$('.nav-item[href="' + activeLink + '"]').addClass('active');
+	}
+});
