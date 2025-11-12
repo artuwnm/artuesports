@@ -74,33 +74,34 @@ body {
     background-color: var(--color-bg-900);
 }
 
+/* Typography - Desktop (default) */
 h1 {
     font-family: "pressio-condensed", sans-serif;
-    font-size: 128px;
+    font-size: 128px !important; /* Desktop */
     color: var(--color-core-50);
 }
 
 h2 {
     font-family: "pressio-condensed", sans-serif;
-    font-size: 72px;
+    font-size: 72px; /* Desktop */
     color: var(--color-core-50);
 }
 
 h3 {
     font-family: "pressio-condensed", sans-serif;
-    font-size: 64px;
+    font-size: 64px; /* Desktop */
     color: var(--color-core-50);
 }
 
 /* Paragraph Type Styles */
 .p1 {
     font-family: "urbanist", sans-serif;
-    font-size: 26px;
+    font-size: 26px; /* Desktop */
 }
 
 .p2 {
     font-family: "urbanist", sans-serif;
-    font-size: 20px;
+    font-size: 20px; /* Desktop */
 }
 
 a {
@@ -2797,26 +2798,26 @@ img {
    Responsive Typography & Media Queries
    ============================================ */
 
-/* Tablet Breakpoint (typically 768px and below) */
-@media screen and (max-width: 768px) {
+/* Tablet Breakpoint (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
     h1 {
-        font-size: 128px;
+        font-size: 128px !important; /* Tablet: 128px */
     }
     
     h2 {
-        font-size: 48px;
+        font-size: 48px; /* Tablet: 48px */
     }
     
     h3 {
-        font-size: 48px;
+        font-size: 48px; /* Tablet: 48px */
     }
     
     .p1 {
-        font-size: 20px;
+        font-size: 20px; /* Tablet: 20px */
     }
     
     .p2 {
-        font-size: 18px;
+        font-size: 18px; /* Tablet: 18px */
     }
     
     .section-title {
@@ -2841,26 +2842,26 @@ img {
     }
 }
 
-/* Mobile Breakpoint (typically 480px and below) */
-@media screen and (max-width: 480px) {
+/* Mobile Breakpoint (max-width: 768px) */
+@media screen and (max-width: 768px) {
     h1 {
-        font-size: 64px;
+        font-size: 64px !important; /* Mobile: 64px */
     }
     
     h2 {
-        font-size: 40px;
+        font-size: 40px; /* Mobile: 40px */
     }
     
     h3 {
-        font-size: 32px;
+        font-size: 32px; /* Mobile: 32px */
     }
     
     .p1 {
-        font-size: 14px;
+        font-size: 14px; /* Mobile: 14px */
     }
     
     .p2 {
-        font-size: 12px;
+        font-size: 12px; /* Mobile: 12px */
     }
     
     .section-title {
