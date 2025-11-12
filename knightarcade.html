@@ -3,255 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knight Arcade</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/kcl0vnz.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Art U Esports</title>
 </head>
 <body>
-    <div class="page-container flex-col gap-section items-center" data-name="knightArcade_desktop" data-node-id="375:896">
-        <!-- NavBar -->
-        <div class="nav-bar" data-name="NavBar" data-node-id="529:2827">
-            <div class="logo-container" data-name="Logo-Wordmark-Full" data-node-id="529:2830">
-                <div class="relative w-full" data-name="Theme=Dark" data-node-id="I529:2830;43:154">
-                    <img alt="" class="logo-img" src="http://localhost:3845/assets/8c45d48ad9647e61d53a4a21a56dc8436bc070c2.png" />
-                </div>
-            </div>
-            <div class="flex-row justify-end items-center" data-node-id="529:2831">
-                <div class="nav-menu" data-name="Destop_Nav_Menu" data-node-id="529:2832">
-                    <p class="nav-menu-item" data-node-id="529:2833">TEAMS ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2834">LOUNGE ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2835">EVENTS ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2836">CONNECT ▾</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="flex-col gap-section items-center w-full" data-node-id="554:1010">
-            <!-- 01-hero-section -->
-            <div class="flex-col gap-section items-center w-full" data-name="01-hero-section" data-node-id="554:1005">
-                <div class="flex-col gap-small items-center relative hero-container-wide" data-node-id="500:1295">
-                    <div class="relative w-full hero-image-container" data-node-id="500:1296">
-                        <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/6cf70d6a807fce43a58ed7685fa8b54ce68923bd.png" />
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo-wordmark">
+                    <div class="logo-container">
+                        <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
                     </div>
-                    <div class="relative hero-decorative" data-node-id="500:1297">
-                        <img alt="" class="w-full h-full" src="http://localhost:3845/assets/77b5954811218048928bf27bedd86de704cb9b2f.svg" />
-                    </div>
-                </div>
-                <div class="content-section flex-col gap-medium items-start text-primary w-full" data-node-id="375:936">
-                    <p class="section-heading" data-node-id="375:937">
-                        THE KNIGHT ARCADE
-                    </p>
-                    <p class="paragraph w-full" data-node-id="375:938">
-                        The ArtU Game Lounge (AKA: The Knight Arcade) is an on-campus hub for gamers of all levels; open play, team practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. All the students, staff, and faculty, are welcome. Drop in to play, meet teammates, and learn production skills, where we provide a variety of the most popular games at ArtU.
-                    </p>
-                </div>
-            </div>
-
-            <!-- 02-equipment-section -->
-            <div class="flex-row items-start justify-between relative equipment-section" data-name="02-equipment-section" data-node-id="554:1006">
-                <div class="flex-col items-start relative equipment-content" data-node-id="375:901">
-                    <p class="section-heading section-heading-tall" data-node-id="375:902">
-                        EQUIPMENT SPECTS
-                    </p>
-                    <div class="flex-row items-center relative gap-13" data-node-id="375:903">
-                        <div class="paragraph relative equipment-specs-text" data-node-id="375:904">
-                            <p class="pressio-medium-text">"Alienware Aurora R13"</p>
-                            <p class="spacing-text">&nbsp;</p>
-                            <ul class="equipment-specs-list">
-                                <li class="equipment-specs-item">
-                                    <span class="equipment-specs-label">CPU: </span>
-                                    <span class="equipment-specs-value"> 12th Gen Intel Core i7 12700K</span>
-                                </li>
-                                <li class="equipment-specs-item">
-                                    <span class="equipment-specs-label">GPU:</span>
-                                    <span class="equipment-specs-value">  NVIDIA® GeForce RTX™ 3080 10GB GDDR6X</span>
-                                </li>
-                                <li class="equipment-specs-item">
-                                    <span class="equipment-specs-label">Memory:</span>
-                                    <span class="equipment-specs-value">  64GB (2 x 32GB) DDR5 4400 MHz</span>
-                                </li>
-                                <li>
-                                    <span class="equipment-specs-label">Storage: </span>
-                                    <span class="equipment-specs-value"> 2TB NVMe M.2 PCIe SSD</span>
-                                </li>
-                            </ul>
-                            <p class="regular-text-no-margin">&nbsp;</p>
-                            <ul class="no-margin">
-                                <li class="equipment-specs-list">
-                                    <span class="equipment-specs-label">Monitors: </span>
-                                    <span class="equipment-specs-value"> Alienware 25" 360 Hz</span>
-                                </li>
-                            </ul>
-                            <p class="regular-text-no-margin">&nbsp;</p>
-                            <p class="regular-text-no-margin">We also have current-gen consoles, fully equipped professional production / broadcast studio, team comms headsets, and lounge seating.</p>
-                            <p class="regular-text-no-margin">&nbsp;</p>
-                            <p class="regular-text-no-margin">&nbsp;</p>
-                            <p class="regular-text">&nbsp;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="placeholder-image" data-node-id="415:1997"></div>
-            </div>
-
-            <!-- 03-events-community-section -->
-            <div class="flex-row gap-small items-center relative" data-node-id="554:1008">
-                <div class="card flex-col gap-small event-card-large" data-name="Event-Card" data-node-id="517:1687">
-                    <div class="relative w-full event-card-image" data-node-id="I517:1687;156:9">
-                        <div class="relative event-card-masked-image" data-name="u1879261762_GAMING_NIGHT_PLAYERS_SIT_AT_COMPUTERS_IN_A_ROW_AN_82876ee2-667d-4050-a1b1-06e30cd58b63_1 1" data-node-id="I517:1687;156:12" style="mask-image: url('http://localhost:3845/assets/b44fd02dd98007aa43f407ec38e4111e221fd110.svg'); mask-position: 15px 120.571px; mask-size: 376px 211px;">
-                            <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/7ed87f09f8072a0354ece44401c08d3a5b06a434.png" />
-                        </div>
-                    </div>
-                    <div class="flex-col event-card-gap items-start w-full" data-node-id="I517:1687;156:13">
-                        <p class="paragraph" data-node-id="I517:1687;156:14">
-                            Thursday, October 12th | 10/16/25
-                        </p>
-                        <p class="section-heading" data-node-id="I517:1687;156:15">
-                            ECAC Tournament
-                        </p>
-                        <div class="flex-row items-center gap-small" data-node-id="I517:1687;156:16">
-                            <p class="paragraph text-indent-small" data-node-id="I517:1687;156:17">
-                                Streaming on twitch
-                            </p>
-                            <div class="small-icon" data-name="vector" data-node-id="I517:1687;156:18">
-                                <img alt="" class="w-full h-full" src="http://localhost:3845/assets/e34cbc83a6d441ad6352f0ebc817e0bc9cb7796d.svg" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="event-card-indicator" data-node-id="I517:1687;156:19"></div>
-                </div>
-                <div class="flex-col gap-small items-start content-width-large" data-node-id="554:1007">
-                    <div class="relative overlay-section" data-node-id="517:1658">
-                        <div class="absolute overlay-image" data-name="image 2" data-node-id="517:1659">
-                            <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/d7d2fb82375951d8aaa2c42e60ee6622559f490f.png" />
-                        </div>
-                        <div class="absolute overlay-content" data-node-id="517:1660">
-                            <div class="relative overlay-inner">
-                                <div class="absolute flex-col items-start overlay-text-container" data-node-id="517:1661">
-                                    <div class="flex-row items-center justify-between w-full" data-node-id="517:1662">
-                                        <p class="section-heading preserve-whitespace" data-node-id="517:1663">
-                                            TEAMS
-                                        </p>
-                                        <button class="btn-learn-more" data-name="Buttons-Desktop" data-node-id="517:1664">
-                                            Learn More
-                                        </button>
-                                    </div>
-                                    <p class="paragraph overlay-paragraph" data-node-id="517:1665">A comprehensive guide to the ArtU Esports program. Not sure where to start? we got you covered. </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative community-image-container" data-node-id="517:1666">
-                        <div class="absolute community-image" data-name="20190302_172852-scaled-1-1024x498 1" data-node-id="517:1667">
-                            <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/b5df4f63fa5e7043df103fcd460c8c7d91c2e122.png" />
-                        </div>
-                        <div class="absolute community-overlay" data-node-id="517:1668"></div>
-                        <div class="absolute flex-col items-start community-content" data-node-id="517:1669">
-                            <p class="section-heading section-heading-extra-short content-width-small" data-node-id="517:1670">
-                                COMMUNITY
-                            </p>
-                            <div class="flex-col gap-small items-start community-content-inner" data-node-id="517:1671">
-                                <div class="flex-row items-center justify-between w-full" data-node-id="517:1672">
-                                    <div class="flex-row items-center gap-small social-icon-container" data-node-id="517:1673">
-                                        <div class="relative social-icon-wrapper" data-node-id="517:1674">
-                                            <div class="absolute social-icon-discord-bg" data-node-id="517:1675"></div>
-                                            <div class="absolute social-icon-discord" data-name="discord logo" data-node-id="517:1676">
-                                                <div class="absolute inset-0" data-name="Clip path group" data-node-id="517:1677">
-                                                    <div class="absolute social-icon-discord-mask" style="mask-image: url('http://localhost:3845/assets/e03a0f92140a53c5fd63a99081ba1ca8e3e25c29.svg'); mask-position: 0px -0.105px; mask-size: 18px 14px;" data-name="Group" data-node-id="517:1680">
-                                                        <img alt="" class="w-full h-full" src="http://localhost:3845/assets/238763e2a146d73a049473ca9252576cbdbd3840.svg" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="relative social-icon-wrapper" data-node-id="517:1682">
-                                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/b393f07a214dea013e275e1f462a3ed815c5c6a0.svg" />
-                                        </div>
-                                    </div>
-                                    <button class="btn-learn-more" data-name="Buttons-Desktop" data-node-id="517:1685">
-                                        Learn More
-                                    </button>
-                                </div>
-                                <p class="paragraph community-paragraph" data-node-id="517:1686">Our community is built on the pillars of teamwork, craft, and a shared passion for play. Whether you're aiming for a varsity spot, want to join a broadcast crew, or just want to meet new friends in the game lounge, there's a place for you here. The conversation, team-finding, and event announcements happen 24/7 on our official Discord server. It's the best way to connect with fellow players and become part of our home for gamers.</p>
-                            </div>
-                        </div>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <div class="frame">
+                    <div class="desktop-nav-menu">
+                        <p class="nav-item">TEAMS  ▾</p>
+                        <a href="lounge.html" class="nav-item active">LOUNGE  ▾</a>
+                        <p class="nav-item">EVENTS  ▾</p>
+                        <p class="nav-item">CONNECT  ▾</p>
                     </div>
                 </div>
             </div>
         </div>
+    </header>
+    
+    <div class="carousel" data-timer="8">
+		<div class="carousel-content-wrapper">
+			<div class="carousel-arrow carousel-arrow-left">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</div>
+			<div class="carousel-deck">
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+			</div>
+			<div class="carousel-arrow carousel-arrow-right">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</div>
+		</div>
+		<div class="carousel-pagination-wrapper">
+			<div class="carousel-pagination"></div>
+		</div>
+	</div>
 
-        <!-- Footer -->
-        <div class="flex-col items-start w-full" data-name="Footer" data-node-id="554:3395">
-            <div class="footer-top" data-name="Footer-Top" data-node-id="I554:3395;255:113">
-                <div class="flex-col items-start footer-gap-large content-width-footer" data-node-id="I554:3395;255:161">
-                    <div class="flex-col gap-small items-start w-full footer-logo-aspect" data-name="Logo-Wordmark-Full" data-node-id="I554:3395;255:116">
-                        <div class="relative w-full" data-name="Theme=Dark" data-node-id="I554:3395;255:116;43:154">
-                            <img alt="" class="logo-img" src="http://localhost:3845/assets/8c45d48ad9647e61d53a4a21a56dc8436bc070c2.png" />
-                        </div>
-                    </div>
-                    <div class="flex-row items-center gap-small" data-node-id="I554:3395;255:156">
-                        <div class="social-icon social-icon-primary" data-node-id="I554:3395;255:118">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/94cb5fcd27c55e1649c51eaff1438af79e965e17.svg" />
-                        </div>
-                        <div class="social-icon relative social-icon-standard" data-node-id="I554:3395;255:126">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/e3b017d822bc9d301e584d2802ec47ee641f6462.svg" />
-                        </div>
-                        <div class="social-icon relative social-icon-standard" data-node-id="I554:3395;255:152">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/1b7389e294f1ba168a214f44f1878ff516550c90.svg" />
-                        </div>
+    <section class="content-section" style="margin-top: 37px;">
+        <h1 class="section-title">knight Arcade</h1>
+        <p class="section-text">The ArtU Game Lounge (AKA: The Knight Arcade) is an on-campus hub for gamers of all levels; open play, team practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. All the students, staff, and faculty, are welcome. Drop in to play, meet teammates, and learn production skills, where we provide a variety of the most popular games at ArtU.</p>
+    </section>
+
+    <main class="main-content">
+        <!-- Content placeholder -->
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <div class="logo-container">
+                        <img src="img/Logo_White.png" alt="ARTU Esports Logo" class="logo-image">
                     </div>
                 </div>
-                <div class="flex-row items-start justify-between content-width-medium" data-node-id="I554:3395;255:162">
-                    <div class="flex-col gap-medium items-start footer-section-padding" data-node-id="I554:3395;255:158">
-                        <p class="section-heading-medium w-full" data-node-id="I554:3395;255:130">
-                            Contact
-                        </p>
-                        <div class="flex-col items-start paragraph footer-list-gap" data-node-id="I554:3395;255:157">
-                            <p class="footer-link" data-node-id="I554:3395;255:131">
-                                +(1)415-000-0000
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3395;255:132">
-                                gamedev@art.edu
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3395;255:133">
-                                Get Directions
-                            </p>
-                        </div>
+                <div class="social-icons">
+                    <div class="social-icon social-icon-primary">
+                        <img src="http://localhost:3845/assets/f50df792c86b0def944e5ba573a63913eaf5de94.svg" alt="Social Icon">
                     </div>
-                    <div class="flex-col gap-medium items-start footer-section-padding" data-node-id="I554:3395;255:160">
-                        <p class="section-heading-medium preserve-whitespace" data-node-id="I554:3395;255:140">
-                            Explore
-                        </p>
-                        <div class="flex-col items-start paragraph footer-list-gap" data-node-id="I554:3395;255:159">
-                            <p class="footer-link" data-node-id="I554:3395;255:141">
-                                Home
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3395;255:142">
-                                Lounge
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3395;255:143">
-                                Events
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3395;255:151">
-                                Connect
-                            </p>
-                        </div>
+                    <div class="social-icon">
+                        <img src="http://localhost:3845/assets/2b1fef3d82b188149c7dd66f3cd918a190539660.svg" alt="Social Icon">
+                    </div>
+                    <div class="social-icon">
+                        <img src="http://localhost:3845/assets/087aa232869e1731fe2992879da36a4b9bce0b86.svg" alt="Social Icon">
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom" data-name="Footer-Bottom" data-node-id="I554:3395;255:134">
-                <p class="text-secondary footer-bottom-text" data-node-id="I554:3395;255:135">
-                    © 2025 Academy of Art University
-                </p>
-                <div class="flex-row gap-small items-center text-secondary footer-bottom-text" data-node-id="I554:3395;255:136">
-                    <p class="footer-link" data-node-id="I554:3395;255:137">
-                        Privacy
-                    </p>
-                    <p class="footer-link" data-node-id="I554:3395;255:138">
-                        Terms
-                    </p>
+            <div class="footer-right">
+                <div class="footer-section">
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-links">
+                        <p class="footer-link">+(1)415-000-0000</p>
+                        <p class="footer-link">gamedev@art.edu</p>
+                        <p class="footer-link">Get Directions</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-heading">Explore</h3>
+                    <div class="footer-links">
+                        <p class="footer-link">Home</p>
+                        <p class="footer-link">Lounge</p>
+                        <p class="footer-link">Events</p>
+                        <p class="footer-link">Connect</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 Academy of Art University</p>
+            <div class="footer-legal">
+                <p class="footer-legal-link">Privacy</p>
+                <p class="footer-legal-link">Terms</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>
-
