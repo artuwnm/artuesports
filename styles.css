@@ -16,6 +16,8 @@
     --color-text-primary: #fcfcfc;
     --color-text-secondary: #f2f2f2;
     --color-placeholder: #f2f2f2;
+    --color-core-700: #405464; /* Core/700 - Slate-Blue for Esports cards */
+    --color-core-800: #1D252C; /* Core/800 - Dark-Grey for Recaps cards */
     
     /* Typography */
     --font-urbanist: 'Urbanist', sans-serif;
@@ -721,6 +723,404 @@ img {
     margin: 0;
 }
 
+/* Team Hero Section */
+.team-hero-section {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.team-hero-image-placeholder {
+    aspect-ratio: 1920 / 1080;
+    background-color: var(--color-placeholder);
+    border-radius: 16px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.team-hero-title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    color: var(--color-text-primary);
+}
+
+.team-hero-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 128px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    min-width: 100%;
+    width: min-content;
+}
+
+.team-hero-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 26px; /* P1 Desktop */
+    line-height: 1;
+    letter-spacing: -0.52px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 727px;
+    max-width: 100%;
+}
+
+/* ============================================
+   Varsity Team Section
+   ============================================ */
+.varsity-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 72px;
+}
+
+.varsity-section-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 128px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.varsity-cards-container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+}
+
+.varsity-player-card {
+    background-color: var(--color-primary);
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 10px;
+    height: 700px;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 0;
+    min-width: 0;
+    padding: 14px 16px;
+    position: relative;
+    border-radius: 16px;
+    flex-shrink: 0;
+}
+
+.varsity-player-card-inner {
+    background: linear-gradient(to bottom, rgba(5, 7, 8, 0), var(--color-bg-primary));
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 0;
+    min-width: 0;
+    position: relative;
+    border-radius: 16px;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.varsity-player-card-content {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    min-height: 0;
+    min-width: 0;
+    padding: 12px 16px;
+    position: relative;
+    border-radius: 16px;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.varsity-player-image-wrapper {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.varsity-player-image {
+    position: absolute;
+    max-width: none;
+    object-position: 50% 50%;
+    object-fit: cover;
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
+}
+
+.varsity-player-gradient-overlay {
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+    inset: 0;
+    border-radius: 16px;
+}
+
+.varsity-player-role {
+    font-family: var(--font-urbanist);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--color-text-primary);
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.varsity-player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    margin-top: auto;
+}
+
+.varsity-player-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.varsity-player-name-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.varsity-player-name {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500;
+    font-size: 72px; /* H2 Desktop */
+    line-height: 1;
+    letter-spacing: -1.44px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.varsity-player-description-wrapper {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    width: 100%;
+}
+
+.varsity-player-description {
+    flex: 1 0 0;
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 20px; /* P2 Desktop */
+    line-height: 1;
+    letter-spacing: -0.4px;
+    color: var(--color-text-primary);
+    margin: 0;
+    min-height: 0;
+    min-width: 0;
+}
+
+.varsity-learn-more-btn {
+    background-color: var(--color-primary);
+    border: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 54px;
+    border-radius: 16px;
+    flex-shrink: 0;
+    width: 154px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 14px; /* P1 Desktop */
+    line-height: 1;
+    letter-spacing: -0.28px;
+    color: var(--color-text-primary);
+}
+
+.varsity-learn-more-btn:hover {
+    opacity: 0.9;
+}
+
+/* ============================================
+   Team Events Section
+   ============================================ */
+.team-events-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 72px;
+}
+
+.team-events-section-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 128px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.team-events-cards-container {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.team-event-card {
+    background-color: var(--color-bg-secondary);
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    min-height: 0;
+    min-width: 0;
+    padding: 12px 14px;
+    position: relative;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.team-event-card-image {
+    aspect-ratio: 190 / 110;
+    background-color: var(--color-placeholder);
+    border-radius: 8px;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.team-event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.team-event-card-date {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 20px; /* P2 Desktop */
+    line-height: 1;
+    letter-spacing: -0.4px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.team-event-card-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.team-event-card-title {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500;
+    font-size: 64px; /* H3 Desktop */
+    line-height: 1;
+    letter-spacing: -1.28px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.team-event-card-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.team-event-card-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    max-width: none;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.hero-image-placeholder {
+    aspect-ratio: 1920 / 1080;
+    background-color: var(--color-placeholder);
+    border-radius: 16px;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.hero-title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    color: var(--color-text-primary);
+}
+
+.hero-title-container .events-title {
+    min-width: 100%;
+    width: min-content;
+}
+
+.hero-title-container .event-card-description {
+    width: 727px;
+    max-width: 100%;
+}
+
 .events-hero {
     display: flex;
     flex-direction: column;
@@ -799,7 +1199,7 @@ img {
     color: var(--color-text-primary);
     height: auto;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease, display 0.3s ease;
 }
 
 .event-card:hover {
@@ -809,6 +1209,18 @@ img {
 
 .event-card--secondary {
     background-color: var(--color-bg-secondary);
+}
+
+/* Esports cards - use Core/700 color */
+.event-card[data-event-category="esports"] {
+    background-color: var(--color-core-700);
+}
+
+/* Event recaps cards - use Core/800 color (override category colors) */
+.events-recaps-grid .event-card,
+.events-recaps-grid .event-card[data-event-category="esports"],
+.events-recaps-grid .event-card[data-event-category="community"] {
+    background-color: var(--color-core-800);
 }
 
 .event-card-content {
@@ -898,6 +1310,101 @@ img {
 .event-card-icon {
     width: 30px;
     height: 30px;
+}
+
+.event-card-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+/* ============================================
+   Game Lounge Section
+   ============================================ */
+.game-lounge-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+    margin-top: 72px;
+}
+
+.game-lounge-card {
+    background-color: var(--color-placeholder);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    align-items: flex-end;
+    padding: 72px;
+    position: relative;
+    border-radius: 16px;
+    width: 100%;
+    min-height: 600px;
+}
+
+.game-lounge-title-wrapper {
+    height: 128px;
+    position: relative;
+    width: 675px;
+    max-width: 100%;
+    flex-shrink: 0;
+}
+
+.game-lounge-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 128px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-bg-primary);
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: -9.75px;
+    text-align: right;
+    width: 656px;
+    max-width: 100%;
+}
+
+.game-lounge-description {
+    font-family: var(--font-urbanist);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.4;
+    letter-spacing: -0.48px;
+    color: var(--color-bg-secondary);
+    margin: 0;
+    width: 646px;
+    max-width: 100%;
+    text-transform: capitalize;
+    flex-shrink: 0;
+}
+
+.game-lounge-description p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.game-lounge-description p:first-child {
+    margin-bottom: 0;
+}
+
+.game-lounge-btn {
+    flex-shrink: 0;
+}
+
+.game-lounge-btn .btn-text {
+    font-size: 24px;
+    letter-spacing: -0.48px;
+    color: var(--color-bg-primary);
+}
+
+.game-lounge-btn:hover .btn-text {
+    color: var(--color-text-secondary);
 }
 
 .events-recaps {
@@ -1294,7 +1801,11 @@ img {
     .events-title,
     .events-recaps-title,
     .events-calendar-title,
-    .event-overlay-title {
+    .event-overlay-title,
+    .team-hero-title,
+    .varsity-section-title,
+    .team-events-section-title,
+    .game-lounge-title {
         font-size: 128px;
     }
 
@@ -1302,23 +1813,72 @@ img {
     .event-card-title,
     .event-overlay-subheading,
     .event-overlay-date,
-    .event-overlay-time {
+    .event-overlay-time,
+    .varsity-player-name {
         font-size: 48px;
         letter-spacing: -0.96px;
     }
 
     /* P1 - Tablet: 20px */
     .event-card-description,
-    .event-overlay-description {
+    .event-overlay-description,
+    .team-hero-description {
         font-size: 20px;
         letter-spacing: -0.4px;
     }
 
     /* P2 - Tablet: 18px */
     .event-card-date,
-    .event-card-tag {
+    .event-card-tag,
+    .varsity-player-description,
+    .team-event-card-date {
         font-size: 18px;
         letter-spacing: -0.36px;
+    }
+
+    /* Varsity Section - Tablet */
+    .varsity-cards-container {
+        flex-wrap: wrap;
+    }
+
+    .varsity-player-card {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 0;
+    }
+
+    /* H3 - Tablet: 48px */
+    .team-event-card-title {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+
+    /* Team Events Section - Tablet */
+    .team-events-cards-container {
+        flex-wrap: wrap;
+    }
+
+    .team-event-card {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 0;
+    }
+
+    /* Game Lounge Section - Tablet */
+    .game-lounge-card {
+        padding: 48px;
+    }
+
+    .game-lounge-title-wrapper {
+        width: 100%;
+    }
+
+    .game-lounge-title {
+        width: 100%;
+        text-align: right;
+    }
+
+    .game-lounge-description {
+        width: 100%;
+        font-size: 20px;
     }
 }
 
@@ -1345,27 +1905,34 @@ img {
     .events-title,
     .events-recaps-title,
     .events-calendar-title,
-    .event-overlay-title {
+    .event-overlay-title,
+    .team-hero-title,
+    .varsity-section-title,
+    .team-events-section-title,
+    .game-lounge-title {
         font-size: 64px;
         letter-spacing: -1.28px;
     }
 
-    /* H2 - Mobile: 40px (overlay only) */
+    /* H2 - Mobile: 40px */
     .event-overlay-subheading,
     .event-overlay-date,
-    .event-overlay-time {
+    .event-overlay-time,
+    .varsity-player-name {
         font-size: 40px;
         letter-spacing: -0.8px;
     }
 
     /* H3 - Mobile: 32px (event card titles) */
-    .event-card-title {
+    .event-card-title,
+    .team-event-card-title {
         font-size: 32px;
         letter-spacing: -0.64px;
     }
 
     /* P1 - Mobile: 14px */
-    .event-overlay-description {
+    .event-overlay-description,
+    .team-hero-description {
         font-size: 14px;
         letter-spacing: -0.28px;
     }
@@ -1377,9 +1944,81 @@ img {
 
     /* P2 - Mobile: 12px */
     .event-card-date,
-    .event-card-tag {
+    .event-card-tag,
+    .varsity-player-description,
+    .team-event-card-date {
         font-size: 12px;
         letter-spacing: -0.24px;
+    }
+
+    /* Varsity Section - Mobile */
+    .varsity-section {
+        margin-top: 48px;
+    }
+
+    .varsity-cards-container {
+        flex-direction: column;
+    }
+
+    .varsity-player-card {
+        flex: 1 1 auto;
+        width: 100%;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .varsity-learn-more-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    /* Team Events Section - Mobile */
+    .team-events-section {
+        margin-top: 48px;
+    }
+
+    .team-events-cards-container {
+        flex-direction: column;
+    }
+
+    .team-event-card {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    /* Game Lounge Section - Mobile */
+    .game-lounge-section {
+        margin-top: 48px;
+    }
+
+    .game-lounge-card {
+        padding: 48px 24px;
+        min-height: auto;
+        align-items: flex-start;
+    }
+
+    .game-lounge-title-wrapper {
+        width: 100%;
+        height: auto;
+        margin-bottom: 24px;
+    }
+
+    .game-lounge-title {
+        position: static;
+        text-align: left;
+        width: 100%;
+        top: 0;
+    }
+
+    .game-lounge-description {
+        width: 100%;
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    .game-lounge-btn .btn-text {
+        font-size: 18px;
+        letter-spacing: -0.36px;
     }
 
     .events-filter {
@@ -1396,7 +2035,6 @@ img {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
     }
-
 
     .events-calendar-container {
         height: 360px;
@@ -1631,6 +2269,260 @@ img {
         width: 40px;
         height: 40px;
         font-size: 24px;
+    }
+
+}
+
+/* ============================================
+   Player Card Styles
+   ============================================ */
+.player-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+.player-card {
+    width: 100%;
+}
+
+.player-card-outer {
+    background-color: var(--color-primary);
+    padding: 14px 16px;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.player-card-inner {
+    background-color: var(--color-bg-primary);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Image Section */
+.player-card-image-section {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+}
+
+.player-card-image-wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+}
+
+.player-card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.player-card-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+/* Team Logo */
+.player-card-logo {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    width: 79px;
+    height: 79px;
+    z-index: 2;
+}
+
+.player-card-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Role Tag */
+.player-card-role-tag {
+    position: absolute;
+    left: 124px;
+    top: 0;
+    width: 128px;
+    height: 36px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-card-role-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.player-card-role-text {
+    position: relative;
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    padding-left: 28px;
+    z-index: 1;
+}
+
+/* Player Name */
+.player-card-name-container {
+    position: absolute;
+    left: 12px;
+    bottom: 60px;
+    width: calc(100% - 24px);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.player-card-name {
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -0.8px;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin: 0;
+    width: 100%;
+}
+
+/* Details Section */
+.player-card-details {
+    background-color: var(--color-bg-primary);
+    padding: 20px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    flex-shrink: 0;
+}
+
+/* Statistics */
+.player-card-stats {
+    display: flex;
+    gap: 53px;
+    justify-content: center;
+    align-items: center;
+    height: 49px;
+    width: 100%;
+}
+
+.player-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    text-align: center;
+}
+
+.player-stat-label {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--color-text-primary);
+    margin: 0;
+    height: 19px;
+}
+
+.player-stat-value {
+    font-size: 24px;
+    line-height: 1;
+    color: var(--color-text-primary);
+    margin: 0;
+    height: 26px;
+}
+
+/* Major and Location Info */
+.player-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.player-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--color-text-primary);
+    width: 100%;
+}
+
+.player-info-value {
+    flex: 1;
+}
+
+.player-info-label {
+    flex: 0 0 auto;
+}
+
+/* Quote */
+.player-card-quote {
+    width: 100%;
+    min-height: 71px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.player-quote-text {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .player-cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .player-cards-grid {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .player-card-name {
+        font-size: 32px;
+    }
+
+    .player-card-stats {
+        gap: 24px;
+    }
+
+    .player-stat-label,
+    .player-stat-value,
+    .player-info-row,
+    .player-quote-text {
+        font-size: 14px;
     }
 }
 
