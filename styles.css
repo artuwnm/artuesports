@@ -1,27 +1,42 @@
 /* ============================================
    Universal Stylesheet for Art U Esports
+   MERGED: style.css + styles.css
    ============================================ */
 
 /* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap');
+@import url('https://use.typekit.net/kcl0vnz.css');
+
+@font-face {
+    font-family: 'pressio-condensed';
+    src: url('font/Pressio_No44_Bold_Condensed.otf') format('opentype');
+}
 
 /* ============================================
    CSS Variables (Design Tokens)
+   Merged from both files - keeping both naming conventions for compatibility
    ============================================ */
 :root {
-    /* Colors */
+    /* Colors - Primary naming (from style.css) */
     --color-primary: #ed1f33;
-    --color-bg-primary: #050708;
-    --color-bg-secondary: #1d252c;
-    --color-text-primary: #fcfcfc;
-    --color-text-secondary: #f2f2f2;
-    --color-placeholder: #f2f2f2;
-    --color-core-700: #405464; /* Core/700 - Slate-Blue for Esports cards */
-    --color-core-800: #1D252C; /* Core/800 - Dark-Grey for Recaps cards */
+    --color-bg-900: #050708;
+    --color-bg-800: #1d252c;
+    --color-bg-600: #405464;
+    --color-core-50: #fcfcfc;
+    --color-core-100: #f2f2f2;
+    
+    /* Colors - Secondary naming (from styles.css) - mapped to primary */
+    --color-bg-primary: #050708; /* same as --color-bg-900 */
+    --color-bg-secondary: #1d252c; /* same as --color-bg-800 */
+    --color-text-primary: #fcfcfc; /* same as --color-core-50 */
+    --color-text-secondary: #f2f2f2; /* same as --color-core-100 */
+    --color-placeholder: #f2f2f2; /* same as --color-core-100 */
+    --color-core-700: #405464; /* same as --color-bg-600 */
+    --color-core-800: #1D252C; /* same as --color-bg-800 */
     
     /* Typography */
     --font-urbanist: 'Urbanist', sans-serif;
-    /* Pressio variants - add specific font families from Adobe Fonts kit */
+    --font-pressio: 'Pressio', 'Arial Black', sans-serif;
     --font-pressio-bold-condensed: 'pressio-condensed', 'Arial Black', sans-serif; /* No. 44 Bold Condensed */
     --font-pressio-medium-condensed: 'pressio-condensed', 'Arial Black', sans-serif; /* No. 43 Medium Condensed */
     
@@ -37,12 +52,65 @@
     box-sizing: border-box;
 }
 
+.pressio-title {
+    font-family: "pressio-condensed", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.urbanist-body {
+    font-family: "urbanist", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400,500,600,700;
+    font-style: normal;
+}
+
 body {
-    font-family: var(--font-urbanist);
     margin: 0;
     padding: 0;
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
+    font-size: 100%;
+    font-family: var(--font-urbanist);
+    color: var(--color-core-50);
+    background-color: var(--color-bg-900);
+}
+
+h1 {
+    font-family: "pressio-condensed", sans-serif;
+    font-size: 128px;
+    color: var(--color-core-50);
+}
+
+h2 {
+    font-family: "pressio-condensed", sans-serif;
+    font-size: 72px;
+    color: var(--color-core-50);
+}
+
+h3 {
+    font-family: "pressio-condensed", sans-serif;
+    font-size: 64px;
+    color: var(--color-core-50);
+}
+
+/* Paragraph Type Styles */
+.p1 {
+    font-family: "urbanist", sans-serif;
+    font-size: 26px;
+}
+
+.p2 {
+    font-family: "urbanist", sans-serif;
+    font-size: 20px;
+}
+
+a {
+    color: inherit;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 /* ============================================
@@ -58,6 +126,715 @@ body {
     /* No. 43 Medium Condensed */
     font-family: var(--font-pressio-medium-condensed);
     font-weight: 500; /* No. 43 Medium Condensed */
+}
+
+/* ============================================
+   Navigation Styles
+   ============================================ */
+/* Navbar (from style.css - main nav bar) */
+.navbar {
+    background-color: var(--color-bg-800);
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar p {
+    margin: 0;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 36px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Logo */
+.logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+    width: 141.75px;
+    height: 57.828px;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-wordmark:hover {
+    text-decoration: none;
+}
+
+/* Logo container - merged from both files */
+.logo-container {
+    position: relative;
+    width: 141.75px;
+    height: 57.828px;
+    flex-grow: 1;
+    min-height: 1px;
+    min-width: 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 7.5px;
+}
+
+.logo-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+    pointer-events: none;
+}
+
+.logo-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+}
+
+/* Frame wrapper for nav menu */
+.frame {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 129px;
+    flex-grow: 1;
+    min-height: 1px;
+    min-width: 1px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Desktop Navigation Menu */
+.desktop-nav-menu {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    font-family: 'pressio-condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fcfcfc;
+    white-space: nowrap;
+    line-height: normal;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.nav-item {
+    position: relative;
+    flex-shrink: 0;
+    margin: 0;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-item:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    text-decoration: none;
+}
+
+.nav-item.active {
+    color: var(--color-primary);
+}
+
+.nav-item.active:hover {
+    color: var(--color-primary);
+    opacity: 1;
+}
+
+/* Dropdown Menu */
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-bg-800);
+    min-width: 200px;
+    padding: 8px 0 12px 0;
+    margin-top: 0;
+    border-radius: 8px;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown.active .dropdown-menu {
+    display: flex;
+}
+
+.dropdown-item {
+    font-family: 'pressio-condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-core-50);
+    padding: 12px 24px;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-item h2 {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+}
+
+.dropdown-item:hover {
+    background-color: var(--color-bg-600);
+    color: var(--color-primary);
+}
+
+.dropdown-item:hover h2 {
+    color: inherit;
+}
+
+/* Legacy nav-bar styles (from styles.css - for backward compatibility) */
+.nav-bar {
+    background-color: var(--color-bg-secondary);
+    box-sizing: border-box;
+    display: flex;
+    height: 96px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-container);
+    position: relative;
+    width: 100%;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    font-family: var(--font-pressio);
+    font-size: 28px;
+    line-height: normal;
+    color: var(--color-text-primary);
+}
+
+.nav-menu-item {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-menu-item:hover {
+    color: var(--color-primary);
+}
+
+/* ============================================
+   Carousel
+   ============================================ */
+.carousel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.carousel-content-wrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.carousel-deck {
+    width: 100%;
+    height: 971px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.carousel-slide {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-slide.atLeft {
+    left: -100%;
+    opacity: 0;
+}
+
+.carousel-slide.atRight {
+    left: 100%;
+    opacity: 0;
+}
+
+.carousel-slide.atCenter {
+    left: 0;
+    opacity: 1;
+}
+
+.carousel-slide.moving {
+    transition: left 0.9s ease, opacity 0.3s ease;
+}
+
+.carousel-slide-content {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-core-100);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Urbanist', sans-serif;
+    font-size: 18px;
+    color: #666;
+}
+
+.carousel-arrow {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-bg-800);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+
+.carousel-arrow:hover {
+    background-color: var(--color-bg-600);
+}
+
+.carousel-arrow-left {
+    left: 20px;
+}
+
+.carousel-arrow-right {
+    right: 20px;
+}
+
+.carousel-arrow svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-pagination-wrapper {
+    width: 228px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.carousel-pagination {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-paginate {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-core-100);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease;
+    outline: none;
+}
+
+.carousel-paginate.active {
+    background-color: var(--color-primary);
+}
+
+.carousel-paginate:hover {
+    background-color: var(--color-primary);
+    opacity: 0.7;
+}
+
+/* ============================================
+   Content Section
+   Merged from both files
+   ============================================ */
+.content-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 0 var(--spacing-container);
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--color-core-50);
+}
+
+.section-title {
+    font-family: 'pressio-condensed', sans-serif;
+    font-size: 128px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-core-50);
+    margin: 0;
+    width: 100%;
+    height: 104px;
+}
+
+.section-text {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.52px;
+    color: var(--color-core-50);
+    margin: 0;
+    width: 100%;
+}
+
+/* Section Headings */
+.section-heading {
+    font-family: var(--font-pressio);
+    font-size: 128px;
+    line-height: normal;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.section-heading-medium {
+    font-family: var(--font-pressio-medium-condensed);
+    font-size: 64px;
+    line-height: normal;
+    letter-spacing: -1.28px;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.section-spacing {
+    margin-bottom: var(--spacing-section);
+}
+
+/* ============================================
+   Slideshow
+   ============================================ */
+#wrapper {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main {
+    width: 960px;
+}
+
+.slideshow-frame {
+    width: 796px;
+    height: 530px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #ffae00;
+}
+
+.arrow-next {
+    font-size: 25px;
+    position: absolute;
+    right: 10px;
+    top: 220px;
+    background-color: rgba(255,255,255,0.2);
+    padding: 3px;
+}
+
+.arrow-prev {
+    font-size: 25px;
+    position: absolute;
+    left: 10px;
+    top: 200px;
+    background-color: rgba(255,255,255,0.2);
+    padding: 3px;
+}
+
+.arrow-next:hover,
+.arrow-prev:hover {
+    background-color: rgba(250,0,0,0.2);
+}
+
+.slideshow-images {
+    width: 5000px;
+    height: 533px;
+}
+
+.slideshow-images img {
+    margin: -2px;
+    padding: 0;
+    display: inline-block;
+}
+
+/* Main Content Placeholder */
+.main-content {
+    min-height: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* ============================================
+   Footer Component
+   Merged from both files
+   ============================================ */
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-top {
+    background-color: var(--color-bg-800);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 16px 36px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 160px;
+    align-items: flex-start;
+    width: 252px;
+    flex-shrink: 0;
+}
+
+.footer-logo {
+    aspect-ratio: 1265.82 / 516.402;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.social-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.social-icon:hover {
+    opacity: 0.8;
+}
+
+.social-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    max-width: none;
+}
+
+.social-icon-primary {
+    background-color: var(--color-primary);
+    border-radius: 40px;
+    padding: 8px 6px;
+    box-sizing: border-box;
+}
+
+.social-icon-standard {
+    width: 36px;
+    height: 36px;
+}
+
+.footer-right {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 644px;
+    flex-shrink: 0;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    padding-top: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.footer-heading {
+    font-family: 'pressio-condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--color-core-50);
+    margin: 0;
+    letter-spacing: -0.64px;
+    white-space: pre;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.footer-link {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    color: var(--color-core-100);
+    margin: 0;
+    letter-spacing: -0.28px;
+    white-space: pre;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    opacity: 0.8;
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+.footer-bottom {
+    background-color: var(--color-bg-900);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 21px 35px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-copyright {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--color-core-100);
+    margin: 0;
+    letter-spacing: -0.24px;
+    text-align: center;
+    white-space: pre;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.footer-legal-link {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--color-core-100);
+    margin: 0;
+    letter-spacing: -0.24px;
+    text-align: center;
+    white-space: pre;
+    cursor: pointer;
+}
+
+.footer-legal-link:hover {
+    opacity: 0.8;
+}
+
+/* Footer utility classes */
+.footer-gap-large {
+    gap: 160px;
+}
+
+.footer-logo-aspect {
+    aspect-ratio: 1265.82/516.402;
+}
+
+.footer-section-padding {
+    padding-top: 16px;
+}
+
+.footer-list-gap {
+    gap: 12px;
+}
+
+.footer-bottom-text {
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: -0.4px;
+    text-align: center;
+    white-space: pre;
+}
+
+.footer-height {
+    height: 404px;
+}
+
+.footer-height-lounge {
+    height: 397px;
 }
 
 /* ============================================
@@ -121,60 +898,27 @@ body {
     color: var(--color-bg-primary);
 }
 
-/* ============================================
-   Navigation Styles
-   ============================================ */
-.nav-bar {
-    background-color: var(--color-bg-secondary);
-    box-sizing: border-box;
-    display: flex;
-    height: 96px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 var(--spacing-container);
-    position: relative;
-    width: 100%;
-}
-
-.nav-menu {
-    display: flex;
-    gap: 48px;
-    align-items: center;
-    font-family: var(--font-pressio);
-    font-size: 28px;
+.btn-learn-more {
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 16px;
+    padding: 12px 54px;
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 26px;
     line-height: normal;
+    letter-spacing: -0.52px;
     color: var(--color-text-primary);
-}
-
-.nav-menu-item {
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
 }
 
-.nav-menu-item:hover {
-    color: var(--color-primary);
-}
-
-/* ============================================
-   Section Headings
-   ============================================ */
-.section-heading {
-    font-family: var(--font-pressio);
-    font-size: 128px;
-    line-height: normal;
-    letter-spacing: -2.56px;
-    text-transform: uppercase;
-    color: var(--color-text-primary);
-    margin: 0;
-}
-
-.section-heading-medium {
-    font-family: var(--font-pressio-medium-condensed);
-    font-size: 64px;
-    line-height: normal;
-    letter-spacing: -1.28px;
-    color: var(--color-text-primary);
-    margin: 0;
+.btn-learn-more:hover {
+    opacity: 0.9;
 }
 
 /* ============================================
@@ -192,47 +936,6 @@ body {
     background-color: var(--color-placeholder);
     border-radius: 8px;
     width: 100%;
-}
-
-/* ============================================
-   Footer Styles
-   ============================================ */
-.footer-top {
-    background-color: var(--color-bg-secondary);
-    box-sizing: border-box;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 16px var(--spacing-container);
-    width: 100%;
-}
-
-.footer-bottom {
-    background-color: var(--color-bg-primary);
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 21px 35px;
-    width: 100%;
-}
-
-.footer-link {
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-    color: var(--color-primary);
-}
-
-.social-icon {
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-}
-
-.social-icon:hover {
-    opacity: 0.8;
 }
 
 /* ============================================
@@ -361,59 +1064,6 @@ img {
     line-height: normal;
     letter-spacing: -0.28px;
     color: var(--color-text-primary);
-}
-
-/* Button Variants */
-.btn-learn-more {
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 16px;
-    padding: 12px 54px;
-    font-family: var(--font-urbanist);
-    font-weight: 500;
-    font-size: 26px;
-    line-height: normal;
-    letter-spacing: -0.52px;
-    color: var(--color-text-primary);
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-}
-
-.btn-learn-more:hover {
-    opacity: 0.9;
-}
-
-/* Content Sections */
-.content-section {
-    padding: 0 var(--spacing-container);
-    width: 100%;
-}
-
-.section-spacing {
-    margin-bottom: var(--spacing-section);
-}
-
-/* Logo Styles */
-.logo-container {
-    display: flex;
-    flex-direction: column;
-    gap: 7.5px;
-    height: 57.828px;
-    width: 141.75px;
-}
-
-.logo-img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    pointer-events: none;
 }
 
 .text-gradient {
@@ -1523,52 +2173,6 @@ img {
     top: 0.75%;
 }
 
-.social-icon-primary {
-    background-color: #ed1f33;
-    padding: 8px 6px;
-    border-radius: 40px;
-    width: 36px;
-    height: 36px;
-}
-
-.social-icon-standard {
-    width: 36px;
-    height: 36px;
-}
-
-/* Footer Styles */
-.footer-gap-large {
-    gap: 160px;
-}
-
-.footer-logo-aspect {
-    aspect-ratio: 1265.82/516.402;
-}
-
-.footer-section-padding {
-    padding-top: 16px;
-}
-
-.footer-list-gap {
-    gap: 12px;
-}
-
-.footer-bottom-text {
-    font-weight: 600;
-    font-size: 20px;
-    letter-spacing: -0.4px;
-    text-align: center;
-    white-space: pre;
-}
-
-.footer-height {
-    height: 404px;
-}
-
-.footer-height-lounge {
-    height: 397px;
-}
-
 /* Location/Hours Section */
 .location-section {
     gap: 29px;
@@ -1789,263 +2393,6 @@ img {
 }
 
 /* ============================================
-   Responsive Adjustments
-   ============================================ */
-@media (max-width: 1200px) {
-    .events-grid,
-    .events-recaps-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    /* H1 - Tablet: 128px (no change) */
-    .events-title,
-    .events-recaps-title,
-    .events-calendar-title,
-    .event-overlay-title,
-    .team-hero-title,
-    .varsity-section-title,
-    .team-events-section-title,
-    .game-lounge-title {
-        font-size: 128px;
-    }
-
-    /* H2 - Tablet: 48px */
-    .event-card-title,
-    .event-overlay-subheading,
-    .event-overlay-date,
-    .event-overlay-time,
-    .varsity-player-name {
-        font-size: 48px;
-        letter-spacing: -0.96px;
-    }
-
-    /* P1 - Tablet: 20px */
-    .event-card-description,
-    .event-overlay-description,
-    .team-hero-description {
-        font-size: 20px;
-        letter-spacing: -0.4px;
-    }
-
-    /* P2 - Tablet: 18px */
-    .event-card-date,
-    .event-card-tag,
-    .varsity-player-description,
-    .team-event-card-date {
-        font-size: 18px;
-        letter-spacing: -0.36px;
-    }
-
-    /* Varsity Section - Tablet */
-    .varsity-cards-container {
-        flex-wrap: wrap;
-    }
-
-    .varsity-player-card {
-        flex: 1 1 calc(50% - 8px);
-        min-width: 0;
-    }
-
-    /* H3 - Tablet: 48px */
-    .team-event-card-title {
-        font-size: 48px;
-        letter-spacing: -0.96px;
-    }
-
-    /* Team Events Section - Tablet */
-    .team-events-cards-container {
-        flex-wrap: wrap;
-    }
-
-    .team-event-card {
-        flex: 1 1 calc(50% - 8px);
-        min-width: 0;
-    }
-
-    /* Game Lounge Section - Tablet */
-    .game-lounge-card {
-        padding: 48px;
-    }
-
-    .game-lounge-title-wrapper {
-        width: 100%;
-    }
-
-    .game-lounge-title {
-        width: 100%;
-        text-align: right;
-    }
-
-    .game-lounge-description {
-        width: 100%;
-        font-size: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .section-heading {
-        font-size: 64px;
-    }
-    
-    .btn-primary .btn-text {
-        font-size: 24px;
-    }
-    
-    .nav-menu {
-        font-size: 18px;
-        gap: 24px;
-    }
-
-    .events-page {
-        padding: 48px 16px 72px;
-        gap: 48px;
-    }
-
-    /* H1 - Mobile: 64px */
-    .events-title,
-    .events-recaps-title,
-    .events-calendar-title,
-    .event-overlay-title,
-    .team-hero-title,
-    .varsity-section-title,
-    .team-events-section-title,
-    .game-lounge-title {
-        font-size: 64px;
-        letter-spacing: -1.28px;
-    }
-
-    /* H2 - Mobile: 40px */
-    .event-overlay-subheading,
-    .event-overlay-date,
-    .event-overlay-time,
-    .varsity-player-name {
-        font-size: 40px;
-        letter-spacing: -0.8px;
-    }
-
-    /* H3 - Mobile: 32px (event card titles) */
-    .event-card-title,
-    .team-event-card-title {
-        font-size: 32px;
-        letter-spacing: -0.64px;
-    }
-
-    /* P1 - Mobile: 14px */
-    .event-overlay-description,
-    .team-hero-description {
-        font-size: 14px;
-        letter-spacing: -0.28px;
-    }
-
-    /* Hide event card description on mobile */
-    .event-card-description {
-        display: none;
-    }
-
-    /* P2 - Mobile: 12px */
-    .event-card-date,
-    .event-card-tag,
-    .varsity-player-description,
-    .team-event-card-date {
-        font-size: 12px;
-        letter-spacing: -0.24px;
-    }
-
-    /* Varsity Section - Mobile */
-    .varsity-section {
-        margin-top: 48px;
-    }
-
-    .varsity-cards-container {
-        flex-direction: column;
-    }
-
-    .varsity-player-card {
-        flex: 1 1 auto;
-        width: 100%;
-        height: auto;
-        min-height: 500px;
-    }
-
-    .varsity-learn-more-btn {
-        width: 100%;
-        max-width: 200px;
-    }
-
-    /* Team Events Section - Mobile */
-    .team-events-section {
-        margin-top: 48px;
-    }
-
-    .team-events-cards-container {
-        flex-direction: column;
-    }
-
-    .team-event-card {
-        flex: 1 1 auto;
-        width: 100%;
-    }
-
-    /* Game Lounge Section - Mobile */
-    .game-lounge-section {
-        margin-top: 48px;
-    }
-
-    .game-lounge-card {
-        padding: 48px 24px;
-        min-height: auto;
-        align-items: flex-start;
-    }
-
-    .game-lounge-title-wrapper {
-        width: 100%;
-        height: auto;
-        margin-bottom: 24px;
-    }
-
-    .game-lounge-title {
-        position: static;
-        text-align: left;
-        width: 100%;
-        top: 0;
-    }
-
-    .game-lounge-description {
-        width: 100%;
-        font-size: 18px;
-        letter-spacing: -0.36px;
-    }
-
-    .game-lounge-btn .btn-text {
-        font-size: 18px;
-        letter-spacing: -0.36px;
-    }
-
-    .events-filter {
-        gap: 24px;
-    }
-
-    .events-filter-chip {
-        font-size: 24px;
-    }
-
-    /* Mobile: 2-column layout for event cards */
-    .events-grid,
-    .events-recaps-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-    }
-
-    .events-calendar-container {
-        height: 360px;
-    }
-
-    .events-calendar-embed {
-        height: 360px;
-    }
-}
-
-/* ============================================
    Event Overlay Styles
    ============================================ */
 .event-overlay {
@@ -2219,58 +2566,6 @@ img {
     height: 2143px;
     background-color: var(--color-placeholder);
     border-radius: 16px;
-}
-
-@media (max-width: 768px) {
-    .event-overlay-content {
-        padding: 24px 16px;
-        gap: 40px;
-    }
-
-    .event-overlay-title {
-        width: 100%;
-    }
-
-    .event-overlay-main {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .event-overlay-left {
-        max-width: 100%;
-    }
-
-    .event-overlay-right {
-        width: 100%;
-        align-items: flex-start;
-    }
-
-    .event-overlay-datetime {
-        width: 100%;
-        align-items: flex-start;
-    }
-
-    .event-overlay-date,
-    .event-overlay-time {
-        text-align: left;
-    }
-
-    .event-overlay-description {
-        max-width: 100%;
-    }
-
-    .event-overlay-image {
-        height: 400px;
-    }
-
-    .event-overlay-close {
-        top: 16px;
-        right: 16px;
-        width: 40px;
-        height: 40px;
-        font-size: 24px;
-    }
-
 }
 
 /* ============================================
@@ -2498,14 +2793,330 @@ img {
     width: 100%;
 }
 
-/* Responsive Design */
+/* ============================================
+   Responsive Typography & Media Queries
+   ============================================ */
+
+/* Tablet Breakpoint (typically 768px and below) */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 128px;
+    }
+    
+    h2 {
+        font-size: 48px;
+    }
+    
+    h3 {
+        font-size: 48px;
+    }
+    
+    .p1 {
+        font-size: 20px;
+    }
+    
+    .p2 {
+        font-size: 18px;
+    }
+    
+    .section-title {
+        font-size: 128px;
+    }
+    
+    .section-text {
+        font-size: 20px;
+    }
+    
+    .section-heading {
+        font-size: 64px;
+    }
+    
+    .btn-primary .btn-text {
+        font-size: 24px;
+    }
+    
+    .nav-menu {
+        font-size: 18px;
+        gap: 24px;
+    }
+}
+
+/* Mobile Breakpoint (typically 480px and below) */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 64px;
+    }
+    
+    h2 {
+        font-size: 40px;
+    }
+    
+    h3 {
+        font-size: 32px;
+    }
+    
+    .p1 {
+        font-size: 14px;
+    }
+    
+    .p2 {
+        font-size: 12px;
+    }
+    
+    .section-title {
+        font-size: 64px;
+    }
+    
+    .section-text {
+        font-size: 14px;
+    }
+}
+
+/* Responsive Adjustments */
 @media (max-width: 1200px) {
+    .events-grid,
+    .events-recaps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* H1 - Tablet: 128px (no change) */
+    .events-title,
+    .events-recaps-title,
+    .events-calendar-title,
+    .event-overlay-title,
+    .team-hero-title,
+    .varsity-section-title,
+    .team-events-section-title,
+    .game-lounge-title {
+        font-size: 128px;
+    }
+
+    /* H2 - Tablet: 48px */
+    .event-card-title,
+    .event-overlay-subheading,
+    .event-overlay-date,
+    .event-overlay-time,
+    .varsity-player-name {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+
+    /* P1 - Tablet: 20px */
+    .event-card-description,
+    .event-overlay-description,
+    .team-hero-description {
+        font-size: 20px;
+        letter-spacing: -0.4px;
+    }
+
+    /* P2 - Tablet: 18px */
+    .event-card-date,
+    .event-card-tag,
+    .varsity-player-description,
+    .team-event-card-date {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    /* Varsity Section - Tablet */
+    .varsity-cards-container {
+        flex-wrap: wrap;
+    }
+
+    .varsity-player-card {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 0;
+    }
+
+    /* H3 - Tablet: 48px */
+    .team-event-card-title {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+
+    /* Team Events Section - Tablet */
+    .team-events-cards-container {
+        flex-wrap: wrap;
+    }
+
+    .team-event-card {
+        flex: 1 1 calc(50% - 8px);
+        min-width: 0;
+    }
+
+    /* Game Lounge Section - Tablet */
+    .game-lounge-card {
+        padding: 48px;
+    }
+
+    .game-lounge-title-wrapper {
+        width: 100%;
+    }
+
+    .game-lounge-title {
+        width: 100%;
+        text-align: right;
+    }
+
+    .game-lounge-description {
+        width: 100%;
+        font-size: 20px;
+    }
+    
     .player-cards-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 768px) {
+    .events-page {
+        padding: 48px 16px 72px;
+        gap: 48px;
+    }
+
+    /* H1 - Mobile: 64px */
+    .events-title,
+    .events-recaps-title,
+    .events-calendar-title,
+    .event-overlay-title,
+    .team-hero-title,
+    .varsity-section-title,
+    .team-events-section-title,
+    .game-lounge-title {
+        font-size: 64px;
+        letter-spacing: -1.28px;
+    }
+
+    /* H2 - Mobile: 40px */
+    .event-overlay-subheading,
+    .event-overlay-date,
+    .event-overlay-time,
+    .varsity-player-name {
+        font-size: 40px;
+        letter-spacing: -0.8px;
+    }
+
+    /* H3 - Mobile: 32px (event card titles) */
+    .event-card-title,
+    .team-event-card-title {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+    }
+
+    /* P1 - Mobile: 14px */
+    .event-overlay-description,
+    .team-hero-description {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+    }
+
+    /* Hide event card description on mobile */
+    .event-card-description {
+        display: none;
+    }
+
+    /* P2 - Mobile: 12px */
+    .event-card-date,
+    .event-card-tag,
+    .varsity-player-description,
+    .team-event-card-date {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+    }
+
+    /* Varsity Section - Mobile */
+    .varsity-section {
+        margin-top: 48px;
+    }
+
+    .varsity-cards-container {
+        flex-direction: column;
+    }
+
+    .varsity-player-card {
+        flex: 1 1 auto;
+        width: 100%;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .varsity-learn-more-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    /* Team Events Section - Mobile */
+    .team-events-section {
+        margin-top: 48px;
+    }
+
+    .team-events-cards-container {
+        flex-direction: column;
+    }
+
+    .team-event-card {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    /* Game Lounge Section - Mobile */
+    .game-lounge-section {
+        margin-top: 48px;
+    }
+
+    .game-lounge-card {
+        padding: 48px 24px;
+        min-height: auto;
+        align-items: flex-start;
+    }
+
+    .game-lounge-title-wrapper {
+        width: 100%;
+        height: auto;
+        margin-bottom: 24px;
+    }
+
+    .game-lounge-title {
+        position: static;
+        text-align: left;
+        width: 100%;
+        top: 0;
+    }
+
+    .game-lounge-description {
+        width: 100%;
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    .game-lounge-btn .btn-text {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    .events-filter {
+        gap: 24px;
+    }
+
+    .events-filter-chip {
+        font-size: 24px;
+    }
+
+    /* Mobile: 2-column layout for event cards */
+    .events-grid,
+    .events-recaps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .events-calendar-container {
+        height: 360px;
+    }
+
+    .events-calendar-embed {
+        height: 360px;
+    }
+    
     .player-cards-grid {
         grid-template-columns: repeat(1, minmax(0, 1fr));
     }
@@ -2524,5 +3135,53 @@ img {
     .player-quote-text {
         font-size: 14px;
     }
-}
+    
+    .event-overlay-content {
+        padding: 24px 16px;
+        gap: 40px;
+    }
 
+    .event-overlay-title {
+        width: 100%;
+    }
+
+    .event-overlay-main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .event-overlay-left {
+        max-width: 100%;
+    }
+
+    .event-overlay-right {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .event-overlay-datetime {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .event-overlay-date,
+    .event-overlay-time {
+        text-align: left;
+    }
+
+    .event-overlay-description {
+        max-width: 100%;
+    }
+
+    .event-overlay-image {
+        height: 400px;
+    }
+
+    .event-overlay-close {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+    }
+}
