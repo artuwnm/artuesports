@@ -2245,6 +2245,273 @@ img {
     margin-bottom: 0;
 }
 
+/* Community Section Styles */
+.community-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 0 var(--spacing-container);
+}
+
+.community-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.community-card-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.community-card {
+    background-color: var(--color-placeholder);
+    box-sizing: border-box;
+    display: flex;
+    height: 971px;
+    padding: 72px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 17px;
+    align-self: stretch;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.community-title-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.community-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-bg-primary);
+    margin: 0;
+    text-align: right;
+    width: auto;
+    max-width: 100%;
+}
+
+.community-description-wrapper {
+    font-family: var(--font-urbanist);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.4;
+    letter-spacing: -0.48px;
+    color: var(--color-bg-secondary);
+    text-transform: capitalize;
+    width: 646px;
+    max-width: 100%;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.community-description-text {
+    margin: 0;
+    line-height: 1.4;
+    color: var(--color-bg-secondary);
+    font-size: 24px;
+    letter-spacing: -0.48px;
+}
+
+.community-description-text:first-child {
+    margin-bottom: 0;
+}
+
+.community-button {
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+.community-button .btn-text {
+    color: var(--color-bg-primary);
+}
+
+.community-button:hover .btn-text {
+    color: var(--color-text-secondary);
+}
+
+/* Connect with Us Button - Community Section */
+.btn-connect-us {
+    border: 1.5px solid var(--color-bg-primary);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border-radius: 16px;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.btn-connect-us:hover {
+    background-color: var(--color-bg-primary);
+}
+
+.btn-connect-us:hover .btn-text {
+    color: var(--color-text-secondary);
+}
+
+.btn-connect-us .btn-text {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.24px;
+    color: var(--color-bg-primary);
+    margin: 0;
+    /* P2 responsive sizes will be applied via .p2 class */
+}
+
+/* Connect with Us button text - follows P2 responsive sizes */
+.btn-connect-us .btn-text.p2 {
+    /* Mobile (default): 12px - matches Figma */
+    font-size: 12px;
+    letter-spacing: -0.24px;
+}
+
+/* Tablet: 18px */
+@media (max-width: 1200px) {
+    .btn-connect-us .btn-text.p2 {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+}
+
+/* Desktop: 20px */
+@media (min-width: 1201px) {
+    .btn-connect-us .btn-text.p2 {
+        font-size: 20px;
+        letter-spacing: -0.4px;
+    }
+}
+
+.community-pagination {
+    height: 20px;
+    position: relative;
+    width: 228px;
+    flex-shrink: 0;
+}
+
+/* Visit Lounge Button - Lounge Section */
+.btn-visit-lounge {
+    border: 1.5px solid var(--color-text-primary);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border-radius: 16px;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.btn-visit-lounge:hover {
+    background-color: var(--color-text-primary);
+}
+
+.btn-visit-lounge:hover .btn-text {
+    color: var(--color-bg-primary);
+}
+
+.btn-visit-lounge .btn-text {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.24px;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* Visit Lounge button text - follows P2 responsive sizes */
+.btn-visit-lounge .btn-text.p2 {
+    /* Mobile (default): 12px - matches Figma */
+    font-size: 12px;
+    letter-spacing: -0.24px;
+}
+
+/* Tablet: 18px */
+@media (max-width: 1200px) {
+    .btn-visit-lounge .btn-text.p2 {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+}
+
+/* Desktop: 20px */
+@media (min-width: 1201px) {
+    .btn-visit-lounge .btn-text.p2 {
+        font-size: 20px;
+        letter-spacing: -0.4px;
+    }
+}
+
+/* Academic Opportunities Section */
+.academic-section {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+    padding: 0 12px;
+    position: relative;
+    width: 100%;
+}
+
+.academic-title {
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
+}
+
+.academic-content {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.academic-description {
+    min-width: 100%;
+    text-align: center;
+    white-space: pre-wrap;
+    width: min-content;
+}
+
 .game-lounge-btn {
     flex-shrink: 0;
 }
