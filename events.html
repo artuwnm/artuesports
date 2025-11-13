@@ -5,9 +5,281 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo-wordmark">
+                    <div class="logo-container">
+                        <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
+                    </div>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <div class="frame">
+                    <div class="desktop-nav-menu">
+                        <a href="team.html" class="nav-item">TEAMS  ▾</a>
+                        <div class="nav-dropdown">
+                            <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
+                            <div class="dropdown-menu">
+                                <a href="knightarcade.html" class="dropdown-item"><h2>Knight Arcade</h2></a>
+                                <a href="boardgameroom.html" class="dropdown-item"><h2>Board Game Room</h2></a>
+                            </div>
+                        </div>
+                        <a href="events.html" class="nav-item">EVENTS  ▾</a>
+                        <a href="connect.html" class="nav-item">CONNECT  ▾</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="events-page">
+        <!-- 01-news-events-section -->
+        <section class="news-events-section" data-name="01-news-events-section" data-node-id="546:1647">
+            <div class="title-filter-container" data-name="title-filter-container" data-node-id="548:851">
+                <div class="title-news-events-container" data-name="title-news-events-container" data-node-id="546:1892">
+                    <h1 class="news-events-title font-pressio" data-node-id="546:1418">
+                        News<br>and Events
+                    </h1>
+                </div>
+                <div class="filter-sorting-container" data-name="filter-sorting-container" data-node-id="546:1641">
+                    <div class="filter-bar-container" data-name="filter-bar-container" data-node-id="546:1642">
+                        <button class="events-filter-chip is-active" data-node-id="546:1643">All</button>
+                        <button class="events-filter-chip" data-node-id="546:1644">Esports</button>
+                        <button class="events-filter-chip" data-node-id="546:1645">Community Events</button>
+                    </div>
+                    <div class="sorting-groups-container" data-name="sorting-groups-container" data-node-id="546:1640">
+                        <div class="sort-group-container" data-name="sort-group-esports-container" data-node-id="546:1632">
+                            <div class="sort-icon" data-name="sort-grey-esports" data-node-id="546:1633">
+                                <img src="https://www.figma.com/api/mcp/asset/c35bbef6-3bfb-4748-98e1-0de8df7311c4" alt="Esports icon" />
+                            </div>
+                            <p class="sort-label font-pressio" data-node-id="546:1634">Esports</p>
+                        </div>
+                        <div class="sort-group-container" data-name="sort-group-community-container" data-node-id="546:1635">
+                            <div class="sort-icon" data-name="sort-red-community" data-node-id="546:1636">
+                                <img src="https://www.figma.com/api/mcp/asset/e3dd8301-9f58-4ab8-a83b-47fedb3f9d81" alt="Community icon" />
+                            </div>
+                            <p class="sort-label font-pressio" data-node-id="546:1637">Community</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="events-grid" data-name="event-cards-grid-container" data-node-id="546:1424">
+                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="546:1427">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I546:1427;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I546:1427;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I546:1427;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I546:1427;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="546:1605">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I546:1605;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I546:1605;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="I546:1605;266:85;194:56">Rocket League Event</h3>
+                            <p class="event-card-description" data-node-id="I546:1605;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I546:1605;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="546:1428">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I546:1428;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I546:1428;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I546:1428;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I546:1428;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="805:1782">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I805:1782;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I805:1782;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I805:1782;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I805:1782;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="805:1783">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I805:1783;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I805:1783;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I805:1783;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I805:1783;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="805:1784">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I805:1784;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I805:1784;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I805:1784;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I805:1784;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02-event-recaps-section -->
+        <section class="events-recaps-section" data-name="02-event-recaps-section" data-node-id="548:875">
+            <div class="events-recap-title-container" data-name="events-recap-title-container" data-node-id="548:876">
+                <h2 class="events-recaps-title font-pressio" data-node-id="548:877">Previous event recaps</h2>
+            </div>
+            <div class="events-recaps-grid" data-name="event-cards-container" data-node-id="548:878">
+                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="548:879">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I548:879;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I548:879;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I548:879;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I548:879;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="620:3195">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I620:3195;266:53"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I620:3195;266:55">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I620:3195;266:63">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I620:3195;266:60">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="620:3221">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I620:3221;266:82"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I620:3221;266:84">Thursday, October 12th | 10/16/25</p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">SF Shock</h3>
+                            <p class="event-card-description" data-node-id="I620:3221;266:86">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I620:3221;266:87">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03-calendar-section -->
+        <section class="events-calendar-section" data-name="03-calendar-section" data-node-id="548:908">
+            <div class="calendar-title-container" data-name="calendar-title-container" data-node-id="548:909">
+                <h2 class="events-calendar-title font-pressio" data-node-id="548:910">Add to your Calendar!</h2>
+            </div>
+            <div class="events-calendar-container" data-name="google-calendar-embed-placeholder" data-node-id="548:911">
+                <iframe 
+                    src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID%40group.calendar.google.com&ctz=America%2FLos_Angeles" 
+                    class="events-calendar-embed"
+                    style="border: 0" 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    scrolling="no">
+                </iframe>
+            </div>
+        </section>
+    </main>
+
+    <!-- Event Overlay -->
+    <div class="event-overlay" id="event-overlay">
+        <button class="event-overlay-close" id="event-overlay-close" aria-label="Close overlay"></button>
+        <div class="event-overlay-content">
+            <div class="event-overlay-hero">
+                <div class="event-overlay-title-container">
+                    <h1 class="event-overlay-title font-pressio" id="event-overlay-title">Event Title</h1>
+                </div>
+                <div class="event-overlay-main">
+                    <div class="event-overlay-left">
+                        <h2 class="event-overlay-subheading font-pressio-medium" id="event-overlay-subheading">Subheading</h2>
+                        <p class="event-overlay-description" id="event-overlay-description">Event description goes here.</p>
+                    </div>
+                    <div class="event-overlay-right">
+                        <div class="event-overlay-datetime">
+                            <p class="event-overlay-date font-pressio" id="event-overlay-date">10/22/2025</p>
+                            <p class="event-overlay-time font-pressio" id="event-overlay-time">3:00pm</p>
+                        </div>
+                        <button class="event-overlay-calendar-btn" id="event-overlay-calendar-btn">Add to your calendar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="event-overlay-media">
+                <div class="event-overlay-image" id="event-overlay-image"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
-

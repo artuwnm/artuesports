@@ -3,341 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lounge</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Art U Esports</title>
 </head>
 <body>
-    <div class="page-container flex-col items-start page-container-lounge" data-name="loungeMain_desktop" data-node-id="365:670">
-        <!-- NavBar -->
-        <div class="nav-bar" data-name="NavBar" data-node-id="529:2827">
-            <div class="logo-container" data-name="Logo-Wordmark-Full" data-node-id="529:2830">
-                <div class="relative w-full" data-name="Theme=Dark" data-node-id="I529:2830;43:154">
-                    <img alt="" class="logo-img" src="http://localhost:3845/assets/8c45d48ad9647e61d53a4a21a56dc8436bc070c2.png" />
-                </div>
-            </div>
-            <div class="flex-row justify-end items-center" data-node-id="529:2831">
-                <div class="nav-menu" data-name="Destop_Nav_Menu" data-node-id="529:2832">
-                    <p class="nav-menu-item" data-node-id="529:2833">TEAMS ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2834">LOUNGE ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2835">EVENTS ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2836">CONNECT ▾</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 01-hero-section -->
-        <div class="flex-col gap-section items-center w-full" data-name="01-hero-section" data-node-id="554:3947">
-            <div class="flex-col gap-small items-center relative hero-container" data-node-id="500:1286">
-                <div class="relative w-full hero-image-container" data-node-id="500:1287">
-                    <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/fb872a5e08d6e360f429900e97cc5c61309292cb.png" />
-                </div>
-                <div class="relative hero-decorative" data-node-id="500:1288">
-                    <img alt="" class="w-full h-full" src="http://localhost:3845/assets/77b5954811218048928bf27bedd86de704cb9b2f.svg" />
-                </div>
-            </div>
-            <div class="content-section flex-col gap-medium items-start text-primary w-full" data-name="Frame" data-node-id="366:776">
-                <p class="section-heading" data-node-id="366:777">
-                    GAME LOUNGE
-                </p>
-                <p class="paragraph w-full" data-node-id="366:778">
-                    The ArtU Game Lounge (AKA: The Knight Arcade) is an on-campus hub for gamers of all levels; open play, team practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. All the students, staff, and faculty, are welcome. Drop in to play, meet teammates, and learn production skills, where we provide a variety of the most popular games at ArtU.
-                </p>
-            </div>
-        </div>
-
-        <!-- 02-lounge-section -->
-        <div class="content-section flex-row gap-small items-center lounge-section" data-name="02-lougne-section" data-node-id="554:998">
-            <div class="flex-col gap-small items-center justify-center relative lounge-card" data-name="lounge-card-knight-arcade" data-node-id="732:1225">
-                <div class="flex-col gap-small items-center justify-center relative w-full lounge-card-inner" data-name="knight-arcade-card-title" data-node-id="I732:1225;316:59">
-                    <img alt="" class="img-cover absolute lounge-card-image" src="http://localhost:3845/assets/d88b49c21c7ea320a8a8c75ba02c7b3b0b75f1cb.png" />
-                    <p class="section-heading text-center lounge-card-title" data-node-id="I732:1225;316:60">
-                        Knight Arcade
-                    </p>
-                </div>
-            </div>
-            <div class="flex-col gap-small items-center justify-center relative lounge-card" data-name="lounge-card-board-game-arena" data-node-id="554:3914">
-                <div class="flex-col gap-small items-center justify-center relative w-full lounge-card-inner" data-node-id="I554:3914;316:65">
-                    <img alt="" class="img-cover absolute lounge-card-image" src="http://localhost:3845/assets/d88b49c21c7ea320a8a8c75ba02c7b3b0b75f1cb.png" />
-                    <p class="section-heading text-center lounge-card-title-tall" data-node-id="I554:3914;316:66">
-                        Board Game Room
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 03-location-hours-section -->
-        <div class="flex-row items-start relative content-section-gap-15" data-node-id="732:1353">
-            <div class="content-section flex-col items-start location-section" data-node-id="732:1352">
-                <p class="section-heading section-heading-short" data-node-id="366:851">
-                    LOCATION / HOUR
-                </p>
-                <div class="flex-row items-center relative w-full location-hours-container" data-node-id="732:1351">
-                    <div class="relative location-hours-column location-hours-column-left" data-node-id="732:1349">
-                        <p class="pressio-medium-text">Location: </p>
-                        <p class="paragraph-small no-margin">180 New Montgomery St. </p>
-                        <p class="paragraph-small no-margin">7th Floor, Room 707</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">Knight Arcade</p>
-                        <p class="pressio-medium-text">Hours:</p>
-                        <p class="paragraph-small no-margin">Mon–Sat [12:00–8:00 pm]</p>
-                        <p class="paragraph-small no-margin">Sun [12:00-5:00pm]</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="paragraph-small no-margin">*Closed during Holidays</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo-wordmark">
+                    <div class="logo-container">
+                        <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
                     </div>
-                    <div class="relative location-hours-column location-hours-column-right" data-node-id="366:853">
-                        <p class="pressio-medium-text">Board Game Room Hours:</p>
-                        <p class="paragraph-small no-margin">Mon–Wed, Sat [12:00–8:00 pm]</p>
-                        <p class="paragraph-small no-margin">Thu [12:00-9:00pm]</p>
-                        <p class="paragraph-small no-margin">Fri [12:00-6:00pm]</p>
-                        <p class="paragraph-small no-margin">Sun [12:00-5:00pm]</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                        <p class="pressio-medium-text">&nbsp;</p>
-                    </div>
-                </div>
-            </div>
-            <div class="relative location-map" data-name="map 1" data-node-id="366:856">
-                <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/462991c098fcbd1a9ce6668876a55d0d14ff07eb.png" />
-            </div>
-        </div>
-
-        <!-- 04-tourvideo-section -->
-        <div class="content-section flex-col gap-medium items-start w-full" data-name="04-tourvideo-section" data-node-id="554:1000">
-            <p class="section-heading section-heading-medium-tall" data-node-id="375:872">
-                TOUR VIDEO
-            </p>
-            <div class="relative w-full video-player" data-name="Player" data-node-id="374:564">
-                <div class="absolute inset-0" data-name="Cover" data-node-id="I374:564;102:365">
-                    <img alt="" class="w-full h-full" height="931" src="http://localhost:3845/assets/f9107d83de59a4c13c497642eefd657bf981729b.png" width="1624" />
-                </div>
-                <div class="absolute video-overlay" data-name="Overlay" data-node-id="I374:564;102:237"></div>
-                <div class="absolute video-controls" data-name="Controls" data-node-id="I374:564;102:595">
-                    <div class="absolute flex-row items-start justify-between video-actions" data-name="Actions" data-node-id="I374:564;102:595;103:225">
-                        <div class="flex-row items-center relative gap-8" data-name="Play" data-node-id="I374:564;102:595;103:225;103:772">
-                            <button class="relative video-control-button" data-name="Start" data-node-id="I374:564;102:595;103:225;103:773">
-                                <div class="absolute inset-0" data-name="Button" data-node-id="I374:564;102:595;103:225;103:773;102:705">
-                                    <div class="absolute" style="background-color: rgba(0,0,0,0.4); inset: 0; opacity: 0; border-radius: 36px;" data-name="Bg" data-node-id="I374:564;102:595;103:225;103:773;102:705;102:150"></div>
-                                    <div class="absolute video-control-icon" data-name="Icon / Play" data-node-id="I374:564;102:595;103:225;103:773;102:705;102:151">
-                                        <div class="absolute" style="inset: 20.83% 20.83% 20.83% 33.33%;" data-name="Vector" data-node-id="I374:564;102:595;103:225;103:773;102:705;102:151;101:52">
-                                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/d32e75c1dc6a70abbd0e461ebaece23f0fb621ee.svg" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                            <p class="video-time-text" data-node-id="I374:564;102:595;103:225;103:774">
-                                0:00 / 0:10
-                            </p>
-                        </div>
-                        <div class="flex-row items-start relative gap-8" data-name="More" data-node-id="I374:564;102:595;103:225;102:305">
-                            <div class="relative" style="height: 40px; width: 112px; overflow: hidden;" data-name="Volume" data-node-id="I374:564;102:595;103:225;102:306">
-                                <div class="absolute" style="background-color: rgba(0,0,0,0.4); opacity: 0; right: 0; border-radius: 36px; width: 40px; height: 40px; top: 0;" data-name="Bg" data-node-id="I374:564;102:595;103:225;102:306;103:2030"></div>
-                                <div class="absolute icon-button" style="right: 0; top: 0;" data-name="Button" data-node-id="I374:564;102:595;103:225;102:306;103:1835">
-                                    <div class="absolute video-control-icon" data-name="Icon / Volume Up" data-node-id="I374:564;102:595;103:225;102:306;103:1837">
-                                        <div class="absolute" style="inset: 13.46% 12.5%;" data-name="Vector" data-node-id="I374:564;102:595;103:225;102:306;103:1837;101:48">
-                                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/d6095e26ff404d0ca596d318ceac06cacd5f0090.svg" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="absolute" style="height: 16px; opacity: 0; right: 44px; top: 50%; transform: translateY(-50%); width: 1px;" data-name="VolumeBar" data-node-id="I374:564;102:595;103:225;102:306;103:2467">
-                                    <div class="absolute" style="background-color: rgba(255,255,255,0.3); height: 4px; left: 0; right: 0; border-radius: 4px; top: 50%; transform: translateY(-50%);" data-name="Total" data-node-id="I374:564;102:595;103:225;102:306;103:2467;103:2360"></div>
-                                    <div class="absolute" style="background-color: rgba(255,255,255,0.5); height: 4px; left: 0; right: 26px; border-radius: 4px; top: 50%; transform: translateY(-50%);" data-name="Progress" data-node-id="I374:564;102:595;103:225;102:306;103:2467;103:2361"></div>
-                                    <div class="absolute" style="left: 50%; width: 12px; height: 12px; top: 50%; transform: translate(-50%, -50%);" data-name="Knot" data-node-id="I374:564;102:595;103:225;102:306;103:2467;103:2362">
-                                        <img alt="" class="w-full h-full" src="http://localhost:3845/assets/1742cd76961eb90cab24e06b95a1d9915630d9d1.svg" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative icon-button" data-name="Button" data-node-id="I374:564;102:595;103:225;102:307">
-                                <div class="absolute inset-0" style="background-color: rgba(0,0,0,0.4); opacity: 0; border-radius: 36px;" data-name="Bg" data-node-id="I374:564;102:595;103:225;102:307;102:150"></div>
-                                <div class="absolute video-control-icon" data-name="Icon / Fullscreen" data-node-id="I374:564;102:595;103:225;102:307;102:151">
-                                    <div class="absolute" style="inset: 20.833%;" data-name="Vector" data-node-id="I374:564;102:595;103:225;102:307;102:151;101:56">
-                                        <img alt="" class="w-full h-full" src="http://localhost:3845/assets/2e868f203c1354b8d59a9c1759c9cb137f378fbf.svg" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="relative icon-button" data-name="Button" data-node-id="I374:564;102:595;103:225;102:308">
-                                <div class="absolute inset-0" style="background-color: rgba(0,0,0,0.4); opacity: 0; border-radius: 36px;" data-name="Bg" data-node-id="I374:564;102:595;103:225;102:308;102:150"></div>
-                                <div class="absolute video-control-icon" data-name="Icon / More Vertical" data-node-id="I374:564;102:595;103:225;102:308;102:151">
-                                    <div class="absolute" style="inset: 16.67% 41.67%;" data-name="Vector" data-node-id="I374:564;102:595;103:225;102:308;102:151;101:65">
-                                        <img alt="" class="w-full h-full" src="http://localhost:3845/assets/bbc25f4d98824d4d8df6762f416ee46960b3f2c1.svg" />
-                                    </div>
-                                </div>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <div class="frame">
+                    <div class="desktop-nav-menu">
+                        <a href="team.html" class="nav-item">TEAMS  ▾</a>
+                        <div class="nav-dropdown">
+                            <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
+                            <div class="dropdown-menu">
+                                <a href="knightarcade.html" class="dropdown-item"><h2>Knight Arcade</h2></a>
+                                <a href="boardgameroom.html" class="dropdown-item"><h2>Board Game Room</h2></a>
                             </div>
                         </div>
-                    </div>
-                    <div class="absolute video-timeline" data-name="Timeline" data-node-id="I374:564;102:595;102:466">
-                        <div class="absolute video-timeline-bar" data-name="Bar" data-node-id="I374:564;102:595;102:466;102:177"></div>
-                        <div class="absolute video-timeline-knot" data-name="Knot" data-node-id="I374:564;102:595;102:466;107:2627">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/1742cd76961eb90cab24e06b95a1d9915630d9d1.svg" />
-                        </div>
+                        <a href="events.html" class="nav-item">EVENTS  ▾</a>
+                        <a href="connect.html" class="nav-item">CONNECT  ▾</a>
                     </div>
                 </div>
             </div>
         </div>
+    </header>
+    
+    <div class="carousel" data-timer="8">
+		<div class="carousel-content-wrapper">
+			<div class="carousel-arrow carousel-arrow-left">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</div>
+			<div class="carousel-deck">
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+				<div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
+			</div>
+			<div class="carousel-arrow carousel-arrow-right">
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</div>
+		</div>
+		<div class="carousel-pagination-wrapper">
+			<div class="carousel-pagination"></div>
+		</div>
+	</div>
 
-        <!-- 05-events-community-section -->
-        <div class="content-section flex-row gap-small items-center w-full" data-node-id="732:2106">
-            <div class="card flex-col gap-small event-card-large-lounge" data-name="Event-Card" data-node-id="732:2107">
-                <div class="relative w-full event-card-image" data-node-id="I732:2107;156:9">
-                    <div class="relative event-card-masked-image" data-name="u1879261762_GAMING_NIGHT_PLAYERS_SIT_AT_COMPUTERS_IN_A_ROW_AN_82876ee2-667d-4050-a1b1-06e30cd58b63_1 1" data-node-id="I732:2107;156:12" style="mask-image: url('http://localhost:3845/assets/501434ea84e7569ea35694b088af1482dfe62b60.svg'); mask-position: 15px 120.571px; mask-size: 376px 211px;">
-                        <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/7ed87f09f8072a0354ece44401c08d3a5b06a434.png" />
-                    </div>
-                </div>
-                <div class="flex-col event-card-gap items-start w-full" data-node-id="I732:2107;156:13">
-                    <p class="paragraph" data-node-id="I732:2107;156:14">
-                        Thursday, October 12th | 10/16/25
-                    </p>
-                    <p class="section-heading" data-node-id="I732:2107;156:15">
-                        ECAC Tournament
-                    </p>
-                    <div class="flex-row items-center gap-small" data-node-id="I732:2107;156:16">
-                        <p class="paragraph text-indent-small" data-node-id="I732:2107;156:17">
-                            Streaming on twitch
-                        </p>
-                        <div class="small-icon" data-name="vector" data-node-id="I732:2107;156:18">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/e34cbc83a6d441ad6352f0ebc817e0bc9cb7796d.svg" />
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card-indicator" data-node-id="I732:2107;156:19"></div>
-            </div>
-            <div class="flex-col gap-small items-start content-width-large" data-node-id="732:2108">
-                <div class="relative overlay-section-lounge" data-node-id="732:2109">
-                    <div class="absolute overlay-image" data-name="image 2" data-node-id="732:2110">
-                        <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/d7d2fb82375951d8aaa2c42e60ee6622559f490f.png" />
-                    </div>
-                    <div class="absolute overlay-content" data-node-id="732:2111">
-                        <div class="relative overlay-inner">
-                            <div class="absolute flex-col items-start overlay-text-container" data-node-id="732:2112">
-                                <div class="flex-row items-center justify-between w-full" data-node-id="732:2113">
-                                    <p class="section-heading preserve-whitespace" data-node-id="732:2114">
-                                        TEAMS
-                                    </p>
-                                    <button class="btn-learn-more" data-name="Buttons-Desktop" data-node-id="732:2115">
-                                        Learn More
-                                    </button>
-                                </div>
-                                <p class="paragraph overlay-paragraph" data-node-id="732:2116">A comprehensive guide to the ArtU Esports program. Not sure where to start? we got you covered. </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative community-image-container-lounge" data-node-id="732:2117">
-                    <div class="absolute community-image-lounge" data-name="20190302_172852-scaled-1-1024x498 1" data-node-id="732:2118">
-                        <img alt="" class="img-cover absolute" src="http://localhost:3845/assets/b5df4f63fa5e7043df103fcd460c8c7d91c2e122.png" />
-                    </div>
-                    <div class="absolute community-overlay-lounge" data-node-id="732:2119"></div>
-                    <div class="absolute flex-col items-start community-content-lounge" data-node-id="732:2120">
-                        <p class="section-heading section-heading-extra-short content-width-small" data-node-id="732:2121">
-                            COMMUNITY
-                        </p>
-                        <div class="flex-col gap-small items-start community-content-inner" data-node-id="732:2122">
-                            <div class="flex-row items-center justify-between w-full" data-node-id="732:2123">
-                                <div class="flex-row items-center gap-small social-icon-container" data-node-id="732:2124">
-                                    <div class="relative social-icon-wrapper" data-node-id="732:2125">
-                                        <div class="absolute social-icon-discord-bg" data-node-id="732:2126"></div>
-                                        <div class="absolute social-icon-discord" data-name="discord logo" data-node-id="732:2127">
-                                            <div class="absolute inset-0" data-name="Clip path group" data-node-id="732:2128">
-                                                <div class="absolute social-icon-discord-mask" style="mask-image: url('http://localhost:3845/assets/e03a0f92140a53c5fd63a99081ba1ca8e3e25c29.svg'); mask-position: 0px -0.105px; mask-size: 18px 14px;" data-name="Group" data-node-id="732:2131">
-                                                    <img alt="" class="w-full h-full" src="http://localhost:3845/assets/238763e2a146d73a049473ca9252576cbdbd3840.svg" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="relative social-icon-wrapper" data-node-id="732:2133">
-                                        <img alt="" class="w-full h-full" src="http://localhost:3845/assets/b393f07a214dea013e275e1f462a3ed815c5c6a0.svg" />
-                                    </div>
-                                </div>
-                                <button class="btn-learn-more" data-name="Buttons-Desktop" data-node-id="732:2136">
-                                    Learn More
-                                </button>
-                            </div>
-                            <p class="paragraph community-paragraph" data-node-id="732:2137">Our community is built on the pillars of teamwork, craft, and a shared passion for play. Whether you're aiming for a varsity spot, want to join a broadcast crew, or just want to meet new friends in the game lounge, there's a place for you here. The conversation, team-finding, and event announcements happen 24/7 on our official Discord server. It's the best way to connect with fellow players and become part of our home for gamers.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="content-section" style="margin-top: 37px;">
+        <h1 class="section-title">GAME LOUNGE</h1>
+        <p class="section-text">The ArtU Game Lounge (AKA: The Knight Arcade) is an on-campus hub for gamers of all levels; open play, team practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. All the students, staff, and faculty, are welcome. Drop in to play, meet teammates, and learn production skills, where we provide a variety of the most popular games at ArtU.</p>
+    </section>
 
-        <!-- Footer -->
-        <div class="flex-col gap-section items-start w-full footer-height-lounge" data-name="Footer" data-node-id="554:3308">
-            <div class="footer-top" data-name="Footer-Top" data-node-id="I554:3308;255:113">
-                <div class="flex-col items-start footer-gap-large content-width-footer" data-node-id="I554:3308;255:161">
-                    <div class="flex-col gap-small items-start w-full footer-logo-aspect" data-name="Logo-Wordmark-Full" data-node-id="I554:3308;255:116">
-                        <div class="relative w-full" data-name="Theme=Dark" data-node-id="I554:3308;255:116;43:154">
-                            <img alt="" class="logo-img" src="http://localhost:3845/assets/8c45d48ad9647e61d53a4a21a56dc8436bc070c2.png" />
+    <section class="room-cards-section">
+        <div class="room-cards-container">
+            <div class="room-card">
+                <a href="knightarcade.html" class="room-card-link">
+                    <div class="room-card-image-wrapper">
+                        <div class="room-card-image-placeholder"></div>
+                        <div class="room-card-overlay"></div>
+                        <div class="room-card-content">
+                            <h2 class="room-card-title">Knight Arcade</h2>
                         </div>
                     </div>
-                    <div class="flex-row items-center gap-small" data-node-id="I554:3308;255:156">
-                        <div class="social-icon social-icon-primary" data-node-id="I554:3308;255:118">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/94cb5fcd27c55e1649c51eaff1438af79e965e17.svg" />
+                </a>
+            </div>
+            <div class="room-card">
+                <a href="boardgameroom.html" class="room-card-link">
+                    <div class="room-card-image-wrapper">
+                        <div class="room-card-image-placeholder"></div>
+                        <div class="room-card-overlay"></div>
+                        <div class="room-card-content">
+                            <h2 class="room-card-title">Board Game Room</h2>
                         </div>
-                        <div class="social-icon relative social-icon-standard" data-node-id="I554:3308;255:126">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/e3b017d822bc9d301e584d2802ec47ee641f6462.svg" />
-                        </div>
-                        <div class="social-icon relative social-icon-standard" data-node-id="I554:3308;255:152">
-                            <img alt="" class="w-full h-full" src="http://localhost:3845/assets/1b7389e294f1ba168a214f44f1878ff516550c90.svg" />
-                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <!-- Content placeholder -->
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <div class="logo-container">
+                        <img src="img/Logo_White.png" alt="ARTU Esports Logo" class="logo-image">
                     </div>
                 </div>
-                <div class="flex-row items-start justify-between content-width-medium" data-node-id="I554:3308;255:162">
-                    <div class="flex-col gap-medium items-start footer-section-padding" data-node-id="I554:3308;255:158">
-                        <p class="section-heading-medium w-full" data-node-id="I554:3308;255:130">
-                            Contact
-                        </p>
-                        <div class="flex-col items-start paragraph footer-list-gap" data-node-id="I554:3308;255:157">
-                            <p class="footer-link" data-node-id="I554:3308;255:131">
-                                +(1)415-000-0000
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3308;255:132">
-                                gamedev@art.edu
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3308;255:133">
-                                Get Directions
-                            </p>
-                        </div>
+                <div class="social-icons">
+                    <div class="social-icon social-icon-primary">
+                        <img src="http://localhost:3845/assets/f50df792c86b0def944e5ba573a63913eaf5de94.svg" alt="Social Icon">
                     </div>
-                    <div class="flex-col gap-medium items-start footer-section-padding" data-node-id="I554:3308;255:160">
-                        <p class="section-heading-medium preserve-whitespace" data-node-id="I554:3308;255:140">
-                            Explore
-                        </p>
-                        <div class="flex-col items-start paragraph footer-list-gap" data-node-id="I554:3308;255:159">
-                            <p class="footer-link" data-node-id="I554:3308;255:141">
-                                Home
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3308;255:142">
-                                Lounge
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3308;255:143">
-                                Events
-                            </p>
-                            <p class="footer-link" data-node-id="I554:3308;255:151">
-                                Connect
-                            </p>
-                        </div>
+                    <div class="social-icon">
+                        <img src="http://localhost:3845/assets/2b1fef3d82b188149c7dd66f3cd918a190539660.svg" alt="Social Icon">
+                    </div>
+                    <div class="social-icon">
+                        <img src="http://localhost:3845/assets/087aa232869e1731fe2992879da36a4b9bce0b86.svg" alt="Social Icon">
                     </div>
                 </div>
             </div>
-            <div class="footer-bottom" data-name="Footer-Bottom" data-node-id="I554:3308;255:134">
-                <p class="text-secondary footer-bottom-text" data-node-id="I554:3308;255:135">
-                    © 2025 Academy of Art University
-                </p>
-                <div class="flex-row gap-small items-center text-secondary footer-bottom-text" data-node-id="I554:3308;255:136">
-                    <p class="footer-link" data-node-id="I554:3308;255:137">
-                        Privacy
-                    </p>
-                    <p class="footer-link" data-node-id="I554:3308;255:138">
-                        Terms
-                    </p>
+            <div class="footer-right">
+                <div class="footer-section">
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-links">
+                        <p class="footer-link">+(1)415-000-0000</p>
+                        <p class="footer-link">gamedev@art.edu</p>
+                        <p class="footer-link">Get Directions</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-heading">Explore</h3>
+                    <div class="footer-links">
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="lounge.html" class="footer-link">Lounge</a>
+                        <p class="footer-link">Events</p>
+                        <p class="footer-link">Connect</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 Academy of Art University</p>
+            <div class="footer-legal">
+                <p class="footer-legal-link">Privacy</p>
+                <p class="footer-legal-link">Terms</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
 </body>
 </html>
-

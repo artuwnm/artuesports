@@ -5,418 +5,328 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teams</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="bg-[#050708] box-border content-stretch flex flex-col gap-[72px] items-start px-[36px] py-[10px] relative size-full min-h-screen" data-name="team-desktop" data-node-id="529:2096">
-        <!-- Nav-Bar -->
-        <div class="bg-[#1d252c] box-border content-stretch flex h-[96px] items-center justify-between px-[36px] py-0 relative shrink-0 w-full" data-name="Nav-Bar" data-node-id="529:2106">
-            <div class="content-stretch flex flex-col gap-[7.5px] h-[57.828px] items-start relative shrink-0 w-[141.75px]" data-name="Logo-Wordmark-Full" data-node-id="I529:2106;251:343">
-                <div class="flex-[1_0_0] min-h-px min-w-px relative shrink-0 w-full" data-name="Theme=Dark" data-node-id="I529:2106;251:343;43:154">
-                    <img alt="" class="absolute inset-0 max-w-none object-center object-cover pointer-events-none size-full" src="https://www.figma.com/api/mcp/asset/67dac030-a619-44c8-8562-e820fe1ff413" />
-                </div>
-            </div>
-            <div class="content-stretch flex flex-[1_0_0] gap-[129px] items-center justify-end min-h-px min-w-px relative shrink-0" data-node-id="I529:2106;251:344">
-                <div class="content-stretch flex font-['Pressio:No._44_Bold_Condensed',sans-serif] gap-[48px] items-center leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[28px]" data-name="Destop_Nav_Menu" data-node-id="I529:2106;251:417">
-                    <p class="relative shrink-0" data-node-id="I529:2106;251:418">TEAMS  ▾</p>
-                    <p class="relative shrink-0" data-node-id="I529:2106;251:419">LOUNGE  ▾</p>
-                    <p class="relative shrink-0" data-node-id="I529:2106;251:420">EVENTS  ▾</p>
-                    <p class="relative shrink-0" data-node-id="I529:2106;251:421">CONNECT  ▾</p>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo-wordmark">
+                    <div class="logo-container">
+                        <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
+                    </div>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <div class="frame">
+                    <div class="desktop-nav-menu">
+                        <a href="team.html" class="nav-item">TEAMS  ▾</a>
+                        <div class="nav-dropdown">
+                            <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
+                            <div class="dropdown-menu">
+                                <a href="knightarcade.html" class="dropdown-item"><h2>Knight Arcade</h2></a>
+                                <a href="boardgameroom.html" class="dropdown-item"><h2>Board Game Room</h2></a>
+                            </div>
+                        </div>
+                        <a href="events.html" class="nav-item">EVENTS  ▾</a>
+                        <a href="connect.html" class="nav-item">CONNECT  ▾</a>
+                    </div>
                 </div>
             </div>
         </div>
-
+    </header>
+    <div class="page-container">
         <!-- 01-hero-section -->
-        <div class="content-stretch flex flex-col gap-[36px] items-start relative shrink-0 w-full" data-name="01-hero-section" data-node-id="529:2509">
-            <div class="aspect-[1920/1080] bg-[#f2f2f2] rounded-[16px] shrink-0 w-full" data-name="img-placeholder" data-node-id="529:2097"></div>
-            <div class="content-stretch flex flex-col gap-[10px] items-start leading-[normal] relative shrink-0 text-[#fcfcfc] w-full whitespace-pre-wrap" data-name="title-container" data-node-id="529:2121">
-                <p class="font-['Pressio:No._44_Bold_Condensed',sans-serif] min-w-full not-italic relative shrink-0 text-[128px] tracking-[-2.56px] uppercase w-[min-content]" data-node-id="529:2122">
+        <section class="team-hero-section" data-name="01-hero-section" data-node-id="529:2509">
+            <div class="team-hero-image-placeholder" data-name="img-placeholder" data-node-id="529:2097"></div>
+            <div class="team-hero-title-container" data-name="title-container" data-node-id="529:2121">
+                <h1 class="team-hero-title font-pressio" data-name="team-title" data-node-id="529:2122">
                     Overwatch
-                </p>
-                <p class="font-['Urbanist:Medium',sans-serif] font-medium relative shrink-0 text-[26px] tracking-[-0.52px] w-[727px]" data-node-id="529:2123">
+                </h1>
+                <p class="team-hero-description" data-name="team-description" data-node-id="529:2123">
                     Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
                 </p>
             </div>
-        </div>
+        </section>
 
-        <!-- 02-varisty-section -->
-        <div class="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full" data-name="02-varisty-section" data-node-id="529:2125">
-            <p class="font-['Pressio:No._44_Bold_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[128px] tracking-[-2.56px] uppercase" data-node-id="529:2126">
+        <!-- 02-varsity-section -->
+        <section class="varsity-section" data-name="02-varsity-section" data-node-id="529:2125">
+            <h2 class="varsity-section-title font-pressio" data-node-id="529:2126">
                 Varsity team
-            </p>
-            <div class="content-stretch flex gap-[16px] items-center relative shrink-0 w-full" data-name="player-cards-container" data-node-id="529:2317">
-                <!-- Player Card 1 -->
-                <div class="bg-[#ed1f33] box-border content-stretch flex flex-[1_0_0] flex-col gap-[10px] h-[700px] items-start justify-center min-h-px min-w-px px-[14px] py-[16px] relative rounded-[16px] shrink-0" data-name="Player-Card" data-node-id="529:2431">
-                    <div class="bg-gradient-to-b content-stretch flex flex-[1_0_0] flex-col from-[rgba(5,7,8,0)] gap-[10px] items-start justify-center min-h-px min-w-px relative rounded-[16px] shrink-0 to-[#050708] w-full" data-node-id="529:2432">
-                        <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[270px] items-start min-h-px min-w-px px-[12px] py-[16px] relative rounded-[16px] shrink-0 w-full" data-node-id="529:2433">
-                            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[16px]">
-                                <img alt="" class="absolute max-w-none object-center object-cover rounded-[16px] size-full" src="https://www.figma.com/api/mcp/asset/14212bcf-e7a9-4c41-9a10-527c7ac31f72" />
-                                <div class="absolute bg-gradient-to-b from-[rgba(0,0,0,0)] inset-0 rounded-[16px] to-[rgba(0,0,0,0.9)]"></div>
+            </h2>
+            <div class="varsity-cards-container" data-name="player-cards-container" data-node-id="529:2317">
+                <!-- Row 1 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2431">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="https://www.figma.com/api/mcp/asset/295f3200-4b53-4fa5-a7e9-f24cf391b2f3" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
                             </div>
-                            <p class="font-['Urbanist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[24px]" data-node-id="529:2434">
-                                Support
-                            </p>
-                            <div class="content-stretch flex flex-[1_0_0] flex-col gap-[25px] items-start justify-end min-h-px min-w-px relative shrink-0 w-full" data-node-id="529:2435">
-                                <div class="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="529:2436">
-                                    <div class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-node-id="529:2437">
-                                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[72px] tracking-[-1.44px] w-full whitespace-pre-wrap" data-node-id="529:2438">
+                            <p class="varsity-player-role" data-node-id="529:2434">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2438">
                                             Irene Adriana Quero
-                                        </p>
+                                        </h3>
                                     </div>
-                                    <div class="content-stretch flex gap-[5px] items-center relative shrink-0 w-full" data-node-id="529:2439">
-                                        <p class="flex-[1_0_0] font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] min-h-px min-w-px relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] whitespace-pre-wrap" data-node-id="529:2440">
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2440">
                                             Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
                                         </p>
                                     </div>
                                 </div>
-                                <div class="bg-[#ed1f33] box-border content-stretch flex flex-col gap-[10px] h-[44px] items-center justify-center px-[54px] py-[12px] relative rounded-[16px] shrink-0 w-[154px]" data-name="Buttons-Desktop" data-node-id="529:2441">
-                                    <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#fcfcfc] text-[26px] tracking-[-0.52px]" data-node-id="I529:2441;25:143">
-                                        Learn more
-                                    </p>
-                                </div>
+                                <button class="varsity-learn-more-btn" data-name="Buttons-Desktop" data-node-id="529:2441">
+                                    Learn more
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Player Card 2 -->
-                <div class="bg-[#ed1f33] box-border content-stretch flex flex-[1_0_0] flex-col gap-[10px] h-[700px] items-start justify-center min-h-px min-w-px px-[14px] py-[16px] relative rounded-[16px] shrink-0" data-name="Player-Card" data-node-id="529:2443">
-                    <div class="bg-gradient-to-b content-stretch flex flex-[1_0_0] flex-col from-[rgba(5,7,8,0)] gap-[10px] items-start justify-center min-h-px min-w-px relative rounded-[16px] shrink-0 to-[#050708] w-full" data-node-id="529:2444">
-                        <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[270px] items-start min-h-px min-w-px px-[12px] py-[16px] relative rounded-[16px] shrink-0 w-full" data-node-id="529:2445">
-                            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[16px]">
-                                <img alt="" class="absolute max-w-none object-center object-cover rounded-[16px] size-full" src="https://www.figma.com/api/mcp/asset/14212bcf-e7a9-4c41-9a10-527c7ac31f72" />
-                                <div class="absolute bg-gradient-to-b from-[rgba(0,0,0,0)] inset-0 rounded-[16px] to-[rgba(0,0,0,0.9)]"></div>
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2443">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="https://www.figma.com/api/mcp/asset/295f3200-4b53-4fa5-a7e9-f24cf391b2f3" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
                             </div>
-                            <p class="font-['Urbanist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[24px]" data-node-id="529:2446">
-                                Support
-                            </p>
-                            <div class="content-stretch flex flex-[1_0_0] flex-col gap-[25px] items-start justify-end min-h-px min-w-px relative shrink-0 w-full" data-node-id="529:2447">
-                                <div class="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="529:2448">
-                                    <div class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-node-id="529:2449">
-                                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[72px] tracking-[-1.44px] w-full whitespace-pre-wrap" data-node-id="529:2450">
+                            <p class="varsity-player-role" data-node-id="529:2446">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2450">
                                             Irene Adriana Quero
-                                        </p>
+                                        </h3>
                                     </div>
-                                    <div class="content-stretch flex gap-[5px] items-center relative shrink-0 w-full" data-node-id="529:2451">
-                                        <p class="flex-[1_0_0] font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] min-h-px min-w-px relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] whitespace-pre-wrap" data-node-id="529:2452">
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2452">
                                             Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
                                         </p>
                                     </div>
                                 </div>
-                                <div class="bg-[#ed1f33] box-border content-stretch flex flex-col gap-[10px] h-[44px] items-center justify-center px-[54px] py-[12px] relative rounded-[16px] shrink-0 w-[154px]" data-name="Buttons-Desktop" data-node-id="529:2453">
-                                    <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#fcfcfc] text-[26px] tracking-[-0.52px]" data-node-id="I529:2453;25:143">
-                                        Learn more
-                                    </p>
-                                </div>
+                                <button class="varsity-learn-more-btn" data-name="Buttons-Desktop" data-node-id="529:2453">
+                                    Learn more
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Player Card 3 -->
-                <div class="bg-[#ed1f33] box-border content-stretch flex flex-[1_0_0] flex-col gap-[10px] h-[700px] items-start justify-center min-h-px min-w-px px-[14px] py-[16px] relative rounded-[16px] shrink-0" data-name="Player-Card" data-node-id="529:2456">
-                    <div class="bg-gradient-to-b content-stretch flex flex-[1_0_0] flex-col from-[rgba(5,7,8,0)] gap-[10px] items-start justify-center min-h-px min-w-px relative rounded-[16px] shrink-0 to-[#050708] w-full" data-node-id="529:2457">
-                        <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[270px] items-start min-h-px min-w-px px-[12px] py-[16px] relative rounded-[16px] shrink-0 w-full" data-node-id="529:2458">
-                            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[16px]">
-                                <img alt="" class="absolute max-w-none object-center object-cover rounded-[16px] size-full" src="https://www.figma.com/api/mcp/asset/14212bcf-e7a9-4c41-9a10-527c7ac31f72" />
-                                <div class="absolute bg-gradient-to-b from-[rgba(0,0,0,0)] inset-0 rounded-[16px] to-[rgba(0,0,0,0.9)]"></div>
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2456">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="https://www.figma.com/api/mcp/asset/295f3200-4b53-4fa5-a7e9-f24cf391b2f3" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
                             </div>
-                            <p class="font-['Urbanist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[24px]" data-node-id="529:2459">
-                                Support
-                            </p>
-                            <div class="content-stretch flex flex-[1_0_0] flex-col gap-[25px] items-start justify-end min-h-px min-w-px relative shrink-0 w-full" data-node-id="529:2460">
-                                <div class="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="529:2461">
-                                    <div class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-node-id="529:2462">
-                                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[72px] tracking-[-1.44px] w-full whitespace-pre-wrap" data-node-id="529:2463">
+                            <p class="varsity-player-role" data-node-id="529:2459">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2463">
                                             Irene Adriana Quero
-                                        </p>
+                                        </h3>
                                     </div>
-                                    <div class="content-stretch flex gap-[5px] items-center relative shrink-0 w-full" data-node-id="529:2464">
-                                        <p class="flex-[1_0_0] font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] min-h-px min-w-px relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] whitespace-pre-wrap" data-node-id="529:2465">
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2465">
                                             Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
                                         </p>
                                     </div>
                                 </div>
-                                <div class="bg-[#ed1f33] box-border content-stretch flex flex-col gap-[10px] h-[44px] items-center justify-center px-[54px] py-[12px] relative rounded-[16px] shrink-0 w-[154px]" data-name="Buttons-Desktop" data-node-id="529:2466">
-                                    <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#fcfcfc] text-[26px] tracking-[-0.52px]" data-node-id="I529:2466;25:143">
-                                        Learn more
-                                    </p>
-                                </div>
+                                <button class="varsity-learn-more-btn" data-name="Buttons-Desktop" data-node-id="529:2466">
+                                    Learn more
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="content-stretch flex gap-[16px] items-center relative shrink-0 w-full" data-name="player-cards-container" data-node-id="529:2470">
-                <!-- Player Card 4 -->
-                <div class="bg-[#ed1f33] box-border content-stretch flex flex-[1_0_0] flex-col gap-[10px] h-[700px] items-start justify-center min-h-px min-w-px px-[14px] py-[16px] relative rounded-[16px] shrink-0" data-name="Player-Card" data-node-id="529:2471">
-                    <div class="bg-gradient-to-b content-stretch flex flex-[1_0_0] flex-col from-[rgba(5,7,8,0)] gap-[10px] items-start justify-center min-h-px min-w-px relative rounded-[16px] shrink-0 to-[#050708] w-full" data-node-id="529:2472">
-                        <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[270px] items-start min-h-px min-w-px px-[12px] py-[16px] relative rounded-[16px] shrink-0 w-full" data-node-id="529:2473">
-                            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[16px]">
-                                <img alt="" class="absolute max-w-none object-center object-cover rounded-[16px] size-full" src="https://www.figma.com/api/mcp/asset/14212bcf-e7a9-4c41-9a10-527c7ac31f72" />
-                                <div class="absolute bg-gradient-to-b from-[rgba(0,0,0,0)] inset-0 rounded-[16px] to-[rgba(0,0,0,0.9)]"></div>
+            <div class="varsity-cards-container" data-name="player-cards-container" data-node-id="529:2470">
+                <!-- Row 2 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2471">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="https://www.figma.com/api/mcp/asset/295f3200-4b53-4fa5-a7e9-f24cf391b2f3" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
                             </div>
-                            <p class="font-['Urbanist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[24px]" data-node-id="529:2474">
-                                Support
-                            </p>
-                            <div class="content-stretch flex flex-[1_0_0] flex-col gap-[25px] items-start justify-end min-h-px min-w-px relative shrink-0 w-full" data-node-id="529:2475">
-                                <div class="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="529:2476">
-                                    <div class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-node-id="529:2477">
-                                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[72px] tracking-[-1.44px] w-full whitespace-pre-wrap" data-node-id="529:2478">
+                            <p class="varsity-player-role" data-node-id="529:2474">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2478">
                                             Irene Adriana Quero
-                                        </p>
+                                        </h3>
                                     </div>
-                                    <div class="content-stretch flex gap-[5px] items-center relative shrink-0 w-full" data-node-id="529:2479">
-                                        <p class="flex-[1_0_0] font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] min-h-px min-w-px relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] whitespace-pre-wrap" data-node-id="529:2480">
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2480">
                                             Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
                                         </p>
                                     </div>
                                 </div>
-                                <div class="bg-[#ed1f33] box-border content-stretch flex flex-col gap-[10px] h-[44px] items-center justify-center px-[54px] py-[12px] relative rounded-[16px] shrink-0 w-[154px]" data-name="Buttons-Desktop" data-node-id="529:2481">
-                                    <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#fcfcfc] text-[26px] tracking-[-0.52px]" data-node-id="I529:2481;25:143">
-                                        Learn more
-                                    </p>
-                                </div>
+                                <button class="varsity-learn-more-btn" data-name="Buttons-Desktop" data-node-id="529:2481">
+                                    Learn more
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Player Card 5 -->
-                <div class="bg-[#ed1f33] box-border content-stretch flex flex-[1_0_0] flex-col gap-[10px] h-[700px] items-start justify-center min-h-px min-w-px px-[14px] py-[16px] relative rounded-[16px] shrink-0" data-name="Player-Card" data-node-id="529:2482">
-                    <div class="bg-gradient-to-b content-stretch flex flex-[1_0_0] flex-col from-[rgba(5,7,8,0)] gap-[10px] items-start justify-center min-h-px min-w-px relative rounded-[16px] shrink-0 to-[#050708] w-full" data-node-id="529:2483">
-                        <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[270px] items-start min-h-px min-w-px px-[12px] py-[16px] relative rounded-[16px] shrink-0 w-full" data-node-id="529:2484">
-                            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[16px]">
-                                <img alt="" class="absolute max-w-none object-center object-cover rounded-[16px] size-full" src="https://www.figma.com/api/mcp/asset/14212bcf-e7a9-4c41-9a10-527c7ac31f72" />
-                                <div class="absolute bg-gradient-to-b from-[rgba(0,0,0,0)] inset-0 rounded-[16px] to-[rgba(0,0,0,0.9)]"></div>
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2482">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="https://www.figma.com/api/mcp/asset/295f3200-4b53-4fa5-a7e9-f24cf391b2f3" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
                             </div>
-                            <p class="font-['Urbanist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[24px]" data-node-id="529:2485">
-                                Support
-                            </p>
-                            <div class="content-stretch flex flex-[1_0_0] flex-col gap-[25px] items-start justify-end min-h-px min-w-px relative shrink-0 w-full" data-node-id="529:2486">
-                                <div class="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="529:2487">
-                                    <div class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-node-id="529:2488">
-                                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[72px] tracking-[-1.44px] w-full whitespace-pre-wrap" data-node-id="529:2489">
+                            <p class="varsity-player-role" data-node-id="529:2485">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2489">
                                             Irene Adriana Quero
-                                        </p>
+                                        </h3>
                                     </div>
-                                    <div class="content-stretch flex gap-[5px] items-center relative shrink-0 w-full" data-node-id="529:2490">
-                                        <p class="flex-[1_0_0] font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] min-h-px min-w-px relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] whitespace-pre-wrap" data-node-id="529:2491">
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2491">
                                             Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
                                         </p>
                                     </div>
                                 </div>
-                                <div class="bg-[#ed1f33] box-border content-stretch flex flex-col gap-[10px] h-[44px] items-center justify-center px-[54px] py-[12px] relative rounded-[16px] shrink-0 w-[154px]" data-name="Buttons-Desktop" data-node-id="529:2492">
-                                    <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#fcfcfc] text-[26px] tracking-[-0.52px]" data-node-id="I529:2492;25:143">
-                                        Learn more
-                                    </p>
-                                </div>
+                                <button class="varsity-learn-more-btn" data-name="Buttons-Desktop" data-node-id="529:2492">
+                                    Learn more
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Player Card 6 -->
-                <div class="bg-[#ed1f33] box-border content-stretch flex flex-[1_0_0] flex-col gap-[10px] h-[700px] items-start justify-center min-h-px min-w-px px-[14px] py-[16px] relative rounded-[16px] shrink-0" data-name="Player-Card" data-node-id="529:2493">
-                    <div class="bg-gradient-to-b content-stretch flex flex-[1_0_0] flex-col from-[rgba(5,7,8,0)] gap-[10px] items-start justify-center min-h-px min-w-px relative rounded-[16px] shrink-0 to-[#050708] w-full" data-node-id="529:2494">
-                        <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[270px] items-start min-h-px min-w-px px-[12px] py-[16px] relative rounded-[16px] shrink-0 w-full" data-node-id="529:2495">
-                            <div aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[16px]">
-                                <img alt="" class="absolute max-w-none object-center object-cover rounded-[16px] size-full" src="https://www.figma.com/api/mcp/asset/14212bcf-e7a9-4c41-9a10-527c7ac31f72" />
-                                <div class="absolute bg-gradient-to-b from-[rgba(0,0,0,0)] inset-0 rounded-[16px] to-[rgba(0,0,0,0.9)]"></div>
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2493">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="https://www.figma.com/api/mcp/asset/295f3200-4b53-4fa5-a7e9-f24cf391b2f3" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
                             </div>
-                            <p class="font-['Urbanist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[24px]" data-node-id="529:2496">
-                                Support
-                            </p>
-                            <div class="content-stretch flex flex-[1_0_0] flex-col gap-[25px] items-start justify-end min-h-px min-w-px relative shrink-0 w-full" data-node-id="529:2497">
-                                <div class="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-node-id="529:2498">
-                                    <div class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-node-id="529:2499">
-                                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[72px] tracking-[-1.44px] w-full whitespace-pre-wrap" data-node-id="529:2500">
+                            <p class="varsity-player-role" data-node-id="529:2496">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2500">
                                             Irene Adriana Quero
-                                        </p>
+                                        </h3>
                                     </div>
-                                    <div class="content-stretch flex gap-[5px] items-center relative shrink-0 w-full" data-node-id="529:2501">
-                                        <p class="flex-[1_0_0] font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] min-h-px min-w-px relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] whitespace-pre-wrap" data-node-id="529:2502">
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2502">
                                             Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
                                         </p>
                                     </div>
                                 </div>
-                                <div class="bg-[#ed1f33] box-border content-stretch flex flex-col gap-[10px] h-[44px] items-center justify-center px-[54px] py-[12px] relative rounded-[16px] shrink-0 w-[154px]" data-name="Buttons-Desktop" data-node-id="529:2503">
-                                    <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#fcfcfc] text-[26px] tracking-[-0.52px]" data-node-id="I529:2503;25:143">
-                                        Learn more
-                                    </p>
-                                </div>
+                                <button class="varsity-learn-more-btn" data-name="Buttons-Desktop" data-node-id="529:2503">
+                                    Learn more
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- 03-events-section -->
-        <div class="content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full" data-name="03-events-section" data-node-id="529:2510">
-            <p class="font-['Pressio:No._44_Bold_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[128px] tracking-[-2.56px] uppercase" data-node-id="529:2511">
+        <section class="team-events-section" data-name="03-events-section" data-node-id="529:2510">
+            <h2 class="team-events-section-title font-pressio" data-node-id="529:2511">
                 Events
-            </p>
-            <div class="content-stretch flex gap-[16px] items-start relative shrink-0 w-full" data-name="event-cards-container" data-node-id="529:2512">
-                <!-- Event Card 1 -->
-                <div class="bg-[#1d252c] box-border content-stretch flex flex-[1_0_0] flex-col gap-[16px] items-start min-h-px min-w-px px-[15px] py-[17px] relative rounded-[16px] shrink-0" data-name="event-card-esports" data-node-id="529:2513">
-                    <div class="aspect-[478/260] bg-[#f2f2f2] rounded-[8px] shrink-0 w-full" data-node-id="I529:2513;266:53"></div>
-                    <div class="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full" data-node-id="I529:2513;266:54">
-                        <p class="font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] w-full whitespace-pre-wrap" data-node-id="I529:2513;266:55">
-                            Thursday, October 12th | 10/16/25
-                        </p>
-                        <div class="content-stretch flex flex-col gap-[10px] items-start justify-center relative shrink-0 w-full" data-node-id="I529:2513;266:54">
-                            <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[32px] tracking-[-0.64px]" data-node-id="488:843">
-                                SF Shock
+            </h2>
+            <div class="events-grid" data-name="event-cards-container" data-node-id="529:2512">
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="529:2513">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I529:2513;260:209"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I529:2513;260:211">
+                                October 12th | 10/16/25
+                            </p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="I529:2513;260:212;194:56">
+                                Rocket League Event
+                            </h3>
+                            <p class="event-card-description">
+                                Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
                             </p>
                         </div>
-                        <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#f2f2f2] text-[14px] tracking-[-0.28px] w-full whitespace-pre-wrap" data-node-id="I529:2513;266:63">
-                            Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
-                        </p>
-                    </div>
-                    <div class="relative shrink-0 size-[36px]" data-node-id="I529:2513;266:60">
-                        <img alt="" class="block max-w-none size-full" src="https://www.figma.com/api/mcp/asset/48d622cc-54c1-4e7f-a08c-b7f94f58df59" />
-                    </div>
-                </div>
-                <!-- Event Card 2 -->
-                <div class="bg-[#1d252c] box-border content-stretch flex flex-[1_0_0] flex-col gap-[16px] items-start min-h-px min-w-px px-[15px] py-[17px] relative rounded-[16px] shrink-0" data-name="event-card-esports" data-node-id="529:2514">
-                    <div class="aspect-[478/260] bg-[#f2f2f2] rounded-[8px] shrink-0 w-full" data-node-id="I529:2514;266:53"></div>
-                    <div class="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full" data-node-id="I529:2514;266:54">
-                        <p class="font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] w-full whitespace-pre-wrap" data-node-id="I529:2514;266:55">
-                            Thursday, October 12th | 10/16/25
-                        </p>
-                        <div class="content-stretch flex flex-col gap-[10px] items-start justify-center relative shrink-0 w-full" data-node-id="I529:2514;266:54">
-                            <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[32px] tracking-[-0.64px]" data-node-id="488:843">
-                                SF Shock
-                            </p>
-                        </div>
-                        <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#f2f2f2] text-[14px] tracking-[-0.28px] w-full whitespace-pre-wrap" data-node-id="I529:2514;266:63">
-                            Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
-                        </p>
-                    </div>
-                    <div class="relative shrink-0 size-[36px]" data-node-id="I529:2514;266:60">
-                        <img alt="" class="block max-w-none size-full" src="https://www.figma.com/api/mcp/asset/48d622cc-54c1-4e7f-a08c-b7f94f58df59" />
-                    </div>
-                </div>
-                <!-- Event Card 3 -->
-                <div class="bg-[#1d252c] box-border content-stretch flex flex-[1_0_0] flex-col gap-[16px] items-start min-h-px min-w-px px-[15px] py-[17px] relative rounded-[16px] shrink-0" data-name="event-card-esports" data-node-id="529:2532">
-                    <div class="aspect-[478/260] bg-[#f2f2f2] rounded-[8px] shrink-0 w-full" data-node-id="I529:2532;266:53"></div>
-                    <div class="content-stretch flex flex-col gap-[6px] items-start relative shrink-0 w-full" data-node-id="I529:2532;266:54">
-                        <p class="font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] relative shrink-0 text-[#fcfcfc] text-[20px] tracking-[-0.4px] w-full whitespace-pre-wrap" data-node-id="I529:2532;266:55">
-                            Thursday, October 12th | 10/16/25
-                        </p>
-                        <div class="content-stretch flex flex-col gap-[10px] items-start justify-center relative shrink-0 w-full" data-node-id="I529:2532;266:54">
-                            <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[32px] tracking-[-0.64px]" data-node-id="488:843">
-                                SF Shock
-                            </p>
-                        </div>
-                        <p class="font-['Urbanist:Medium',sans-serif] font-medium leading-[normal] relative shrink-0 text-[#f2f2f2] text-[14px] tracking-[-0.28px] w-full whitespace-pre-wrap" data-node-id="I529:2532;266:63">
-                            Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
-                        </p>
-                    </div>
-                    <div class="relative shrink-0 size-[36px]" data-node-id="I529:2532;266:60">
-                        <img alt="" class="block max-w-none size-full" src="https://www.figma.com/api/mcp/asset/48d622cc-54c1-4e7f-a08c-b7f94f58df59" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 04-lounge-card-section -->
-        <div class="content-stretch flex flex-col gap-[15px] items-center overflow-clip relative rounded-[16px] shrink-0 w-full" data-name="04-lounge-card-section" data-node-id="529:2547">
-            <div class="bg-[#f2f2f2] box-border content-stretch flex flex-col gap-[17px] h-[971px] items-end p-[72px] relative rounded-[16px] shrink-0 w-full" data-name="lounge-card-container" data-node-id="529:2548">
-                <div class="h-[128px] relative shrink-0 w-[675px]" data-name="game-lounge-title" data-node-id="529:2549">
-                    <p class="absolute font-['Pressio:No._44_Bold_Condensed',sans-serif] leading-[normal] left-[639px] not-italic text-[#050708] text-[128px] text-right top-[-9.75px] tracking-[-2.56px] translate-x-[-100%] uppercase w-[656px] whitespace-pre-wrap" data-node-id="529:2550">
-                        GAME LOUNGE
-                    </p>
-                </div>
-                <div class="capitalize font-['Urbanist:Regular',sans-serif] font-normal h-[145px] leading-[0] relative shrink-0 text-[#1d252c] text-[0px] tracking-[-0.48px] w-[646px] whitespace-pre-wrap" data-node-id="529:2551">
-                    <p class="leading-[normal] mb-0 text-[24px]">The ArtU Game Lounge (AKA: The Knight Arcade) is an on</p>
-                    <p class="leading-[normal] text-[24px]">
-                        <span class="text-[#1d252c]">-campus hub for gamers of all levels; open play, team </span>practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. Students, staff, and faculty, are welcome.
-                    </p>
-                </div>
-                <div class="border-[#050708] border-[3px] border-solid box-border content-stretch flex flex-col gap-[20px] items-center justify-center px-[36px] py-[16px] relative rounded-[16px] shrink-0" data-name="Buttons-Mobile" data-node-id="529:2552">
-                    <p class="font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] relative shrink-0 text-[#050708] text-[40px] tracking-[-0.8px]" data-node-id="I529:2552;67:241">
-                        Visit the Lounge
-                    </p>
-                </div>
-            </div>
-            <div class="h-[20px] relative shrink-0 w-[228px]" data-name="carosel-container" data-node-id="529:2553">
-                <img alt="" class="block max-w-none size-full" src="https://www.figma.com/api/mcp/asset/3c77877d-a73e-49ee-9b06-a4f644bd450f" />
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Footer" data-node-id="529:2624">
-            <div class="bg-[#1d252c] box-border content-stretch flex items-start justify-between overflow-clip px-[36px] py-[16px] relative shrink-0 w-full" data-name="Footer-Top" data-node-id="I529:2624;255:113">
-                <div class="content-stretch flex flex-col gap-[160px] items-start relative shrink-0 w-[252px]" data-node-id="I529:2624;255:161">
-                    <div class="aspect-[1265.8192138671875/516.40234375] content-stretch flex flex-col gap-[10px] items-start relative shrink-0 w-full">
-                        <div class="flex-[1_0_0] min-h-px min-w-px relative shrink-0 w-full" data-name="Theme=Dark" data-node-id="119:54">
-                            <img alt="" class="absolute inset-0 max-w-none object-center object-cover pointer-events-none size-full" src="https://www.figma.com/api/mcp/asset/67dac030-a619-44c8-8562-e820fe1ff413" />
-                        </div>
-                    </div>
-                    <div class="content-stretch flex gap-[8px] items-center relative shrink-0" data-node-id="I529:2624;255:156">
-                        <div class="bg-[#ed1f33] box-border content-stretch flex flex-col gap-[10px] items-start px-[6px] py-[8px] relative rounded-[40px] shrink-0 size-[36px]" data-node-id="I529:2624;255:118">
-                            <div class="flex-[1_0_0] min-h-px min-w-px relative shrink-0 w-full" data-name="Frame" data-node-id="I529:2624;255:144">
-                                <img alt="" class="block max-w-none size-full" src="https://www.figma.com/api/mcp/asset/33d6000a-3eca-4888-9e62-26c6fb38f3c3" />
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I529:2513;260:218">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
                             </div>
                         </div>
-                        <div class="relative shrink-0 size-[36px]" data-node-id="I529:2624;255:126">
-                            <img alt="" class="block max-w-none size-full" src="https://www.figma.com/api/mcp/asset/8c03dfb1-3a37-4bac-8891-3bb6dafb5d66" />
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="529:2514">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I529:2514;260:209"></div>
                         </div>
-                        <div class="relative shrink-0 size-[36px]" data-node-id="I529:2624;255:152">
-                            <img alt="" class="block max-w-none size-full" src="https://www.figma.com/api/mcp/asset/48d622cc-54c1-4e7f-a08c-b7f94f58df59" />
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I529:2514;260:211">
+                                October 12th | 10/16/25
+                            </p>
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="I529:2514;260:212;194:56">
+                                Rocket League Event
+                            </h3>
+                            <p class="event-card-description">
+                                Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
+                            </p>
+                        </div>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I529:2514;260:218">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="content-stretch flex items-start justify-between relative shrink-0 w-[644px]" data-node-id="I529:2624;255:162">
-                    <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[24px] items-start min-h-px min-w-px pb-0 pt-[16px] px-0 relative shrink-0" data-node-id="I529:2624;255:158">
-                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[64px] tracking-[-1.28px] w-full whitespace-pre-wrap" data-node-id="I529:2624;255:130">
-                            Contact
-                        </p>
-                        <div class="content-stretch flex flex-col font-['Urbanist:Medium',sans-serif] font-medium gap-[12px] items-start leading-[normal] relative shrink-0 text-[#f2f2f2] text-[26px] tracking-[-0.52px] w-full" data-node-id="I529:2624;255:157">
-                            <p class="relative shrink-0" data-node-id="I529:2624;255:131">
-                                +(1)415-000-0000
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="529:2532">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I529:2532;260:209"></div>
+                        </div>
+                        <div class="event-card-body">
+                            <p class="event-card-date" data-node-id="I529:2532;260:211">
+                                October 12th | 10/16/25
                             </p>
-                            <p class="relative shrink-0" data-node-id="I529:2624;255:132">
-                                gamedev@art.edu
-                            </p>
-                            <p class="relative shrink-0" data-node-id="I529:2624;255:133">
-                                Get Directions
+                            <h3 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="I529:2532;260:212;194:56">
+                                Rocket League Event
+                            </h3>
+                            <p class="event-card-description">
+                                Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
                             </p>
                         </div>
-                    </div>
-                    <div class="box-border content-stretch flex flex-[1_0_0] flex-col gap-[24px] items-start min-h-px min-w-px pb-0 pt-[16px] px-0 relative shrink-0" data-node-id="I529:2624;255:160">
-                        <p class="font-['Pressio:No._43_Medium_Condensed',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#fcfcfc] text-[64px] tracking-[-1.28px]" data-node-id="I529:2624;255:140">
-                            Explore
-                        </p>
-                        <div class="content-stretch flex flex-col font-['Urbanist:Medium',sans-serif] font-medium gap-[12px] items-start leading-[normal] relative shrink-0 text-[#f2f2f2] text-[26px] tracking-[-0.52px] w-full" data-node-id="I529:2624;255:159">
-                            <p class="relative shrink-0" data-node-id="I529:2624;255:141">
-                                Home
-                            </p>
-                            <p class="relative shrink-0" data-node-id="I529:2624;255:142">
-                                Lounge
-                            </p>
-                            <p class="relative shrink-0" data-node-id="I529:2624;255:143">
-                                Events
-                            </p>
-                            <p class="relative shrink-0" data-node-id="I529:2624;255:151">
-                                Connect
-                            </p>
+                        <div class="event-card-footer">
+                            <div class="event-card-icon" data-node-id="I529:2532;260:218">
+                                <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="bg-[#050708] box-border content-stretch flex items-center justify-between px-[35px] py-[21px] relative shrink-0 w-full" data-name="Footer-Bottom" data-node-id="I529:2624;255:134">
-                <p class="font-['Urbanist:SemiBold',sans-serif] font-semibold leading-[normal] relative shrink-0 text-[#f2f2f2] text-[20px] text-center tracking-[-0.4px]" data-node-id="I529:2624;255:135">
-                    © 2025 Academy of Art University
-                </p>
-                <div class="content-stretch flex font-['Urbanist:SemiBold',sans-serif] font-semibold gap-[12px] items-center leading-[normal] relative shrink-0 text-[#f2f2f2] text-[20px] text-center tracking-[-0.4px]" data-node-id="I529:2624;255:136">
-                    <p class="relative shrink-0" data-node-id="I529:2624;255:137">
-                        Privacy
-                    </p>
-                    <p class="relative shrink-0" data-node-id="I529:2624;255:138">
-                        Terms
-                    </p>
+        </section>
+
+        <!-- 04-game-lounge-section -->
+        <section class="game-lounge-section" data-name="04-game-lounge-section" data-node-id="529:2548">
+            <div class="game-lounge-card" data-name="lounge-card-container" data-node-id="529:2548">
+                <div class="game-lounge-title-wrapper" data-name="game-lounge-title" data-node-id="529:2549">
+                    <h2 class="game-lounge-title font-pressio" data-node-id="529:2550">
+                        GAME LOUNGE
+                    </h2>
                 </div>
+                <div class="game-lounge-description" data-node-id="529:2551">
+                    <p>The ArtU Game Lounge (AKA: The Knight Arcade) is an on</p>
+                    <p><span>-campus hub for gamers of all levels; open play, team </span>practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. Students, staff, and faculty, are welcome.</p>
+                </div>
+                <button class="game-lounge-btn btn-primary btn-dark" data-name="Buttons-Mobile" data-node-id="529:2552">
+                    <span class="btn-text">Visit the Lounge</span>
+                </button>
             </div>
-        </div>
+        </section>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -5,25 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board Game Room</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div class="page-container flex-col gap-section items-center" data-name="boardGameArena_desktop" data-node-id="375:1018">
-        <!-- NavBar -->
-        <div class="nav-bar" data-name="NavBar" data-node-id="529:2827">
-            <div class="logo-container" data-name="Logo-Wordmark-Full" data-node-id="529:2830">
-                <div class="relative w-full" data-name="Theme=Dark" data-node-id="I529:2830;43:154">
-                    <img alt="" class="logo-img" src="http://localhost:3845/assets/8c45d48ad9647e61d53a4a21a56dc8436bc070c2.png" />
-                </div>
-            </div>
-            <div class="flex-row justify-end items-center" data-node-id="529:2831">
-                <div class="nav-menu" data-name="Destop_Nav_Menu" data-node-id="529:2832">
-                    <p class="nav-menu-item" data-node-id="529:2833">TEAMS ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2834">LOUNGE ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2835">EVENTS ▾</p>
-                    <p class="nav-menu-item" data-node-id="529:2836">CONNECT ▾</p>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo-wordmark">
+                    <div class="logo-container">
+                        <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
+                    </div>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <div class="frame">
+                    <div class="desktop-nav-menu">
+                        <a href="team.html" class="nav-item">TEAMS  ▾</a>
+                        <div class="nav-dropdown">
+                            <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
+                            <div class="dropdown-menu">
+                                <a href="knightarcade.html" class="dropdown-item"><h2>Knight Arcade</h2></a>
+                                <a href="boardgameroom.html" class="dropdown-item"><h2>Board Game Room</h2></a>
+                            </div>
+                        </div>
+                        <a href="events.html" class="nav-item">EVENTS  ▾</a>
+                        <a href="connect.html" class="nav-item">CONNECT  ▾</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </header>
+    <div class="page-container flex-col gap-section items-center" data-name="boardGameArena_desktop" data-node-id="375:1018">
 
         <!-- 01-hero-section -->
         <div class="flex-col gap-section items-center w-full" data-name="01-hero-section" data-node-id="732:1198">
@@ -218,6 +231,7 @@
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
 
