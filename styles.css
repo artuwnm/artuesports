@@ -2656,6 +2656,176 @@ img {
     display: block;
 }
 
+/* Links Section */
+.links-section {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 0 36px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 37px;
+    margin-bottom: 37px;
+}
+
+.links-section .event-card {
+    height: 798px;
+    width: 805px;
+    flex-shrink: 0;
+}
+
+.links-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 820px;
+    flex-shrink: 0;
+    height: 798px;
+    justify-content: space-between;
+}
+
+.links-teams-card {
+    height: 391px;
+    width: 803px;
+    background-color: white;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.links-teams-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('http://localhost:3845/assets/d7d2fb82375951d8aaa2c42e60ee6622559f490f.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+.links-card-overlay {
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(12.5px);
+    border: 1.5px solid var(--color-core-700);
+    border-radius: 8px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.links-card-content {
+    padding: 54px 134px;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+}
+
+.links-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.links-card-title {
+    font-family: 'pressio-condensed', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -1.28px;
+    text-transform: uppercase;
+    color: var(--color-core-50);
+    margin: 0;
+}
+
+.links-section .btn-learn-more {
+    font-size: 14px;
+    letter-spacing: -0.28px;
+    padding: 12px 54px;
+    height: 44px;
+    width: 154px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.links-card-description {
+    color: var(--color-core-50);
+    margin: 0;
+    width: 100%;
+}
+
+.links-community-card {
+    height: 391px;
+    width: 803px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.links-community-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('http://localhost:3845/assets/b5df4f63fa5e7043df103fcd460c8c7d91c2e122.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    z-index: 0;
+}
+
+.links-community-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(64, 84, 100, 0.31) 38.593%, rgba(5, 7, 8, 0.75));
+    backdrop-filter: blur(6px);
+    border-radius: 16px;
+    z-index: 1;
+}
+
+.links-community-content {
+    position: relative;
+    z-index: 2;
+    padding: 21px 140px 21px 135px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    height: 100%;
+    box-sizing: border-box;
+    justify-content: flex-start;
+}
+
+.links-community-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 587px;
+}
+
+.links-community-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.links-community-description {
+    color: var(--color-core-100);
+    margin: 0;
+    width: 100%;
+    height: 130.982px;
+}
+
 /* Lounge Section Styles */
 .lounge-section {
     height: 504px;
@@ -3834,5 +4004,44 @@ img {
 
     .tour-video-container {
         height: 400px;
+    }
+
+    /* Links Section - Mobile */
+    .links-section {
+        flex-direction: column;
+        gap: 24px;
+        padding: 0 16px;
+    }
+
+    .links-section .event-card {
+        width: 100%;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .links-cards-container {
+        width: 100%;
+    }
+
+    .links-teams-card,
+    .links-community-card {
+        width: 100%;
+        height: auto;
+        min-height: 300px;
+    }
+
+    .links-card-content,
+    .links-community-content {
+        padding: 24px;
+        gap: 24px;
+        height: auto;
+    }
+
+    .links-community-info {
+        width: 100%;
+    }
+
+    .links-community-description {
+        height: auto;
     }
 }
