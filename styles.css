@@ -2392,9 +2392,8 @@ img {
     gap: 16px;
     align-items: flex-start;
     width: 100%;
-    padding: 16px;
+    padding: 0;
     box-sizing: border-box;
-    min-height: calc(100vh - 100px);
 }
 
 .team-card {
