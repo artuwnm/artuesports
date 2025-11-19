@@ -10,7 +10,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Art U Esports</title>
 </head>
+
 <body>
+<main class="main-lounge-content"></main>
     <header class="navbar">
         <div class="nav-container">
             <div class="nav-content">
@@ -24,7 +26,7 @@
                 <!-- Navigation Menu -->
                 <div class="frame">
                     <div class="desktop-nav-menu">
-                        <a href="teams.html" class="nav-item">TEAMS  ▾</a>
+                        <a href="team.html" class="nav-item">TEAMS  ▾</a>
                         <div class="nav-dropdown">
                             <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
                             <div class="dropdown-menu">
@@ -97,8 +99,116 @@
         </div>
     </section>
 
-    <main class="main-content">
-        <!-- Content placeholder -->
+    <section class="location-section">
+        <div class="location-content">
+            <h1 class="location-heading">LOCATION / HOUR</h1>
+            <div class="location-hours-container">
+                <div class="location-hours-column location-hours-column-left">
+                    <p class="location-label">Location:</p>
+                    <p class="section-text">180 New Montgomery St.</p>
+                    <p class="section-text">7th Floor, Room 707</p>
+                    <p class="location-spacer">&nbsp;</p>
+                    <p class="location-label">Knight Arcade</p>
+                    <p class="location-label">Hours:</p>
+                    <p class="section-text">Mon–Sat [12:00–8:00 pm]</p>
+                    <p class="section-text">Sun [12:00-5:00pm]</p>
+                    <p class="location-spacer">&nbsp;</p>
+                    <p class="section-text">*Closed during Holidays</p>
+                </div>
+                <div class="location-hours-column location-hours-column-right">
+                    <p class="location-label">Board Game Room Hours:</p>
+                    <p class="section-text">Mon–Wed, Sat [12:00–8:00 pm]</p>
+                    <p class="section-text">Thu [12:00-9:00pm]</p>
+                    <p class="section-text">Fri [12:00-6:00pm]</p>
+                    <p class="section-text">Sun [12:00-5:00pm]</p>
+                </div>
+            </div>
+        </div>
+        <div class="location-map">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1608778999894!2d-122.40217982321008!3d37.78626937198244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807d16cced21%3A0xe502dcb9755ef890!2s180%20New%20Montgomery%20St%2C%20San%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1763354575039!5m2!1sen!2sus"
+                width="100%" 
+                height="100%" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                class="location-map-embed">
+            </iframe>
+            
+        </div>
+    </section>
+
+    <section class="tour-video-section">
+        <h1 class="section-title">TOUR VIDEO</h1>
+        <div class="tour-video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/t306YM54e3w?rel=0&modestbranding=1"
+                class="tour-video-embed"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                title="Tour Video"
+                width="100%"
+                height="100%">
+            </iframe>
+        </div>
+    </section>
+
+    <section class="links-section">
+        <div class="event-card" data-event-category="esports">
+            <div class="event-card-content">
+                <div class="event-card-image-wrapper">
+                    <div class="event-card-image"></div>
+                </div>
+                <div class="event-card-body">
+                    <p class="event-card-date">Thursday, October 12th | 10/16/25</p>
+                    <h3 class="event-card-title font-pressio-medium">ECAC Tournament</h3>
+                    <p class="event-card-description">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                </div>
+                <div class="event-card-footer">
+                    <div class="event-card-icon">
+                        <img src="https://www.figma.com/api/mcp/asset/cd064521-ccfc-4263-999b-5403ef9a983b" alt="Event icon" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="links-cards-container">
+            <div class="links-teams-card">
+                <div class="links-card-overlay">
+                    <div class="links-card-content">
+                        <div class="links-card-header">
+                            <h2 class="links-card-title">TEAMS</h2>
+                            <a href="team.html" class="btn-learn-more">Learn More</a>
+                        </div>
+                        <p class="links-card-description p2">A comprehensive guide to the ArtU Esports program. Not sure where to start? we got you covered.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="links-community-card">
+                <div class="links-community-overlay">
+                    <div class="links-community-content">
+                        <h2 class="links-card-title">COMMUNITY</h2>
+                        <div class="links-community-info">
+                            <div class="links-community-header">
+                                <div class="social-icons">
+                                    <div class="social-icon social-icon-primary">
+                                        <img src="img/discord-icon.svg" alt="Discord">
+                                    </div>
+                                    <div class="social-icon">
+                                        <img src="img/instagram-icon.svg" alt="Instagram">
+                                    </div>
+                                </div>
+                                <a href="connect.html" class="btn-learn-more">Learn More</a>
+                            </div>
+                            <p class="links-community-description p2">Our community is built on the pillars of teamwork, craft, and a shared passion for play. Whether you're aiming for a varsity spot, want to join a broadcast crew, or just want to meet new friends in the game lounge, there's a place for you here. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
     </main>
     
     <footer class="footer">
@@ -110,14 +220,14 @@
                     </div>
                 </div>
                 <div class="social-icons">
-                    <div class="social-icon social-icon-primary">
-                        <img src="http://localhost:3845/assets/f50df792c86b0def944e5ba573a63913eaf5de94.svg" alt="Social Icon">
+                    <div class="social-icon">
+                        <img src="img/discord-icon.svg" alt="Discord">
                     </div>
                     <div class="social-icon">
-                        <img src="http://localhost:3845/assets/2b1fef3d82b188149c7dd66f3cd918a190539660.svg" alt="Social Icon">
+                        <img src="img/instagram-icon.svg" alt="Instagram">
                     </div>
                     <div class="social-icon">
-                        <img src="http://localhost:3845/assets/087aa232869e1731fe2992879da36a4b9bce0b86.svg" alt="Social Icon">
+                        <img src="img/twitch-icon.svg" alt="Twitch">
                     </div>
                 </div>
             </div>
@@ -135,8 +245,8 @@
                     <div class="footer-links">
                         <a href="index.html" class="footer-link">Home</a>
                         <a href="lounge.html" class="footer-link">Lounge</a>
-                        <p class="footer-link">Events</p>
-                        <p class="footer-link">Connect</p>
+                        <a href="events.html" class="footer-link">Events</a>
+                        <a href="connect.html" class="footer-link">Connect</a>
                     </div>
                 </div>
             </div>
@@ -144,8 +254,8 @@
         <div class="footer-bottom">
             <p class="footer-copyright">© 2025 Academy of Art University</p>
             <div class="footer-legal">
-                <p class="footer-legal-link">Privacy</p>
-                <p class="footer-legal-link">Terms</p>
+                <a href="privacy.html" class="footer-legal-link">Privacy</a>
+                <a href="#" class="footer-legal-link">Terms</a>
             </div>
         </div>
     </footer>
