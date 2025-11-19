@@ -231,18 +231,25 @@ $(function(){
 
 
 
-// Dropdown Menu Toggle
+// Dropdown Menu Toggle (Desktop only)
 $(function(){
+	// Check if we're on desktop (not tablet/mobile)
+	function isDesktop() {
+		return window.innerWidth > 1024;
+	}
+	
 	let dropdownTimeout;
 	
-	// Show dropdown on hover with delay
+	// Show dropdown on hover with delay (desktop only)
 	$(".nav-dropdown").on("mouseenter", function(){
+		if (!isDesktop()) return;
 		clearTimeout(dropdownTimeout);
 		$(this).addClass("active");
 	});
 	
-	// Hide dropdown on mouse leave with small delay
+	// Hide dropdown on mouse leave with small delay (desktop only)
 	$(".nav-dropdown").on("mouseleave", function(){
+		if (!isDesktop()) return;
 		const $dropdown = $(this);
 		dropdownTimeout = setTimeout(function(){
 			$dropdown.removeClass("active");
@@ -254,8 +261,9 @@ $(function(){
 		// Allow normal navigation
 	});
 	
-	// Toggle dropdown on click (for mobile/touch)
+	// Toggle dropdown on click (desktop only - mobile uses hamburger menu)
 	$(".nav-dropdown").on("click", function(e){
+		if (!isDesktop()) return;
 		if($(e.target).hasClass("nav-item")) {
 			// Allow the link to work - don't prevent default
 			return;
@@ -263,15 +271,21 @@ $(function(){
 		$(this).toggleClass("active");
 	});
 	
-	// Close dropdown when clicking outside
+	// Close dropdown when clicking outside (desktop only)
 	$(document).on("click", function(e){
+		if (!isDesktop()) return;
+		// Don't close dropdown if clicking hamburger button
+		if ($(e.target).closest(".hamburger-menu-btn").length > 0) {
+			return;
+		}
 		if(!$(e.target).closest(".nav-dropdown").length) {
 			$(".nav-dropdown").removeClass("active");
 		}
 	});
 	
-	// Prevent dropdown from closing when clicking inside it
+	// Prevent dropdown from closing when clicking inside it (desktop only)
 	$(".dropdown-menu").on("click", function(e){
+		if (!isDesktop()) return;
 		e.stopPropagation();
 	});
 });
@@ -602,6 +616,8 @@ $(function(){
 		$("#event-overlay-description").text(description);
 		$("#event-overlay-date").text(date);
 		$("#event-overlay-time").text(time);
+		$("#event-overlay-date-tablet").text(date);
+		$("#event-overlay-time-tablet").text(time);
 		
 		// Copy image if it exists
 		const $overlayImage = $("#event-overlay-image");
@@ -719,12 +735,18 @@ $(function(){
 });
 
 // Mobile Menu Toggle Functionality
-$(function(){
+$(document).ready(function(){
 	const $hamburgerBtn = $('.hamburger-menu-btn');
 	const $mobileMenuOverlay = $('#mobileMenuOverlay');
 	const $mobileMenuPanel = $('#mobileMenuPanel');
 	const $mobileLoungeMenu = $('#mobileLoungeMenu');
 	const $mobileLoungeSubmenu = $('#mobileLoungeSubmenu');
+	
+	// Check if elements exist
+	if ($hamburgerBtn.length === 0 || $mobileMenuOverlay.length === 0 || $mobileMenuPanel.length === 0) {
+		console.warn('Mobile menu elements not found');
+		return;
+	}
 	
 	// Toggle mobile menu
 	function toggleMobileMenu() {
@@ -744,27 +766,48 @@ $(function(){
 		$mobileMenuPanel.removeClass('active');
 		$('body').css('overflow', '');
 		// Close any open submenus
-		$mobileLoungeMenu.removeClass('expanded');
-		$mobileLoungeSubmenu.removeClass('active');
+		if ($mobileLoungeMenu.length > 0) {
+			$mobileLoungeMenu.removeClass('expanded');
+		}
+		if ($mobileLoungeSubmenu.length > 0) {
+			$mobileLoungeSubmenu.removeClass('active');
+		}
 	}
 	
 	// Open/close menu on hamburger button click
 	$hamburgerBtn.on('click', function(e) {
+		e.preventDefault();
 		e.stopPropagation();
+		e.stopImmediatePropagation();
 		toggleMobileMenu();
+		return false;
 	});
 	
 	// Close menu when clicking overlay
-	$mobileMenuOverlay.on('click', function() {
+	$mobileMenuOverlay.on('click', function(e) {
+		e.stopPropagation();
 		closeMobileMenu();
 	});
 	
-	// Toggle LOUNGE submenu
-	$mobileLoungeMenu.on('click', function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		$(this).toggleClass('expanded');
-		$mobileLoungeSubmenu.toggleClass('active');
+	// Toggle LOUNGE submenu (only the toggle button, not the link)
+	if ($mobileLoungeMenu.length > 0) {
+		$mobileLoungeMenu.on('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			$(this).toggleClass('expanded');
+			if ($mobileLoungeSubmenu.length > 0) {
+				$mobileLoungeSubmenu.toggleClass('active');
+			}
+		});
+	}
+	
+	// Allow LOUNGE link to navigate normally (don't prevent default)
+	$('.mobile-menu-item-with-submenu .mobile-menu-item').on('click', function(e) {
+		// Allow normal navigation - don't prevent default
+		// Close the mobile menu after navigation
+		setTimeout(function() {
+			closeMobileMenu();
+		}, 100);
 	});
 	
 	// Close menu when clicking a menu item (navigation)
@@ -787,5 +830,17 @@ $(function(){
 	// Prevent menu panel clicks from closing the menu
 	$mobileMenuPanel.on('click', function(e) {
 		e.stopPropagation();
+	});
+	
+	// Prevent clicks on hamburger button from bubbling to document
+	$(document).on('click', function(e) {
+		// Don't close mobile menu if clicking hamburger button
+		if ($(e.target).closest('.hamburger-menu-btn').length > 0) {
+			return;
+		}
+		// Don't close mobile menu if clicking inside mobile menu panel
+		if ($(e.target).closest('.mobile-menu-panel').length > 0) {
+			return;
+		}
 	});
 });
