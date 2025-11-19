@@ -35,10 +35,38 @@
                         <a href="events.html" class="nav-item">EVENTS  ▾</a>
                         <a href="connect.html" class="nav-item">CONNECT  ▾</a>
                     </div>
+                    <!-- Hamburger Menu Button (Tablet/Mobile) -->
+                    <button class="hamburger-menu-btn" aria-label="Open menu">
+                        <div class="hamburger-menu-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fcfcfc">
+                                <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                            </svg>
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
     </header>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-menu-item">HOME</a>
+            <a href="teams.html" class="mobile-menu-item">TEAMS</a>
+            <button class="mobile-menu-item has-submenu" id="mobileLoungeMenu">
+                LOUNGE
+            </button>
+            <div class="mobile-submenu" id="mobileLoungeSubmenu">
+                <a href="knightarcade.html" class="mobile-submenu-item">Knight Arcade</a>
+                <a href="boardgameroom.html" class="mobile-submenu-item">Board Game Room</a>
+            </div>
+            <a href="events.html" class="mobile-menu-item">EVENTS</a>
+            <a href="connect.html" class="mobile-menu-item">CONNECT</a>
+        </div>
+    </div>
     
     <div class="carousel" data-timer="8">
 		<div class="carousel-content-wrapper">

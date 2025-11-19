@@ -717,3 +717,75 @@ $(function(){
 		window.open(calendarUrl, "_blank");
 	});
 });
+
+// Mobile Menu Toggle Functionality
+$(function(){
+	const $hamburgerBtn = $('.hamburger-menu-btn');
+	const $mobileMenuOverlay = $('#mobileMenuOverlay');
+	const $mobileMenuPanel = $('#mobileMenuPanel');
+	const $mobileLoungeMenu = $('#mobileLoungeMenu');
+	const $mobileLoungeSubmenu = $('#mobileLoungeSubmenu');
+	
+	// Toggle mobile menu
+	function toggleMobileMenu() {
+		$mobileMenuOverlay.toggleClass('active');
+		$mobileMenuPanel.toggleClass('active');
+		// Prevent body scroll when menu is open
+		if ($mobileMenuPanel.hasClass('active')) {
+			$('body').css('overflow', 'hidden');
+		} else {
+			$('body').css('overflow', '');
+		}
+	}
+	
+	// Close mobile menu
+	function closeMobileMenu() {
+		$mobileMenuOverlay.removeClass('active');
+		$mobileMenuPanel.removeClass('active');
+		$('body').css('overflow', '');
+		// Close any open submenus
+		$mobileLoungeMenu.removeClass('expanded');
+		$mobileLoungeSubmenu.removeClass('active');
+	}
+	
+	// Open/close menu on hamburger button click
+	$hamburgerBtn.on('click', function(e) {
+		e.stopPropagation();
+		toggleMobileMenu();
+	});
+	
+	// Close menu when clicking overlay
+	$mobileMenuOverlay.on('click', function() {
+		closeMobileMenu();
+	});
+	
+	// Toggle LOUNGE submenu
+	$mobileLoungeMenu.on('click', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		$(this).toggleClass('expanded');
+		$mobileLoungeSubmenu.toggleClass('active');
+	});
+	
+	// Close menu when clicking a menu item (navigation)
+	$('.mobile-menu-item[href]').on('click', function() {
+		closeMobileMenu();
+	});
+	
+	// Close menu when clicking a submenu item
+	$('.mobile-submenu-item').on('click', function() {
+		closeMobileMenu();
+	});
+	
+	// Close menu on escape key
+	$(document).on('keydown', function(e) {
+		if (e.key === 'Escape' && $mobileMenuPanel.hasClass('active')) {
+			closeMobileMenu();
+		}
+	});
+	
+	// Prevent menu panel clicks from closing the menu
+	$mobileMenuPanel.on('click', function(e) {
+		e.stopPropagation();
+	});
+});
