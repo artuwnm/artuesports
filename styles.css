@@ -5163,3 +5163,500 @@ img {
         height: auto;
     }
 }
+
+/* ============================================
+   Mobile Styles for Index.html (Figma Design)
+   ============================================ */
+@media screen and (max-width: 768px) {
+    /* Mobile Navbar - Dark grey background, smaller padding */
+    .navbar {
+        background-color: var(--color-bg-800);
+    }
+    
+    .nav-content {
+        padding: 14px 12px;
+    }
+    
+    .logo-container {
+        width: 127px;
+        height: 52px;
+    }
+    
+    .logo-image {
+        width: 127px;
+        height: 52px;
+        object-fit: contain;
+    }
+    
+    /* Main container padding - 16px on mobile */
+    [data-name="home-desktop"],
+    [data-name="home-mobile"] {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        gap: 37px;
+    }
+    
+    /* Hero Section Mobile */
+    [data-name="01-hero-section"] {
+        gap: 15px;
+    }
+    
+    /* Hero carousel - aspect ratio 779/1168 on mobile */
+    [data-name="hero-carousel-container"] .carousel-deck {
+        aspect-ratio: 779 / 1168;
+        border-radius: 16px;
+    }
+    
+    /* Carousel pagination - smaller on mobile (10px height, 114px width) */
+    .carousel-pagination-wrapper {
+        width: 114px;
+        height: 10px;
+    }
+    
+    .carousel-paginate {
+        width: 10px;
+        height: 10px;
+    }
+    
+    /* Hero text container */
+    [data-name="hero-text-container"] {
+        gap: 18px;
+    }
+    
+    [data-name="hero-title-container"] h1 {
+        font-size: 64px !important;
+        letter-spacing: -1.28px;
+    }
+    
+    [data-name="hero-description"] .p1 {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+        font-weight: 600; /* SemiBold */
+    }
+    
+    /* News and Events Section Mobile */
+    [data-name="02-news-events-section"] {
+        gap: 36px;
+    }
+    
+    /* News and Events Title - wrap to 2 rows on mobile */
+    [data-name="02-news-events-section"] h1 {
+        font-size: 64px !important;
+        letter-spacing: -1.28px;
+        white-space: normal;
+        line-height: 1.1;
+    }
+    
+    /* Filter bar container - horizontal layout on mobile */
+    [data-name="filter-bar-container"] {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+        height: 24px;
+        margin-top: -7px;
+    }
+    
+    /* Filter chips - different styling on mobile */
+    .index-filter-chip {
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+    }
+    
+    .index-filter-chip.is-active {
+        color: var(--color-primary);
+        font-weight: 500; /* Medium */
+        font-size: 20px;
+    }
+    
+    .index-filter-chip:not(.is-active) {
+        font-weight: 400; /* Regular */
+        color: var(--color-core-100);
+        font-size: 16px;
+    }
+    
+    /* Filter chips container */
+    [data-name="filter-bar-container"] > div:first-child {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+        height: 24px;
+    }
+    
+    /* "See All" button - mobile styling (1.5px border, smaller padding) */
+    [data-name="filter-bar-container"] a[data-name="Buttons-Mobile"] {
+        border-width: 1.5px !important;
+        padding: 8px 18px !important;
+        border-radius: 16px;
+        gap: 10px;
+    }
+    
+    [data-name="filter-bar-container"] a[data-name="Buttons-Mobile"] .p2 {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+    }
+    
+    /* Event cards grid - 2 columns on mobile */
+    .index-events-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    /* Event cards - 2 column layout within rows */
+    .index-events-grid > div:first-child {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+    
+    .index-events-grid [data-name="event-card-two-collumn"] {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        height: 274px;
+        width: 100%;
+    }
+    
+    /* Event card mobile styling */
+    .index-events-grid .event-card {
+        flex: 1 0 0;
+        min-width: 0;
+        height: 274px;
+        padding: 14px 12px;
+        border-radius: 12px;
+        border: 4px solid var(--color-bg-primary);
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Event card content */
+    .index-events-grid .event-card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 100%;
+        flex: 1;
+    }
+    
+    /* Event card image - aspect ratio 190/110 */
+    .index-events-grid .event-card-image {
+        aspect-ratio: 190 / 110;
+        border-radius: 8px;
+        width: 100%;
+    }
+    
+    /* Event card body */
+    .index-events-grid .event-card-body {
+        gap: 2px;
+        flex-shrink: 0;
+    }
+    
+    /* Event card date - P2 Mobile: 12px */
+    .index-events-grid .event-card-date {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+        margin: 0;
+    }
+    
+    /* Event card title - H3 Mobile: 32px */
+    .index-events-grid .event-card-title {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+        margin: 0;
+    }
+    
+    /* Hide event card description on mobile */
+    .index-events-grid .event-card-description {
+        display: none;
+    }
+    
+    /* Event card icon - 30px, positioned at bottom */
+    .index-events-grid .event-card-icon {
+        width: 30px;
+        height: 30px;
+        margin-top: auto;
+        flex-shrink: 0;
+        align-self: flex-start;
+    }
+    
+    .index-events-grid .event-card-icon img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+    }
+    
+    /* Teams Section Mobile */
+    [data-name="03-teams-section"] {
+        gap: 29.75px;
+        align-items: flex-end;
+    }
+    
+    [data-name="teams-container"] {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    [data-name="03-teams-section"] h1 {
+        font-size: 64px !important;
+        letter-spacing: -1.28px;
+    }
+    
+    /* Teams "Join the Teams" button - mobile styling */
+    [data-name="03-teams-section"] a[data-name="Buttons-Mobile"] {
+        border-width: 1.5px !important;
+        padding: 8px 18px !important;
+        border-radius: 16px;
+        gap: 10px;
+    }
+    
+    [data-name="03-teams-section"] a[data-name="Buttons-Mobile"] .p2 {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+    }
+    
+    /* Teams cards container - 2 columns side by side */
+    .teams-cards-container {
+        display: flex;
+        flex-direction: row;
+        gap: 12.5px;
+        height: 223px;
+        width: 100%;
+    }
+    
+    .teams-cards-container .team-card {
+        flex: 1 0 0;
+        min-width: 0;
+        height: 223px;
+    }
+    
+    /* Lounge Section Mobile */
+    [data-name="04-lounge-section"] {
+        gap: 29.75px;
+        height: auto;
+        min-height: 767px;
+    }
+    
+    [data-name="lounge-container"] {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    [data-name="04-lounge-section"] h1 {
+        font-size: 64px !important;
+        letter-spacing: -1.28px;
+    }
+    
+    /* Lounge "Visit Lounge" button - mobile styling */
+    [data-name="04-lounge-section"] a[data-name="Buttons-Mobile"] {
+        border-width: 1.5px !important;
+        padding: 8px 18px !important;
+        border-radius: 16px;
+        gap: 10px;
+    }
+    
+    [data-name="04-lounge-section"] a[data-name="Buttons-Mobile"] .p2 {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+        color: var(--color-core-50);
+    }
+    
+    /* Lounge description - P1 Mobile: 14px */
+    [data-name="04-lounge-section"] .p1 {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+        font-weight: 500; /* Medium */
+        height: auto;
+        min-height: 85px;
+    }
+    
+    /* Lounge cards - 2 columns side by side, then stacked */
+    .room-cards-container {
+        display: flex;
+        flex-direction: row;
+        gap: 12.5px;
+        height: 581px;
+        width: 100%;
+    }
+    
+    .room-cards-container .room-card {
+        flex: 1 0 0;
+        min-width: 0;
+    }
+    
+    .room-card-image-wrapper {
+        height: 256.42px;
+    }
+    
+    .room-card-title {
+        font-size: 40px;
+        letter-spacing: -0.8px;
+        height: 68px;
+    }
+    
+    /* Community Section Mobile */
+    [data-name="04-community-section"] {
+        gap: 0;
+        height: auto;
+        min-height: 767px;
+    }
+    
+    [data-name="04-community-section"] > div:first-child {
+        gap: 29.75px;
+    }
+    
+    [data-name="04-community-section"] h1 {
+        font-size: 64px !important;
+        letter-spacing: -1.28px;
+    }
+    
+    /* Community "Connect with Us" button - mobile styling */
+    [data-name="04-community-section"] a[data-name="Buttons-Mobile"] {
+        border-width: 1.5px !important;
+        padding: 8px 18px !important;
+        border-radius: 16px;
+        gap: 10px;
+    }
+    
+    [data-name="04-community-section"] a[data-name="Buttons-Mobile"] .p2 {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+        color: var(--color-core-50);
+    }
+    
+    /* Community description - P1 Mobile: 14px */
+    [data-name="04-community-section"] .p1 {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+        font-weight: 500; /* Medium */
+        height: 34px;
+    }
+    
+    /* Community carousel - aspect ratio 779/1168 on mobile */
+    [data-name="04-community-section"] [data-name="hero-carousel-container"] .carousel-deck {
+        aspect-ratio: 779 / 1168;
+        border-radius: 16px;
+    }
+    
+    /* Academic Opportunities Section Mobile */
+    [data-name="05-academic-opportunities-section"] {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        gap: 22px;
+    }
+    
+    [data-name="05-academic-opportunities-section"] h1,
+    .academic-opportunities-title {
+        font-size: 40px !important;
+        letter-spacing: -0.8px;
+        text-align: center;
+    }
+    
+    /* Academic opportunities description - P2 Mobile: 12px with gradient */
+    [data-name="academic-opportunities-container"] .text-gradient {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+        -webkit-text-fill-color: transparent;
+        background: linear-gradient(to bottom, var(--color-core-100), var(--color-bg-900) 122.14%);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+    
+    /* Academic opportunities button - red background, mobile styling */
+    [data-name="05-academic-opportunities-section"] a[data-name="Buttons-Mobile"] {
+        background-color: var(--color-primary) !important;
+        border: none !important;
+        padding: 8px 18px !important;
+        border-radius: 16px;
+        gap: 10px;
+    }
+    
+    [data-name="05-academic-opportunities-section"] a[data-name="Buttons-Mobile"] .p2 {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+        color: var(--color-core-50);
+    }
+    
+    /* Footer Mobile */
+    .footer-top {
+        padding: 14px 12px;
+        gap: 10px;
+    }
+    
+    .footer-left {
+        width: 116px;
+        gap: 52px;
+    }
+    
+    .footer-left .logo-container {
+        width: 100%;
+        aspect-ratio: 1265.8192138671875 / 516.40234375;
+    }
+    
+    .social-icons {
+        gap: 10px;
+    }
+    
+    .social-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .social-icon-primary {
+        background-color: var(--color-primary);
+        border-radius: 40px;
+    }
+    
+    .footer-right {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        width: auto;
+    }
+    
+    .footer-section {
+        gap: 8px;
+        padding-top: 6px;
+    }
+    
+    .footer-heading {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+        font-weight: 500; /* Medium */
+    }
+    
+    .footer-link {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+        font-weight: 600; /* SemiBold */
+    }
+    
+    .footer-bottom {
+        padding: 8px 12px;
+        height: 26px;
+    }
+    
+    .footer-copyright {
+        font-size: 8px;
+    }
+    
+    .footer-legal {
+        gap: 12px;
+    }
+    
+    .footer-legal-link {
+        font-size: 8px;
+    }
+}
