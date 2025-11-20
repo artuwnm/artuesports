@@ -140,9 +140,13 @@ a:hover {
 /* Navbar (from style.css - main nav bar) */
 .navbar {
     background-color: var(--color-bg-800);
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     box-sizing: border-box;
+    z-index: 1002;
 }
 
 .nav-container {
@@ -3706,7 +3710,7 @@ img {
     font-size: 32px;
     line-height: 1;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 1003;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3736,7 +3740,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 70px;
-    padding: 35px 36px;
+    padding: 120px 36px 35px;
     max-width: 100%;
     min-height: 100vh;
     align-items: center;
@@ -4273,6 +4277,19 @@ img {
     }
 }
 
+/* Teams Cards Stack Vertically at 1280px */
+@media screen and (max-width: 1280px) {
+    .teams-cards-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .team-card {
+        width: 100%;
+        flex: none;
+    }
+}
+
 /* Tablet Breakpoint (834px - iPad Pro portrait, etc.) */
 @media screen and (min-width: 769px) and (max-width: 900px) {
     /* Navigation adjustments for tablet */
@@ -4627,7 +4644,7 @@ img {
     /* Event Overlay - Tablet */
     .event-overlay-content {
         gap: 90px;
-        padding: 0 12px;
+        padding: 120px 12px 0;
         align-items: flex-start;
     }
 
@@ -4923,7 +4940,7 @@ img {
     }
     
     .event-overlay-content {
-        padding: 24px 16px;
+        padding: 120px 16px 24px;
         gap: 40px;
     }
 
