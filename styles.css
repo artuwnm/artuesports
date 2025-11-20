@@ -591,7 +591,7 @@ a:hover {
 
 .carousel-deck {
     width: 100%;
-    height: 971px;
+    aspect-ratio: 1920 / 1080; /* 16:9 aspect ratio */
     position: relative;
     overflow: hidden;
     border-radius: 16px;
@@ -637,6 +637,25 @@ a:hover {
     font-family: 'Urbanist', sans-serif;
     font-size: 18px;
     color: #666;
+}
+
+/* Community carousel slide content - ensure full height and proper positioning */
+.carousel-slide [data-name="lounge-card-container"] {
+    min-height: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* Ensure carousel slide content is visible */
+.carousel-slide > div {
+    overflow: visible;
+}
+
+/* Ensure Community title is visible */
+.carousel-slide [data-name="game-lounge-title"] h1 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .carousel-arrow {
@@ -2662,9 +2681,10 @@ img {
     gap: 16px;
     align-items: flex-start;
     width: 100%;
-    padding: 16px;
+    padding: 0;
     box-sizing: border-box;
-    min-height: calc(100vh - 100px);
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .team-card {
@@ -2983,6 +3003,36 @@ img {
     white-space: nowrap;
     width: auto;
     max-width: 100%;
+}
+
+/* Academic Opportunities Title - allows wrapping on tablet */
+.academic-opportunities-title {
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
+}
+
+/* News and Events Title - responsive wrapping */
+.news-events-title-responsive {
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/* Allow wrapping on tablet and mobile */
+@media screen and (max-width: 1200px) {
+    .academic-opportunities-title {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+    }
+
+    .news-events-title-responsive {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
 }
 
 .academic-content {
@@ -4214,6 +4264,203 @@ img {
     }
 }
 
+/* Tablet Breakpoint (834px - iPad Pro portrait, etc.) */
+@media screen and (min-width: 769px) and (max-width: 900px) {
+    /* Navigation adjustments for tablet */
+    .nav-content {
+        padding: 20px 24px;
+    }
+
+    .desktop-nav-menu {
+        gap: 32px;
+        font-size: 24px;
+    }
+
+    .frame {
+        gap: 64px;
+    }
+
+    /* Room Cards - Keep side by side on tablet */
+    .room-cards-container {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .room-card-title {
+        font-size: 72px;
+        letter-spacing: -1.44px;
+    }
+
+    .room-card-content {
+        padding: 32px 24px;
+    }
+
+    /* Teams Cards - Keep side by side on tablet */
+    .teams-cards-container {
+        flex-direction: row;
+        gap: 12px;
+        padding: 0;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .team-card {
+        flex: 1 1 0;
+        height: 550px;
+        min-height: 550px;
+        border-radius: 16px;
+    }
+
+    .team-card .team-card-bg {
+        border-radius: 16px;
+    }
+
+    .team-card-title {
+        font-size: 96px;
+        letter-spacing: -1.92px;
+    }
+
+    /* Content section padding */
+    .content-section {
+        padding: 0 24px;
+    }
+
+    /* Carousel adjustments - maintains 1920x1080 aspect ratio */
+    .carousel-deck {
+        aspect-ratio: 1920 / 1080; /* 16:9 aspect ratio */
+    }
+
+    /* Community carousel content adjustments for tablet */
+    .carousel-slide [data-name="lounge-card-container"] {
+        padding: 48px 36px;
+        gap: 16px;
+    }
+
+    .carousel-slide [data-name="game-lounge-title"] {
+        width: 675px;
+        max-width: 100%;
+    }
+
+    .carousel-slide [data-name="game-lounge-title"] h1 {
+        font-size: 48px;
+        text-align: center;
+        display: block !important;
+        position: relative;
+        left: auto;
+        transform: none;
+        width: 100%;
+    }
+
+    .carousel-slide [data-name="lounge-card-container"] > div:nth-child(2) {
+        width: 646px;
+        max-width: 100%;
+        height: auto;
+        min-height: 304px;
+    }
+
+    .carousel-slide [data-name="lounge-card-container"] > div:nth-child(2) p {
+        font-size: 20px;
+        text-align: left;
+    }
+
+    /* Footer adjustments */
+    .footer-top {
+        padding: 16px 24px;
+    }
+
+    .footer-left {
+        gap: 120px;
+    }
+
+    /* Event cards grid */
+    .index-events-grid,
+    .events-grid,
+    .events-recaps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    /* Game lounge card */
+    .game-lounge-card {
+        padding: 56px 48px;
+    }
+
+    .game-lounge-title {
+        font-size: 96px;
+        letter-spacing: -1.92px;
+    }
+
+    .game-lounge-description {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    /* Main container and section spacing */
+    [data-name="home-desktop"] {
+        gap: 32px;
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+
+    /* Hero section adjustments */
+    [data-name="01-hero-section"] {
+        gap: 32px;
+    }
+
+    /* News and events section */
+    [data-name="02-news-events-section"] {
+        gap: 32px;
+    }
+
+    /* Teams section */
+    [data-name="03-teams-section"] {
+        gap: 12px;
+    }
+
+    /* Lounge section */
+    [data-name="04-lounge-section"] {
+        gap: 12px;
+    }
+
+    /* Academic opportunities section */
+    [data-name="05-academic-opportunities-section"] {
+        padding-left: 12px;
+        padding-right: 12px;
+        gap: 20px;
+    }
+
+    /* Community card section */
+    [data-name="04-community-card-section"] {
+        gap: 12px;
+    }
+
+    /* Filter bar adjustments */
+    [data-name="filter-bar-container"] {
+        gap: 36px;
+    }
+
+    .index-filter-chip {
+        font-size: 18px;
+    }
+
+    /* Academic Opportunities Title - wrap to 2 rows on tablet */
+    .academic-opportunities-title {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+    /* News and Events Title - wrap to 2 rows on tablet */
+    .news-events-title-responsive {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+}
+
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
     .events-grid,
@@ -4300,51 +4547,53 @@ img {
         width: 100%;
     }
 
-    /* Room Cards Section - Tablet */
-    .room-cards-container {
-        flex-direction: column;
-        gap: 16px;
-    }
+    /* Room Cards Section - Tablet (only for smaller tablets) */
+    @media (max-width: 900px) {
+        .room-cards-container {
+            flex-direction: column;
+            gap: 16px;
+        }
 
-    .room-card-title {
-        font-size: 96px;
-        letter-spacing: -1.92px;
-    }
+        .room-card-title {
+            font-size: 96px;
+            letter-spacing: -1.92px;
+        }
 
-    .room-card-content {
-        padding: 36px;
-    }
+        .room-card-content {
+            padding: 36px;
+        }
 
-    /* Teams Cards Section - Tablet */
-    .teams-cards-container {
-        flex-direction: column;
-        gap: 16px;
-        padding: 0;
-        width: 100vw;
-        margin-left: calc(-1 * var(--spacing-container));
-        margin-right: calc(-1 * var(--spacing-container));
-    }
+        /* Teams Cards Section - Smaller tablets */
+        .teams-cards-container {
+            flex-direction: column;
+            gap: 16px;
+            padding: 0;
+            width: 100vw;
+            margin-left: calc(-1 * var(--spacing-container));
+            margin-right: calc(-1 * var(--spacing-container));
+        }
 
-    .team-card {
-        width: 100%;
-        height: 500px;
-        min-height: 500px;
-        padding: 0;
-        flex: none;
-        border-radius: 0;
-    }
+        .team-card {
+            width: 100%;
+            height: 500px;
+            min-height: 500px;
+            padding: 0;
+            flex: none;
+            border-radius: 0;
+        }
 
-    .team-card .team-card-bg {
-        border-radius: 0;
-    }
+        .team-card .team-card-bg {
+            border-radius: 0;
+        }
 
-    .team-card:last-child {
-        padding: 0;
-    }
+        .team-card:last-child {
+            padding: 0;
+        }
 
-    .team-card-title {
-        font-size: 128px; /* H1: Tablet - 128px */
-        letter-spacing: -2.56px;
+        .team-card-title {
+            font-size: 128px; /* H1: Tablet - 128px */
+            letter-spacing: -2.56px;
+        }
     }
 
     .game-lounge-title {
@@ -4745,6 +4994,14 @@ img {
     .events-calendar-title {
         font-size: 64px;
         letter-spacing: -1.28px;
+    }
+
+    /* News and Events Title - wrap on mobile */
+    .news-events-title-responsive {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
     }
 
     .filter-sorting-container {
