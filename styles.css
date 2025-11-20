@@ -2683,6 +2683,19 @@ img {
     flex-grow: 0;
 }
 
+/* Teams cards stack vertically at 1280px */
+@media screen and (max-width: 1280px) {
+    .teams-cards-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .team-card {
+        width: 100%;
+        flex: none;
+    }
+}
+
 .team-card {
     flex: 1 1 0;
     min-width: 0;
@@ -4291,14 +4304,19 @@ img {
         padding: 32px 24px;
     }
 
-    /* Teams Cards - Keep side by side on tablet */
+    /* Teams Cards - Stack vertically at 1280px and below */
     .teams-cards-container {
-        flex-direction: row;
-        gap: 12px;
+        flex-direction: column;
+        gap: 16px;
         padding: 0;
         width: 100%;
         margin-left: 0;
         margin-right: 0;
+    }
+
+    .team-card {
+        width: 100%;
+        flex: none;
     }
 
     .team-card {
