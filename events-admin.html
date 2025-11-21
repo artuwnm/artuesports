@@ -234,6 +234,7 @@
 </head>
 <body>
     <div class="bg-[#050708] min-h-screen">
+<<<<<<< Updated upstream
         <header class="navbar">
             <div class="nav-container">
                 <div class="nav-content">
@@ -294,6 +295,8 @@
             </div>
         </div>
 
+=======
+>>>>>>> Stashed changes
         <!-- Admin Container -->
         <div class="admin-container">
             <div id="alertContainer"></div>
@@ -305,6 +308,18 @@
             </div>
 
             <div id="mainContent" style="display: none;">
+                <!-- Admin Navigation Bar -->
+                <div style="background-color: #1d252c; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="nav-links">
+                        <a href="admin.html" class="nav-link">Players</a>
+                        <a href="events-admin.html" class="nav-link active">Events</a>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span id="userEmail" style="color: #f2f2f2; font-size: 14px;"></span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-small">Logout</button>
+                    </div>
+                </div>
+
                 <div class="flex justify-between items-center mb-8">
                     <h1 class="font-pressio text-[#fcfcfc] text-[64px] uppercase">Events</h1>
                     <button id="addEventBtn" class="btn btn-primary">Add New Event</button>
@@ -413,7 +428,7 @@
 
                     <div class="form-group">
                         <label for="eventImage">Event Image</label>
-                        <input type="file" id="eventImage" accept="image/jpeg,image/jpg,image/png,image/webp">
+                        <input type="file" id="eventImage" accept="image/jpeg,image/jpg,image/png,image/webp,image/avif">
                         <img id="imagePreview" class="image-preview" style="display: none;">
                     </div>
 
@@ -462,6 +477,11 @@
                 return;
             } else {
                 mainContent.style.display = 'block';
+                // Display user email
+                const userEmailEl = document.getElementById('userEmail');
+                if (userEmailEl && session.user) {
+                    userEmailEl.textContent = session.user.email;
+                }
                 loadEvents();
             }
         }
@@ -630,6 +650,15 @@
         imageInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
+                // Check file size (5MB limit)
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                if (file.size > maxSize) {
+                    showAlert('Image file size must be less than 5MB. Please choose a smaller file.', 'error');
+                    imageInput.value = ''; // Clear the file input
+                    imagePreview.style.display = 'none';
+                    return;
+                }
+
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     imagePreview.src = e.target.result;
