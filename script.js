@@ -844,3 +844,51 @@ $(document).ready(function(){
 		}
 	});
 });
+
+// Varsity Player Card Image Animation
+$(document).ready(function(){
+	function toggleCardAnimation($card) {
+		const $cardContent = $card.find('.varsity-player-card-content');
+		const $button = $card.find('.varsity-learn-more-btn');
+		const $playerName = $card.find('.varsity-player-name');
+		const $nameOverlay = $card.find('.varsity-player-name-overlay-text');
+		
+		// Get the player name from the card
+		if ($playerName.length && $nameOverlay.length) {
+			const playerName = $playerName.text().trim();
+			$nameOverlay.text(playerName);
+		}
+		
+		// Toggle the image-shrunk class to animate the image
+		$cardContent.toggleClass('image-shrunk');
+		$card.toggleClass('image-shrunk');
+		
+		// Change button text
+		if ($cardContent.hasClass('image-shrunk')) {
+			$button.text('Show less');
+		} else {
+			$button.text('Learn more');
+		}
+	}
+	
+	// Make the entire card clickable
+	$('.varsity-player-card').on('click', function(e) {
+		// Don't trigger if clicking directly on the button (let button handle its own click)
+		if ($(e.target).closest('.varsity-learn-more-btn').length > 0) {
+			return;
+		}
+		
+		const $card = $(this);
+		toggleCardAnimation($card);
+	});
+	
+	// Keep button click handler for explicit button clicks
+	$('.varsity-learn-more-btn').on('click', function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		
+		const $button = $(this);
+		const $card = $button.closest('.varsity-player-card');
+		toggleCardAnimation($card);
+	});
+});
