@@ -68,10 +68,20 @@
 body {
     margin: 0;
     padding: 0;
+    padding-top: 106px; /* Account for fixed navbar height (24px top + 57.828px logo + 24px bottom) */
     font-size: 100%;
     font-family: var(--font-urbanist);
     color: var(--color-core-50);
     background-color: var(--color-bg-900);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* Typography - Desktop (default) */
@@ -1151,6 +1161,61 @@ a:hover {
 /* ============================================
    Common Button Styles
    ============================================ */
+
+/* Base button styles - can be used with <button> or <a> */
+.btn-filled,
+.btn-lined {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 54px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 14px; /* P1 Desktop */
+    line-height: 1;
+    letter-spacing: -0.28px;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
+}
+
+/* Filled Button - Red background with white text */
+.btn-filled {
+    background-color: var(--color-primary);
+    color: var(--color-core-50);
+    border: none;
+}
+
+.btn-filled:hover {
+    background-color: var(--color-core-50);
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Lined Button - Transparent background with white border */
+.btn-lined {
+    background-color: transparent;
+    border: 1.5px solid var(--color-text-primary);
+    color: var(--color-text-primary);
+}
+
+.btn-lined:hover {
+    background-color: var(--color-core-50);
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Legacy button classes - kept for backward compatibility but deprecated */
 .btn-primary {
     border: 3px solid var(--color-text-primary);
     box-sizing: border-box;
@@ -1260,7 +1325,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 106px var(--spacing-container) 0;
+    padding: 0 var(--spacing-container);
     position: relative;
     width: 100%;
     min-height: 100vh;
@@ -1384,6 +1449,38 @@ img {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Academic Opportunities title - exact typography */
+.academic-opportunities-title-text,
+.connect-page-container [data-node-id="549:2246"] {
+    color: var(--Core-50, #FCFCFC);
+    text-align: center;
+    font-family: Pressio, sans-serif;
+    font-size: var(--Type-Display-H1-Size, 128px);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    align-self: stretch;
+}
+
+/* Academic Opportunities paragraph text - exact Figma styling */
+.academic-opportunities-text,
+.connect-page-container [data-node-id="549:2248"] {
+    text-align: center;
+    font-family: Urbanist, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.48px;
+    background: linear-gradient(180deg, #F2F2F2 0%, #050708 122.14%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    align-self: stretch;
 }
 
 /* ============================================
@@ -2966,7 +3063,6 @@ img {
     align-items: flex-start;
     width: 100%;
     padding: 0;
-    margin-top: calc(106px + 16px);
     box-sizing: border-box;
     flex-shrink: 0;
     flex-grow: 0;
@@ -2982,23 +3078,6 @@ img {
     .team-card {
         width: 100%;
         flex: none;
-        height: calc((100vh - 16px) / 2) !important;
-        min-height: calc((100vh - 16px) / 2) !important;
-    }
-}
-
-/* Tablet spacing for all tablet sizes (≤1024px) */
-@media screen and (max-width: 1024px) {
-    .teams-cards-container {
-        margin-top: calc(82px + 24px);
-    }
-}
-
-/* Base team-card - only applies when side-by-side (> 1280px) */
-@media screen and (min-width: 1281px) {
-    .team-card {
-        height: 100vh;
-        min-height: 100vh;
     }
 }
 
@@ -3009,11 +3088,13 @@ img {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 697px;
     align-items: center;
     justify-content: center;
+    min-height: 697px;
     padding: 0;
     position: relative;
-    border-radius: 12px;
+    border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -3022,16 +3103,6 @@ img {
 .team-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 0 20px rgba(237, 31, 51, 0.6), 0 0 40px rgba(237, 31, 51, 0.4), 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-/* Team card as link - prevent default link styling */
-a.team-card {
-    text-decoration: none;
-    color: inherit;
-}
-
-a.team-card:hover {
-    text-decoration: none;
 }
 
 .team-card-bg {
@@ -3044,7 +3115,7 @@ a.team-card:hover {
     object-position: center center;
     opacity: 0.5;
     pointer-events: none;
-    border-radius: 12px;
+    border-radius: 16px;
 }
 
 .team-card-title {
@@ -3596,6 +3667,7 @@ a.team-card:hover {
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .location-map-embed {
@@ -3638,6 +3710,177 @@ a.team-card:hover {
     display: block;
     border: none;
     border-radius: 0;
+}
+
+/* News and Events Section */
+.news-events-section {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    align-items: flex-start;
+    padding: 0 36px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 37px;
+    margin-bottom: 37px;
+}
+
+.news-events-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.news-events-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 128px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.news-events-see-all-btn {
+    border: 3px solid var(--color-text-primary);
+    background: transparent;
+    padding: 16px 36px;
+    border-radius: 16px;
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 24px; /* P2 Desktop */
+    line-height: 1;
+    letter-spacing: -0.48px;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.news-events-see-all-btn:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+.news-events-filter-bar {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    width: 100%;
+}
+
+.news-events-filter-chip {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-urbanist);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-align: center;
+}
+
+.news-events-filter-chip:hover,
+.news-events-filter-chip:focus {
+    color: var(--color-primary);
+    outline: none;
+}
+
+.news-events-filter-chip.is-active {
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+.news-events-cards-container {
+    display: flex;
+    gap: 18px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.news-events-cards-container .event-card {
+    flex: 1 0 0;
+    min-width: 0;
+    padding: 12px 14px;
+    border: none; /* Remove border for news-events section */
+}
+
+.news-events-cards-container .event-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+
+.news-events-cards-container .event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.news-events-cards-container .event-card-date {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 12px; /* P2 Desktop from Figma */
+    line-height: 1;
+    letter-spacing: -0.24px;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.news-events-cards-container .event-card-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.news-events-cards-container .event-card-title {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500;
+    font-size: 32px; /* H3 Desktop from Figma */
+    line-height: 1;
+    letter-spacing: -0.64px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.news-events-cards-container .event-card-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.news-events-cards-container .event-card-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* White icon for dark cards */
+}
+
+.news-events-cards-container .event-card[data-event-category="community"] .event-card-icon img {
+    filter: brightness(0) invert(1); /* White icon for red community cards */
+}
+
+.news-events-cards-container .event-card[data-event-category="esports"] .event-card-icon img {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(94%) saturate(7158%) hue-rotate(346deg) brightness(93%) contrast(92%); /* Red icon for dark esports cards */
 }
 
 /* Links Section */
@@ -4445,8 +4688,17 @@ a.team-card:hover {
    Responsive Typography & Media Queries
    ============================================ */
 
-/* Large Desktop Breakpoint (min-width: 1921px) */
-@media screen and (min-width: 1921px) {
+/* Extra Large Desktop Breakpoint (min-width: 2561px) */
+@media screen and (min-width: 2561px) {
+    /* Location Section - Extra Large Desktop */
+    .location-map {
+        width: 1000px;
+        height: 800px;
+    }
+}
+
+/* Large Desktop Breakpoint (min-width: 1921px) and (max-width: 2560px) */
+@media screen and (min-width: 1921px) and (max-width: 2560px) {
     /* Location Section - Large Desktop */
     .location-section {
         padding: 0 var(--spacing-container);
@@ -4487,8 +4739,17 @@ a.team-card:hover {
     }
 }
 
-/* Medium Desktop Breakpoint (min-width: 1441px) and (max-width: 1920px) */
-@media screen and (min-width: 1441px) and (max-width: 1920px) {
+/* Medium-Large Desktop Breakpoint (min-width: 1681px) and (max-width: 1920px) */
+@media screen and (min-width: 1681px) and (max-width: 1920px) {
+    /* Location Section - Medium-Large Desktop */
+    .location-map {
+        width: 875px;
+        height: 725px;
+    }
+}
+
+/* Medium Desktop Breakpoint (min-width: 1441px) and (max-width: 1680px) */
+@media screen and (min-width: 1441px) and (max-width: 1680px) {
     /* Location Section - Medium Desktop */
     .location-section {
         padding: 0 var(--spacing-container);
@@ -4529,8 +4790,50 @@ a.team-card:hover {
     }
 }
 
-/* Small Desktop Breakpoint (min-width: 1025px) and (max-width: 1440px) */
-@media screen and (min-width: 1025px) and (max-width: 1440px) {
+/* Small-Medium Desktop Breakpoint (min-width: 1281px) and (max-width: 1440px) */
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    /* Location Section - Small-Medium Desktop */
+    .location-section {
+        padding: 0 var(--spacing-container);
+        gap: 16px;
+    }
+    
+    .location-content {
+        width: 880px;
+        gap: 30px;
+    }
+    
+    .location-heading {
+        font-size: 68px;
+        letter-spacing: -1.36px;
+        height: 125px;
+    }
+    
+    .location-label {
+        font-size: 76px;
+        letter-spacing: -1.52px;
+    }
+    
+    .location-spacer {
+        font-size: 33px;
+    }
+    
+    .location-hours-column-left {
+        width: 407px;
+    }
+    
+    .location-hours-column-right {
+        width: 369px;
+    }
+    
+    .location-map {
+        width: 825px;
+        height: 675px;
+    }
+}
+
+/* Small Desktop Breakpoint (min-width: 1025px) and (max-width: 1280px) */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
     /* Location Section - Small Desktop */
     .location-section {
         padding: 0 var(--spacing-container);
@@ -4628,8 +4931,9 @@ a.team-card:hover {
         padding: 14px 24px;
     }
     
-    .page-container {
-        padding-top: 86px;
+    /* Adjust body padding for tablet navbar height */
+    body {
+        padding-top: 86px; /* Account for fixed navbar height (14px top + 57.828px logo + 14px bottom) */
     }
     
     /* Hide desktop navigation menu on tablet */
@@ -4660,36 +4964,51 @@ a.team-card:hover {
     
     /* Location Section - Tablet */
     .location-section {
+        display: flex;
         flex-direction: column;
-        gap: 72px;
+        gap: 72px; /* Figma: gap between heading and content/map row */
         padding: 0 24px;
-        margin-top: var(--spacing-section);
+        margin-top: 72px; /* Figma: gap between major sections */
         align-items: flex-start;
+        position: relative;
     }
     
     .location-content {
         width: 100%;
         max-width: 100%;
-        gap: 72px;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        gap: 72px; /* Figma: gap between heading and hours/map row */
     }
     
     .location-heading {
         font-size: 128px;
         letter-spacing: -2.56px;
-        height: 115px;
+        height: 115px; /* Figma: heading height */
         width: 100%;
         margin-bottom: 0;
     }
     
+    /* Tablet: Create a flex row for hours and map */
+    .location-section {
+        position: relative;
+    }
+    
+    /* After the heading, create a flex row container */
+    .location-content::after {
+        content: '';
+        display: none;
+    }
+    
+    /* Position hours container and map side by side */
     .location-hours-container {
-        flex-direction: column;
+        flex-direction: column; /* Hours columns stack vertically */
         gap: 0;
-        width: 285px;
+        width: 285px; /* Figma: content width */
         align-items: flex-start;
         justify-content: flex-start;
+        flex-shrink: 0;
     }
     
     .location-hours-column {
@@ -4717,33 +5036,310 @@ a.team-card:hover {
         font-size: 14px;
     }
     
-    /* Tablet: Position map next to hours container */
-    .location-section {
-        position: relative;
-    }
-    
+    /* Tablet: Position map next to hours container using absolute positioning */
+    /* The HTML structure has map as sibling of location-content, so we use absolute positioning */
     .location-map {
         position: absolute;
         right: 24px;
         top: calc(115px + 72px); /* After heading + gap */
-        width: 485px;
-        height: 393px;
+        width: 485px; /* Figma: map width */
+        height: 393px; /* Figma: map height */
         max-width: calc(100% - 48px); /* Account for padding */
         flex-shrink: 0;
+        border-radius: 16px;
     }
     
     .location-hours-container {
-        width: 285px;
+        width: 285px; /* Figma: content width */
+    }
+
+    /* Room Cards Section - Tablet */
+    .room-cards-section {
+        padding: 0 24px;
+        align-items: center;
+        margin-top: 72px; /* Figma: gap between major sections */
+    }
+
+    .room-cards-container {
+        width: 787px; /* Figma: fixed width */
+        max-width: 100%;
+        flex-direction: column;
+        gap: 30px; /* Figma: gap between cards */
+        margin: 0 auto; /* Center the container */
+    }
+
+    .room-card {
+        width: 100%;
+    }
+
+    .room-card-image-wrapper {
+        aspect-ratio: 416 / 256.42; /* Figma: aspect ratio */
+    }
+
+    .room-card-content {
+        padding: 94px 24px; /* Figma: py-[94px] px-[24px] */
+    }
+
+    .room-card-title {
+        font-size: 128px; /* Figma: H1 size */
+        letter-spacing: -2.56px;
+        height: 254px; /* Figma: title height */
+    }
+
+    /* Tour Video Section - Tablet */
+    .tour-video-section {
+        padding: 0 24px;
+        gap: 30px; /* Figma: gap between title and video */
+        margin-top: 72px; /* Figma: gap between major sections */
+    }
+
+    .tour-video-section .section-title {
+        font-size: 128px;
+        letter-spacing: -2.56px;
+        height: 116px; /* Figma: title height */
+        width: 729px; /* Figma: title width */
+        max-width: 100%;
+    }
+
+    .tour-video-container {
+        aspect-ratio: 1062 / 708; /* Figma: aspect ratio */
+        width: 100%;
+        border-radius: 16px;
+    }
+
+    /* News and Events Section - Tablet */
+    .news-events-section {
+        padding: 0 24px;
+        gap: 36px;
+        margin-top: 72px;
+    }
+
+    .news-events-title {
+        font-size: 128px; /* H1 Tablet */
+        letter-spacing: -2.56px;
+    }
+
+    .news-events-see-all-btn {
+        font-size: 24px; /* P2 Tablet */
+        letter-spacing: -0.48px;
+        padding: 16px 36px;
+    }
+
+    .news-events-filter-bar {
+        gap: 48px;
+    }
+
+    .news-events-filter-chip {
+        font-size: 40px;
+    }
+
+    .news-events-cards-container {
+        gap: 18px;
+    }
+
+    .news-events-cards-container .event-card-date {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+    }
+
+    .news-events-cards-container .event-card-title {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+    }
+
+    /* Links Section - Tablet */
+    .links-section {
+        padding: 0 24px;
+        flex-direction: column;
+        align-items: center;
+        gap: 72px; /* Figma: gap between event card and teams/community */
+        margin-top: 72px; /* Figma: gap between major sections */
+    }
+
+    .links-section .event-card {
+        width: 786px; /* Figma: event card width */
+        max-width: 100%;
+        height: 724px; /* Figma: event card height */
+        padding: 17px 15px; /* Figma: py-[17px] px-[15px] */
+        flex-shrink: 0;
+    }
+
+    .links-section .links-cards-container {
+        width: 768px; /* Figma: teams section width */
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 29.75px; /* Figma: gap between teams and community */
+        height: auto; /* Remove fixed height for tablet */
+    }
+
+    .links-section .links-teams-card {
+        width: 100%; /* Full width of container */
+        height: auto; /* Remove fixed height for tablet */
+        min-height: 391px; /* Minimum height from Figma */
+    }
+
+    .links-section .links-community-card {
+        width: 786px; /* Figma: community card width */
+        max-width: 100%;
+        height: auto; /* Remove fixed height for tablet */
+        min-height: 490.584px; /* Figma: community card height */
+    }
+    
+    /* Footer - Tablet */
+    .footer-top {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 16px 36px; /* Figma: py-[16px] px-[36px] */
+        gap: 0; /* No gap, using justify-between */
+    }
+    
+    .footer-left {
+        width: 252px; /* Figma: fixed width */
+        gap: 160px; /* Figma: gap between logo and social icons */
+        flex-shrink: 0;
+        align-items: flex-start;
+    }
+    
+    .footer-logo {
+        width: 252px;
+        max-width: 252px;
+    }
+    
+    .social-icons {
+        gap: 8px; /* Figma: gap between social icons */
+    }
+    
+    .social-icon {
+        width: 36px; /* Figma: size-[36px] */
+        height: 36px;
+    }
+    
+    .social-icon img {
+        width: 24px; /* Adjust icon size within 36px container */
+        height: 24px;
+    }
+    
+    .social-icon-primary {
+        width: 36px;
+        height: 36px;
+        padding: 8px 6px; /* Figma: py-[8px] px-[6px] */
+    }
+    
+    .footer-right {
+        width: 207px; /* Figma: fixed width */
+        flex-shrink: 0;
+        justify-content: flex-start;
+        gap: 0;
+    }
+    
+    /* Hide Explore section on tablet */
+    .footer-right .footer-section:last-child {
+        display: none;
+    }
+    
+    .footer-section {
+        gap: 24px; /* Figma: gap between heading and links */
+        padding-top: 16px; /* Figma: pt-[16px] */
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .footer-heading {
+        font-size: 32px; /* Figma: H3 size */
+        letter-spacing: -0.64px; /* Figma: tracking-[-0.64px] */
+        font-family: 'pressio-condensed', sans-serif;
+        font-weight: 600; /* Medium Condensed */
+    }
+    
+    .footer-links {
+        gap: 12px; /* Figma: gap-[12px] */
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .footer-link {
+        font-size: 14px; /* Figma: P1 size */
+        letter-spacing: -0.28px; /* Figma: tracking-[-0.28px] */
+        font-family: 'Urbanist', sans-serif;
+        font-weight: 500; /* Medium */
+        color: var(--color-core-100); /* Figma: #F2F2F2 */
+    }
+    
+    .footer-bottom {
+        padding: 21px 35px; /* Figma: py-[21px] px-[35px] */
+    }
+    
+    .footer-copyright {
+        font-size: 12px; /* Figma: P2 size */
+        letter-spacing: -0.24px; /* Figma: tracking-[-0.24px] */
+        font-family: 'Urbanist', sans-serif;
+        font-weight: 600; /* SemiBold */
+        color: var(--color-core-100); /* Figma: #F2F2F2 */
+    }
+    
+    .footer-legal {
+        gap: 12px; /* Figma: gap-[12px] */
+    }
+    
+    .footer-legal-link {
+        font-size: 12px; /* Figma: P2 size */
+        letter-spacing: -0.24px; /* Figma: tracking-[-0.24px] */
+        font-family: 'Urbanist', sans-serif;
+        font-weight: 600; /* SemiBold */
+        color: var(--color-core-100); /* Figma: #F2F2F2 */
+    }
+
+    /* Button Styles - Tablet */
+    .btn-filled,
+    .btn-lined {
+        font-size: 14px; /* P1 Tablet - same as desktop */
+        letter-spacing: -0.28px;
+        padding: 12px 54px;
+    }
+}
+
+/* Smooth transition breakpoint (769px) - prepare for mobile */
+@media screen and (max-width: 769px) {
+    /* Smooth transition for filter bar */
+    [data-name="filter-bar-container"] {
+        flex-wrap: wrap;
+    }
+
+    /* Smooth transition for buttons */
+    [data-name="Buttons-Mobile"] {
+        padding: 14px 28px !important;
     }
 }
 
 /* Mobile Breakpoint (max-width: 768px) */
 @media screen and (max-width: 768px) {
-    /* Override spacing-container for mobile */
-    :root {
-        --spacing-container: 12px;
+    /* Ensure full width on mobile - no gaps */
+    body, html {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
-    
+
+    /* Main container - full width with proper padding */
+    [data-name="home-desktop"] {
+        width: 100%;
+        max-width: 100vw;
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box;
+    }
+
+    /* Ensure all child elements respect container width */
+    [data-name="home-desktop"] > * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
     /* H1: Mobile - 64px */
     h1 {
         font-size: 64px !important;
@@ -4786,8 +5382,9 @@ a.team-card:hover {
         padding: 14px 12px;
     }
     
-    .page-container {
-        padding-top: 86px;
+    /* Adjust body padding for mobile navbar height */
+    body {
+        padding-top: 86px; /* Account for fixed navbar height (14px top + 57.828px logo + 14px bottom) */
     }
     
     /* Hide desktop navigation menu on mobile */
@@ -4817,29 +5414,34 @@ a.team-card:hover {
     }
 }
 
-/* Teams Cards Stack Vertically at 1280px - Consolidated (duplicate removed) */
+/* Teams Cards Stack Vertically at 1280px */
+@media screen and (max-width: 1280px) {
+    .teams-cards-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .team-card {
+        width: 100%;
+        flex: none;
+    }
+}
 
 /* Tablet Breakpoint (834px - iPad Pro portrait, etc.) */
 @media screen and (min-width: 769px) and (max-width: 900px) {
-    /* Use tablet navbar style - hamburger menu */
+    /* Navigation adjustments for tablet */
     .nav-content {
-        padding: 14px 24px;
+        padding: 20px 24px;
+    }
+    
+    /* Adjust body padding for tablet navbar height */
+    body {
+        padding-top: 98px; /* Account for fixed navbar height (20px top + 57.828px logo + 20px bottom) */
     }
 
-    /* Hide desktop navigation menu - use tablet navbar */
     .desktop-nav-menu {
-        display: none !important;
-    }
-    
-    /* Show hamburger menu button - tablet navbar */
-    .hamburger-menu-btn {
-        display: flex !important;
-    }
-    
-    /* Show mobile menu - tablet navbar */
-    .mobile-menu-overlay,
-    .mobile-menu-panel {
-        display: block !important;
+        gap: 32px;
+        font-size: 24px;
     }
 
     .frame {
@@ -4867,7 +5469,6 @@ a.team-card:hover {
         gap: 16px;
         padding: 0;
         width: 100%;
-        margin-top: calc(82px + 24px);
         margin-left: 0;
         margin-right: 0;
     }
@@ -4875,28 +5476,45 @@ a.team-card:hover {
     .team-card {
         width: 100%;
         flex: none;
-        height: calc((100vh - 16px) / 2);
-        min-height: calc((100vh - 16px) / 2);
-        border-radius: 12px;
+    }
+
+    .team-card {
+        flex: 1 1 0;
+        height: 550px;
+        min-height: 550px;
+        border-radius: 16px;
     }
 
     .team-card .team-card-bg {
-        border-radius: 12px;
+        border-radius: 16px;
     }
 
     .team-card-title {
-        font-size: 128px; /* H1: Tablet - 128px */
-        letter-spacing: -2.56px;
+        font-size: 96px;
+        letter-spacing: -1.92px;
     }
 
-    /* Content section padding */
+    /* Content section padding - Tablet */
     .content-section {
         padding: 0 24px;
+        gap: 30px; /* Figma: gap between title and text */
+        margin-top: 72px; /* Figma: gap between major sections */
     }
 
-    /* Carousel adjustments - maintains 1920x1080 aspect ratio */
+    .content-section .section-title {
+        height: 117px; /* Figma: title height */
+    }
+
+    /* Carousel adjustments - Tablet */
+    .carousel {
+        padding: 0 24px;
+        gap: 15px; /* Figma: gap between carousel and pagination */
+    }
+
     .carousel-deck {
-        aspect-ratio: 1920 / 1080; /* 16:9 aspect ratio */
+        height: 971px; /* Figma: carousel height */
+        aspect-ratio: auto; /* Override aspect ratio with fixed height */
+        border-radius: 16px;
     }
 
     /* Community carousel content adjustments for tablet */
@@ -4997,36 +5615,47 @@ a.team-card:hover {
         padding-right: 12px;
         gap: 20px;
     }
+}
 
-    /* Community card section */
-    [data-name="04-community-card-section"] {
-        gap: 12px;
-    }
+/* Academic Opportunities main container - exact layout */
+.academic-opportunities-container,
+.connect-page-container [data-node-id="549:2245"] {
+    display: flex;
+    padding: 0 12px;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    align-self: stretch;
+}
 
-    /* Filter bar adjustments */
-    [data-name="filter-bar-container"] {
-        gap: 36px;
-    }
+/* Community card section */
+[data-name="04-community-card-section"] {
+    gap: 12px;
+}
 
-    .index-filter-chip {
-        font-size: 18px;
-    }
+/* Filter bar adjustments */
+[data-name="filter-bar-container"] {
+    gap: 36px;
+}
 
-    /* Academic Opportunities Title - wrap to 2 rows on tablet */
-    .academic-opportunities-title {
-        white-space: normal;
-        line-height: 1.1;
-        word-break: break-word;
-        max-width: 100%;
-    }
+.index-filter-chip {
+    font-size: 18px;
+}
 
-    /* News and Events Title - wrap to 2 rows on tablet */
-    .news-events-title-responsive {
-        white-space: normal;
-        line-height: 1.1;
-        word-break: break-word;
-        max-width: 100%;
-    }
+/* Academic Opportunities Title - wrap to 2 rows on tablet */
+.academic-opportunities-title {
+    white-space: normal;
+    line-height: 1.1;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+/* News and Events Title - wrap to 2 rows on tablet */
+.news-events-title-responsive {
+    white-space: normal;
+    line-height: 1.1;
+    word-break: break-word;
+    max-width: 100%;
 }
 
 /* Responsive Adjustments */
@@ -5087,13 +5716,6 @@ a.team-card:hover {
 
     .varsity-player-card {
         flex: 1 1 calc(50% - 8px);
-        max-width: calc(50% - 8px);
-        min-width: 0;
-    }
-
-    .figma-player-card {
-        flex: 1 1 calc(50% - 8px);
-        max-width: calc(50% - 8px);
         min-width: 0;
     }
 
@@ -5138,7 +5760,38 @@ a.team-card:hover {
             padding: 36px;
         }
 
-        /* Teams Cards Section - Consolidated into 768px breakpoint below */
+        /* Teams Cards Section - Smaller tablets */
+        .teams-cards-container {
+            flex-direction: column;
+            gap: 16px;
+            padding: 0;
+            width: 100%;
+            max-width: 100vw;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .team-card {
+            width: 100%;
+            height: 500px;
+            min-height: 500px;
+            padding: 0;
+            flex: none;
+            border-radius: 0;
+        }
+
+        .team-card .team-card-bg {
+            border-radius: 0;
+        }
+
+        .team-card:last-child {
+            padding: 0;
+        }
+
+        .team-card-title {
+            font-size: 128px; /* H1: Tablet - 128px */
+            letter-spacing: -2.56px;
+        }
     }
 
     .game-lounge-title {
@@ -5158,7 +5811,7 @@ a.team-card:hover {
     /* Event Overlay - Tablet */
     .event-overlay-content {
         gap: 90px;
-        padding: 140px 12px 0;
+        padding: 120px 12px 0;
         align-items: flex-start;
     }
 
@@ -5296,15 +5949,6 @@ a.team-card:hover {
 
     .varsity-player-card {
         flex: 1 1 auto;
-        max-width: 100%;
-        width: 100%;
-        height: auto;
-        min-height: 500px;
-    }
-
-    .figma-player-card {
-        flex: 1 1 auto;
-        max-width: 100%;
         width: 100%;
         height: auto;
         min-height: 500px;
@@ -5313,7 +5957,6 @@ a.team-card:hover {
     .varsity-learn-more-btn {
         width: 100%;
         max-width: 200px;
-        white-space: nowrap;
     }
 
     /* Team Events Section - Mobile */
@@ -5365,15 +6008,40 @@ a.team-card:hover {
         letter-spacing: -0.36px;
     }
 
+    /* Lounge Page Mobile Spacing - Based on Figma */
+    /* 23px gap between navbar and first section, 50px between major sections */
+    
+    /* Carousel - Mobile */
+    .carousel {
+        padding: 0 12px;
+        margin-top: 23px; /* Gap between navbar and first section */
+        gap: 15px;
+        margin-bottom: 0;
+    }
+    
+    .carousel-deck {
+        aspect-ratio: 779 / 1168; /* Match Figma mobile design */
+    }
+    
+    /* Content Section - Mobile */
+    .content-section {
+        margin-top: 50px !important; /* Gap between major sections */
+        padding: 0 12px;
+        gap: 18px;
+        margin-bottom: 0;
+    }
+
     /* Room Cards Section - Mobile */
     .room-cards-section {
-        padding: 0 16px;
-        margin-top: 24px;
+        padding: 0 12px;
+        margin-top: 50px; /* Gap between major sections */
+        gap: 18px;
+        margin-bottom: 0;
     }
 
     .room-cards-container {
         flex-direction: column;
-        gap: 16px;
+        gap: 18px;
     }
 
     .room-card-title {
@@ -5392,23 +6060,25 @@ a.team-card:hover {
     /* Teams Cards Section - Mobile */
     .teams-cards-container {
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
         padding: 0;
         width: 100%;
-        margin-top: calc(86px + 12px);
+        max-width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .team-card {
         width: 100%;
-        height: calc((100vh - 12px) / 2);
-        min-height: calc((100vh - 12px) / 2);
+        height: 400px;
+        min-height: 400px;
         padding: 0;
         flex: none;
-        border-radius: 12px;
+        border-radius: 0;
     }
 
     .team-card .team-card-bg {
-        border-radius: 12px;
+        border-radius: 0;
     }
 
     .team-card:last-child {
@@ -5428,11 +6098,24 @@ a.team-card:hover {
         font-size: 24px;
     }
 
-    /* Mobile: 2-column layout for event cards */
+    /* Mobile: 2-column layout for event cards - ensure proper alignment */
+    .index-events-grid,
     .events-grid,
     .events-recaps-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
+        gap: 12px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Event cards - ensure they fit properly */
+    .event-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
     .events-calendar-container {
@@ -5558,15 +6241,64 @@ a.team-card:hover {
         max-width: 100%;
     }
 
+    /* Section containers - ensure proper padding */
+    [data-name="02-news-events-section"] {
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Filter bar - ensure it doesn't break */
+    [data-name="filter-bar-container"] {
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    /* Ensure buttons don't overflow */
+    [data-name="Buttons-Mobile"] {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
     .filter-sorting-container {
         flex-direction: column;
         align-items: flex-start;
         gap: 24px;
     }
 
+    /* Filter bar container - ensure proper alignment */
+    [data-name="filter-bar-container"] {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 0;
+    }
+
+    [data-name="filter-bar-container"] > div {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .index-filter-chip {
+        font-size: 16px;
+        white-space: nowrap;
+    }
+
+    /* Buttons - ensure proper sizing and alignment */
+    [data-name="Buttons-Mobile"] {
+        padding: 12px 24px !important;
+        min-width: auto;
+        flex-shrink: 1;
+    }
+
+    [data-name="Buttons-Mobile"] p {
+        font-size: 14px !important;
+        white-space: nowrap;
+    }
+
     .filter-bar-container {
-        gap: 24px;
-        font-size: 24px;
+        gap: 16px;
+        font-size: 16px;
     }
 
     .events-page .events-filter-chip {
@@ -5605,10 +6337,15 @@ a.team-card:hover {
     .location-section {
         flex-direction: column;
         gap: 18px;
-        padding: 0 16px;
-        margin-top: var(--spacing-section);
+        padding: 0 12px;
+        margin-top: 50px; /* Gap between major sections */
         align-items: flex-start;
         position: relative !important;
+        margin-bottom: 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden; /* Prevent horizontal overflow */
     }
 
     .location-content {
@@ -5621,6 +6358,7 @@ a.team-card:hover {
         position: relative;
         z-index: 1;
         margin-bottom: 0;
+        box-sizing: border-box;
     }
 
     .location-heading {
@@ -5628,36 +6366,55 @@ a.team-card:hover {
         letter-spacing: -1.28px;
         height: 63px;
         width: 100%;
-        margin-bottom: 0;
+        margin: 0;
+        margin-bottom: 0; /* No bottom margin - gap will handle spacing */
+        padding: 0;
+        line-height: 1; /* Use 1 instead of 100% for better control */
+        flex-shrink: 0; /* Prevent heading from shrinking */
+        display: block; /* Ensure it's a block element */
     }
-
+    
     .location-hours-container {
         flex-direction: row;
         gap: 0;
         width: 100%;
+        max-width: 100%;
         align-items: flex-start;
         justify-content: space-between;
         height: auto;
         min-height: 136px;
+        margin: 0;
+        margin-top: 18px; /* Explicit spacing from heading */
+        padding: 0;
+        box-sizing: border-box;
+        flex-shrink: 0; /* Prevent container from shrinking */
+        display: flex; /* Ensure flex is applied */
     }
 
     .location-hours-column {
         height: auto;
+        box-sizing: border-box;
     }
 
     .location-hours-column-left {
-        width: 201px;
-        flex-shrink: 0;
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 50%;
         height: auto;
         min-height: 121px;
+        padding-right: 8px; /* Small gap between columns */
     }
 
     .location-hours-column-right {
-        width: 202px;
-        flex-shrink: 0;
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 50%;
         height: auto;
         min-height: 120px;
-        margin-top: 0;
+        margin: 0;
+        padding-left: 8px; /* Small gap between columns */
     }
 
     .location-label {
@@ -5673,8 +6430,8 @@ a.team-card:hover {
     
     .location-map {
         width: 100%;
-        aspect-ratio: 1062 / 861;
         max-width: 100%;
+        aspect-ratio: 1062 / 861;
         position: static !important;
         margin-top: 0 !important;
         margin-bottom: 0 !important;
@@ -5684,29 +6441,113 @@ a.team-card:hover {
         bottom: auto !important;
         border-radius: 16px;
         z-index: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    .location-map-embed {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+        box-sizing: border-box;
     }
 
     /* Tour Video Section - Mobile */
     .tour-video-section {
-        padding: 0 16px;
-        gap: 24px;
+        padding: 0 12px;
+        gap: 18px;
+        margin-top: 50px; /* Gap between major sections */
+        margin-bottom: 0;
     }
 
     .tour-video-container {
-        height: 400px;
+        aspect-ratio: 1062 / 708; /* Match Figma design */
+        width: 100%;
+        height: auto;
     }
 
     /* Links Section - Mobile */
+    /* News and Events Section - Mobile */
+    .news-events-section {
+        padding: 0 12px;
+        gap: 36px;
+        margin-top: 50px;
+        margin-bottom: 0;
+    }
+
+    .news-events-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        width: 100%;
+    }
+
+    .news-events-title {
+        font-size: 64px; /* H1 Mobile */
+        letter-spacing: -1.28px;
+        white-space: normal;
+        width: 100%;
+    }
+
+    .news-events-see-all-btn {
+        font-size: 24px; /* P2 Mobile */
+        letter-spacing: -0.48px;
+        padding: 16px 36px;
+        width: auto;
+    }
+
+    .news-events-filter-bar {
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .news-events-filter-chip {
+        font-size: 24px;
+    }
+
+    .news-events-cards-container {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .news-events-cards-container .event-card {
+        width: 100%;
+        flex: none;
+    }
+
+    .news-events-cards-container .event-card-date {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+    }
+
+    .news-events-cards-container .event-card-title {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+    }
+
     .links-section {
         flex-direction: column;
-        gap: 24px;
-        padding: 0 16px;
+        gap: 16px;
+        padding: 0 12px;
+        margin-top: 50px; /* Gap between major sections */
+        margin-bottom: 0;
+    }
+    
+    .links-section .event-card {
+        gap: 16px;
+    }
+    
+    /* Teams section in links - Mobile */
+    .links-section .links-cards-container {
+        margin-top: 30px; /* Approximately 29.75px gap between heading and content */
     }
 
     .links-section .event-card {
         width: 100%;
         height: auto;
         min-height: 500px;
+        padding: 17px 15px; /* Match Figma: py-[17px] px-[15px] */
     }
 
     .links-cards-container {
@@ -5733,5 +6574,542 @@ a.team-card:hover {
 
     .links-community-description {
         height: auto;
+    }
+
+    /* Button Styles - Mobile */
+    .btn-filled,
+    .btn-lined {
+        font-size: 14px; /* P1 Mobile - same as desktop */
+        letter-spacing: -0.28px;
+        padding: 12px 54px;
+    }
+    
+    /* Footer - Mobile */
+    .footer-top {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 14px 12px;
+        gap: 28px; /* Gap between left section and contact section */
+    }
+    
+    .footer-left {
+        width: 116px;
+        flex-shrink: 0;
+        align-items: flex-start;
+        gap: 52px;
+    }
+    
+    .footer-logo {
+        width: 116px;
+        max-width: 116px;
+        align-items: flex-start;
+    }
+    
+    .footer-logo .logo-container {
+        width: 100%;
+        max-width: 116px;
+    }
+    
+    .social-icons {
+        justify-content: flex-start;
+        width: auto;
+        gap: 10px;
+    }
+    
+    .social-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .social-icon img {
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        min-height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+    }
+    
+    .social-icon-primary {
+        width: 30px;
+        height: 30px;
+        padding: 6px;
+    }
+    
+    .footer-right {
+        width: auto;
+        flex-shrink: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        justify-content: flex-start;
+        margin-left: auto; /* Push to the right */
+    }
+    
+    /* Hide Explore section on mobile */
+    .footer-right .footer-section:last-child {
+        display: none;
+    }
+    
+    .footer-section {
+        width: auto;
+        align-items: flex-start;
+        padding-top: 6px;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        gap: 8px;
+    }
+    
+    .footer-heading {
+        font-size: 14px;
+        font-weight: 500; /* Medium */
+        font-family: 'Urbanist', sans-serif;
+        letter-spacing: -0.28px;
+        text-align: left;
+        white-space: normal;
+        margin: 0;
+        line-height: 100%;
+        color: var(--color-core-50); /* #FCFCFC */
+        min-width: 100%;
+    }
+    
+    .footer-links {
+        align-items: flex-start;
+        gap: 8px; /* 8px gap between contact items */
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .footer-link {
+        font-size: 12px;
+        font-weight: 600; /* SemiBold */
+        font-family: 'Urbanist', sans-serif;
+        letter-spacing: -0.24px;
+        text-align: left;
+        white-space: normal;
+        line-height: 100%;
+        margin: 0;
+        color: var(--color-core-100); /* #F2F2F2 */
+        min-width: 100%;
+        display: block;
+    }
+    
+    .footer-bottom {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        height: 26px;
+        min-height: 26px;
+        gap: 0;
+    }
+    
+    .footer-copyright {
+        font-size: 8px;
+        font-weight: 400; /* Regular */
+        letter-spacing: 0;
+        text-align: center;
+        white-space: pre;
+        line-height: normal;
+        margin: 0;
+    }
+    
+    .footer-legal {
+        flex-direction: row;
+        gap: 12px;
+        align-items: center;
+    }
+    
+    .footer-legal-link {
+        font-size: 8px;
+        font-weight: 400; /* Regular */
+        letter-spacing: 0;
+        text-align: center;
+        white-space: pre;
+        line-height: normal;
+        margin: 0;
+    }
+}
+
+/* ============================================
+   Connect Page Styles
+   ============================================ */
+
+/* Connect page container */
+.connect-page-container {
+    background-color: var(--color-bg-900);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 37px;
+    align-items: center;
+    padding: 96px 16px 0;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Ensure connect page hero section has 37px gap */
+.connect-page-container [data-name="01-hero-section"] {
+    gap: 37px !important;
+}
+
+/* Hero image placeholder for connect page */
+[data-name="lounge-card-container"] {
+    background-color: var(--color-core-100);
+    border-radius: 16px;
+    width: 100%;
+}
+
+/* Connect page team cards container */
+.connect-teams-cards {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Connect page team cards - specific height from Figma (711px) */
+.connect-team-card {
+    position: relative;
+    height: 711px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.connect-overwatch-card {
+    width: 596px;
+    flex-shrink: 0;
+}
+
+.connect-valorant-card {
+    width: 592px;
+    flex-shrink: 0;
+}
+
+.connect-team-card-mask-group {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-team-card-mask-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-team-card-bg-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #d9d9d9;
+    opacity: 0.5;
+    border-radius: 16px;
+}
+
+.connect-team-card-bg-image {
+    position: absolute;
+    opacity: 0.5;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.connect-overwatch-card .connect-team-card-bg-image {
+    height: 720.709px;
+    left: -113px;
+    top: -4px;
+    width: 826.64px;
+}
+
+.connect-overwatch-card .connect-team-card-bg-image img {
+    position: absolute;
+    height: 114.7%;
+    left: 0;
+    top: -14.7%;
+    width: 100%;
+    max-width: none;
+}
+
+.connect-valorant-card .connect-team-card-bg-image {
+    height: 794.593px;
+    left: -398.73px;
+    top: -35.84px;
+    width: 1412.61px;
+    mask-image: url('https://www.figma.com/api/mcp/asset/e08dfda0-281d-42ab-8ffb-38f418ef643f');
+    mask-size: 592px 711px;
+    mask-position: 398.727px 35.843px;
+    mask-repeat: no-repeat;
+}
+
+.connect-valorant-card .connect-team-card-bg-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+    pointer-events: none;
+}
+
+.connect-team-card-overlay {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.5;
+}
+
+.connect-overwatch-card .connect-team-card-overlay {
+    left: 36px;
+    top: 94px;
+    width: 524px;
+    height: 524px;
+}
+
+.connect-overwatch-card .connect-team-card-overlay img {
+    display: block;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-valorant-card .connect-team-card-overlay {
+    inset: 24.19% 12% 24.19% 12.16%;
+}
+
+.connect-valorant-card .connect-team-card-overlay img {
+    display: block;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-team-card-title {
+    position: absolute;
+    z-index: 10;
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 900;
+    font-size: 96px;
+    line-height: normal;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--color-core-50);
+    margin: 0;
+}
+
+.connect-overwatch-card .connect-team-card-title {
+    left: 91px;
+    top: 304px;
+}
+
+.connect-valorant-card .connect-team-card-title {
+    position: absolute;
+    inset: 42.76% 19.26% 42.62% 19.26%;
+    text-align: center;
+}
+
+/* Teams section header alignment */
+.connect-page-container [data-node-id="549:2210"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.connect-page-container [data-node-id="549:2210"] h1 {
+    margin: 0;
+    line-height: 1;
+}
+
+.connect-page-container [data-node-id="549:2212"] {
+    align-self: center;
+    display: flex;
+    padding: 16px 36px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 32px;
+    border: 3px solid var(--Core-50, #FCFCFC);
+}
+
+/* Connect page sections padding */
+.connect-page-container > div {
+    max-width: 100%;
+    width: 100%;
+}
+
+.connect-page-container [data-name="hero-text-container"],
+.connect-page-container [data-name="03-discord-section"],
+.connect-page-container [data-node-id="549:2309"] {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.connect-page-container [data-node-id="549:2209"] {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Academic opportunities text gradient */
+
+/* Connect page button styles */
+.connect-page-container [data-name="Buttons-Mobile"]:not([data-node-id="549:2249"]) {
+    border: 3px solid var(--color-core-50);
+    border-radius: 16px;
+    padding: 16px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+/* Discord section container */
+.connect-page-container [data-name="03-discord-container"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+}
+
+
+.connect-page-container [data-name="Buttons-Mobile"]:not([data-node-id="549:2249"]):hover {
+    background-color: var(--color-core-50);
+}
+
+.connect-page-container [data-name="Buttons-Mobile"]:not([data-node-id="549:2249"]):hover p {
+    color: var(--color-bg-900);
+}
+
+.connect-page-container [data-name="Buttons-Mobile"]:not([data-node-id="549:2249"]) p {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: -0.8px;
+    color: var(--color-core-50);
+    margin: 0;
+}
+
+/* Red button for Academic Opportunities - matches Figma design */
+.connect-page-container [data-node-id="549:2249"] {
+    background: #ed1f33 !important;
+    border: none !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+}
+
+.connect-page-container [data-node-id="549:2249"]:hover {
+    background: #ed1f33 !important;
+    opacity: 0.9;
+}
+
+.connect-page-container [data-node-id="549:2249"] p {
+    color: white !important;
+    font-size: 24px !important;
+    letter-spacing: -0.48px !important;
+}
+
+/* Responsive styles for connect page */
+@media screen and (max-width: 1280px) {
+    .connect-teams-cards {
+        flex-direction: column;
+    }
+    
+    .connect-team-card {
+        width: 100%;
+        height: 500px;
+        min-height: 500px;
+    }
+    
+    .connect-team-card-title {
+        font-size: 64px;
+        letter-spacing: -1.28px;
+    }
+    
+    .connect-overwatch-card .connect-team-card-overlay {
+        left: 10%;
+        top: 10%;
+        width: 80%;
+        height: 80%;
+    }
+    
+    .connect-overwatch-card .connect-team-card-title {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .connect-valorant-card .connect-team-card-title {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
+        bottom: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    [data-name="lounge-card-container"] {
+        height: 400px !important;
+    }
+    
+    .connect-team-card {
+        height: 400px;
+        min-height: 400px;
+    }
+    
+    .connect-team-card-title {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+    
+    .connect-page-container [data-name="hero-text-container"] h1,
+    .connect-page-container [data-name="03-discord-section"] h1,
+    .connect-page-container [data-node-id="549:2211"],
+    .connect-page-container [data-node-id="549:2311"],
+    .connect-page-container [data-node-id="549:2246"] {
+        font-size: 64px !important;
+        letter-spacing: -1.28px !important;
+    }
+    
+    .connect-page-container [data-name="hero-text-container"],
+    .connect-page-container [data-name="03-discord-section"],
+    .connect-page-container [data-node-id="549:2309"],
+    .connect-page-container [data-node-id="549:2209"] {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .connect-page-container {
+        padding: 96px 16px 0;
+        gap: 24px;
+    }
+    
+    .connect-overwatch-card .connect-team-card-overlay,
+    .connect-valorant-card .connect-team-card-overlay {
+        left: 5%;
+        top: 5%;
+        width: 90%;
+        height: 90%;
+    }
+    
+    .connect-overwatch-card .connect-team-card-title,
+    .connect-valorant-card .connect-team-card-title {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
+        bottom: auto;
     }
 }
