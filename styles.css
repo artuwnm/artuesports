@@ -1274,30 +1274,7 @@ a:hover {
     color: var(--color-bg-primary);
 }
 
-.btn-learn-more {
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 16px;
-    padding: 12px 54px;
-    font-family: var(--font-urbanist);
-    font-weight: 500;
-    font-size: 20px; /* p2 Desktop */
-    line-height: normal;
-    letter-spacing: -0.4px; /* p2 */
-    color: var(--color-text-primary);
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    white-space: nowrap;
-    width: auto;
-}
-
-.btn-learn-more:hover {
-    opacity: 0.9;
-}
+/* .btn-learn-more removed - replaced by .btn-filled */
 
 /* ============================================
    Common Card Styles
@@ -2374,7 +2351,7 @@ img {
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.varsity-player-card-content.image-shrunk .varsity-learn-more-btn {
+.varsity-player-card-content.image-shrunk .btn-filled {
     opacity: 1;
     visibility: visible;
     z-index: 3;
@@ -2491,34 +2468,7 @@ img {
     min-width: 0;
 }
 
-.varsity-learn-more-btn {
-    background-color: var(--color-primary);
-    border: none;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 44px;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 54px;
-    border-radius: 16px;
-    flex-shrink: 0;
-    width: 154px;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    font-family: var(--font-urbanist);
-    font-weight: 500;
-    font-size: 14px; /* P1 Desktop */
-    line-height: 1;
-    letter-spacing: -0.28px;
-    color: var(--color-text-primary);
-    white-space: nowrap;
-}
-
-.varsity-learn-more-btn:hover {
-    opacity: 0.9;
-}
+/* .varsity-learn-more-btn removed - replaced by .btn-filled */
 
 /* ============================================
    Team Events Section
@@ -3241,78 +3191,8 @@ img {
     margin-bottom: 0;
 }
 
-.community-button {
-    flex-shrink: 0;
-    margin-top: 0;
-}
-
-.community-button .btn-text {
-    color: var(--color-bg-primary);
-}
-
-.community-button:hover .btn-text {
-    color: var(--color-text-secondary);
-}
-
-/* Connect with Us Button - Community Section */
-.btn-connect-us {
-    border: 1.5px solid var(--color-bg-primary);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 18px;
-    border-radius: 16px;
-    width: auto;
-    height: auto;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: transparent;
-    flex-shrink: 0;
-}
-
-.btn-connect-us:hover {
-    background-color: var(--color-bg-primary);
-}
-
-.btn-connect-us:hover .btn-text {
-    color: var(--color-text-secondary);
-}
-
-.btn-connect-us .btn-text {
-    font-family: var(--font-urbanist);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.24px;
-    color: var(--color-bg-primary);
-    margin: 0;
-    /* P2 responsive sizes will be applied via .p2 class */
-}
-
-/* Connect with Us button text - follows P2 responsive sizes */
-.btn-connect-us .btn-text.p2 {
-    /* Mobile (default): 12px - matches Figma */
-    font-size: 12px;
-    letter-spacing: -0.24px;
-}
-
-/* Tablet: 18px */
-@media (max-width: 1200px) {
-    .btn-connect-us .btn-text.p2 {
-        font-size: 18px;
-        letter-spacing: -0.36px;
-    }
-}
-
-/* Desktop: 20px */
-@media (min-width: 1201px) {
-    .btn-connect-us .btn-text.p2 {
-        font-size: 20px;
-        letter-spacing: -0.4px;
-    }
-}
+/* .community-button removed - replaced by .btn-lined */
+/* .btn-connect-us removed - replaced by .btn-lined */
 
 .community-pagination {
     height: 20px;
@@ -3321,64 +3201,7 @@ img {
     flex-shrink: 0;
 }
 
-/* Visit Lounge Button - Lounge Section */
-.btn-visit-lounge {
-    border: 1.5px solid var(--color-text-primary);
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 18px;
-    border-radius: 16px;
-    width: auto;
-    height: auto;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: transparent;
-    flex-shrink: 0;
-}
-
-.btn-visit-lounge:hover {
-    background-color: var(--color-text-primary);
-}
-
-.btn-visit-lounge:hover .btn-text {
-    color: var(--color-bg-primary);
-}
-
-.btn-visit-lounge .btn-text {
-    font-family: var(--font-urbanist);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.24px;
-    color: var(--color-text-primary);
-    margin: 0;
-}
-
-/* Visit Lounge button text - follows P2 responsive sizes */
-.btn-visit-lounge .btn-text.p2 {
-    /* Mobile (default): 12px - matches Figma */
-    font-size: 12px;
-    letter-spacing: -0.24px;
-}
-
-/* Tablet: 18px */
-@media (max-width: 1200px) {
-    .btn-visit-lounge .btn-text.p2 {
-        font-size: 18px;
-        letter-spacing: -0.36px;
-    }
-}
-
-/* Desktop: 20px */
-@media (min-width: 1201px) {
-    .btn-visit-lounge .btn-text.p2 {
-        font-size: 20px;
-        letter-spacing: -0.4px;
-    }
-}
+/* .btn-visit-lounge removed - replaced by .btn-lined */
 
 /* Academic Opportunities Section */
 .academic-section {
@@ -3445,19 +3268,7 @@ img {
     width: min-content;
 }
 
-.game-lounge-btn {
-    flex-shrink: 0;
-}
-
-.game-lounge-btn .btn-text {
-    font-size: 24px;
-    letter-spacing: -0.48px;
-    color: var(--color-bg-primary);
-}
-
-.game-lounge-btn:hover .btn-text {
-    color: var(--color-text-secondary);
-}
+/* .game-lounge-btn removed - replaced by .btn-lined */
 
 .events-recaps {
     display: flex;
@@ -3964,18 +3775,7 @@ img {
     margin: 0;
 }
 
-.links-section .btn-learn-more {
-    font-size: 20px; /* p2 Desktop */
-    letter-spacing: -0.4px; /* p2 */
-    padding: 12px 54px;
-    height: 44px;
-    width: auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    white-space: nowrap;
-}
+/* .links-section .btn-learn-more removed - replaced by .btn-filled */
 
 .links-card-description {
     color: var(--color-core-50);
@@ -4892,9 +4692,7 @@ img {
         font-size: 18px;
     }
     
-    .btn-learn-more {
-        font-size: 18px; /* p2 Tablet */
-    }
+    /* .btn-learn-more removed - replaced by .btn-filled */
     
     .section-title {
         font-size: 128px;
@@ -5356,9 +5154,7 @@ img {
         font-size: 12px;
     }
     
-    .btn-learn-more {
-        font-size: 12px; /* p2 Mobile */
-    }
+    /* .btn-learn-more removed - replaced by .btn-filled */
     
     .section-title {
         font-size: 64px;
@@ -5945,10 +5741,7 @@ img {
         min-height: 500px;
     }
 
-    .varsity-learn-more-btn {
-        width: 100%;
-        max-width: 200px;
-    }
+    /* .varsity-learn-more-btn removed - replaced by .btn-filled */
 
     /* Team Events Section - Mobile */
     .team-events-section {
@@ -5994,10 +5787,7 @@ img {
         letter-spacing: -0.36px;
     }
 
-    .game-lounge-btn .btn-text {
-        font-size: 18px;
-        letter-spacing: -0.36px;
-    }
+    /* .game-lounge-btn removed - replaced by .btn-lined */
 
     /* Lounge Page Mobile Spacing - Based on Figma */
     /* 23px gap between navbar and first section, 50px between major sections */
