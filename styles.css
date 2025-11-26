@@ -450,7 +450,7 @@ a:hover {
 .desktop-nav-menu {
     display: flex;
     gap: 48px;
-    align-items: center;
+    align-items: baseline;
     font-family: 'pressio-condensed', sans-serif;
     font-size: 28px;
     font-weight: 700;
@@ -468,6 +468,9 @@ a:hover {
     font-weight: 700;
     text-decoration: none;
     color: inherit;
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 1;
 }
 
 .nav-item:hover {
