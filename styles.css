@@ -1880,7 +1880,7 @@ img {
 .news-events-section {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 48px;
     align-items: flex-start;
     width: 100%;
 }
@@ -1890,7 +1890,7 @@ img {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    gap: 0;
+    gap: 36px;
 }
 
 .title-news-events-container {
@@ -1936,7 +1936,7 @@ img {
 .events-page .events-filter-chip {
     font-family: var(--font-urbanist);
     font-weight: 500;
-    font-size: 40px;
+    font-size: 28px;
     line-height: 1;
     color: var(--color-core-100);
     background: none;
@@ -2770,7 +2770,7 @@ img {
     margin: 0;
     font-family: var(--font-urbanist);
     font-weight: 500;
-    font-size: 40px;
+    font-size: 28px;
     line-height: 1;
     color: var(--color-text-secondary);
     cursor: pointer;
@@ -2798,7 +2798,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 14px 12px;
+    padding: 17px 15px; /* Updated to match Figma design */
     border-radius: 16px;
     border: 4px solid var(--color-bg-primary);
     background-color: var(--color-primary);
@@ -2841,7 +2841,7 @@ img {
 .event-card-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px; /* Updated to match Figma design */
 }
 
 .event-card-image-wrapper {
@@ -2880,7 +2880,7 @@ img {
 .event-card-body {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px; /* Updated to match Figma design */
 }
 
 .event-card-date {
@@ -2889,15 +2889,17 @@ img {
     font-size: 20px; /* P2 Desktop */
     letter-spacing: -0.4px;
     margin: 0;
-    color: var(--color-text-primary);
+    color: #fcfcfc; /* Updated to match Figma */
+    line-height: 1;
 }
 
 .event-card-title {
     font-size: 72px;
     letter-spacing: -1.44px;
     margin: 0;
-    color: var(--color-text-primary);
+    color: #fcfcfc; /* Updated to match Figma */
     overflow-wrap: anywhere;
+    line-height: 1;
 }
 
 .event-card-title.font-pressio-medium {
@@ -2912,8 +2914,73 @@ img {
     letter-spacing: -0.52px;
     line-height: 1;
     margin: 0;
-    color: var(--color-text-primary);
+    color: #f2f2f2; /* Updated to match Figma */
     overflow-wrap: anywhere;
+}
+
+/* New design event card with black rectangle - Figma implementation - Applied to all event cards */
+.event-card .event-card-content {
+    position: relative;
+}
+
+.event-card .event-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.event-card .event-card-image {
+    height: 263px; /* Figma: h-[263px] */
+    border-radius: 8px; /* Figma: rounded-[8px] */
+    background-color: #f2f2f2; /* Figma: bg-[#f2f2f2] */
+}
+
+.event-card .event-card-black-section {
+    background-color: #050708; /* Figma: bg-[#050708] */
+    border-radius: 8px; /* Figma: rounded-[8px] */
+    padding: 16px 11px; /* Figma: py-[16px] px-[11px] */
+    width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Figma: gap-[10px] */
+    min-height: 324px; /* Figma: h-[324px] */
+    box-sizing: border-box;
+}
+
+.event-card .event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Figma: gap-[6px] */
+    width: 100%;
+}
+
+.event-card .event-card-date {
+    font-family: var(--font-urbanist);
+    font-weight: 600; /* SemiBold */
+    font-size: 20px; /* Figma: text-[length:var(--type\/paragraph\/p2,20px)] */
+    letter-spacing: -0.4px; /* Figma: tracking-[-0.4px] */
+    color: #fcfcfc; /* Figma: text-[#fcfcfc] */
+    line-height: 1;
+    margin: 0;
+}
+
+.event-card .event-card-title {
+    font-size: 72px; /* Figma: text-[length:var(--type\/display\/h2-size,72px)] */
+    letter-spacing: -1.44px; /* Figma: tracking-[-1.44px] */
+    color: #fcfcfc; /* Figma: text-[#fcfcfc] */
+    line-height: 1;
+    margin: 0;
+}
+
+.event-card .event-card-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500; /* Medium */
+    font-size: 26px; /* Figma: text-[length:var(--type\/paragraph\/p1,26px)] */
+    letter-spacing: -0.52px; /* Figma: tracking-[-0.52px] */
+    color: #f2f2f2; /* Figma: text-[#f2f2f2] */
+    line-height: 1;
+    margin: 0;
 }
 
 .event-card-footer {
@@ -6207,7 +6274,7 @@ img {
     }
 
     .events-filter-chip {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     /* Mobile: 2-column layout for event cards - ensure proper alignment */
@@ -6414,7 +6481,7 @@ img {
     }
 
     .events-page .events-filter-chip {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     .sorting-groups-container {
