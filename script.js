@@ -454,18 +454,17 @@ $(document).ready(function(){
 	}, 100);
 });
 
-// Index.html Event Filter Functionality
+// Index.html and News Events Section Filter Functionality
 $(document).ready(function(){
-	console.log("Index event filter script loaded");
+	console.log("Event filter script loaded (index and news-events)");
 	
 	// Wait a bit to ensure DOM is fully ready
 	setTimeout(function() {
-		// Try both direct binding and event delegation
-		const $filterButtons = $(".index-filter-chip");
-		console.log("Found index filter buttons:", $filterButtons.length);
+		// Handle index.html filter chips
+		const $indexFilterButtons = $(".index-filter-chip");
+		console.log("Found index filter buttons:", $indexFilterButtons.length);
 		
-		// Direct binding
-		$filterButtons.off("click.indexFilterEvents").on("click.indexFilterEvents", function(e){
+		$indexFilterButtons.off("click.indexFilterEvents").on("click.indexFilterEvents", function(e){
 			e.stopPropagation();
 			const $button = $(this);
 			const filterValue = $button.text().trim().toLowerCase();
@@ -497,53 +496,130 @@ $(document).ready(function(){
 			$eventCards.removeClass("filtered-out").show();
 			
 			// Filter based on button text
-			// Esports cards have background color #1D252C (dark gray)
-			// Community cards have background color #ED1F33 (red)
 			if (filterValue === "all") {
-				// Show all cards (3 cards - 1 row)
+				// Show all cards
 				console.log("Showing all cards");
 			} else if (filterValue === "esports") {
-				// Show only esports cards (background: #1D252C)
-				// Hide community cards
+				// Show only esports cards
 				let hiddenCount = 0;
 				let shownCount = 0;
 				$eventCards.each(function(){
 					const $card = $(this);
 					const category = $card.attr("data-event-category");
-					console.log("Index card category:", category);
 					if (category !== "esports") {
 						$card.addClass("filtered-out");
-						$card.hide(); // Direct hide as backup
+						$card.hide();
 						hiddenCount++;
 					} else {
 						$card.removeClass("filtered-out");
-						$card.show(); // Ensure visible
+						$card.show();
 						shownCount++;
 					}
 				});
 				console.log("Index filtered to esports. Shown:", shownCount, "Hidden:", hiddenCount);
 			} else if (filterValue === "community events") {
-				// Show only community cards (background: #ED1F33)
-				// Hide esports cards
+				// Show only community cards
 				let hiddenCount = 0;
 				let shownCount = 0;
 				$eventCards.each(function(){
 					const $card = $(this);
 					const category = $card.attr("data-event-category");
-					console.log("Index card category:", category);
 					if (category !== "community") {
 						$card.addClass("filtered-out");
-						$card.hide(); // Direct hide as backup
+						$card.hide();
 						hiddenCount++;
 					} else {
 						$card.removeClass("filtered-out");
-						$card.show(); // Ensure visible
+						$card.show();
 						shownCount++;
 					}
 				});
 				console.log("Index filtered to community. Shown:", shownCount, "Hidden:", hiddenCount);
 			} else {
 				console.warn("Unknown index filter value:", filterValue);
+			}
+		});
+		
+		// Handle news-events-section filter chips (reuses same logic)
+		const $newsEventsFilterButtons = $(".news-events-filter-chip");
+		console.log("Found news events filter buttons:", $newsEventsFilterButtons.length);
+		
+		$newsEventsFilterButtons.off("click.newsEventsFilter").on("click.newsEventsFilter", function(e){
+			e.preventDefault();
+			e.stopPropagation();
+			const $button = $(this);
+			// Use data-filter attribute if available, otherwise use text
+			const filterValue = $button.attr("data-filter") || $button.text().trim().toLowerCase();
+			
+			console.log("News events filter button clicked:", filterValue);
+			
+			// Remove active class from all buttons in this section
+			$button.siblings(".news-events-filter-chip").removeClass("is-active");
+			$button.closest(".news-events-filter-bar").find(".news-events-filter-chip").removeClass("is-active");
+			
+			// Add active class to clicked button
+			$button.addClass("is-active");
+			
+			// Get all event cards in the news-events-cards-container (same container as button)
+			const $eventCards = $button.closest(".news-events-section").find(".news-events-cards-container .event-card");
+			console.log("Found news events cards:", $eventCards.length);
+			
+			if ($eventCards.length === 0) {
+				console.error("No event cards found! Check selector: .news-events-cards-container .event-card");
+				return;
+			}
+			
+			// Remove filtered-out class from all cards first and show them
+			$eventCards.removeClass("filtered-out").show();
+			
+			// Filter based on data-filter attribute or button text
+			// Normalize filter value
+			let normalizedFilter = filterValue.toLowerCase();
+			if (normalizedFilter === "community events") {
+				normalizedFilter = "community";
+			}
+			
+			if (normalizedFilter === "all") {
+				// Show all cards
+				console.log("Showing all cards");
+			} else if (normalizedFilter === "esports") {
+				// Show only esports cards
+				let hiddenCount = 0;
+				let shownCount = 0;
+				$eventCards.each(function(){
+					const $card = $(this);
+					const category = $card.attr("data-event-category");
+					if (category !== "esports") {
+						$card.addClass("filtered-out");
+						$card.hide();
+						hiddenCount++;
+					} else {
+						$card.removeClass("filtered-out");
+						$card.show();
+						shownCount++;
+					}
+				});
+				console.log("News events filtered to esports. Shown:", shownCount, "Hidden:", hiddenCount);
+			} else if (normalizedFilter === "community") {
+				// Show only community cards
+				let hiddenCount = 0;
+				let shownCount = 0;
+				$eventCards.each(function(){
+					const $card = $(this);
+					const category = $card.attr("data-event-category");
+					if (category !== "community") {
+						$card.addClass("filtered-out");
+						$card.hide();
+						hiddenCount++;
+					} else {
+						$card.removeClass("filtered-out");
+						$card.show();
+						shownCount++;
+					}
+				});
+				console.log("News events filtered to community. Shown:", shownCount, "Hidden:", hiddenCount);
+			} else {
+				console.warn("Unknown news events filter value:", filterValue);
 			}
 		});
 	}, 100);
