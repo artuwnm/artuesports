@@ -108,7 +108,7 @@
             <div class="room-card">
                 <a href="knightarcade.html" class="room-card-link">
                     <div class="room-card-image-wrapper">
-                        <img src="img/knight_arcade_rc.jpg" alt="Knight Arcade" class="room-card-image">
+                        <div class="room-card-image-placeholder"></div>
                         <div class="room-card-overlay"></div>
                         <div class="room-card-content">
                             <h2 class="room-card-title">Knight Arcade</h2>
@@ -119,7 +119,7 @@
             <div class="room-card">
                 <a href="boardgameroom.html" class="room-card-link">
                     <div class="room-card-image-wrapper">
-                        <img src="img/bgroom_rc.jpg" alt="Board Game Room" class="room-card-image">
+                        <div class="room-card-image-placeholder"></div>
                         <div class="room-card-overlay"></div>
                         <div class="room-card-content">
                             <h2 class="room-card-title">Board Game Room</h2>
@@ -189,25 +189,27 @@
     <section class="news-events-section">
         <div class="news-events-header">
             <h1 class="news-events-title">NEWS AND EVENTS</h1>
-            <a href="events.html" class="btn-lined">See All</a>
+            <a href="events.html" class="news-events-see-all-btn">See All</a>
         </div>
         <div class="news-events-filter-bar">
             <button class="news-events-filter-chip is-active" data-filter="all">All</button>
             <button class="news-events-filter-chip" data-filter="esports">Esports</button>
             <button class="news-events-filter-chip" data-filter="community">Community Events</button>
         </div>
-        <div class="news-events-cards-container events-grid">
+        <div class="news-events-cards-container">
             <div class="event-card" data-event-category="esports">
                 <div class="event-card-content">
                     <div class="event-card-image-wrapper">
                         <div class="event-card-image"></div>
                     </div>
-                    <div class="event-card-black-section">
-                        <div class="event-card-body">
-                            <p class="event-card-date p1">October 12th | 10/16/25</p>
-                            <h2 class="event-card-title font-pressio-medium">Rocket League Event</h2>
-                            <p class="event-card-description p1">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                    <div class="event-card-body">
+                        <p class="event-card-date">October 12th | 10/16/25</p>
+                        <div class="event-card-title-wrapper">
+                            <h3 class="event-card-title font-pressio-medium">Rocket League Event</h3>
                         </div>
+                    </div>
+                    <div class="event-card-icon">
+                        <img src="img/icons/twitch.svg" alt="Twitch">
                     </div>
                 </div>
             </div>
@@ -216,12 +218,14 @@
                     <div class="event-card-image-wrapper">
                         <div class="event-card-image"></div>
                     </div>
-                    <div class="event-card-black-section">
-                        <div class="event-card-body">
-                            <p class="event-card-date p1">October 12th | 10/16/25</p>
-                            <h2 class="event-card-title font-pressio-medium">Rocket League Event</h2>
-                            <p class="event-card-description p1">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                    <div class="event-card-body">
+                        <p class="event-card-date">October 12th | 10/16/25</p>
+                        <div class="event-card-title-wrapper">
+                            <h3 class="event-card-title font-pressio-medium">Rocket League Event</h3>
                         </div>
+                    </div>
+                    <div class="event-card-icon">
+                        <img src="img/icons/twitch.svg" alt="Twitch">
                     </div>
                 </div>
             </div>
@@ -230,73 +234,19 @@
                     <div class="event-card-image-wrapper">
                         <div class="event-card-image"></div>
                     </div>
-                    <div class="event-card-black-section">
-                        <div class="event-card-body">
-                            <p class="event-card-date p1">October 12th | 10/16/25</p>
-                            <h2 class="event-card-title font-pressio-medium">Rocket League Event</h2>
-                            <p class="event-card-description p1">Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.</p>
+                    <div class="event-card-body">
+                        <p class="event-card-date">October 12th | 10/16/25</p>
+                        <div class="event-card-title-wrapper">
+                            <h3 class="event-card-title font-pressio-medium">Rocket League Event</h3>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="teams-section">
-        <div class="teams-section-header">
-            <h1 class="teams-section-title">TEAMS</h1>
-            <a href="teams.html" class="btn-lined">Join the Teams</a>
-        </div>
-        <div class="teams-cards-container">
-            <a href="overwatch.html" class="team-card">
-                <img alt="Overwatch" class="team-card-bg" src="https://www.figma.com/api/mcp/asset/b745837c-8fc3-4f25-b5eb-2ac9d5df1d75" />
-                <p class="team-card-title font-pressio">Overwatch</p>
-            </a>
-            <div class="team-card">
-                <img alt="Valorant" class="team-card-bg" src="https://www.figma.com/api/mcp/asset/d65fcfc2-4e77-4b03-bed1-2dd7dd37cfbc" />
-                <div class="team-card-title font-pressio">
-                    <p class="mb-0">League Of</p>
-                    <p>Legends</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="community-section">
-        <div class="community-section-header">
-            <div class="community-header-top">
-                <h1 class="community-section-title">COMMUNITY</h1>
-                <a href="connect.html" class="btn-lined">Connect with Us</a>
-            </div>
-            <p class="community-section-description p1">Play, compete, and create: see why the ArtU gaming community calls this their gaming home.</p>
-        </div>
-        <div class="community-carousel-container">
-            <div class="carousel" data-timer="8">
-                <div class="carousel-content-wrapper">
-                    <div class="carousel-arrow carousel-arrow-left">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div class="carousel-deck">
-                        <div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
-                        <div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
-                        <div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
-                        <div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
-                        <div class="carousel-slide"><div class="carousel-slide-content">Content Placeholder</div></div>
-                    </div>
-                    <div class="carousel-arrow carousel-arrow-right">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <div class="event-card-icon">
+                        <img src="img/icons/twitch.svg" alt="Twitch">
                     </div>
                 </div>
-                <div class="carousel-pagination-wrapper">
-                    <div class="carousel-pagination"></div>
-                </div>
             </div>
         </div>
-    </section>
+    </section> 
     </main>
     
     <footer class="footer">
@@ -342,43 +292,11 @@
         <div class="footer-bottom">
             <p class="footer-copyright">© 2025 Academy of Art University</p>
             <div class="footer-legal">
-                <a href="https://www.academyart.edu/privacy-policy/" target="_blank" rel="noopener noreferrer" class="footer-legal-link">Privacy</a>
-                <a href="https://www.academyart.edu/terms-of-use/" target="_blank" rel="noopener noreferrer" class="footer-legal-link">Terms</a>
+                <a href="privacy.html" class="footer-legal-link">Privacy</a>
+                <a href="#" class="footer-legal-link">Terms</a>
             </div>
         </div>
     </footer>
-
-    <!-- Event Overlay -->
-    <div class="event-overlay" id="event-overlay">
-        <button class="event-overlay-close" id="event-overlay-close" aria-label="Close overlay"></button>
-        <div class="event-overlay-content">
-            <div class="event-overlay-hero">
-                <div class="event-overlay-title-container">
-                    <h1 class="event-overlay-title font-pressio" id="event-overlay-title">Event Title</h1>
-                </div>
-                <div class="event-overlay-main">
-                    <div class="event-overlay-left">
-                        <h2 class="event-overlay-subheading font-pressio-medium" id="event-overlay-subheading">Subheading</h2>
-                        <p class="event-overlay-description" id="event-overlay-description">Event description goes here.</p>
-                    </div>
-                    <div class="event-overlay-right">
-                        <div class="event-overlay-datetime">
-                            <p class="event-overlay-date font-pressio" id="event-overlay-date">10/22/2025</p>
-                            <p class="event-overlay-time font-pressio" id="event-overlay-time">3:00pm</p>
-                        </div>
-                        <button class="btn-lined event-overlay-calendar-btn" id="event-overlay-calendar-btn">Add to your calendar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="event-overlay-media">
-                <div class="event-overlay-datetime-tablet">
-                    <p class="event-overlay-date font-pressio" id="event-overlay-date-tablet">10/22/2025</p>
-                    <p class="event-overlay-time font-pressio" id="event-overlay-time-tablet">3:00pm</p>
-                </div>
-                <div class="event-overlay-image" id="event-overlay-image"></div>
-            </div>
-        </div>
-    </div>
     
     <script src="script.js"></script>
 </body>
