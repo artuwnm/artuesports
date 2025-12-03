@@ -280,19 +280,24 @@ a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(64, 84, 100, 0.75);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     z-index: 9998;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
     display: none;
 }
 
 .mobile-menu-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+    background-color: rgba(64, 84, 100, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 /* Mobile Menu Panel - Hidden on desktop */
@@ -308,16 +313,21 @@ a:hover {
     transform: translateX(100%);
     transition: transform 0.3s ease;
     overflow-y: auto;
+    box-shadow: none;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.mobile-menu-panel.active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
     box-shadow: -327px -39px 92px 0px rgba(176, 176, 176, 0),
                 -209px -25px 84px 0px rgba(176, 176, 176, 0.01),
                 -118px -14px 71px 0px rgba(176, 176, 176, 0.05),
                 -52px -6px 53px 0px rgba(176, 176, 176, 0.09),
                 -13px -2px 29px 0px rgba(176, 176, 176, 0.1);
-    display: none;
-}
-
-.mobile-menu-panel.active {
-    transform: translateX(0);
 }
 
 /* Mobile Menu Content */
@@ -922,6 +932,82 @@ a:hover {
 }
 
 .equipment-specs-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #d9d9d9;
+    border-radius: 16px;
+}
+
+/* Game Night Section */
+.game-night-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 var(--spacing-container);
+    box-sizing: border-box;
+    margin-top: 37px;
+    margin-bottom: 37px;
+}
+
+.game-night-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 13px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.game-night-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-section);
+    align-items: flex-start;
+    width: 820px;
+    flex-shrink: 0;
+}
+
+.game-night-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -1.28px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.game-night-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.52px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.game-night-time {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: normal;
+    letter-spacing: -0.56px;
+    text-decoration: underline;
+    text-underline-position: from-font;
+    text-decoration-thickness: auto;
+}
+
+.game-night-image {
+    width: 818px;
+    height: 460px;
+    flex-shrink: 0;
+}
+
+.game-night-image-placeholder {
     width: 100%;
     height: 100%;
     background-color: #d9d9d9;
@@ -3824,9 +3910,8 @@ img {
 .community-section-description {
     font-family: var(--font-urbanist);
     font-weight: 500;
-    font-size: 14px; /* P1 Desktop */
-    line-height: 1;
-    letter-spacing: -0.28px;
+    line-height: normal;
+    letter-spacing: -0.52px;
     color: var(--color-text-primary);
     margin: 0;
     width: 100%;
@@ -3907,7 +3992,7 @@ img {
 }
 
 .news-events-cards-container .event-card {
-    flex: 1 0 0;
+    flex: 0 0 calc((100% - 36px) / 3); /* Fixed width: 3 cards with 2 gaps of 18px */
     min-width: 0;
     padding: 12px 14px;
     border: none; /* Remove border for news-events section */
@@ -5236,10 +5321,6 @@ img {
         max-width: 100%;
     }
 
-    .community-section-description {
-        font-size: 14px; /* P1 Tablet */
-        letter-spacing: -0.28px;
-    }
 
     .community-carousel-container {
         padding-top: 27px;
@@ -5266,6 +5347,10 @@ img {
 
     .news-events-cards-container {
         gap: 18px;
+    }
+
+    .news-events-cards-container .event-card {
+        flex: 0 0 calc((100% - 36px) / 3); /* Fixed width: 3 cards with 2 gaps of 18px */
     }
 
     .news-events-cards-container .event-card-date {
@@ -5530,6 +5615,32 @@ img {
         width: 100%;
         height: auto;
         aspect-ratio: 819 / 461;
+    }
+
+    /* Game Night Section - Tablet */
+    .game-night-section {
+        padding: 0 24px;
+        margin-top: 72px;
+        margin-bottom: 72px;
+    }
+
+    .game-night-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .game-night-text {
+        width: 100%;
+    }
+
+    .game-night-title {
+        font-size: 64px;
+    }
+
+    .game-night-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 818 / 460;
     }
     
     /* Mobile Navbar Styles */
@@ -6212,6 +6323,38 @@ img {
         aspect-ratio: 819 / 461;
     }
 
+    /* Game Night Section - Mobile */
+    .game-night-section {
+        padding: 0 12px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .game-night-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .game-night-text {
+        width: 100%;
+    }
+
+    .game-night-title {
+        font-size: 64px;
+        letter-spacing: -1.28px;
+    }
+
+    .game-night-time {
+        font-size: 24px;
+        letter-spacing: -0.48px;
+    }
+
+    .game-night-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 818 / 460;
+    }
+
     /* Room Cards Section - Mobile */
     .room-cards-section {
         padding: 0 12px;
@@ -6709,10 +6852,6 @@ img {
         max-width: 100%;
     }
 
-    .community-section-description {
-        font-size: 14px; /* P1 Mobile */
-        letter-spacing: -0.28px;
-    }
 
     .community-carousel-container {
         padding-top: 27px;
