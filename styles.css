@@ -2224,6 +2224,61 @@ img {
 }
 
 /* ============================================
+   Pillars Section
+   ============================================ */
+.pillars-section {
+    background-color: var(--color-bg-800);
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+    align-items: center;
+    padding: 141px 372px;
+    width: calc(100% + 2 * var(--spacing-container));
+    margin-left: calc(-1 * var(--spacing-container));
+    margin-right: calc(-1 * var(--spacing-container));
+    box-sizing: border-box;
+    margin-top: 72px;
+}
+
+.pillars-section-title {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--color-core-50);
+    margin: 0;
+    text-align: center;
+}
+
+.pillars-words-container {
+    display: flex;
+    gap: 124px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.pillars-word {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500;
+    font-size: 72px; /* H2 Desktop */
+    line-height: 1;
+    letter-spacing: -1.44px;
+    color: var(--color-core-50);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.pillars-section-description {
+    color: var(--color-core-50);
+    text-align: center;
+    max-width: 900px;
+    min-width: 600px;
+    margin: 0 auto;
+    margin-top: -19px; /* Override gap: 36px desired - 55px gap = -19px */
+    white-space: pre-wrap;
+}
+
+/* ============================================
    Varsity Team Section
    ============================================ */
 .varsity-section {
@@ -2244,6 +2299,15 @@ img {
     text-transform: uppercase;
     color: var(--color-text-primary);
     margin: 0;
+}
+
+.varsity-section-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0;
+    margin-bottom: 24px;
+    max-width: 600px;
 }
 
 .varsity-cards-container {
@@ -2889,7 +2953,7 @@ img {
     border: 4px solid var(--color-bg-primary);
     background-color: var(--color-primary);
     color: var(--color-text-primary);
-    height: auto;
+    height: 100%; /* Stretch to match tallest card in column */
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease, display 0.3s ease;
 }
@@ -2980,7 +3044,7 @@ img {
 }
 
 .event-card-title {
-    font-size: 72px;
+    /* font-size handled by h2 breakpoints */
     letter-spacing: -1.44px;
     margin: 0;
     color: #fcfcfc; /* Updated to match Figma */
@@ -3007,6 +3071,10 @@ img {
 /* New design event card with black rectangle - Figma implementation - Applied to all event cards */
 .event-card .event-card-content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Fill the card height */
+    flex: 1; /* Grow to fill available space */
 }
 
 .event-card .event-card-image-wrapper {
@@ -3028,11 +3096,10 @@ img {
     border-radius: 8px; /* Figma: rounded-[8px] */
     padding: 16px 11px; /* Figma: py-[16px] px-[11px] */
     width: 100%;
-    flex-shrink: 0;
+    flex: 1; /* Grow to fill remaining space, matching tallest card in column */
     display: flex;
     flex-direction: column;
     gap: 10px; /* Figma: gap-[10px] */
-    min-height: 324px; /* Figma: h-[324px] */
     box-sizing: border-box;
 }
 
@@ -3054,7 +3121,7 @@ img {
 }
 
 .event-card .event-card-title {
-    font-size: 72px; /* Figma: text-[length:var(--type\/display\/h2-size,72px)] */
+    /* font-size handled by h2 breakpoints */
     letter-spacing: -1.44px; /* Figma: tracking-[-1.44px] */
     color: #fcfcfc; /* Figma: text-[#fcfcfc] */
     line-height: 1;
@@ -3555,7 +3622,7 @@ img {
 
 /* Overwatch page - P1 text size experiment */
 .overwatch-page .p1 {
-    font-size: 20px;
+    font-size: 26px; /* P1 Desktop - will be overridden by responsive .p1 rules */
 }
 
 .events-recaps {
@@ -5066,6 +5133,11 @@ img {
     .p1 {
         font-size: 20px;
     }
+
+    .overwatch-page .p1 {
+        font-size: 20px; /* P1 Tablet - override .overwatch-page .p1 */
+    }
+
     
     /* P2: Tablet - 18px */
     .p2 {
@@ -5575,6 +5647,11 @@ img {
     .p1 {
         font-size: 14px;
     }
+
+    .overwatch-page .p1 {
+        font-size: 14px; /* P1 Mobile - override .overwatch-page .p1 */
+    }
+
     
     /* P2: Mobile - 12px */
     .p2 {
@@ -5944,12 +6021,16 @@ img {
     }
 
     /* H2 - Tablet: 48px */
-    .event-card-title,
     .event-overlay-subheading,
     .event-overlay-date,
     .event-overlay-time,
     .varsity-player-name {
         font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+    
+    /* event-card-title font-size handled by h2 breakpoints */
+    .event-card-title {
         letter-spacing: -0.96px;
     }
 
@@ -5981,7 +6062,8 @@ img {
     }
 
     .varsity-player-card {
-        flex: 1 1 calc(50% - 8px);
+        flex: 0 0 calc((100% - 16px) / 2);
+        max-width: calc((100% - 16px) / 2);
         min-width: 0;
     }
 
@@ -6148,10 +6230,80 @@ img {
     }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+    .pillars-section {
+        padding: 100px 120px;
+        gap: 40px;
+        width: calc(100% + 2 * var(--spacing-container));
+        margin-left: calc(-1 * var(--spacing-container));
+        margin-right: calc(-1 * var(--spacing-container));
+    }
+
+    .pillars-words-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .pillars-section-description {
+        min-width: auto;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: var(--spacing-container);
+        padding-right: var(--spacing-container);
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-container {
+        padding: 0 12px;
+    }
+
     .events-page {
-        padding: 48px 16px 72px;
+        padding: 48px 12px 72px;
         gap: 48px;
+    }
+
+    .pillars-section {
+        padding: 72px 0;
+        gap: 32px;
+        margin-top: 48px;
+        width: calc(100% + 24px);
+        margin-left: -12px;
+        margin-right: -12px;
+    }
+
+    .pillars-section-title {
+        font-size: 24px;
+        padding-left: 12px;
+        padding-right: 12px;
+        box-sizing: border-box;
+    }
+
+    .pillars-words-container {
+        flex-direction: column;
+        gap: 16px;
+        padding-left: 12px;
+        padding-right: 12px;
+        box-sizing: border-box;
+    }
+
+    .pillars-word {
+        font-size: 40px; /* H2 Mobile */
+        letter-spacing: -0.8px;
+    }
+
+    .pillars-section-description {
+        width: calc(100vw - 48px);
+        max-width: calc(100vw - 48px);
+        padding-left: 12px;
+        padding-right: 12px;
+        box-sizing: content-box;
+        margin-left: 12px;
+        margin-right: 12px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 
     /* H1 - Mobile: 64px */
@@ -6176,11 +6328,15 @@ img {
         letter-spacing: -0.8px;
     }
 
-    /* H3 - Mobile: 32px (event card titles) */
-    .event-card-title,
+    /* H2 - Mobile: 40px (event card titles) */
     .team-event-card-title {
-        font-size: 32px;
-        letter-spacing: -0.64px;
+        font-size: 40px;
+        letter-spacing: -0.8px;
+    }
+    
+    /* event-card-title font-size handled by h2 breakpoints */
+    .event-card-title {
+        letter-spacing: -0.8px;
     }
 
     /* P1 - Mobile: 14px */
@@ -6211,10 +6367,12 @@ img {
 
     .varsity-cards-container {
         flex-direction: column;
+        gap: 16px;
     }
 
     .varsity-player-card {
-        flex: 1 1 auto;
+        flex: 0 0 100%;
+        max-width: 100%;
         width: 100%;
         height: auto;
         min-height: 500px;
@@ -6440,6 +6598,21 @@ img {
         max-width: 100%;
         min-width: 0;
         box-sizing: border-box;
+        padding: 9px 8px; /* Half of 17px 15px */
+        gap: 5px; /* Half of 10px */
+    }
+    
+    .event-card .event-card-content {
+        gap: 6px; /* Half of 12px */
+    }
+    
+    .event-card .event-card-black-section {
+        padding: 8px 6px; /* Half of 16px 11px */
+        gap: 5px; /* Half of 10px */
+    }
+    
+    .event-card .event-card-body {
+        gap: 3px; /* Half of 6px */
     }
 
     .events-calendar-container {
@@ -6546,7 +6719,7 @@ img {
 
     /* Events Page Responsive */
     .events-page {
-        padding: 48px 16px 72px;
+        padding: 48px 12px 72px;
         gap: 48px;
     }
 
