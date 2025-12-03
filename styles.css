@@ -2931,8 +2931,10 @@ img {
 
 .event-card .event-card-image {
     height: 263px; /* Figma: h-[263px] */
+    width: 100%;
     border-radius: 8px; /* Figma: rounded-[8px] */
     background-color: #f2f2f2; /* Figma: bg-[#f2f2f2] */
+    object-fit: cover; /* Ensure image covers the area while maintaining aspect ratio */
 }
 
 .event-card .event-card-black-section {
