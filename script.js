@@ -724,7 +724,7 @@ $(function(){
 	}
 	
 	// Handle event card clicks - only on cards in the events grid (not recaps)
-	$(".events-grid .event-card").on("click", function(e) {
+	$(".events-grid .event-card, .index-events-grid .event-card, .news-events-cards-container.events-grid .event-card").on("click", function(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		const $card = $(this);
