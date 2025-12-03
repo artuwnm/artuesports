@@ -3030,7 +3030,7 @@ img {
 .event-card-body {
     display: flex;
     flex-direction: column;
-    gap: 6px; /* Updated to match Figma design */
+    gap: 8px; /* Desktop/Tablet spacing */
 }
 
 .event-card-date {
@@ -3043,8 +3043,9 @@ img {
     line-height: 1;
 }
 
-.event-card-title {
-    /* font-size handled by h2 breakpoints */
+.event-card-title,
+h2.event-card-title {
+    font-size: 48px !important; /* Override h2 default (72px) for event cards */
     letter-spacing: -1.44px;
     margin: 0;
     color: #fcfcfc; /* Updated to match Figma */
@@ -3106,7 +3107,7 @@ img {
 .event-card .event-card-body {
     display: flex;
     flex-direction: column;
-    gap: 6px; /* Figma: gap-[6px] */
+    gap: 8px; /* Desktop/Tablet spacing */
     width: 100%;
 }
 
@@ -3120,8 +3121,15 @@ img {
     margin: 0;
 }
 
-.event-card .event-card-title {
-    /* font-size handled by h2 breakpoints */
+/* Override for event-card-date with p1 class - use p1 sizing */
+.event-card .event-card-date.p1 {
+    font-size: 26px; /* P1 Desktop */
+    letter-spacing: -0.52px;
+}
+
+.event-card .event-card-title,
+.event-card h2.event-card-title {
+    font-size: 48px !important; /* Override h2 default (72px) for event cards */
     letter-spacing: -1.44px; /* Figma: tracking-[-1.44px] */
     color: #fcfcfc; /* Figma: text-[#fcfcfc] */
     line-height: 1;
@@ -4058,11 +4066,25 @@ img {
     width: 100%;
 }
 
+/* When news-events-cards-container has events-grid class, use grid layout */
+.news-events-cards-container.events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 10px;
+    align-items: stretch;
+}
+
 .news-events-cards-container .event-card {
     flex: 0 0 calc((100% - 36px) / 3); /* Fixed width: 3 cards with 2 gaps of 18px */
     min-width: 0;
     padding: 12px 14px;
     border: none; /* Remove border for news-events section */
+}
+
+/* Reset flex properties when using grid */
+.news-events-cards-container.events-grid .event-card {
+    flex: none;
+    width: auto;
 }
 
 .news-events-cards-container .event-card-content {
@@ -4072,10 +4094,18 @@ img {
     height: 100%;
 }
 
-.news-events-cards-container .event-card-body {
+.news-events-cards-container:not(.events-grid) .event-card-body {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    flex: 1;
+}
+
+/* When news-events-cards-container uses events-grid, use standard spacing */
+.news-events-cards-container.events-grid .event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Desktop/Tablet spacing - match standard event-card-body */
     flex: 1;
 }
 
@@ -4098,10 +4128,10 @@ img {
     width: 100%;
 }
 
-.news-events-cards-container .event-card-title {
+.news-events-cards-container:not(.events-grid) .event-card-title {
     font-family: var(--font-pressio-medium-condensed);
     font-weight: 500;
-    font-size: 32px; /* H3 Desktop from Figma */
+    font-size: 32px; /* H3 Desktop from Figma - for old structure only */
     line-height: 1;
     letter-spacing: -0.64px;
     color: var(--color-text-primary);
@@ -5430,7 +5460,7 @@ img {
         letter-spacing: -0.24px;
     }
 
-    .news-events-cards-container .event-card-title {
+    .news-events-cards-container:not(.events-grid) .event-card-title {
         font-size: 32px;
         letter-spacing: -0.64px;
     }
@@ -5586,6 +5616,18 @@ img {
         font-size: 14px; /* P1 Tablet - same as desktop */
         letter-spacing: -0.28px;
         padding: 12px 54px;
+    }
+}
+
+/* Tablet breakpoint (769px to 1024px) - 2 columns for event cards */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+    /* Event cards grid - 2 columns on tablet */
+    .index-events-grid,
+    .events-grid,
+    .events-recaps-grid,
+    .news-events-cards-container.events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
     }
 }
 
@@ -5905,7 +5947,8 @@ img {
     /* Event cards grid */
     .index-events-grid,
     .events-grid,
-    .events-recaps-grid {
+    .events-recaps-grid,
+    .news-events-cards-container.events-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
     }
@@ -6004,7 +6047,9 @@ img {
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
     .events-grid,
-    .events-recaps-grid {
+    .events-recaps-grid,
+    .index-events-grid,
+    .news-events-cards-container.events-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -6029,15 +6074,26 @@ img {
         letter-spacing: -0.96px;
     }
     
-    /* event-card-title font-size handled by h2 breakpoints */
-    .event-card-title {
+    /* event-card-title font-size for tablet */
+    .event-card-title,
+    h2.event-card-title {
+        font-size: 40px !important; /* Tablet size - smaller than h2 (48px) */
         letter-spacing: -0.96px;
     }
 
     /* P1 - Tablet: 20px */
     .event-card-description,
+    .event-card-description.p1,
+    .event-card .event-card-description.p1,
     .event-overlay-description,
     .team-hero-description {
+        font-size: 20px;
+        letter-spacing: -0.4px;
+    }
+    
+    /* Ensure event-card-date with p1 class uses p1 sizing on tablet */
+    .event-card-date.p1,
+    .event-card .event-card-date.p1 {
         font-size: 20px;
         letter-spacing: -0.4px;
     }
@@ -6334,8 +6390,10 @@ img {
         letter-spacing: -0.8px;
     }
     
-    /* event-card-title font-size handled by h2 breakpoints */
-    .event-card-title {
+    /* event-card-title font-size for mobile */
+    .event-card-title,
+    h2.event-card-title {
+        font-size: 32px !important; /* Mobile size - smaller than h2 (40px) */
         letter-spacing: -0.8px;
     }
 
@@ -6350,9 +6408,19 @@ img {
     .event-card-description {
         display: none;
     }
+    
+    /* P1 - Mobile: 14px for p1 elements in event cards */
+    .event-card-description.p1,
+    .event-card .event-card-description.p1,
+    .event-card-date.p1,
+    .event-card .event-card-date.p1 {
+        font-size: 14px;
+        letter-spacing: -0.28px;
+    }
 
     /* P2 - Mobile: 12px */
-    .event-card-date,
+    .event-card-date:not(.p1),
+    .event-card .event-card-date:not(.p1),
     .event-card-tag,
     .varsity-player-description,
     .team-event-card-date {
@@ -6583,7 +6651,8 @@ img {
     /* Mobile: 2-column layout for event cards - ensure proper alignment */
     .index-events-grid,
     .events-grid,
-    .events-recaps-grid {
+    .events-recaps-grid,
+    .news-events-cards-container.events-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
         width: 100%;
@@ -6612,7 +6681,7 @@ img {
     }
     
     .event-card .event-card-body {
-        gap: 3px; /* Half of 6px */
+        gap: 5px; /* Mobile spacing */
     }
 
     .events-calendar-container {
@@ -7060,14 +7129,21 @@ img {
         font-size: 24px;
     }
 
-    .news-events-cards-container {
+    .news-events-cards-container:not(.events-grid) {
         flex-direction: column;
         gap: 18px;
     }
 
-    .news-events-cards-container .event-card {
+    .news-events-cards-container:not(.events-grid) .event-card {
         width: 100%;
         flex: none;
+    }
+
+    /* When news-events-cards-container has events-grid class, use 2-column grid on mobile */
+    .news-events-cards-container.events-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
     }
 
     .news-events-cards-container .event-card-date {
@@ -7075,7 +7151,7 @@ img {
         letter-spacing: -0.24px;
     }
 
-    .news-events-cards-container .event-card-title {
+    .news-events-cards-container:not(.events-grid) .event-card-title {
         font-size: 32px;
         letter-spacing: -0.64px;
     }
