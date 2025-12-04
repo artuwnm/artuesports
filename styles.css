@@ -41,7 +41,7 @@
     --font-pressio-medium-condensed: 'pressio-condensed', 'Arial Black', sans-serif; /* No. 43 Medium Condensed */
     
     /* Spacing */
-    --spacing-section: 37px;
+    --spacing-section: 36px;
     --spacing-container: 36px;
 }
 
@@ -1113,6 +1113,7 @@ a:hover {
     align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 72px;
 }
 
 .footer-top {
@@ -1314,11 +1315,9 @@ a:hover {
 }
 
 .footer-copyright {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 20px;
     font-weight: 600;
     line-height: normal;
-    color: var(--color-core-100);
+    color: var(--color-text-secondary);
     margin: 0;
     letter-spacing: -0.4px;
     text-align: center;
@@ -1333,11 +1332,9 @@ a:hover {
 }
 
 .footer-legal-link {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 20px;
     font-weight: 600;
     line-height: normal;
-    color: var(--color-core-100);
+    color: var(--color-text-secondary);
     margin: 0;
     letter-spacing: -0.4px;
     text-align: center;
@@ -3487,13 +3484,12 @@ h2.event-card-title {
 .room-card-title {
     font-family: var(--font-pressio-medium-condensed);
     font-weight: 500;
-    font-size: 144px;
+    font-size: 72px; /* H2: Desktop - 72px */
     line-height: 1;
-    letter-spacing: -2.88px;
+    letter-spacing: -1.44px; /* H2: Desktop - -1.44px */
     text-align: center;
     color: var(--color-text-primary);
     margin: 0;
-    text-transform: uppercase;
     position: relative;
     z-index: 3;
 }
@@ -3570,11 +3566,10 @@ h2.event-card-title {
     font-family: var(--font-pressio-bold-condensed);
     font-weight: 700;
     line-height: 1;
-    letter-spacing: -2.56px;
+    letter-spacing: -1.44px; /* H2: Desktop - -1.44px */
     text-align: center;
-    text-transform: uppercase;
     color: var(--color-core-50);
-    font-size: 128px; /* H1: Desktop - 128px */
+    font-size: 72px; /* H2: Desktop - 72px */
     position: absolute;
     z-index: 2;
     margin: 0;
@@ -3586,7 +3581,7 @@ h2.event-card-title {
     display: block;
 }
 
-.team-card-title p {
+.team-card-title span {
     margin: 0;
     text-align: center;
     display: block;
@@ -3926,6 +3921,60 @@ h2.event-card-title {
     width: 100%;
 }
 
+.location-section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    text-transform: capitalize;
+}
+
+.location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: normal;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.location-info .section-text {
+    font-size: 26px;
+    letter-spacing: -0.52px;
+}
+
+.hours-section .section-text {
+    font-size: 26px;
+    letter-spacing: -0.52px;
+}
+
+.hours-section {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 0;
+}
+
+.hours-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: normal;
+    height: auto;
+}
+
+.hours-column-left {
+    width: 394px;
+    max-width: 100%;
+}
+
+.hours-column-right {
+    width: 358px;
+    max-width: 100%;
+}
+
+/* Legacy classes for backward compatibility */
 .location-hours-container {
     display: flex;
     gap: 16px;
@@ -3942,6 +3991,11 @@ h2.event-card-title {
     line-height: normal;
 }
 
+.location-column {
+    width: 394px;
+    max-width: 100%;
+}
+
 .location-hours-column-left {
     width: 394px;
     max-width: 100%;
@@ -3953,9 +4007,9 @@ h2.event-card-title {
 }
 
 .location-label {
-    font-family: 'pressio-condensed', sans-serif;
+    font-family: var(--font-pressio-medium-condensed);
     font-size: 72px;
-    font-weight: 700;
+    font-weight: 500;
     line-height: normal;
     letter-spacing: -1.44px;
     color: var(--color-core-50);
@@ -5137,6 +5191,14 @@ h2.event-card-title {
         font-size: 36px;
     }
     
+    .location-column {
+        width: 450px;
+    }
+    
+    .hours-column {
+        width: 450px;
+    }
+    
     .location-hours-column-left {
         width: 450px;
     }
@@ -5188,6 +5250,14 @@ h2.event-card-title {
         font-size: 34px;
     }
     
+    .location-column {
+        width: 420px;
+    }
+    
+    .hours-column {
+        width: 420px;
+    }
+    
     .location-hours-column-left {
         width: 420px;
     }
@@ -5230,6 +5300,14 @@ h2.event-card-title {
         font-size: 33px;
     }
     
+    .location-column {
+        width: 407px;
+    }
+    
+    .hours-column {
+        width: 407px;
+    }
+    
     .location-hours-column-left {
         width: 407px;
     }
@@ -5270,6 +5348,14 @@ h2.event-card-title {
     
     .location-spacer {
         font-size: 32px;
+    }
+    
+    .location-column {
+        width: 394px;
+    }
+    
+    .hours-column {
+        width: 394px;
     }
     
     .location-hours-column-left {
@@ -5417,6 +5503,28 @@ h2.event-card-title {
     }
     
     /* Position hours container and map side by side */
+    .location-section-content {
+        width: 100%;
+        gap: 0;
+    }
+    
+    .location-info {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    
+    .hours-section {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .hours-column-left,
+    .hours-column-right {
+        width: 100%;
+    }
+    
     .location-hours-container {
         flex-direction: column; /* Hours columns stack vertically */
         gap: 0;
@@ -5428,6 +5536,14 @@ h2.event-card-title {
     
     .location-hours-column {
         height: auto;
+        width: 100%;
+    }
+    
+    .location-column {
+        width: 100%;
+    }
+    
+    .hours-column {
         width: 100%;
     }
     
@@ -5496,9 +5612,9 @@ h2.event-card-title {
     }
 
     .room-card-title {
-        font-size: 128px; /* Figma: H1 size */
-        letter-spacing: -2.56px;
-        height: 254px; /* Figma: title height */
+        font-size: 48px; /* H2: Tablet - 48px */
+        letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
+        height: auto; /* Remove fixed height */
     }
 
     /* Tour Video Section - Tablet */
@@ -5740,11 +5856,9 @@ h2.event-card-title {
     }
     
     .footer-copyright {
-        font-size: 12px; /* Figma: P2 size */
         letter-spacing: -0.24px; /* Figma: tracking-[-0.24px] */
-        font-family: 'Urbanist', sans-serif;
         font-weight: 600; /* SemiBold */
-        color: var(--color-core-100); /* Figma: #F2F2F2 */
+        color: var(--color-text-secondary);
     }
     
     .footer-legal {
@@ -5752,11 +5866,9 @@ h2.event-card-title {
     }
     
     .footer-legal-link {
-        font-size: 12px; /* Figma: P2 size */
         letter-spacing: -0.24px; /* Figma: tracking-[-0.24px] */
-        font-family: 'Urbanist', sans-serif;
         font-weight: 600; /* SemiBold */
-        color: var(--color-core-100); /* Figma: #F2F2F2 */
+        color: var(--color-text-secondary);
     }
 
     /* Button Styles - Tablet */
@@ -6023,8 +6135,8 @@ h2.event-card-title {
     }
 
     .room-card-title {
-        font-size: 72px;
-        letter-spacing: -1.44px;
+        font-size: 48px; /* H2: Tablet - 48px */
+        letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
     }
 
     .room-card-content {
@@ -6058,8 +6170,8 @@ h2.event-card-title {
     }
 
     .team-card-title {
-        font-size: 96px;
-        letter-spacing: -1.92px;
+        font-size: 48px; /* H2: Tablet - 48px */
+        letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
     }
 
     /* Content section padding - Tablet */
@@ -6339,8 +6451,8 @@ h2.event-card-title {
         }
 
         .room-card-title {
-            font-size: 96px;
-            letter-spacing: -1.92px;
+            font-size: 48px; /* H2: Tablet - 48px */
+            letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
         }
 
         .room-card-content {
@@ -6376,8 +6488,8 @@ h2.event-card-title {
         }
 
         .team-card-title {
-            font-size: 128px; /* H1: Tablet - 128px */
-            letter-spacing: -2.56px;
+            font-size: 48px; /* H2: Tablet - 48px */
+            letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
         }
     }
 
@@ -6778,8 +6890,8 @@ h2.event-card-title {
     }
 
     .room-card-title {
-        font-size: 64px;
-        letter-spacing: -1.28px;
+        font-size: 40px; /* H2: Mobile - 40px */
+        letter-spacing: -0.8px; /* H2: Mobile - -0.8px */
     }
 
     .room-card-content {
@@ -6819,8 +6931,8 @@ h2.event-card-title {
     }
 
     .team-card-title {
-        font-size: 64px; /* H1: Mobile - 64px */
-        letter-spacing: -1.28px;
+        font-size: 40px; /* H2: Mobile - 40px */
+        letter-spacing: -0.8px; /* H2: Mobile - -0.8px */
     }
 
     .events-filter {
@@ -7162,6 +7274,28 @@ h2.event-card-title {
         display: block; /* Ensure it's a block element */
     }
     
+    .location-section-content {
+        width: 100%;
+        gap: 0;
+    }
+    
+    .location-info {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    
+    .hours-section {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .hours-column-left,
+    .hours-column-right {
+        width: 100%;
+    }
+    
     .location-hours-container {
         flex-direction: row;
         gap: 0;
@@ -7184,6 +7318,26 @@ h2.event-card-title {
         box-sizing: border-box;
     }
 
+    .location-column {
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 33.33%;
+        height: auto;
+        min-height: 121px;
+        padding-right: 8px; /* Small gap between columns */
+    }
+    
+    .hours-column {
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 33.33%;
+        height: auto;
+        min-height: 121px;
+        padding-right: 8px; /* Small gap between columns */
+    }
+
     .location-hours-column-left {
         flex: 0 1 auto;
         min-width: 0;
@@ -7198,7 +7352,7 @@ h2.event-card-title {
         flex: 0 1 auto;
         min-width: 0;
         width: auto;
-        max-width: 50%;
+        max-width: 33.33%;
         height: auto;
         min-height: 120px;
         margin: 0;
@@ -7564,13 +7718,13 @@ h2.event-card-title {
     }
     
     .footer-copyright {
-        font-size: 8px;
         font-weight: 400; /* Regular */
         letter-spacing: 0;
         text-align: center;
         white-space: pre;
         line-height: normal;
         margin: 0;
+        color: var(--color-text-secondary);
     }
     
     .footer-legal {
@@ -7580,13 +7734,13 @@ h2.event-card-title {
     }
     
     .footer-legal-link {
-        font-size: 8px;
         font-weight: 400; /* Regular */
         letter-spacing: 0;
         text-align: center;
         white-space: pre;
         line-height: normal;
         margin: 0;
+        color: var(--color-text-secondary);
     }
 }
 
