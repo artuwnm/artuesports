@@ -244,6 +244,8 @@ $(function(){
 	$(".nav-dropdown").on("mouseenter", function(){
 		if (!isDesktop()) return;
 		clearTimeout(dropdownTimeout);
+		// Close all other dropdowns when opening a new one
+		$(".nav-dropdown").not(this).removeClass("active");
 		$(this).addClass("active");
 	});
 	
