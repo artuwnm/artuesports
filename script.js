@@ -815,6 +815,8 @@ $(document).ready(function(){
 	const $hamburgerBtn = $('.hamburger-menu-btn');
 	const $mobileMenuOverlay = $('#mobileMenuOverlay');
 	const $mobileMenuPanel = $('#mobileMenuPanel');
+	const $mobileTeamsMenu = $('#mobileTeamsMenu');
+	const $mobileTeamsSubmenu = $('#mobileTeamsSubmenu');
 	const $mobileLoungeMenu = $('#mobileLoungeMenu');
 	const $mobileLoungeSubmenu = $('#mobileLoungeSubmenu');
 	
@@ -842,6 +844,12 @@ $(document).ready(function(){
 		$mobileMenuPanel.removeClass('active');
 		$('body').css('overflow', '');
 		// Close any open submenus
+		if ($mobileTeamsMenu.length > 0) {
+			$mobileTeamsMenu.removeClass('expanded');
+		}
+		if ($mobileTeamsSubmenu.length > 0) {
+			$mobileTeamsSubmenu.removeClass('active');
+		}
 		if ($mobileLoungeMenu.length > 0) {
 			$mobileLoungeMenu.removeClass('expanded');
 		}
@@ -865,6 +873,18 @@ $(document).ready(function(){
 		closeMobileMenu();
 	});
 	
+	// Toggle TEAMS submenu (only the toggle button, not the link)
+	if ($mobileTeamsMenu.length > 0) {
+		$mobileTeamsMenu.on('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			$(this).toggleClass('expanded');
+			if ($mobileTeamsSubmenu.length > 0) {
+				$mobileTeamsSubmenu.toggleClass('active');
+			}
+		});
+	}
+	
 	// Toggle LOUNGE submenu (only the toggle button, not the link)
 	if ($mobileLoungeMenu.length > 0) {
 		$mobileLoungeMenu.on('click', function(e) {
@@ -877,7 +897,7 @@ $(document).ready(function(){
 		});
 	}
 	
-	// Allow LOUNGE link to navigate normally (don't prevent default)
+	// Allow submenu links to navigate normally (don't prevent default)
 	$('.mobile-menu-item-with-submenu .mobile-menu-item').on('click', function(e) {
 		// Allow normal navigation - don't prevent default
 		// Close the mobile menu after navigation

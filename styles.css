@@ -2246,10 +2246,6 @@ img {
     margin: 0;
 }
 
-.events-game-lounge-section .game-lounge-description .p1 {
-    /* P1 styles will be inherited from .p1 class */
-}
-
 /* .game-lounge-btn removed - uses standard .btn-lined class */
 
 /* Follow Us Section */
@@ -5919,10 +5915,6 @@ h2.event-card-title {
         letter-spacing: -0.96px;
     }
 
-    .events-game-lounge-section .game-lounge-description {
-        /* P1 styles will be inherited from .p1 class */
-    }
-
     /* .game-lounge-btn removed - uses standard .btn-lined class */
 }
 
@@ -7232,10 +7224,6 @@ h2.event-card-title {
         letter-spacing: -0.8px;
         width: 100%;
         position: static;
-    }
-
-    .events-game-lounge-section .game-lounge-description {
-        /* P1 styles will be inherited from .p1 class */
     }
 
     /* .game-lounge-btn removed - uses standard .btn-lined class */

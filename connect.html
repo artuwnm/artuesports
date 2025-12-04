@@ -25,7 +25,13 @@
                 <!-- Navigation Menu -->
                 <div class="frame">
                     <div class="desktop-nav-menu">
-                        <a href="teams.html" class="nav-item">TEAMS  ▾</a>
+                        <div class="nav-dropdown">
+                            <a href="teams.html" class="nav-item">TEAMS  ▾</a>
+                            <div class="dropdown-menu">
+                                <a href="overwatch.html" class="dropdown-item"><h2>Overwatch</h2></a>
+                                <a href="teams.html" class="dropdown-item"><h2>League of Legends</h2></a>
+                            </div>
+                        </div>
                         <div class="nav-dropdown">
                             <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
                             <div class="dropdown-menu">
@@ -56,7 +62,16 @@
     <div class="mobile-menu-panel" id="mobileMenuPanel">
         <div class="mobile-menu-content">
             <a href="index.html" class="mobile-menu-item">HOME</a>
-            <a href="teams.html" class="mobile-menu-item">TEAMS</a>
+            <div class="mobile-menu-item-with-submenu">
+                <a href="teams.html" class="mobile-menu-item">TEAMS</a>
+                <button class="mobile-submenu-toggle" id="mobileTeamsMenu" aria-label="Toggle submenu">
+                    <span class="mobile-submenu-arrow">▾</span>
+                </button>
+            </div>
+            <div class="mobile-submenu" id="mobileTeamsSubmenu">
+                <a href="overwatch.html" class="mobile-submenu-item">Overwatch</a>
+                <a href="teams.html" class="mobile-submenu-item">League of Legends</a>
+            </div>
             <div class="mobile-menu-item-with-submenu">
                 <a href="lounge.html" class="mobile-menu-item">LOUNGE</a>
                 <button class="mobile-submenu-toggle" id="mobileLoungeMenu" aria-label="Toggle submenu">
