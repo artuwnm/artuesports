@@ -688,8 +688,14 @@ $(function(){
 		// Get subheading based on category
 		const subheading = getSubheading(category);
 		
+		// Format title with line break for "Rocket League Event"
+		let formattedTitle = title;
+		if (title.includes("Rocket League")) {
+			formattedTitle = title.replace(/Rocket League/i, "Rocket<br>League");
+		}
+		
 		// Populate overlay
-		$("#event-overlay-title").text(title);
+		$("#event-overlay-title").html(formattedTitle);
 		$("#event-overlay-subheading").text(subheading);
 		$("#event-overlay-description").text(description);
 		$("#event-overlay-date").text(date);
@@ -947,7 +953,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	function toggleCardAnimation($card) {
 		const $cardContent = $card.find('.varsity-player-card-content');
-		const $button = $card.find('.varsity-learn-more-btn');
+		const $button = $card.find('.btn-filled');
 		const $playerName = $card.find('.varsity-player-name');
 		const $nameOverlay = $card.find('.varsity-player-name-overlay-text');
 		
@@ -963,7 +969,7 @@ $(document).ready(function(){
 		
 		// Change button text
 		if ($cardContent.hasClass('image-shrunk')) {
-			$button.text('Show less');
+			$button.text('See less');
 		} else {
 			$button.text('Learn more');
 		}
@@ -972,7 +978,7 @@ $(document).ready(function(){
 	// Make the entire card clickable
 	$('.varsity-player-card').on('click', function(e) {
 		// Don't trigger if clicking directly on the button (let button handle its own click)
-		if ($(e.target).closest('.varsity-learn-more-btn').length > 0) {
+		if ($(e.target).closest('.btn-filled').length > 0) {
 			return;
 		}
 		
@@ -981,7 +987,7 @@ $(document).ready(function(){
 	});
 	
 	// Keep button click handler for explicit button clicks
-	$('.varsity-learn-more-btn').on('click', function(e) {
+	$('.varsity-player-card .btn-filled').on('click', function(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		

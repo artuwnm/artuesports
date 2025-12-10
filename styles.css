@@ -2407,25 +2407,46 @@ img {
    ============================================ */
 .pillars-section {
     background-color: var(--color-bg-800);
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 55px;
     align-items: center;
-    padding: 141px 372px;
+    justify-content: center;
     width: calc(100% + 2 * var(--spacing-container));
     margin-left: calc(-1 * var(--spacing-container));
     margin-right: calc(-1 * var(--spacing-container));
     box-sizing: border-box;
     margin-top: 72px;
+    min-height: 500px;
+    padding: 80px 36px;
+    gap: 40px;
+    overflow: hidden;
+}
+
+.pillars-logo-shield {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    opacity: 0.2;
+    object-fit: cover;
+    object-position: 50% 50%;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .pillars-section-title {
     font-family: var(--font-urbanist);
     font-weight: 500;
     font-size: 28px;
+    line-height: normal;
     color: var(--color-core-50);
     margin: 0;
     text-align: center;
+    z-index: 1;
+    position: relative;
 }
 
 .pillars-words-container {
@@ -2434,6 +2455,8 @@ img {
     align-items: center;
     justify-content: center;
     flex-wrap: nowrap;
+    z-index: 1;
+    position: relative;
 }
 
 .pillars-word {
@@ -2445,16 +2468,24 @@ img {
     color: var(--color-core-50);
     margin: 0;
     white-space: nowrap;
+    position: relative;
+    flex-shrink: 0;
 }
 
 .pillars-section-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 14px; /* Type/Paragraph/P1 from Figma */
+    line-height: normal;
+    letter-spacing: -0.28px;
     color: var(--color-core-50);
     text-align: center;
-    max-width: 900px;
-    min-width: 600px;
-    margin: 0 auto;
-    margin-top: -19px; /* Override gap: 36px desired - 55px gap = -19px */
+    width: 727px;
+    max-width: 100%;
+    margin: 0;
     white-space: pre-wrap;
+    z-index: 1;
+    position: relative;
 }
 
 /* ============================================
@@ -4792,34 +4823,46 @@ h2.event-card-title {
     visibility: visible;
 }
 
+.event-overlay.is-open .event-overlay-close {
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+}
+
 .event-overlay-close {
-    position: fixed;
-    top: 24px;
-    right: 36px;
+    position: relative;
+    top: 0;
+    right: 0;
     width: 48px;
     height: 48px;
-    background: none;
+    background-color: var(--color-bg-primary);
     border: 3px solid var(--color-text-primary);
     border-radius: 50%;
     color: var(--color-text-primary);
-    font-size: 32px;
+    font-size: 36px;
     line-height: 1;
     cursor: pointer;
-    z-index: 1003;
+    z-index: 1004;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
     padding: 0;
     margin: 0;
     font-weight: 300;
     font-family: Arial, sans-serif;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
 }
 
 .event-overlay-close::before {
     content: "×";
     display: block;
     line-height: 1;
+    color: var(--color-text-primary);
+    font-weight: 300;
 }
 
 .event-overlay-close:hover {
@@ -4850,10 +4893,61 @@ h2.event-card-title {
 
 .event-overlay-title-container {
     display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.event-overlay-right-container {
+    display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-end;
+    gap: 0;
+    flex-shrink: 0;
+    margin-right: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+    align-self: flex-end;
+    justify-content: flex-end;
+}
+
+.event-overlay-right-container > .event-overlay-right {
+    margin-top: 0;
+    align-self: flex-end;
+}
+
+.event-overlay-title-container .event-overlay-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+}
+
+.event-overlay-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
     align-items: flex-start;
-    justify-content: center;
+}
+
+.event-overlay-title-container .event-overlay-right {
+    align-self: flex-end;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.event-overlay-title-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     width: 100%;
 }
 
@@ -4866,9 +4960,10 @@ h2.event-card-title {
     text-transform: uppercase;
     color: var(--color-text-primary);
     margin: 0;
-    width: 657px;
+    flex: 1;
+    min-width: 0;
     max-width: 100%;
-    white-space: pre-wrap;
+    white-space: normal;
     text-align: left;
 }
 
@@ -4902,6 +4997,10 @@ h2.event-card-title {
     white-space: nowrap;
 }
 
+.event-overlay-title-content .event-overlay-subheading {
+    width: auto;
+}
+
 .event-overlay-description {
     font-family: var(--font-urbanist);
     font-weight: 400;
@@ -4915,21 +5014,31 @@ h2.event-card-title {
     overflow-wrap: break-word;
 }
 
+.event-overlay-title-content .event-overlay-description {
+    width: 100%;
+    max-width: 763px;
+}
+
 .event-overlay-right {
     display: flex;
     flex-direction: column;
-    gap: 54px;
+    gap: 24px;
     align-items: flex-end;
-    width: 305px;
+    width: auto;
     flex-shrink: 0;
+    margin-right: 0;
+    padding-right: 0;
+    justify-content: flex-end;
+    box-sizing: border-box;
 }
 
 .event-overlay-datetime {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 14px;
-    align-items: flex-end;
-    width: 202px;
+    align-items: center;
+    width: auto;
+    justify-content: flex-end;
 }
 
 .event-overlay-date,
@@ -4941,8 +5050,10 @@ h2.event-card-title {
     letter-spacing: -0.96px;
     color: var(--color-text-primary);
     margin: 0;
+    padding: 0;
     text-align: right;
-    width: 100%;
+    width: auto;
+    white-space: nowrap;
 }
 
 .event-overlay-calendar-btn {
@@ -4958,9 +5069,12 @@ h2.event-card-title {
     color: var(--color-text-primary);
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease;
-    width: 100%;
+    width: auto;
     text-align: center;
     white-space: nowrap;
+    margin: 0;
+    margin-right: 0;
+    box-sizing: border-box;
 }
 
 .event-overlay-calendar-btn:hover {
@@ -6611,25 +6725,34 @@ h2.event-card-title {
         width: 100%;
     }
 
+    .event-overlay-title-container {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .event-overlay-title-container .event-overlay-right {
+        margin-top: 0;
+    }
+    
+    .event-overlay-title-wrapper {
+        width: 100%;
+    }
+
     .event-overlay-title {
         width: 100%;
     }
-
-    .event-overlay-main {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 24px;
-        width: 100%;
-    }
-
-    .event-overlay-left {
-        gap: 24px;
-        max-width: 100%;
+    
+    .event-overlay-title-content {
         width: 100%;
     }
 
     .event-overlay-subheading {
         width: 100%;
+    }
+    
+    .event-overlay-description {
+        width: 100%;
+        max-width: 100%;
     }
 
     .event-overlay-description {
@@ -6675,26 +6798,27 @@ h2.event-card-title {
 
 @media screen and (max-width: 1024px) and (min-width: 769px) {
     .pillars-section {
-        padding: 100px 120px;
-        gap: 40px;
-        width: calc(100% + 2 * var(--spacing-container));
-        margin-left: calc(-1 * var(--spacing-container));
-        margin-right: calc(-1 * var(--spacing-container));
+        min-height: 450px;
+        padding: 60px 120px;
+        gap: 32px;
+    }
+
+    .pillars-logo-shield {
+        width: 400px;
+        height: 400px;
     }
 
     .pillars-words-container {
-        flex-direction: column;
-        gap: 16px;
+        gap: 60px;
+    }
+
+    .pillars-word {
+        font-size: 36px;
     }
 
     .pillars-section-description {
-        min-width: auto;
+        width: 600px;
         max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: var(--spacing-container);
-        padding-right: var(--spacing-container);
-        box-sizing: border-box;
     }
 }
 
@@ -6709,26 +6833,33 @@ h2.event-card-title {
     }
 
     .pillars-section {
-        padding: 72px 0;
-        gap: 32px;
+        min-height: 500px;
+        padding: 60px 12px;
         margin-top: 48px;
         width: calc(100% + 24px);
         margin-left: -12px;
         margin-right: -12px;
+        gap: 32px;
+    }
+
+    .pillars-logo-shield {
+        width: 300px;
+        height: 300px;
     }
 
     .pillars-section-title {
         font-size: 24px;
-        padding-left: 12px;
-        padding-right: 12px;
+        width: 100%;
+        text-align: center;
+        padding: 0 12px;
         box-sizing: border-box;
     }
 
     .pillars-words-container {
         flex-direction: column;
         gap: 16px;
-        padding-left: 12px;
-        padding-right: 12px;
+        width: 100%;
+        padding: 0 12px;
         box-sizing: border-box;
     }
 
@@ -6738,15 +6869,13 @@ h2.event-card-title {
     }
 
     .pillars-section-description {
-        width: calc(100vw - 48px);
-        max-width: calc(100vw - 48px);
-        padding-left: 12px;
-        padding-right: 12px;
-        box-sizing: content-box;
-        margin-left: 12px;
-        margin-right: 12px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
         word-wrap: break-word;
         overflow-wrap: break-word;
+        font-size: 14px;
     }
 
     /* H1 - Mobile: 64px */
@@ -6830,7 +6959,7 @@ h2.event-card-title {
         max-width: 100%;
         width: 100%;
         height: auto;
-        min-height: 500px;
+        min-height: 700px;
     }
 
     /* .varsity-learn-more-btn removed - replaced by .btn-filled */
@@ -7114,21 +7243,28 @@ h2.event-card-title {
     }
 
     .event-overlay-title {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .event-overlay-title-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    
+    .event-overlay-title-wrapper {
         width: 100%;
     }
-
-    .event-overlay-main {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .event-overlay-left {
-        max-width: 100%;
+    
+    .event-overlay-title-content {
+        width: 100%;
     }
 
     .event-overlay-right {
         width: 100%;
         align-items: flex-start;
+        margin-top: 0;
     }
 
     .event-overlay-datetime {
@@ -7176,8 +7312,8 @@ h2.event-card-title {
     }
 
     .event-overlay-close {
-        top: 16px;
-        right: 16px;
+        top: 0;
+        right: 0;
         width: 40px;
         height: 40px;
         font-size: 24px;

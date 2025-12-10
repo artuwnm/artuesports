@@ -341,23 +341,25 @@
 
     <!-- Event Overlay -->
     <div class="event-overlay" id="event-overlay">
-        <button class="event-overlay-close" id="event-overlay-close" aria-label="Close overlay"></button>
         <div class="event-overlay-content">
             <div class="event-overlay-hero">
                 <div class="event-overlay-title-container">
-                    <h1 class="event-overlay-title font-pressio" id="event-overlay-title">Event Title</h1>
-                </div>
-                <div class="event-overlay-main">
-                    <div class="event-overlay-left">
-                        <h2 class="event-overlay-subheading font-pressio-medium" id="event-overlay-subheading">Subheading</h2>
-                        <p class="event-overlay-description" id="event-overlay-description">Event description goes here.</p>
-                    </div>
-                    <div class="event-overlay-right">
-                        <div class="event-overlay-datetime">
-                            <p class="event-overlay-date font-pressio" id="event-overlay-date">10/22/2025</p>
-                            <p class="event-overlay-time font-pressio" id="event-overlay-time">3:00pm</p>
+                    <div class="event-overlay-title-wrapper">
+                        <h1 class="event-overlay-title font-pressio" id="event-overlay-title">Event Title</h1>
+                        <div class="event-overlay-title-content">
+                            <h2 class="event-overlay-subheading font-pressio-medium" id="event-overlay-subheading">Subheading</h2>
+                            <p class="event-overlay-description" id="event-overlay-description">Event description goes here.</p>
                         </div>
-                        <button class="btn-lined event-overlay-calendar-btn" id="event-overlay-calendar-btn">Add to your calendar</button>
+                    </div>
+                    <div class="event-overlay-right-container">
+                        <button class="event-overlay-close" id="event-overlay-close" aria-label="Close overlay"></button>
+                        <div class="event-overlay-right">
+                            <div class="event-overlay-datetime">
+                                <p class="event-overlay-date font-pressio" id="event-overlay-date">10/22/2025</p>
+                                <p class="event-overlay-time font-pressio" id="event-overlay-time">3:00pm</p>
+                            </div>
+                            <button class="btn-lined event-overlay-calendar-btn" id="event-overlay-calendar-btn">Add to your calendar</button>
+                        </div>
                     </div>
                 </div>
             </div>
