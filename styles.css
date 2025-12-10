@@ -42,8 +42,8 @@
     --font-pressio-medium-condensed: 'pressio-condensed', 'Arial Black', sans-serif; /* No. 43 Medium Condensed */
     
     /* Spacing */
-    --spacing-section: 36px;
-    --spacing-container: 36px;
+    --spacing-section: 48px;
+    --spacing-container: 36px; /* Desktop: 36px */
 }
 
 /* ============================================
@@ -185,7 +185,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 36px;
+    padding: 24px var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
 }
@@ -622,7 +622,7 @@ a:hover {
 @media screen and (max-width: 768px) {
     .page-carousel,
     .lounge-carousel {
-        padding: 0 12px;
+        padding: 0 var(--spacing-container);
     }
 }
 
@@ -896,8 +896,8 @@ a:hover {
     width: 100%;
     padding: 0 var(--spacing-container);
     box-sizing: border-box;
-    margin-top: 37px;
-    margin-bottom: 37px;
+    margin-top: 48px;
+    margin-bottom: 48px;
 }
 
 .equipment-specs-content {
@@ -1041,8 +1041,8 @@ a:hover {
     width: 100%;
     padding: 0 var(--spacing-container);
     box-sizing: border-box;
-    margin-top: 37px;
-    margin-bottom: 37px;
+    margin-top: 48px;
+    margin-bottom: 48px;
 }
 
 .game-night-content {
@@ -1208,7 +1208,7 @@ a:hover {
     align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 72px;
+    margin-top: 48px;
 }
 
 .footer-top {
@@ -1216,7 +1216,7 @@ a:hover {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 16px 36px;
+    padding: 16px var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
 }
@@ -1543,7 +1543,7 @@ a:hover {
     gap: 20px;
     align-items: center;
     justify-content: center;
-    padding: 16px 36px;
+    padding: 16px var(--spacing-container);
     border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -1615,6 +1615,13 @@ a:hover {
 /* ============================================
    Utility Classes
    ============================================ */
+/* Responsive container padding */
+[data-name="home-desktop"],
+.connect-page-container {
+    padding-left: var(--spacing-container);
+    padding-right: var(--spacing-container);
+}
+
 .page-container {
     background-color: var(--color-bg-primary);
     box-sizing: border-box;
@@ -2076,7 +2083,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 72px;
-    padding: 0 24px;
+    padding: 0 var(--spacing-container);
     width: 100%;
     margin: 0;
     background-color: var(--color-bg-900);
@@ -2089,7 +2096,12 @@ img {
     flex-direction: column;
     gap: 48px;
     align-items: flex-start;
-    width: 100%;
+    width: calc(100% + 2 * var(--spacing-container));
+    margin-left: calc(-1 * var(--spacing-container));
+    margin-right: calc(-1 * var(--spacing-container));
+    padding-left: var(--spacing-container);
+    padding-right: var(--spacing-container);
+    box-sizing: border-box;
 }
 
 .title-filter-container {
@@ -2108,6 +2120,11 @@ img {
     justify-content: center;
     width: 100%;
     margin-bottom: 0;
+}
+
+/* Hide tablet break by default (desktop) */
+.tablet-break {
+    display: none;
 }
 
 .news-events-title {
@@ -2285,7 +2302,7 @@ img {
     flex-direction: row;
     gap: 160px;
     align-items: flex-start;
-    padding: 48px 36px;
+        padding: 48px var(--spacing-container);
     background-color: var(--color-bg-800);
     border-radius: 0;
     width: calc(100% + 48px); /* Extend past parent padding (24px on each side) */
@@ -2360,12 +2377,17 @@ img {
     width: 100%;
     padding: 72px 24px;
     gap: 12px;
-    background-color: #1D252C;
+    background-color: transparent;
 }
 
 .page-container .events-follow-us-section {
     margin-top: 48px;
     margin-bottom: 48px;
+}
+
+/* Connect page: Add grey-800 background to hop online section */
+.connect-page-container .events-follow-us-section {
+    background-color: var(--color-bg-800);
 }
 
 .page-container .events-follow-us-section .social-icons {
@@ -2486,9 +2508,9 @@ img {
     margin-left: calc(-1 * var(--spacing-container));
     margin-right: calc(-1 * var(--spacing-container));
     box-sizing: border-box;
-    margin-top: 72px;
+    margin-top: 48px;
     min-height: 500px;
-    padding: 80px 36px;
+    padding: 80px var(--spacing-container);
     gap: 40px;
     overflow: hidden;
 }
@@ -2567,7 +2589,7 @@ img {
     gap: 10px;
     align-items: flex-start;
     width: 100%;
-    margin-top: 72px;
+    margin-top: 48px;
 }
 
 .varsity-section-title {
@@ -3023,7 +3045,7 @@ img {
     gap: 10px;
     align-items: flex-start;
     width: 100%;
-    margin-top: 72px;
+    margin-top: 48px;
 }
 
 .team-events-section-title {
@@ -3222,11 +3244,20 @@ img {
     color: var(--color-primary);
 }
 
-.events-grid {
+.events-grid,
+.index-events-grid,
+.events-recaps-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px 10px;
     align-items: stretch;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: var(--spacing-container);
+    padding-right: var(--spacing-container);
+    box-sizing: border-box;
 }
 
 .event-card {
@@ -3458,7 +3489,7 @@ h2.event-card-title {
     gap: 15px;
     align-items: center;
     width: 100%;
-    margin-top: 72px;
+    margin-top: 48px;
 }
 
 .game-lounge-card {
@@ -3529,7 +3560,7 @@ h2.event-card-title {
     width: 100%;
     padding: 0 var(--spacing-container);
     box-sizing: border-box;
-    margin-top: 37px;
+    margin-top: 48px;
 }
 
 .room-cards-container {
@@ -3654,7 +3685,7 @@ h2.event-card-title {
     text-align: left;
     text-transform: uppercase;
     width: 100%;
-    margin-top: 36px;
+    margin-top: 48px;
     margin-bottom: 36px;
 }
 
@@ -3954,12 +3985,7 @@ h2.event-card-title {
     margin: 0;
 }
 
-.events-recaps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    align-items: stretch;
-}
+/* .events-recaps-grid is now defined with .events-grid above - removed duplicate */
 
 .events-calendar {
     display: flex;
@@ -4215,10 +4241,10 @@ h2.event-card-title {
     flex-direction: column;
     gap: 30px;
     align-items: flex-start;
-    padding: 0 36px;
+    padding: 0 var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
-    margin-top: 37px;
+    margin-top: 48px;
 }
 
 .tour-video-section .section-title {
@@ -4249,11 +4275,13 @@ h2.event-card-title {
     flex-direction: column;
     gap: 36px;
     align-items: flex-start;
-    padding: 0 36px;
-    width: 100%;
+    width: calc(100% + 2 * var(--spacing-container));
+    margin-left: calc(-1 * var(--spacing-container));
+    margin-right: calc(-1 * var(--spacing-container));
+    padding: 0 var(--spacing-container);
     box-sizing: border-box;
-    margin-top: 37px;
-    margin-bottom: 37px;
+    margin-top: 48px;
+    margin-bottom: 48px;
 }
 
 .news-events-header {
@@ -4283,9 +4311,9 @@ h2.event-card-title {
     align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 36px; /* Match news-events-section padding */
-    margin-top: 37px; /* Gap from previous section */
-    margin-bottom: 37px;
+    padding: 0 var(--spacing-container); /* Match news-events-section padding */
+    margin-top: 48px; /* Gap from previous section */
+    margin-bottom: 48px;
 }
 
 .teams-section-header {
@@ -4315,9 +4343,9 @@ h2.event-card-title {
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    padding: 0 36px; /* Match other sections */
-    margin-top: 37px; /* Gap from previous section */
-    margin-bottom: 37px;
+    padding: 0 var(--spacing-container); /* Match other sections */
+    margin-top: 48px; /* Gap from previous section */
+    margin-bottom: 48px;
 }
 
 .community-section-header {
@@ -4370,7 +4398,7 @@ h2.event-card-title {
 .news-events-see-all-btn {
     border: 3px solid var(--color-text-primary);
     background: transparent;
-    padding: 16px 36px;
+    padding: 16px var(--spacing-container);
     border-radius: 16px;
     font-family: var(--font-urbanist);
     font-weight: 600;
@@ -4438,6 +4466,13 @@ h2.event-card-title {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px 10px;
     align-items: stretch;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: var(--spacing-container);
+    padding-right: var(--spacing-container);
+    box-sizing: border-box;
 }
 
 .news-events-cards-container .event-card {
@@ -4533,11 +4568,11 @@ h2.event-card-title {
     display: flex;
     gap: 16px;
     align-items: flex-start;
-    padding: 0 36px;
+    padding: 0 var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
-    margin-top: 37px;
-    margin-bottom: 37px;
+    margin-top: 48px;
+    margin-bottom: 48px;
 }
 
 .links-section .event-card {
@@ -4950,7 +4985,7 @@ h2.event-card-title {
     display: flex;
     flex-direction: column;
     gap: 70px;
-    padding: 140px 36px 35px;
+    padding: 140px var(--spacing-container) 35px;
     max-width: 100%;
     min-height: 100vh;
     align-items: center;
@@ -5131,7 +5166,7 @@ h2.event-card-title {
 .event-overlay-calendar-btn {
     border: 3px solid var(--color-text-primary);
     background: transparent;
-    padding: 16px 36px;
+    padding: 16px var(--spacing-container);
     border-radius: 16px;
     font-family: var(--font-urbanist);
     font-weight: 600;
@@ -5625,6 +5660,11 @@ h2.event-card-title {
 
 /* Tablet Breakpoint (max-width: 1024px) */
 @media screen and (max-width: 1024px) {
+    /* Show line break after NEWS on tablet */
+    .tablet-break {
+        display: block;
+    }
+    
     /* H1: Tablet - 128px */
     h1 {
         font-size: 128px !important;
@@ -5729,7 +5769,7 @@ h2.event-card-title {
         flex-direction: column;
         gap: 72px; /* Figma: gap between heading and content/map row */
         padding: 0 24px;
-        margin-top: 72px; /* Figma: gap between major sections */
+        margin-top: 48px; /* Figma: gap between major sections */
         align-items: flex-start;
         position: relative;
     }
@@ -5846,9 +5886,9 @@ h2.event-card-title {
 
     /* Room Cards Section - Tablet */
     .room-cards-section {
-        padding: 0;
+        padding: 0 var(--spacing-container);
         align-items: center;
-        margin-top: 72px; /* Figma: gap between major sections */
+        margin-top: 48px; /* Figma: gap between major sections */
         width: 100%;
     }
 
@@ -5887,7 +5927,7 @@ h2.event-card-title {
     .tour-video-section {
         padding: 0 24px;
         gap: 30px; /* Figma: gap between title and video */
-        margin-top: 72px; /* Figma: gap between major sections */
+        margin-top: 48px; /* Figma: gap between major sections */
     }
 
     .tour-video-section .section-title {
@@ -5906,17 +5946,31 @@ h2.event-card-title {
 
     /* News and Events Section - Tablet */
     .news-events-section {
-        padding: 0 24px;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0 var(--spacing-container);
         gap: 36px;
-        margin-top: 72px;
+        margin-top: 48px;
+        box-sizing: border-box;
+    }
+    
+    /* Event grid inside news-events-section should respect parent padding on tablet */
+    .news-events-section .news-events-cards-container.events-grid {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     /* Teams Section - Tablet */
     .teams-section {
         padding: 0 24px;
         gap: 15px;
-        margin-top: 72px;
-        margin-bottom: 72px;
+        margin-top: 48px;
+        margin-bottom: 48px;
     }
 
     .teams-section-title {
@@ -5932,8 +5986,8 @@ h2.event-card-title {
     .community-section {
         padding: 0 24px;
         gap: 29px;
-        margin-top: 72px;
-        margin-bottom: 72px;
+        margin-top: 48px;
+        margin-bottom: 48px;
     }
 
     .community-section-header {
@@ -5962,7 +6016,7 @@ h2.event-card-title {
     .news-events-see-all-btn {
         font-size: 24px; /* P2 Tablet */
         letter-spacing: -0.48px;
-        padding: 16px 36px;
+        padding: 16px var(--spacing-container);
     }
 
     .news-events-filter-bar {
@@ -5997,7 +6051,7 @@ h2.event-card-title {
         flex-direction: column;
         align-items: center;
         gap: 72px; /* Figma: gap between event card and teams/community */
-        margin-top: 72px; /* Figma: gap between major sections */
+        margin-top: 48px; /* Figma: gap between major sections */
     }
 
     .links-section .event-card {
@@ -6035,7 +6089,7 @@ h2.event-card-title {
         flex-direction: row;
         align-items: flex-start;
         justify-content: space-between;
-        padding: 16px 36px; /* Figma: py-[16px] px-[36px] */
+        padding: 16px var(--spacing-container); /* Figma: py-[16px] px-[36px] */
         gap: 0; /* No gap, using justify-between */
     }
     
@@ -6148,6 +6202,10 @@ h2.event-card-title {
 
 /* Tablet breakpoint (769px to 1024px) - 2 columns for event cards */
 @media screen and (max-width: 1024px) and (min-width: 769px) {
+    :root {
+        --spacing-container: 24px;
+    }
+    
     /* Event cards grid - 2 columns on tablet */
     .index-events-grid,
     .events-grid,
@@ -6202,7 +6260,12 @@ h2.event-card-title {
 }
 
 /* Mobile Breakpoint (max-width: 768px) */
+/* Mobile breakpoint - 12px margins */
 @media screen and (max-width: 768px) {
+    :root {
+        --spacing-container: 12px;
+    }
+    
     /* Ensure full width on mobile - no gaps */
     body, html {
         width: 100%;
@@ -6214,8 +6277,8 @@ h2.event-card-title {
     [data-name="home-desktop"] {
         width: 100%;
         max-width: 100vw;
-        padding-left: 16px !important;
-        padding-right: 16px !important;
+        padding-left: var(--spacing-container) !important;
+        padding-right: var(--spacing-container) !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         box-sizing: border-box;
@@ -6291,7 +6354,7 @@ h2.event-card-title {
         flex-direction: column;
         gap: 16px;
         padding: 0 12px;
-        margin-top: 50px;
+        margin-top: 48px;
         margin-bottom: 0;
         align-items: flex-start;
         width: 100%;
@@ -6402,8 +6465,8 @@ h2.event-card-title {
     /* Game Night Section - Tablet */
     .game-night-section {
         padding: 0 24px;
-        margin-top: 72px;
-        margin-bottom: 72px;
+        margin-top: 48px;
+        margin-bottom: 48px;
     }
 
     .game-night-content {
@@ -6583,7 +6646,7 @@ h2.event-card-title {
     .content-section {
         padding: 0 24px;
         gap: 30px; /* Figma: gap between title and text */
-        margin-top: 72px; /* Figma: gap between major sections */
+        margin-top: 48px; /* Figma: gap between major sections */
     }
 
     .content-section .section-title {
@@ -6604,7 +6667,7 @@ h2.event-card-title {
 
     /* Community carousel content adjustments for tablet */
     .carousel-slide [data-name="lounge-card-container"] {
-        padding: 48px 36px;
+        padding: 48px var(--spacing-container);
         gap: 16px;
     }
 
@@ -6868,7 +6931,7 @@ h2.event-card-title {
         }
 
         .room-card-content {
-            padding: 36px;
+            padding: var(--spacing-container);
         }
 
         /* Teams Cards Section - Smaller tablets */
@@ -7034,7 +7097,7 @@ h2.event-card-title {
     }
 
     .events-page {
-        padding: 48px 12px 72px;
+        padding: 48px var(--spacing-container) 72px;
         gap: 48px;
     }
 
@@ -7221,11 +7284,30 @@ h2.event-card-title {
     
     /* Carousel - Mobile */
     .carousel {
-        padding: 0;
         margin-top: 30px; /* Gap between navbar and first section */
         gap: 15px;
         margin-bottom: 0;
         width: 100%;
+    }
+    
+    /* Ensure page-carousel and lounge-carousel maintain padding on mobile */
+    .page-carousel,
+    .lounge-carousel {
+        padding: 0 var(--spacing-container) !important;
+    }
+    
+    /* Hero description and lounge description - full width (margin to margin) on mobile */
+    [data-node-id="354:249"],
+    [data-node-id="549:5098"],
+    [data-node-id="549:2136"] {
+        width: calc(100% + 2 * var(--spacing-container)) !important;
+        max-width: calc(100% + 2 * var(--spacing-container)) !important;
+        flex: 1 1 100% !important;
+        margin-left: calc(-1 * var(--spacing-container)) !important;
+        margin-right: calc(-1 * var(--spacing-container)) !important;
+        padding-left: var(--spacing-container) !important;
+        padding-right: var(--spacing-container) !important;
+        box-sizing: border-box !important;
     }
     
     .carousel-deck {
@@ -7243,7 +7325,7 @@ h2.event-card-title {
     
     /* Content Section - Mobile */
     .content-section {
-        margin-top: 50px !important; /* Gap between major sections */
+        margin-top: 48px !important; /* Gap between major sections */
         padding: 0 12px;
         gap: 18px;
         margin-bottom: 0;
@@ -7252,7 +7334,7 @@ h2.event-card-title {
     /* Equipment Specs Section - Mobile */
     .equipment-specs-section {
         padding: 0 12px;
-        margin-top: 50px;
+        margin-top: 48px;
         margin-bottom: 50px;
     }
 
@@ -7294,7 +7376,7 @@ h2.event-card-title {
     /* Game Night Section - Mobile */
     .game-night-section {
         padding: 0 12px;
-        margin-top: 50px;
+        margin-top: 48px;
         margin-bottom: 50px;
     }
 
@@ -7325,8 +7407,8 @@ h2.event-card-title {
 
     /* Room Cards Section - Mobile */
     .room-cards-section {
-        padding: 0 12px;
-        margin-top: 50px; /* Gap between major sections */
+        padding: 0 var(--spacing-container);
+        margin-top: 48px; /* Gap between major sections */
         gap: 18px;
         margin-bottom: 0;
     }
@@ -7397,10 +7479,13 @@ h2.event-card-title {
     .news-events-cards-container.events-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 6px;
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-        margin: 0;
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        padding-left: var(--spacing-container);
+        padding-right: var(--spacing-container);
+        box-sizing: border-box;
     }
 
     /* Event cards - ensure they fit properly */
@@ -7537,7 +7622,7 @@ h2.event-card-title {
 
     /* Events Page Responsive */
     .events-page {
-        padding: 48px 12px 72px;
+        padding: 48px var(--spacing-container) 72px;
         gap: 48px;
     }
 
@@ -7688,7 +7773,7 @@ h2.event-card-title {
         flex-direction: column;
         gap: 24px;
         padding: 0 12px;
-        margin-top: 50px;
+        margin-top: 48px;
         margin-bottom: 0;
         align-items: flex-start;
         position: relative !important;
@@ -7883,7 +7968,7 @@ h2.event-card-title {
     .tour-video-section {
         padding: 0 12px;
         gap: 18px;
-        margin-top: 50px; /* Gap between major sections */
+        margin-top: 48px; /* Gap between major sections */
         margin-bottom: 0;
     }
 
@@ -7896,17 +7981,31 @@ h2.event-card-title {
     /* Links Section - Mobile */
     /* News and Events Section - Mobile */
     .news-events-section {
-        padding: 0 12px;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0 var(--spacing-container);
         gap: 36px;
-        margin-top: 50px;
+        margin-top: 48px;
         margin-bottom: 0;
+        box-sizing: border-box;
+    }
+    
+    /* Event grid inside news-events-section should respect parent padding on mobile */
+    .news-events-section .news-events-cards-container.events-grid {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     /* Teams Section - Mobile */
     .teams-section {
         padding: 0 12px;
         gap: 15px;
-        margin-top: 50px;
+        margin-top: 48px;
         margin-bottom: 50px;
     }
 
@@ -7930,7 +8029,7 @@ h2.event-card-title {
     .community-section {
         padding: 0 12px;
         gap: 29px;
-        margin-top: 50px;
+        margin-top: 48px;
         margin-bottom: 50px;
     }
 
@@ -7976,7 +8075,7 @@ h2.event-card-title {
     .news-events-see-all-btn {
         font-size: 24px; /* P2 Mobile */
         letter-spacing: -0.48px;
-        padding: 16px 36px;
+        padding: 16px var(--spacing-container);
         width: auto;
     }
 
@@ -8020,7 +8119,7 @@ h2.event-card-title {
         flex-direction: column;
         gap: 16px;
         padding: 0 12px;
-        margin-top: 50px; /* Gap between major sections */
+        margin-top: 48px; /* Gap between major sections */
         margin-bottom: 0;
     }
     
@@ -8240,7 +8339,7 @@ h2.event-card-title {
     flex-direction: column;
     gap: 37px;
     align-items: center;
-    padding: 0 36px 0;
+    padding: 0 var(--spacing-container) 0;
     position: relative;
     width: 100%;
     min-height: 100vh;
