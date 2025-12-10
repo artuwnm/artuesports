@@ -2309,6 +2309,8 @@ img {
     margin-left: -24px; /* Offset parent padding */
     margin-right: -24px; /* Offset parent padding */
     box-sizing: border-box;
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
 .page-container .events-game-lounge-section {
@@ -2317,12 +2319,24 @@ img {
 
 .game-lounge-card-container {
     flex: 1 0 0;
-    min-height: 1px;
-    min-width: 1px;
+    min-height: 400px;
+    min-width: 400px;
     background-color: var(--color-core-100);
     border-radius: 16px;
     aspect-ratio: 1;
     flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    margin-left: 20px;
+    margin-top: 48px;
+}
+
+.game-lounge-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
 }
 
 .events-game-lounge-section .game-lounge-content {
@@ -2330,11 +2344,15 @@ img {
     flex-direction: column;
     gap: 12px;
     align-items: flex-start;
-    flex-shrink: 0;
+    flex-shrink: 1;
     width: 634px;
     max-width: 100%;
+    min-width: 0;
     margin-top: 48px;
-    margin-left: -48px;
+    margin-left: 0;
+    margin-right: 24px;
+    box-sizing: border-box;
+    padding-right: 24px;
 }
 
 .events-game-lounge-section .game-lounge-title {
@@ -2359,10 +2377,22 @@ img {
     color: var(--color-core-50);
     margin: 0;
     width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .events-game-lounge-section .game-lounge-description p {
     margin: 0;
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: 0;
+    max-width: 100%;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
 }
 
 /* .game-lounge-btn removed - uses standard .btn-lined class */
@@ -6250,6 +6280,8 @@ h2.event-card-title {
 
     .events-game-lounge-section .game-lounge-card-container {
         width: 100%;
+        min-width: 100%;
+        min-height: 300px;
         aspect-ratio: 16 / 9;
         flex: none;
     }
@@ -6259,6 +6291,11 @@ h2.event-card-title {
         max-width: 100%;
         margin-top: 0;
         margin-left: 0;
+        padding: 0;
+    }
+
+    .events-game-lounge-section .game-lounge-description p {
+        font-size: 18px;
     }
 
     .events-game-lounge-section .game-lounge-title {
@@ -7773,6 +7810,8 @@ h2.event-card-title {
 
     .events-game-lounge-section .game-lounge-card-container {
         width: 100%;
+        min-width: 100%;
+        min-height: 250px;
         aspect-ratio: 16 / 9;
         flex: none;
     }
@@ -7780,6 +7819,12 @@ h2.event-card-title {
     .events-game-lounge-section .game-lounge-content {
         width: 100%;
         gap: 16px;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+
+    .events-game-lounge-section .game-lounge-description p {
+        font-size: 16px;
     }
 
     .events-game-lounge-section .game-lounge-title {
