@@ -3695,10 +3695,12 @@ h2.event-card-title {
     min-height: 697px;
     padding: 0;
     position: relative;
-    border-radius: 16px;
+    border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
 }
 
 .team-card:hover {
@@ -3716,7 +3718,7 @@ h2.event-card-title {
     object-position: center center;
     opacity: 0.5;
     pointer-events: none;
-    border-radius: 16px;
+    border-radius: 8px;
 }
 
 .team-card-title {
@@ -6565,11 +6567,11 @@ h2.event-card-title {
         flex: 1 1 0;
         height: 550px;
         min-height: 550px;
-        border-radius: 16px;
+        border-radius: 8px;
     }
 
     .team-card .team-card-bg {
-        border-radius: 16px;
+        border-radius: 8px;
     }
 
     .team-card-title {
@@ -6886,11 +6888,11 @@ h2.event-card-title {
             min-height: 500px;
             padding: 0;
             flex: none;
-            border-radius: 0;
+            border-radius: 8px;
         }
 
         .team-card .team-card-bg {
-            border-radius: 0;
+            border-radius: 8px;
         }
 
         .team-card:last-child {
@@ -7364,11 +7366,11 @@ h2.event-card-title {
         min-height: 400px;
         padding: 0;
         flex: none;
-        border-radius: 0;
+        border-radius: 8px;
     }
 
     .team-card .team-card-bg {
-        border-radius: 0;
+        border-radius: 8px;
     }
 
     .team-card:last-child {

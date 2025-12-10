@@ -340,6 +340,7 @@ $(function(){
 	const pageMap = {
 		'index.html': null, // Home page - no active nav item
 		'overwatch.html': 'teams.html',
+		'league-of-legends.html': 'teams.html',
 		'teams.html': 'teams.html',
 		'lounge.html': 'lounge.html',
 		'knightarcade.html': 'lounge.html', // Knight Arcade is under Lounge dropdown
