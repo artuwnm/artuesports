@@ -12,6 +12,7 @@ function Carousel(el) {
 	carousel.timerLength = 5000;
 	carousel.timerPause = 10000;
 	carousel.timing = false;
+	carousel.videoTimer = false;
 
 	carousel.changePosition = function(direction) {
 		if(carousel.timing) return;
@@ -47,6 +48,8 @@ function Carousel(el) {
 	carousel.showPosition = function(direction,placed) {
 		clearTimeout(carousel.changeTimer);
 		carousel.changeTimer = false;
+		clearTimeout(carousel.videoTimer);
+		carousel.videoTimer = false;
 
 		let leftposition, rightposition;
 		if(carousel.currentslide == 0){
@@ -84,12 +87,33 @@ function Carousel(el) {
    	 (direction === true ? "Left" : "Right"));
 
 
-		setTimeout(function(){carousel.timing = false;}, 900);
+		setTimeout(function(){
+			carousel.timing = false;
+			
+			// Check if current slide contains a video
+			let currentSlide = cs.eq(carousel.currentslide);
+			let video = currentSlide.find("video");
+			if(video.length > 0) {
+				// Stop the normal timer
+				carousel.stopTimer();
+				
+				// Wait 10 seconds (10000ms) then advance
+				carousel.videoTimer = setTimeout(function(){
+					carousel.changePosition(true);
+					carousel.startTimer();
+				}, 10000);
+			}
+		}, 900);
 		},50);
 	}
 
 	carousel.startTimer = function(){
 		if(carousel.timerLength === 0) return;
+		// Don't start timer if we're on a video slide (videoTimer will handle it)
+		let currentSlide = carousel.element.find(".carousel-slide").eq(carousel.currentslide);
+		if(currentSlide.find("video").length > 0) {
+			return;
+		}
 		carousel.timer = setInterval(carousel.tick, carousel.timerLength);
 	}
 
@@ -209,7 +233,19 @@ carousel.pauseTimer = function () {
 		carousel.numberOfSlides = carousel.element.find(".carousel-slide").length;
 		carousel.element.find(".carousel-slide").eq(0).addClass("active atCenter");
 		carousel.makeButtons();
-		carousel.startTimer();
+		
+		// Check if first slide contains a video
+		let firstSlide = carousel.element.find(".carousel-slide").eq(0);
+		let video = firstSlide.find("video");
+		if(video.length > 0) {
+			// Wait 10 seconds before starting timer
+			carousel.videoTimer = setTimeout(function(){
+				carousel.changePosition(true);
+				carousel.startTimer();
+			}, 10000);
+		} else {
+			carousel.startTimer();
+		}
 	}
 	carousel.element.on("click",".carousel-arrow",function(){
 		carousel.changePosition($(this).is(".carousel-arrow-right"));
