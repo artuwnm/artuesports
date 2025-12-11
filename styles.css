@@ -1031,6 +1031,7 @@ a:hover {
     height: 100%;
     background-color: #d9d9d9;
     border-radius: 16px;
+    object-fit: cover;
 }
 
 /* Game Night Section */
@@ -1110,6 +1111,7 @@ a:hover {
     height: 100%;
     background-color: #d9d9d9;
     border-radius: 16px;
+    object-fit: cover;
 }
 
 /* Section Headings */
