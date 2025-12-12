@@ -2303,14 +2303,14 @@ img {
 .events-game-lounge-section {
     display: flex;
     flex-direction: row;
-    gap: 160px;
-    align-items: flex-start;
+    gap: 48px;
+    align-items: center;
         padding: 48px var(--spacing-container);
     background-color: var(--color-bg-800);
     border-radius: 0;
     width: calc(100% + 48px); /* Extend past parent padding (24px on each side) */
-    margin-left: -24px; /* Offset parent padding */
-    margin-right: -24px; /* Offset parent padding */
+    margin-left: 0px;
+    margin-right: 0px;
     box-sizing: border-box;
     overflow-x: hidden;
     max-width: 100vw;
@@ -2331,7 +2331,7 @@ img {
     position: relative;
     overflow: hidden;
     margin-left: 20px;
-    margin-top: 48px;
+    margin-top: 0;
 }
 
 .game-lounge-card-image {
@@ -2351,7 +2351,7 @@ img {
     width: 634px;
     max-width: 100%;
     min-width: 0;
-    margin-top: 48px;
+    margin-top: 0;
     margin-left: 0;
     margin-right: 24px;
     box-sizing: border-box;
@@ -2399,6 +2399,11 @@ img {
 }
 
 /* .game-lounge-btn removed - uses standard .btn-lined class */
+
+/* Event Section */
+section.event {
+    padding: 36px;
+}
 
 /* Follow Us Section */
 .events-follow-us-section {
@@ -3081,6 +3086,15 @@ img {
     margin-top: 48px;
 }
 
+.team-events-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 24px;
+}
+
 .team-events-section-title {
     font-family: var(--font-pressio-bold-condensed);
     font-weight: 700;
@@ -3090,9 +3104,16 @@ img {
     text-transform: uppercase;
     color: var(--color-text-primary);
     margin: 0;
+    flex-shrink: 0;
 }
 
-.team-events-section-title + p {
+.team-events-header .btn-lined {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.team-events-section-title + p,
+.team-events-header + p {
     margin-top: -5px;
     width: 50%;
 }
@@ -6252,25 +6273,33 @@ h2.event-card-title {
         flex-direction: column;
         gap: 48px;
         padding: 36px 24px;
-        width: calc(100% + 48px);
-        margin-left: -24px;
-        margin-right: -24px;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        overflow-x: hidden;
+        position: relative;
     }
 
     .events-game-lounge-section .game-lounge-card-container {
-        width: 100%;
-        min-width: 100%;
+        width: calc(100vw - 48px);
+        min-width: calc(100vw - 48px);
+        max-width: calc(100vw - 48px);
         min-height: 300px;
         aspect-ratio: 16 / 9;
         flex: none;
+        margin-left: 24px;
+        margin-right: 24px;
     }
 
     .events-game-lounge-section .game-lounge-content {
         width: 100%;
         max-width: 100%;
         margin-top: 0;
-        margin-left: 0;
+        margin-left: 0 !important;
+        margin-right: 0;
         padding: 0;
+        padding-right: 0 !important;
+        box-sizing: border-box;
     }
 
     .events-game-lounge-section .game-lounge-description p {
@@ -7065,8 +7094,26 @@ h2.event-card-title {
         font-weight: 500;
     }
 
+    .event-overlay-right-container {
+        width: 100%;
+        align-items: flex-start;
+        align-self: flex-start;
+    }
+
     .event-overlay-right {
-        display: none;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        gap: 16px;
+        margin-top: 0;
+    }
+
+    .event-overlay-calendar-btn {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: auto;
     }
 
     .event-overlay-datetime {
@@ -7272,6 +7319,29 @@ h2.event-card-title {
     /* Team Events Section - Mobile */
     .team-events-section {
         margin-top: 48px;
+        padding: 0 12px;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        box-sizing: border-box;
+    }
+
+    .team-events-header {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .team-events-header .btn-lined {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .team-events-section-title + p,
+    .team-events-header + p {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
     }
 
     .team-events-cards-container {
@@ -7598,15 +7668,29 @@ h2.event-card-title {
         width: 100%;
     }
 
+    .event-overlay-right-container {
+        width: 100%;
+        align-items: flex-start;
+        align-self: flex-start;
+    }
+
     .event-overlay-right {
         width: 100%;
         align-items: flex-start;
         margin-top: 0;
+        display: flex;
+    }
+
+    .event-overlay-calendar-btn {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: auto;
+        margin-top: 16px;
     }
 
     .event-overlay-datetime {
-        width: 100%;
-        align-items: flex-start;
+        display: none;
     }
 
     .event-overlay-date,
@@ -7616,6 +7700,22 @@ h2.event-card-title {
 
     .event-overlay-description {
         max-width: 100%;
+    }
+
+    .event-overlay-datetime-tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 0;
+        height: 35px;
+    }
+
+    .event-overlay-datetime-tablet .event-overlay-date,
+    .event-overlay-datetime-tablet .event-overlay-time {
+        text-align: left;
+        width: auto;
     }
 
     .event-overlay-image {
@@ -7770,28 +7870,32 @@ h2.event-card-title {
         flex-direction: column;
         gap: 12px;
         padding: 24px 12px;
-        width: calc(100% + 24px);
-        margin-left: -12px;
-        margin-right: -12px;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        overflow-x: hidden;
     }
 
     .events-game-lounge-section .game-lounge-content {
-        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0;
+        margin-top: 0;
         padding: 0 12px;
+        gap: 16px;
+        box-sizing: border-box;
     }
 
     .events-game-lounge-section .game-lounge-card-container {
         width: 100%;
         min-width: 100%;
+        max-width: 100%;
         min-height: 250px;
         aspect-ratio: 16 / 9;
         flex: none;
-    }
-
-    .events-game-lounge-section .game-lounge-content {
-        width: 100%;
-        gap: 16px;
-        padding: 0 12px;
+        margin-left: 0;
+        margin-right: 0;
         box-sizing: border-box;
     }
 
