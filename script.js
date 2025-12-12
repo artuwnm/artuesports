@@ -1116,3 +1116,684 @@ $(document).ready(function(){
 	$('.footer-links p.footer-link').css('cursor', 'pointer');
 	$('.footer-links a.footer-email').css('cursor', 'pointer');
 });
+
+// GSAP Navbar Scroll Animation
+// Hide navbar when scrolling down, show when scrolling up
+$(document).ready(function(){
+	// Check if GSAP is loaded
+	if (typeof gsap === 'undefined') {
+		console.warn('GSAP is not loaded. Navbar animation will not work.');
+		return;
+	}
+	
+	const navbar = document.querySelector('.navbar');
+	if (!navbar) {
+		console.warn('Navbar element not found.');
+		return;
+	}
+	
+	let lastScrollTop = 0;
+	const scrollThreshold = 10; // Minimum scroll distance to trigger animation
+	
+	// Handle scroll events
+	window.addEventListener('scroll', function() {
+		// Get current scroll position
+		const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		
+		// Only animate if scroll difference is significant
+		if (Math.abs(scrollTop - lastScrollTop) < scrollThreshold) {
+			return;
+		}
+		
+		// Determine scroll direction
+		if (scrollTop > lastScrollTop && scrollTop > 100) {
+			// Scrolling down - hide navbar
+			gsap.to(navbar, {
+				y: '-100%',
+				duration: 0.3,
+				ease: 'power2.out'
+			});
+		} else if (scrollTop < lastScrollTop) {
+			// Scrolling up - show navbar
+			gsap.to(navbar, {
+				y: '0%',
+				duration: 0.3,
+				ease: 'power2.out'
+			});
+		}
+		
+		// Always show navbar at the top of the page
+		if (scrollTop <= 100) {
+			gsap.to(navbar, {
+				y: '0%',
+				duration: 0.3,
+				ease: 'power2.out'
+			});
+		}
+		
+		lastScrollTop = scrollTop;
+	}, { passive: true });
+});
+
+// GSAP Scroll Animations for Index Page
+// Stagger animations for content sections as they scroll into view
+$(document).ready(function(){
+	// Only run on index.html
+	const currentPage = window.location.pathname.split('/').pop();
+	if (currentPage !== 'index.html' && currentPage !== '' && !window.location.pathname.endsWith('/')) {
+		return;
+	}
+	
+	// Check if GSAP and ScrollTrigger are loaded
+	if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+		console.warn('GSAP or ScrollTrigger is not loaded. Scroll animations will not work.');
+		return;
+	}
+	
+	// Register ScrollTrigger plugin
+	gsap.registerPlugin(ScrollTrigger);
+	
+	// Wait for page to fully load
+	$(window).on('load', function() {
+		ScrollTrigger.refresh();
+	});
+	
+	// Set initial states - hide elements that will be animated
+	gsap.set('[data-name="hero-text-container"] h1, [data-name="hero-text-container"] p', {
+		opacity: 0,
+		y: 50
+	});
+	
+	gsap.set('[data-name="02-news-events-section"] h1, [data-name="filter-bar-container"] > *', {
+		opacity: 0,
+		y: 50
+	});
+	
+	// Set event cards to start from left (only the card container, not children)
+	gsap.set('.index-events-grid .event-card', {
+		opacity: 0,
+		y: 50,
+		x: -80,
+		force3D: true
+	});
+	// Ensure text inside cards is visible from the start
+	gsap.set('.index-events-grid .event-card *', {
+		opacity: 1,
+		y: 0,
+		x: 0
+	});
+	
+	gsap.set('[data-name="03-teams-section"] h1, [data-name="teams-container"] .btn-lined, .team-card', {
+		opacity: 0,
+		y: 50
+	});
+	
+	gsap.set('[data-name="lounge-container"] h1, [data-name="lounge-container"] .btn-lined, [data-name="04-lounge-section"] p, .room-card', {
+		opacity: 0,
+		y: 50
+	});
+	
+	gsap.set('.game-lounge-title, .game-lounge-description, .game-lounge-content .btn-lined, .game-lounge-card-container', {
+		opacity: 0,
+		y: 50
+	});
+	
+	gsap.set('[data-name="05-academic-opportunities-section"] h1, [data-name="academic-opportunities-container"] p, [data-name="academic-opportunities-container"] .btn-filled', {
+		opacity: 0,
+		y: 50
+	});
+	
+	// Hero Text Section Animation
+	gsap.to('[data-name="hero-text-container"] h1', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="hero-text-container"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('[data-name="hero-text-container"] p', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		delay: 0.2,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="hero-text-container"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// News and Events Section Animation
+	gsap.to('[data-name="02-news-events-section"] h1', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="02-news-events-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('[data-name="filter-bar-container"] > *', {
+		opacity: 1,
+		y: 0,
+		duration: 0.6,
+		stagger: 0.1,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="filter-bar-container"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// Event Cards Stagger Animation - Left to Right (only animate the card container)
+	gsap.to('.index-events-grid .event-card', {
+		opacity: 1,
+		y: 0,
+		x: 0,
+		duration: 1,
+		force3D: true,
+		stagger: {
+			amount: 0.5, // Total stagger time
+			from: "start" // Start from the first element (left to right)
+		},
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '.index-events-grid',
+			start: 'top 75%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// Teams Section Animation
+	gsap.to('[data-name="teams-container"] h1', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="03-teams-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('[data-name="teams-container"] .btn-lined', {
+		opacity: 1,
+		y: 0,
+		duration: 0.6,
+		delay: 0.2,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="03-teams-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// Team Cards Stagger Animation
+	gsap.to('.team-card', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		stagger: 0.2,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '.teams-cards-container',
+			start: 'top 75%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// Lounge Section Animation
+	gsap.to('[data-name="lounge-container"] h1', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="04-lounge-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('[data-name="lounge-container"] .btn-lined', {
+		opacity: 1,
+		y: 0,
+		duration: 0.6,
+		delay: 0.2,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="04-lounge-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('[data-name="04-lounge-section"] p', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		delay: 0.3,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="04-lounge-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// Room Cards Stagger Animation
+	gsap.to('.room-card', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		stagger: 0.2,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '.room-cards-container',
+			start: 'top 75%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// Connect Section Animation
+	gsap.to('.game-lounge-title', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '.events-game-lounge-section',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('.game-lounge-description', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		delay: 0.2,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '.events-game-lounge-section',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('.game-lounge-content .btn-lined', {
+		opacity: 1,
+		y: 0,
+		duration: 0.6,
+		delay: 0.4,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '.events-game-lounge-section',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('.game-lounge-card-container', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		delay: 0.3,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '.events-game-lounge-section',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	// Academic Opportunities Section Animation
+	gsap.to('[data-name="05-academic-opportunities-section"] h1', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="05-academic-opportunities-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('[data-name="academic-opportunities-container"] p', {
+		opacity: 1,
+		y: 0,
+		duration: 0.8,
+		delay: 0.2,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="05-academic-opportunities-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+	
+	gsap.to('[data-name="academic-opportunities-container"] .btn-filled', {
+		opacity: 1,
+		y: 0,
+		duration: 0.6,
+		delay: 0.4,
+		ease: 'power3.out',
+		scrollTrigger: {
+			trigger: '[data-name="05-academic-opportunities-section"]',
+			start: 'top 80%',
+			toggleActions: 'play none none none'
+		}
+	});
+});
+
+// GSAP Universal Scroll Animations for All Pages
+// Stagger animations for common content elements across all pages
+$(document).ready(function(){
+	// Skip admin pages
+	const currentPage = window.location.pathname.split('/').pop();
+	const adminPages = ['admin.html', 'admin-login.html', 'teams-admin.html', 'events-admin.html', 'admins-admin.html'];
+	if (adminPages.includes(currentPage)) {
+		return;
+	}
+	
+	// Check if GSAP and ScrollTrigger are loaded
+	if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+		console.warn('GSAP or ScrollTrigger is not loaded. Scroll animations will not work.');
+		return;
+	}
+	
+	// Register ScrollTrigger plugin
+	gsap.registerPlugin(ScrollTrigger);
+	
+	// Wait for page to fully load
+	$(window).on('load', function() {
+		ScrollTrigger.refresh();
+	});
+	
+	// Universal animation function
+	function animateElements(selector, options = {}) {
+		const elements = document.querySelectorAll(selector);
+		if (elements.length === 0) return;
+		
+		const defaults = {
+			opacity: 0,
+			y: 50,
+			duration: 0.8,
+			stagger: 0.1,
+			start: 'top 80%',
+			ease: 'power3.out'
+		};
+		
+		const settings = Object.assign({}, defaults, options);
+		
+		// Set initial state
+		gsap.set(selector, {
+			opacity: settings.opacity,
+			y: settings.y,
+			x: settings.x || 0
+		});
+		
+		// Animate with stagger if multiple elements
+		if (elements.length > 1 && settings.stagger) {
+			gsap.to(selector, {
+				opacity: 1,
+				y: 0,
+				x: 0,
+				duration: settings.duration,
+				stagger: settings.stagger,
+				ease: settings.ease,
+				scrollTrigger: {
+					trigger: elements[0].parentElement || elements[0],
+					start: settings.start,
+					toggleActions: 'play none none none'
+				}
+			});
+		} else {
+			// Single element or no stagger
+			gsap.to(selector, {
+				opacity: 1,
+				y: 0,
+				x: 0,
+				duration: settings.duration,
+				ease: settings.ease,
+				scrollTrigger: {
+					trigger: elements[0].parentElement || elements[0],
+					start: settings.start,
+					toggleActions: 'play none none none'
+				}
+			});
+		}
+	}
+	
+	// Animate page titles (h1 that are not in navbar)
+	setTimeout(function() {
+		// Page titles and main headings
+		animateElements('.page-container > h1, .teams-page-title, .team-hero-title, .news-events-title, .follow-us-title, .game-lounge-title', {
+			start: 'top 85%'
+		});
+		
+		// Section headings (h2)
+		animateElements('section h2, .varsity-section-title, .pillars-section-title', {
+			start: 'top 80%'
+		});
+		
+		// Paragraphs in sections
+		animateElements('section p, .team-hero-description, .varsity-section-description, .pillars-section-description, .follow-us-text', {
+			duration: 0.7,
+			start: 'top 80%'
+		});
+		
+		// Team cards (all pages)
+		animateElements('.team-card', {
+			stagger: 0.2,
+			start: 'top 75%'
+		});
+		
+		// Event cards (events page) - only animate the card container, not text inside
+		const eventCards = document.querySelectorAll('.events-grid .event-card, .news-events-cards-container .event-card');
+		if (eventCards.length > 0) {
+			// Set initial state for card containers only
+			gsap.set(eventCards, {
+				opacity: 0,
+				y: 50,
+				x: -50,
+				force3D: true
+			});
+			// Ensure text inside cards is visible from the start
+			eventCards.forEach(function(card) {
+				gsap.set(card.querySelectorAll('*'), {
+					opacity: 1,
+					y: 0,
+					x: 0
+				});
+			});
+			// Animate only the card containers
+			gsap.to(eventCards, {
+				opacity: 1,
+				y: 0,
+				x: 0,
+				duration: 0.8,
+				stagger: 0.15,
+				force3D: true,
+				ease: 'power3.out',
+				scrollTrigger: {
+					trigger: eventCards[0].parentElement || eventCards[0],
+					start: 'top 75%',
+					toggleActions: 'play none none none'
+				}
+			});
+		}
+		
+		// Room cards
+		animateElements('.room-card', {
+			stagger: 0.2,
+			start: 'top 75%'
+		});
+		
+		// Varsity player cards
+		animateElements('.varsity-player-card', {
+			stagger: 0.15,
+			start: 'top 75%'
+		});
+		
+		// Buttons
+		animateElements('.btn-lined, .btn-filled', {
+			duration: 0.6,
+			start: 'top 80%'
+		});
+		
+		// Social icons in "HOP ONLINE" section (with stagger)
+		animateElements('.events-follow-us-section .social-icons .social-icon', {
+			stagger: 0.1,
+			duration: 0.6,
+			start: 'top 80%'
+		});
+		
+		// Footer icons - no animation, always visible
+		// Explicitly set footer icons to be visible (no animation)
+		const footerIcons = document.querySelectorAll('.footer .social-icons .social-icon');
+		if (footerIcons.length > 0) {
+			gsap.set(footerIcons, {
+				opacity: 1,
+				y: 0,
+				x: 0
+			});
+		}
+		
+		// Pillars words
+		animateElements('.pillars-word', {
+			stagger: 0.2,
+			start: 'top 80%'
+		});
+		
+		// Filter chips
+		animateElements('.events-filter-chip, .index-filter-chip', {
+			stagger: 0.1,
+			duration: 0.6,
+			start: 'top 80%'
+		});
+		
+		// Hero sections
+		animateElements('[data-name="hero-text-container"] h1, [data-name="hero-text-container"] p', {
+			start: 'top 80%'
+		});
+		
+		// Team hero sections
+		animateElements('.team-hero-title-container h1, .team-hero-title-container p', {
+			start: 'top 80%'
+		});
+		
+		// Sections with data-name attributes
+		document.querySelectorAll('section[data-name]').forEach(function(section) {
+			const children = section.querySelectorAll(':scope > h1, :scope > h2, :scope > p:first-of-type');
+			if (children.length > 0) {
+				gsap.set(children, { opacity: 0, y: 50 });
+				gsap.to(children, {
+					opacity: 1,
+					y: 0,
+					duration: 0.8,
+					stagger: 0.15,
+					ease: 'power3.out',
+					scrollTrigger: {
+						trigger: section,
+						start: 'top 80%',
+						toggleActions: 'play none none none'
+					}
+				});
+			}
+		});
+		
+		// Animate any remaining main content sections
+		document.querySelectorAll('main > section, .page-container > section').forEach(function(section) {
+			const heading = section.querySelector('h1, h2');
+			const firstPara = section.querySelector('p');
+			const eventCards = section.querySelectorAll('.event-card');
+			const otherCards = section.querySelectorAll('.team-card, .room-card, .varsity-player-card');
+			
+			if (heading) {
+				gsap.set(heading, { opacity: 0, y: 50 });
+				gsap.to(heading, {
+					opacity: 1,
+					y: 0,
+					duration: 0.8,
+					ease: 'power3.out',
+					scrollTrigger: {
+						trigger: section,
+						start: 'top 85%',
+						toggleActions: 'play none none none'
+					}
+				});
+			}
+			
+			if (firstPara && !firstPara.closest('.team-card, .event-card, .room-card, .varsity-player-card')) {
+				gsap.set(firstPara, { opacity: 0, y: 50 });
+				gsap.to(firstPara, {
+					opacity: 1,
+					y: 0,
+					duration: 0.7,
+					delay: 0.2,
+					ease: 'power3.out',
+					scrollTrigger: {
+						trigger: section,
+						start: 'top 80%',
+						toggleActions: 'play none none none'
+					}
+				});
+			}
+			
+			// Handle event cards separately - only animate container, not text
+			if (eventCards.length > 0) {
+				gsap.set(eventCards, { opacity: 0, y: 50, x: -50, force3D: true });
+				// Ensure text inside event cards is visible
+				eventCards.forEach(function(card) {
+					gsap.set(card.querySelectorAll('*'), { opacity: 1, y: 0, x: 0 });
+				});
+				gsap.to(eventCards, {
+					opacity: 1,
+					y: 0,
+					x: 0,
+					duration: 0.8,
+					stagger: 0.15,
+					force3D: true,
+					ease: 'power3.out',
+					scrollTrigger: {
+						trigger: section,
+						start: 'top 75%',
+						toggleActions: 'play none none none'
+					}
+				});
+			}
+			
+			// Handle other cards normally
+			if (otherCards.length > 0) {
+				gsap.set(otherCards, { opacity: 0, y: 50 });
+				gsap.to(otherCards, {
+					opacity: 1,
+					y: 0,
+					duration: 0.8,
+					stagger: 0.15,
+					ease: 'power3.out',
+					scrollTrigger: {
+						trigger: section,
+						start: 'top 75%',
+						toggleActions: 'play none none none'
+					}
+				});
+			}
+		});
+		
+	}, 100);
+});

@@ -2099,9 +2099,9 @@ img {
     flex-direction: column;
     gap: 48px;
     align-items: flex-start;
-    width: calc(100% + 2 * var(--spacing-container));
-    margin-left: calc(-1 * var(--spacing-container));
-    margin-right: calc(-1 * var(--spacing-container));
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     padding-left: var(--spacing-container);
     padding-right: var(--spacing-container);
     box-sizing: border-box;
@@ -2305,12 +2305,12 @@ img {
     flex-direction: row;
     gap: 48px;
     align-items: center;
-        padding: 48px var(--spacing-container);
+    padding: 48px var(--spacing-container);
     background-color: var(--color-bg-800);
     border-radius: 0;
-    width: calc(100% + 48px); /* Extend past parent padding (24px on each side) */
-    margin-left: 0px;
-    margin-right: 0px;
+    width: 100vw;
+    margin-left: 0;
+    margin-right: 0;
     box-sizing: border-box;
     overflow-x: hidden;
     max-width: 100vw;
@@ -4334,9 +4334,9 @@ h2.event-card-title {
     flex-direction: column;
     gap: 36px;
     align-items: flex-start;
-    width: calc(100% + 2 * var(--spacing-container));
-    margin-left: calc(-1 * var(--spacing-container));
-    margin-right: calc(-1 * var(--spacing-container));
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     padding: 0 var(--spacing-container);
     box-sizing: border-box;
     margin-top: 48px;
@@ -4525,12 +4525,12 @@ h2.event-card-title {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px 10px;
     align-items: stretch;
-    width: 100vw;
-    max-width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    padding-left: var(--spacing-container);
-    padding-right: var(--spacing-container);
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
     box-sizing: border-box;
 }
 
@@ -6275,7 +6275,7 @@ h2.event-card-title {
         padding: 36px 24px;
         width: 100vw;
         margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
+        margin-right: 0;
         overflow-x: hidden;
         position: relative;
     }
@@ -7872,7 +7872,7 @@ h2.event-card-title {
         padding: 24px 12px;
         width: 100vw;
         margin-left: calc(50% - 50vw);
-        margin-right: calc(50% - 50vw);
+        margin-right: 0;
         overflow-x: hidden;
     }
 
