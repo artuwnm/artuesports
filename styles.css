@@ -5658,6 +5658,14 @@ h2.event-card-title {
     }
 }
 
+/* Desktop Breakpoint (min-width: 1025px) - Ensure news-events section has proper side margins */
+@media screen and (min-width: 1025px) {
+    .news-events-section {
+        padding-left: var(--spacing-container) !important;
+        padding-right: var(--spacing-container) !important;
+    }
+}
+
 /* Small Desktop Breakpoint (min-width: 1025px) and (max-width: 1280px) */
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
     /* Location Section - Small Desktop */
