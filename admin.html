@@ -283,6 +283,21 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="playerKD">K/D Ratio</label>
+                        <input type="number" id="playerKD" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="playerWinPercentage">Win Percentage</label>
+                        <input type="number" id="playerWinPercentage" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="playerHoursPlayed">Hours Played</label>
+                        <input type="number" id="playerHoursPlayed" step="1">
+                    </div>
+
+                    <div class="form-group">
                         <label for="playerImage">Player Image</label>
                         <input type="file" id="playerImage" accept="image/jpeg,image/jpg,image/png,image/webp,image/avif">
                         <img id="imagePreview" class="image-preview" style="display: none;">
@@ -591,6 +606,9 @@
             const major = document.getElementById('playerMajor').value;
             const hometown = document.getElementById('playerHometown').value;
             const quote = document.getElementById('playerQuote').value;
+            const kd = document.getElementById('playerKD').value;
+            const winPercentage = document.getElementById('playerWinPercentage').value;
+            const hoursPlayed = document.getElementById('playerHoursPlayed').value;
             const imageFile = imageInput.files[0];
             let imageUrl = document.getElementById('existingImageUrl').value;
 
@@ -615,6 +633,9 @@
                     major: major || null,
                     hometown: hometown || null,
                     quote: quote || null,
+                    k_d: kd ? parseFloat(kd) : null,
+                    win_percentage: winPercentage ? parseFloat(winPercentage) : null,
+                    hours_played: hoursPlayed ? parseInt(hoursPlayed) : null,
                     picture_url: imageUrl || null
                 };
 
@@ -698,6 +719,9 @@
                 document.getElementById('playerMajor').value = player.major || '';
                 document.getElementById('playerHometown').value = player.hometown || '';
                 document.getElementById('playerQuote').value = player.quote || '';
+                document.getElementById('playerKD').value = player.k_d || '';
+                document.getElementById('playerWinPercentage').value = player.win_percentage || '';
+                document.getElementById('playerHoursPlayed').value = player.hours_played || '';
                 document.getElementById('existingImageUrl').value = player.picture_url || '';
 
                 // Pre-select the player's teams
