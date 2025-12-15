@@ -13,6 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <header class="navbar">
@@ -158,85 +159,9 @@
                 </a>
             </div>
             <div class="index-events-grid events-grid" data-name="event-cards-container" data-node-id="620:3239">
-                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="620:3241">
-                    <div class="event-card-content">
-                        <div class="event-card-image-wrapper">
-                            <div class="event-card-image" data-node-id="I620:3241;266:53"></div>
-                        </div>
-                        <div class="event-card-black-section">
-                            <div class="event-card-body">
-                                <p class="event-card-date p1" data-node-id="I620:3241;260:211">
-                                    October 12th | 10/16/25
-                                </p>
-                                <h2 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">
-                                    SF Shock
-                                </h2>
-                                <p class="event-card-description p1" data-node-id="I620:3241;266:63">
-                                    Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="620:3268">
-                    <div class="event-card-content">
-                        <div class="event-card-image-wrapper">
-                            <div class="event-card-image" data-node-id="I620:3268;266:53"></div>
-                        </div>
-                        <div class="event-card-black-section">
-                            <div class="event-card-body">
-                                <p class="event-card-date p1" data-node-id="I620:3268;260:211">
-                                    October 12th | 10/16/25
-                                </p>
-                                <h2 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">
-                                    SF Shock
-                                </h2>
-                                <p class="event-card-description p1" data-node-id="I620:3268;266:63">
-                                    Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="620:3242">
-                    <div class="event-card-content">
-                        <div class="event-card-image-wrapper">
-                            <div class="event-card-image" data-node-id="I620:3242;266:82"></div>
-                        </div>
-                        <div class="event-card-black-section">
-                            <div class="event-card-body">
-                                <p class="event-card-date p1" data-node-id="I620:3242;260:211">
-                                    October 12th | 10/16/25
-                                </p>
-                                <h2 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">
-                                    SF Shock
-                                </h2>
-                                <p class="event-card-description p1" data-node-id="I620:3242;266:86">
-                                    Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card" data-event-category="community" data-name="event-card-community" data-node-id="620:3243">
-                    <div class="event-card-content">
-                        <div class="event-card-image-wrapper">
-                            <div class="event-card-image" data-node-id="I620:3243;266:82"></div>
-                        </div>
-                        <div class="event-card-black-section">
-                            <div class="event-card-body">
-                                <p class="event-card-date p1" data-node-id="I620:3243;260:211">
-                                    October 12th | 10/16/25
-                                </p>
-                                <h2 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="488:843">
-                                    Community Event
-                                </h2>
-                                <p class="event-card-description p1" data-node-id="I620:3243;266:86">
-                                    Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Events dynamically loaded from Supabase -->
+                <div class="loading-events" style="width: 100%; text-align: center; padding: 50px 0; color: var(--color-core-100);">
+                    <p style="font-family: var(--font-urbanist); font-size: 18px;">Loading events...</p>
                 </div>
             </div>
         </div>
@@ -252,19 +177,10 @@
                 </a>
             </div>
             <div class="teams-cards-container shrink-0" data-name="teams-cards" data-node-id="897:800">
-                <a href="overwatch.html" class="team-card" data-name="Team-card" data-node-id="897:734">
-                    <img alt="" class="team-card-bg" src="images/overwatch.jpg" />
-                    <p class="team-card-title font-pressio" data-node-id="897:735">
-                        Overwatch
-                    </p>
-                </a>
-                <a href="league-of-legends.html" class="team-card" data-name="Team-card" data-node-id="897:736">
-                    <img alt="" class="team-card-bg" src="images/league.jpg" />
-                    <div class="team-card-title font-pressio" data-node-id="897:737">
-                        <p class="mb-0">League Of</p>
-                        <p>Legends</p>
-                    </div>
-                </a>
+                <!-- Team cards dynamically loaded from Supabase -->
+                <div class="loading-teams" style="width: 100%; text-align: center; padding: 50px 0; color: var(--color-core-100);">
+                    <p style="font-family: var(--font-urbanist); font-size: 18px;">Loading teams...</p>
+                </div>
             </div>
         </div>
 
@@ -439,6 +355,8 @@
         </div>
     </div>
 
+    <script src="teams-loader.js"></script>
+    <script src="events-loader.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

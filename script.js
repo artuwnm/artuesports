@@ -1209,21 +1209,7 @@ $(document).ready(function(){
 		y: 50
 	});
 	
-	// Set event cards to start from left (only the card container, not children)
-	gsap.set('.index-events-grid .event-card', {
-		opacity: 0,
-		y: 50,
-		x: -80,
-		force3D: true
-	});
-	// Ensure text inside cards is visible from the start
-	gsap.set('.index-events-grid .event-card *', {
-		opacity: 1,
-		y: 0,
-		x: 0
-	});
-	
-	gsap.set('[data-name="03-teams-section"] h1, [data-name="teams-container"] .btn-lined, .team-card', {
+	gsap.set('[data-name="03-teams-section"] h1, [data-name="teams-container"] .btn-lined', {
 		opacity: 0,
 		y: 50
 	});
@@ -1294,26 +1280,6 @@ $(document).ready(function(){
 			toggleActions: 'play none none none'
 		}
 	});
-	
-	// Event Cards Stagger Animation - Left to Right (only animate the card container)
-	gsap.to('.index-events-grid .event-card', {
-		opacity: 1,
-		y: 0,
-		x: 0,
-		duration: 1,
-		force3D: true,
-		stagger: {
-			amount: 0.5, // Total stagger time
-			from: "start" // Start from the first element (left to right)
-		},
-		ease: 'power3.out',
-		scrollTrigger: {
-			trigger: '.index-events-grid',
-			start: 'top 75%',
-			toggleActions: 'play none none none'
-		}
-	});
-	
 	// Teams Section Animation
 	gsap.to('[data-name="teams-container"] h1', {
 		opacity: 1,
@@ -1339,21 +1305,7 @@ $(document).ready(function(){
 			toggleActions: 'play none none none'
 		}
 	});
-	
-	// Team Cards Stagger Animation
-	gsap.to('.team-card', {
-		opacity: 1,
-		y: 0,
-		duration: 0.8,
-		stagger: 0.2,
-		ease: 'power3.out',
-		scrollTrigger: {
-			trigger: '.teams-cards-container',
-			start: 'top 75%',
-			toggleActions: 'play none none none'
-		}
-	});
-	
+
 	// Lounge Section Animation
 	gsap.to('[data-name="lounge-container"] h1', {
 		opacity: 1,

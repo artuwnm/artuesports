@@ -3844,6 +3844,44 @@ h2.event-card-title {
     margin-top: 0.1em;
 }
 
+/* Placeholder background for team cards without images */
+.team-card-bg.placeholder {
+    background: linear-gradient(135deg, #1d252c 0%, #050708 100%);
+    opacity: 0.3;
+}
+
+.team-card-bg.placeholder::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ed1f33" opacity="0.3"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Event Card Placeholder Styles */
+.event-card-image.placeholder {
+    background: linear-gradient(135deg, #1d252c 0%, #050708 100%);
+    opacity: 0.5;
+}
+
+.event-card-image.placeholder::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ed1f33" opacity="0.3"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 /* Community Section Styles */
 .community-section-wrapper {
     display: flex;
