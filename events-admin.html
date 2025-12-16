@@ -316,6 +316,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="eventTeam">Associated Team (Optional)</label>
+                        <select id="eventTeam">
+                            <option value="">No specific team</option>
+                            <!-- Teams will be loaded dynamically -->
+                        </select>
+                        <small style="color: #f2f2f2; margin-top: 5px; display: block;">Link this event to a specific team</small>
+                    </div>
+
+                    <div class="form-group">
                         <label for="eventDescription">Description</label>
                         <textarea id="eventDescription" placeholder="Describe the event..."></textarea>
                     </div>
@@ -488,6 +497,32 @@
             }, 5000);
         }
 
+        // Load all teams into dropdown
+        async function loadTeamsDropdown() {
+            try {
+                const { data: teams, error } = await supabase
+                    .from('teams')
+                    .select('*')
+                    .order('name', { ascending: true });
+
+                if (error) throw error;
+
+                const teamSelect = document.getElementById('eventTeam');
+                // Keep the first option ("No specific team")
+                teamSelect.innerHTML = '<option value="">No specific team</option>';
+
+                teams.forEach(team => {
+                    const option = document.createElement('option');
+                    option.value = team.id;
+                    option.textContent = team.name;
+                    teamSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                showAlert('Failed to load teams: ' + error.message, 'error');
+            }
+        }
+
         // Load all events
         async function loadEvents() {
             loadingIndicator.classList.add('active');
@@ -592,7 +627,7 @@
         });
 
         // Open modal for adding new event
-        addEventBtn.addEventListener('click', () => {
+        addEventBtn.addEventListener('click', async () => {
             currentEditingEvent = null;
             document.getElementById('modalTitle').textContent = 'Add Event';
             eventForm.reset();
@@ -603,6 +638,9 @@
             // Set default date to today
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('eventDate').value = today;
+
+            // Load teams dropdown
+            await loadTeamsDropdown();
 
             eventModal.classList.add('active');
         });
@@ -687,6 +725,7 @@
             const eventId = document.getElementById('eventId').value;
             const title = document.getElementById('eventTitle').value;
             const type = document.getElementById('eventType').value;
+            const teamId = document.getElementById('eventTeam').value;
             const description = document.getElementById('eventDescription').value;
             const eventDate = document.getElementById('eventDate').value;
 
@@ -723,6 +762,7 @@
                 const eventData = {
                     title,
                     type,
+                    team_id: teamId || null,
                     description: description || null,
                     event_date: eventDate,
                     event_time: eventTime || null,
@@ -768,11 +808,15 @@
 
                 if (error) throw error;
 
+                // Load teams dropdown
+                await loadTeamsDropdown();
+
                 currentEditingEvent = event;
                 document.getElementById('modalTitle').textContent = 'Edit Event';
                 document.getElementById('eventId').value = event.id;
                 document.getElementById('eventTitle').value = event.title;
                 document.getElementById('eventType').value = event.type;
+                document.getElementById('eventTeam').value = event.team_id || '';
                 document.getElementById('eventDescription').value = event.description || '';
                 document.getElementById('eventDate').value = event.event_date;
                 document.getElementById('eventLocation').value = event.location || '';

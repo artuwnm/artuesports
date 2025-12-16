@@ -15,17 +15,12 @@ async function loadTeams() {
     const container = document.querySelector('.teams-cards-container');
     const loadingIndicator = container.querySelector('.loading-teams');
 
-    console.log('Teams loader: Starting to load teams...');
-    console.log('Teams loader: Container found:', container);
-
     try {
         // Fetch teams sorted alphabetically
         const { data: teams, error } = await supabase
             .from('teams')
             .select('id, name, logo_url, page_url')
             .order('name', { ascending: true });
-
-        console.log('Teams loader: Supabase response:', { teams, error });
 
         if (error) {
             console.error('Supabase error:', error);
@@ -39,19 +34,15 @@ async function loadTeams() {
 
         // Render team cards
         if (teams && teams.length > 0) {
-            console.log(`Teams loader: Rendering ${teams.length} team cards...`);
             teams.forEach(team => {
                 const card = createTeamCard(team);
                 container.appendChild(card);
             });
-            console.log('Teams loader: Cards added to container');
 
             // Re-initialize GSAP animations after cards are added
-            console.log('Teams loader: Initializing animations...');
             initializeTeamCardAnimations();
         } else {
             // No teams found
-            console.log('Teams loader: No teams found');
             container.innerHTML = '<p style="width: 100%; text-align: center; color: var(--color-core-100); font-family: var(--font-urbanist);">No teams available at this time.</p>';
         }
 
@@ -74,7 +65,9 @@ function createTeamCard(team) {
     // Create card link element
     const card = document.createElement('a');
     card.className = 'team-card';
-    card.href = team.page_url || '#';
+    // Generate dynamic URL using team name as slug
+    const slug = team.name.toLowerCase().replace(/ /g, '-');
+    card.href = `team.html?id=${slug}`;
     card.setAttribute('data-name', 'Team-card');
     card.setAttribute('data-team-id', team.id);
 
