@@ -184,7 +184,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
@@ -193,11 +193,11 @@
 
         // Check if already logged in
         async function checkAuth() {
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
             if (session) {
                 // Check if user is an admin
                 try {
-                    const { data: adminUser, error } = await supabase
+                    const { data: adminUser, error } = await supabaseClient
                         .from('admin_users')
                         .select('*')
                         .eq('email', session.user.email)
@@ -205,7 +205,7 @@
 
                     if (error || !adminUser) {
                         // User is authenticated but not an admin
-                        await supabase.auth.signOut();
+                        await supabaseClient.auth.signOut();
                         showAlert('Access denied. You are not authorized as an admin.');
                         return;
                     }
@@ -217,7 +217,7 @@
                     window.location.href = 'admin.html';
                 } catch (error) {
                     console.error('Error checking admin status:', error);
-                    await supabase.auth.signOut();
+                    await supabaseClient.auth.signOut();
                 }
             }
         }
@@ -246,7 +246,7 @@
             loginBtn.textContent = 'Signing in...';
 
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email,
                     password
                 });
@@ -254,7 +254,7 @@
                 if (error) throw error;
 
                 // Check if user is in admin_users table
-                const { data: adminUser, error: adminError } = await supabase
+                const { data: adminUser, error: adminError } = await supabaseClient
                     .from('admin_users')
                     .select('*')
                     .eq('email', email)
@@ -262,7 +262,7 @@
 
                 if (adminError || !adminUser) {
                     // User authenticated but not an admin
-                    await supabase.auth.signOut();
+                    await supabaseClient.auth.signOut();
                     showAlert('Access denied. You are not authorized as an admin.');
                     loginBtn.disabled = false;
                     loginBtn.textContent = 'Sign In';
@@ -297,7 +297,7 @@
             }
 
             try {
-                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
                     redirectTo: window.location.origin + '/admin-login.html'
                 });
 

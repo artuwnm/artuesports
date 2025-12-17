@@ -317,7 +317,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentEditingPlayer = null;
 
@@ -337,7 +337,7 @@
         // Initialize
         async function init() {
             // Check authentication
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (!session) {
                 // Not logged in, redirect to login page
@@ -347,7 +347,7 @@
 
             // Check if user is an admin
             try {
-                const { data: adminUser, error } = await supabase
+                const { data: adminUser, error } = await supabaseClient
                     .from('admin_users')
                     .select('*')
                     .eq('email', session.user.email)
@@ -355,7 +355,7 @@
 
                 if (error || !adminUser) {
                     // User is authenticated but not an admin
-                    await supabase.auth.signOut();
+                    await supabaseClient.auth.signOut();
                     window.location.href = 'admin-login.html';
                     return;
                 }
@@ -382,7 +382,7 @@
                 loadPlayers();
             } catch (error) {
                 console.error('Error checking admin status:', error);
-                await supabase.auth.signOut();
+                await supabaseClient.auth.signOut();
                 window.location.href = 'admin-login.html';
             }
         }
@@ -393,7 +393,7 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', async () => {
                     try {
-                        const { error } = await supabase.auth.signOut();
+                        const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
                         sessionStorage.removeItem('adminRole');
                         window.location.href = 'admin-login.html';
@@ -420,7 +420,7 @@
         // Load all teams into dropdown
         async function loadTeamsDropdown() {
             try {
-                const { data: teams, error } = await supabase
+                const { data: teams, error } = await supabaseClient
                     .from('teams')
                     .select('*')
                     .order('name', { ascending: true });
@@ -447,7 +447,7 @@
             loadingIndicator.classList.add('active');
 
             try {
-                const { data: players, error } = await supabase
+                const { data: players, error } = await supabaseClient
                     .from('players')
                     .select('*')
                     .order('created_at', { ascending: false });
@@ -456,7 +456,7 @@
 
                 // Get team relationships for each player
                 const playersWithTeams = await Promise.all(players.map(async (player) => {
-                    const { data: playerTeams } = await supabase
+                    const { data: playerTeams } = await supabaseClient
                         .from('player_teams')
                         .select('team_id, teams(name)')
                         .eq('player_id', player.id);
@@ -561,14 +561,14 @@
             const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
             const filePath = fileName;
 
-            const { data, error } = await supabase.storage
+            const { data, error } = await supabaseClient.storage
                 .from('player-images')
                 .upload(filePath, file);
 
             if (error) throw error;
 
             // Get public URL
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl } } = supabaseClient.storage
                 .from('player-images')
                 .getPublicUrl(filePath);
 
@@ -584,7 +584,7 @@
                 const urlParts = imageUrl.split('/');
                 const fileName = urlParts[urlParts.length - 1];
 
-                const { error } = await supabase.storage
+                const { error } = await supabaseClient.storage
                     .from('player-images')
                     .remove([fileName]);
 
@@ -643,7 +643,7 @@
 
                 if (playerId) {
                     // Update existing player
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('players')
                         .update(playerData)
                         .eq('id', playerId);
@@ -651,13 +651,13 @@
                     if (error) throw error;
 
                     // Delete existing team relationships
-                    await supabase
+                    await supabaseClient
                         .from('player_teams')
                         .delete()
                         .eq('player_id', playerId);
                 } else {
                     // Add new player
-                    const { data, error } = await supabase
+                    const { data, error } = await supabaseClient
                         .from('players')
                         .insert([playerData])
                         .select();
@@ -672,7 +672,7 @@
                     team_id: teamId
                 }));
 
-                const { error: teamError } = await supabase
+                const { error: teamError } = await supabaseClient
                     .from('player_teams')
                     .insert(playerTeamsData);
 
@@ -690,7 +690,7 @@
         // Edit player
         async function editPlayer(id) {
             try {
-                const { data: player, error } = await supabase
+                const { data: player, error } = await supabaseClient
                     .from('players')
                     .select('*')
                     .eq('id', id)
@@ -702,7 +702,7 @@
                 await loadTeamsDropdown();
 
                 // Get player's current team assignments
-                const { data: playerTeams, error: teamError } = await supabase
+                const { data: playerTeams, error: teamError } = await supabaseClient
                     .from('player_teams')
                     .select('team_id')
                     .eq('player_id', id);
@@ -752,7 +752,7 @@
 
             try {
                 // Delete the player record
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('players')
                     .delete()
                     .eq('id', id);

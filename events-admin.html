@@ -394,7 +394,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentEditingEvent = null;
         let currentFilter = 'all';
@@ -417,7 +417,7 @@
         // Initialize
         async function init() {
             // Check authentication
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (!session) {
                 // Not logged in, redirect to login page
@@ -427,7 +427,7 @@
 
             // Check if user is an admin
             try {
-                const { data: adminUser, error } = await supabase
+                const { data: adminUser, error } = await supabaseClient
                     .from('admin_users')
                     .select('*')
                     .eq('email', session.user.email)
@@ -435,7 +435,7 @@
 
                 if (error || !adminUser) {
                     // User is authenticated but not an admin
-                    await supabase.auth.signOut();
+                    await supabaseClient.auth.signOut();
                     window.location.href = 'admin-login.html';
                     return;
                 }
@@ -462,7 +462,7 @@
                 loadEvents();
             } catch (error) {
                 console.error('Error checking admin status:', error);
-                await supabase.auth.signOut();
+                await supabaseClient.auth.signOut();
                 window.location.href = 'admin-login.html';
             }
         }
@@ -473,7 +473,7 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', async () => {
                     try {
-                        const { error } = await supabase.auth.signOut();
+                        const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
                         sessionStorage.removeItem('adminRole');
                         window.location.href = 'admin-login.html';
@@ -500,7 +500,7 @@
         // Load all teams into dropdown
         async function loadTeamsDropdown() {
             try {
-                const { data: teams, error } = await supabase
+                const { data: teams, error } = await supabaseClient
                     .from('teams')
                     .select('*')
                     .order('name', { ascending: true });
@@ -528,7 +528,7 @@
             loadingIndicator.classList.add('active');
 
             try {
-                const { data: events, error } = await supabase
+                const { data: events, error } = await supabaseClient
                     .from('events')
                     .select('*')
                     .order('event_date', { ascending: false });
@@ -685,14 +685,14 @@
             const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
             const filePath = fileName;
 
-            const { data, error } = await supabase.storage
+            const { data, error } = await supabaseClient.storage
                 .from('event-images')
                 .upload(filePath, file);
 
             if (error) throw error;
 
             // Get public URL
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl } } = supabaseClient.storage
                 .from('event-images')
                 .getPublicUrl(filePath);
 
@@ -708,7 +708,7 @@
                 const urlParts = imageUrl.split('/');
                 const fileName = urlParts[urlParts.length - 1];
 
-                const { error } = await supabase.storage
+                const { error } = await supabaseClient.storage
                     .from('event-images')
                     .remove([fileName]);
 
@@ -772,7 +772,7 @@
 
                 if (eventId) {
                     // Update existing event
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('events')
                         .update(eventData)
                         .eq('id', eventId);
@@ -781,7 +781,7 @@
                     showAlert('Event updated successfully!');
                 } else {
                     // Add new event
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('events')
                         .insert([eventData]);
 
@@ -800,7 +800,7 @@
         // Edit event
         async function editEvent(id) {
             try {
-                const { data: event, error } = await supabase
+                const { data: event, error } = await supabaseClient
                     .from('events')
                     .select('*')
                     .eq('id', id)
@@ -867,7 +867,7 @@
 
             try {
                 // Delete the event record
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('events')
                     .delete()
                     .eq('id', id);

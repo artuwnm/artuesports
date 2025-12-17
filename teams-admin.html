@@ -277,7 +277,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // DOM Elements
         const teamModal = document.getElementById('teamModal');
@@ -295,7 +295,7 @@
         // Initialize
         async function init() {
             // Check authentication
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (!session) {
                 window.location.href = 'admin-login.html';
@@ -304,14 +304,14 @@
 
             // Check if user is an admin
             try {
-                const { data: adminUser, error } = await supabase
+                const { data: adminUser, error } = await supabaseClient
                     .from('admin_users')
                     .select('*')
                     .eq('email', session.user.email)
                     .single();
 
                 if (error || !adminUser) {
-                    await supabase.auth.signOut();
+                    await supabaseClient.auth.signOut();
                     window.location.href = 'admin-login.html';
                     return;
                 }
@@ -338,7 +338,7 @@
                 loadTeams();
             } catch (error) {
                 console.error('Error checking admin status:', error);
-                await supabase.auth.signOut();
+                await supabaseClient.auth.signOut();
                 window.location.href = 'admin-login.html';
             }
         }
@@ -349,7 +349,7 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', async () => {
                     try {
-                        const { error } = await supabase.auth.signOut();
+                        const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
                         sessionStorage.removeItem('adminRole');
                         window.location.href = 'admin-login.html';
@@ -379,7 +379,7 @@
 
             try {
                 // Get all teams
-                const { data: teams, error } = await supabase
+                const { data: teams, error } = await supabaseClient
                     .from('teams')
                     .select('*')
                     .order('created_at', { ascending: false });
@@ -388,7 +388,7 @@
 
                 // Get player counts for each team
                 const teamsWithCounts = await Promise.all(teams.map(async (team) => {
-                    const { count } = await supabase
+                    const { count } = await supabaseClient
                         .from('player_teams')
                         .select('*', { count: 'exact', head: true })
                         .eq('team_id', team.id);
@@ -488,14 +488,14 @@
             const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
             const filePath = fileName;
 
-            const { data, error } = await supabase.storage
+            const { data, error } = await supabaseClient.storage
                 .from('team-logos')
                 .upload(filePath, file);
 
             if (error) throw error;
 
             // Get public URL
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl } } = supabaseClient.storage
                 .from('team-logos')
                 .getPublicUrl(filePath);
 
@@ -510,7 +510,7 @@
                 const urlParts = logoUrl.split('/');
                 const fileName = urlParts[urlParts.length - 1];
 
-                const { error } = await supabase.storage
+                const { error } = await supabaseClient.storage
                     .from('team-logos')
                     .remove([fileName]);
 
@@ -548,7 +548,7 @@
 
                 if (teamId) {
                     // Update existing team
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('teams')
                         .update(teamData)
                         .eq('id', teamId);
@@ -557,7 +557,7 @@
                     showAlert('Team updated successfully!');
                 } else {
                     // Add new team
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('teams')
                         .insert([teamData]);
 
@@ -576,7 +576,7 @@
         // Edit team
         async function editTeam(id) {
             try {
-                const { data: team, error } = await supabase
+                const { data: team, error } = await supabaseClient
                     .from('teams')
                     .select('*')
                     .eq('id', id)
@@ -618,7 +618,7 @@
 
             try {
                 // Delete the team record (player_teams will be deleted automatically via CASCADE)
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('teams')
                     .delete()
                     .eq('id', id);

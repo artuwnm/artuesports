@@ -299,7 +299,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentEditingAdmin = null;
         let currentUserRole = null;
@@ -318,7 +318,7 @@
         // Initialize
         async function init() {
             // Check authentication
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (!session) {
                 // Not logged in, redirect to login page
@@ -328,7 +328,7 @@
 
             // Check if user is a super admin
             try {
-                const { data: adminUser, error } = await supabase
+                const { data: adminUser, error } = await supabaseClient
                     .from('admin_users')
                     .select('*')
                     .eq('email', session.user.email)
@@ -369,7 +369,7 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', async () => {
                     try {
-                        const { error } = await supabase.auth.signOut();
+                        const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
                         sessionStorage.removeItem('adminRole');
                         window.location.href = 'admin-login.html';
@@ -398,7 +398,7 @@
             loadingIndicator.classList.add('active');
 
             try {
-                const { data: admins, error } = await supabase
+                const { data: admins, error } = await supabaseClient
                     .from('admin_users')
                     .select('*')
                     .order('created_at', { ascending: false });
@@ -489,11 +489,11 @@
             const role = document.getElementById('adminRole').value;
 
             try {
-                const { data: { session } } = await supabase.auth.getSession();
+                const { data: { session } } = await supabaseClient.auth.getSession();
 
                 if (adminId) {
                     // Update existing admin (only role can be changed)
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('admin_users')
                         .update({ role })
                         .eq('id', adminId);
@@ -539,7 +539,7 @@
         // Edit admin
         async function editAdmin(id) {
             try {
-                const { data: admin, error } = await supabase
+                const { data: admin, error } = await supabaseClient
                     .from('admin_users')
                     .select('*')
                     .eq('id', id)
@@ -571,7 +571,7 @@
         // Delete admin
         async function deleteAdmin(id, email) {
             // Get current user email to prevent self-deletion
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (session.user.email === email) {
                 showAlert('You cannot delete your own admin account.', 'error');
@@ -583,7 +583,7 @@
             }
 
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('admin_users')
                     .delete()
                     .eq('id', id);
