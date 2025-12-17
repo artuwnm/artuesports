@@ -566,6 +566,12 @@
                 case 'past':
                     filteredEvents = filteredEvents.filter(e => e.event_date < today);
                     break;
+                case 'unassigned':
+                    filteredEvents = filteredEvents.filter(e => !e.team_id);
+                    break;
+                case 'with-team':
+                    filteredEvents = filteredEvents.filter(e => e.team_id);
+                    break;
             }
 
             displayEvents(filteredEvents);
