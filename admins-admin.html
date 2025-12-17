@@ -371,7 +371,6 @@
                     try {
                         const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
-                        sessionStorage.removeItem('adminRole');
                         window.location.href = 'admin-login.html';
                     } catch (error) {
                         console.error('Logout error:', error);
@@ -431,19 +430,46 @@
                     day: 'numeric'
                 });
 
-                row.innerHTML = `
-                    <td>${admin.email}</td>
-                    <td>
-                        <span class="role-badge role-${admin.role.replace('_', '-')}">${admin.role.replace('_', ' ')}</span>
-                    </td>
-                    <td>${createdDate}</td>
-                    <td>
-                        <div class="actions">
-                            <button class="btn btn-edit btn-small" onclick="editAdmin('${admin.id}')">Edit</button>
-                            <button class="btn btn-danger btn-small" onclick="deleteAdmin('${admin.id}', '${admin.email}')">Delete</button>
-                        </div>
-                    </td>
-                `;
+                // Email cell
+                const emailCell = document.createElement('td');
+                emailCell.textContent = admin.email;
+
+                // Role cell
+                const roleCell = document.createElement('td');
+                const roleBadge = document.createElement('span');
+                roleBadge.className = `role-badge role-${admin.role.replace('_', '-')}`;
+                roleBadge.textContent = admin.role.replace('_', ' ');
+                roleCell.appendChild(roleBadge);
+
+                // Created date cell
+                const dateCell = document.createElement('td');
+                dateCell.textContent = createdDate;
+
+                // Actions cell
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-edit btn-small';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editAdmin(admin.id));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-small';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteAdmin(admin.id, admin.email));
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                actionsCell.appendChild(actionsDiv);
+
+                // Append all cells to row
+                row.appendChild(emailCell);
+                row.appendChild(roleCell);
+                row.appendChild(dateCell);
+                row.appendChild(actionsCell);
+
                 adminsTableBody.appendChild(row);
             });
         }

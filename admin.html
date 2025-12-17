@@ -360,9 +360,6 @@
                     return;
                 }
 
-                // Store role in session storage
-                sessionStorage.setItem('adminRole', adminUser.role);
-
                 // Show Admins link if super admin
                 if (adminUser.role === 'super_admin') {
                     const adminsNavLink = document.getElementById('adminsNavLink');
@@ -395,7 +392,6 @@
                     try {
                         const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
-                        sessionStorage.removeItem('adminRole');
                         window.location.href = 'admin-login.html';
                     } catch (error) {
                         console.error('Logout error:', error);
@@ -487,24 +483,69 @@
 
             players.forEach(player => {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        ${player.picture_url
-                            ? `<img src="${player.picture_url}" class="player-image" alt="${player.name}">`
-                            : '<div class="player-image bg-gray-600"></div>'}
-                    </td>
-                    <td>${player.name}</td>
-                    <td>${player.teams?.length > 0 ? player.teams.join(', ') : '-'}</td>
-                    <td>${player.position || '-'}</td>
-                    <td>${player.major || '-'}</td>
-                    <td>${player.hometown || '-'}</td>
-                    <td>
-                        <div class="actions">
-                            <button class="btn btn-edit btn-small" onclick="editPlayer('${player.id}')">Edit</button>
-                            <button class="btn btn-danger btn-small" onclick="deletePlayer('${player.id}', '${player.picture_url || ''}')">Delete</button>
-                        </div>
-                    </td>
-                `;
+
+                // Image cell
+                const imgCell = document.createElement('td');
+                if (player.picture_url) {
+                    const img = document.createElement('img');
+                    img.className = 'player-image';
+                    img.src = player.picture_url;
+                    img.alt = player.name || '';
+                    imgCell.appendChild(img);
+                } else {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'player-image bg-gray-600';
+                    imgCell.appendChild(placeholder);
+                }
+
+                // Name cell
+                const nameCell = document.createElement('td');
+                nameCell.textContent = player.name;
+
+                // Teams cell
+                const teamsCell = document.createElement('td');
+                teamsCell.textContent = player.teams?.length > 0 ? player.teams.join(', ') : '-';
+
+                // Position cell
+                const positionCell = document.createElement('td');
+                positionCell.textContent = player.position || '-';
+
+                // Major cell
+                const majorCell = document.createElement('td');
+                majorCell.textContent = player.major || '-';
+
+                // Hometown cell
+                const hometownCell = document.createElement('td');
+                hometownCell.textContent = player.hometown || '-';
+
+                // Actions cell
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-edit btn-small';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editPlayer(player.id));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-small';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deletePlayer(player.id, player.picture_url || ''));
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                actionsCell.appendChild(actionsDiv);
+
+                // Append all cells to row
+                row.appendChild(imgCell);
+                row.appendChild(nameCell);
+                row.appendChild(teamsCell);
+                row.appendChild(positionCell);
+                row.appendChild(majorCell);
+                row.appendChild(hometownCell);
+                row.appendChild(actionsCell);
+
                 playersTableBody.appendChild(row);
             });
         }

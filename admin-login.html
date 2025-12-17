@@ -210,9 +210,6 @@
                         return;
                     }
 
-                    // Store role in session storage
-                    sessionStorage.setItem('adminRole', adminUser.role);
-
                     // Already logged in and is admin, redirect to admin panel
                     window.location.href = 'admin.html';
                 } catch (error) {
@@ -268,9 +265,6 @@
                     loginBtn.textContent = 'Sign In';
                     return;
                 }
-
-                // Store role in session storage
-                sessionStorage.setItem('adminRole', adminUser.role);
 
                 showAlert('Login successful! Redirecting...', 'success');
 

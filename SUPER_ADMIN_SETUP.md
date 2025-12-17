@@ -142,9 +142,9 @@ This only removes them from the admin system - their Supabase Auth account will 
 
 ### Changes to admin_users table aren't taking effect
 
-**Cause**: Role is cached in sessionStorage.
+**Cause**: Role is fetched when the page loads.
 
-**Solution**: Have the user logout and login again to refresh their role.
+**Solution**: Have the user refresh the page or logout and login again to reload their role from the database.
 
 ## Database Schema
 

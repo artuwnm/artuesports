@@ -443,9 +443,6 @@
                     return;
                 }
 
-                // Store role in session storage
-                sessionStorage.setItem('adminRole', adminUser.role);
-
                 // Show Admins link if super admin
                 if (adminUser.role === 'super_admin') {
                     const adminsNavLink = document.getElementById('adminsNavLink');
@@ -478,7 +475,6 @@
                     try {
                         const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
-                        sessionStorage.removeItem('adminRole');
                         window.location.href = 'admin-login.html';
                     } catch (error) {
                         console.error('Logout error:', error);
@@ -604,27 +600,77 @@
                 const teamName = event.teams?.name || 'Unassigned';
                 const teamStyle = event.teams?.name ? 'color: #fcfcfc;' : 'color: #ff9800; font-style: italic;';
 
-                row.innerHTML = `
-                    <td>
-                        ${event.picture_url
-                            ? `<img src="${event.picture_url}" class="event-image" alt="${event.title}">`
-                            : '<div class="event-image bg-gray-600"></div>'}
-                    </td>
-                    <td>${event.title}</td>
-                    <td>
-                        <span class="event-type-badge event-type-${event.type}">${event.type}</span>
-                    </td>
-                    <td style="${teamStyle}">${teamName}</td>
-                    <td>${eventDate}</td>
-                    <td>${eventTime}</td>
-                    <td>${event.location || '-'}</td>
-                    <td>
-                        <div class="actions">
-                            <button class="btn btn-edit btn-small" onclick="editEvent('${event.id}')">Edit</button>
-                            <button class="btn btn-danger btn-small" onclick="deleteEvent('${event.id}', '${event.picture_url || ''}')">Delete</button>
-                        </div>
-                    </td>
-                `;
+                // Image cell
+                const imgCell = document.createElement('td');
+                if (event.picture_url) {
+                    const img = document.createElement('img');
+                    img.className = 'event-image';
+                    img.src = event.picture_url;
+                    img.alt = event.title || '';
+                    imgCell.appendChild(img);
+                } else {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'event-image bg-gray-600';
+                    imgCell.appendChild(placeholder);
+                }
+
+                // Title cell
+                const titleCell = document.createElement('td');
+                titleCell.textContent = event.title;
+
+                // Type cell
+                const typeCell = document.createElement('td');
+                const typeBadge = document.createElement('span');
+                typeBadge.className = `event-type-badge event-type-${event.type}`;
+                typeBadge.textContent = event.type;
+                typeCell.appendChild(typeBadge);
+
+                // Team cell
+                const teamCell = document.createElement('td');
+                teamCell.style.cssText = teamStyle;
+                teamCell.textContent = teamName;
+
+                // Date cell
+                const dateCell = document.createElement('td');
+                dateCell.textContent = eventDate;
+
+                // Time cell
+                const timeCell = document.createElement('td');
+                timeCell.textContent = eventTime;
+
+                // Location cell
+                const locationCell = document.createElement('td');
+                locationCell.textContent = event.location || '-';
+
+                // Actions cell
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-edit btn-small';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editEvent(event.id));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-small';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteEvent(event.id, event.picture_url || ''));
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                actionsCell.appendChild(actionsDiv);
+
+                // Append all cells to row
+                row.appendChild(imgCell);
+                row.appendChild(titleCell);
+                row.appendChild(typeCell);
+                row.appendChild(teamCell);
+                row.appendChild(dateCell);
+                row.appendChild(timeCell);
+                row.appendChild(locationCell);
+                row.appendChild(actionsCell);
+
                 eventsTableBody.appendChild(row);
             });
         }
