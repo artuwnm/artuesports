@@ -20,6 +20,82 @@ function getURLParameter(param) {
 }
 
 /**
+ * Initialize card flip interactions for player cards
+ * This replicates the functionality from script.js for dynamically loaded cards
+ */
+function initializeCardFlipInteractions() {
+    // Check if jQuery is available
+    if (typeof $ === 'undefined') {
+        console.warn('jQuery not loaded, skipping card flip interactions');
+        return;
+    }
+
+    console.log('Initializing card flip interactions...');
+    const $cards = $('.varsity-player-card');
+    console.log('Found', $cards.length, 'player cards');
+
+    // Function to toggle card animation (from script.js)
+    function toggleCardAnimation($card) {
+        console.log('Toggling card animation');
+        const $cardContent = $card.find('.varsity-player-card-content');
+        const $button = $card.find('.btn-filled');
+        const $playerName = $card.find('.varsity-player-name');
+        const $nameOverlay = $card.find('.varsity-player-name-overlay-text');
+
+        console.log('Card content elements:', {
+            cardContent: $cardContent.length,
+            button: $button.length,
+            playerName: $playerName.length,
+            nameOverlay: $nameOverlay.length
+        });
+
+        // Get the player name from the card
+        if ($playerName.length && $nameOverlay.length) {
+            const playerName = $playerName.text().trim();
+            $nameOverlay.text(playerName);
+        }
+
+        // Toggle the image-shrunk class on BOTH the card content and the card itself
+        $cardContent.toggleClass('image-shrunk');
+        $card.toggleClass('image-shrunk');
+
+        // Change button text
+        if ($cardContent.hasClass('image-shrunk')) {
+            $button.text('See less');
+        } else {
+            $button.text('Learn more');
+        }
+
+        console.log('Image-shrunk class toggled, current state:', $cardContent.hasClass('image-shrunk'));
+    }
+
+    // Remove any existing event handlers to avoid duplicates
+    $('.varsity-player-card').off('click');
+    $('.varsity-player-card .btn-filled').off('click');
+
+    // Make the entire card clickable
+    $('.varsity-player-card').on('click', function(e) {
+        // Don't trigger if clicking directly on the button
+        if ($(e.target).closest('.btn-filled').length > 0) {
+            return;
+        }
+
+        const $card = $(this);
+        toggleCardAnimation($card);
+    });
+
+    // Keep button click handler for explicit button clicks
+    $('.varsity-player-card .btn-filled').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const $button = $(this);
+        const $card = $button.closest('.varsity-player-card');
+        toggleCardAnimation($card);
+    });
+}
+
+/**
  * Load and display team data dynamically
  */
 async function loadTeamPage() {
@@ -50,14 +126,10 @@ async function loadTeamPage() {
                    t.id === teamIdentifier;
         });
 
-        const teams = team ? [team] : [];
-
-        if (!teams || teams.length === 0) {
+        if (!team) {
             showError('Team not found');
             return;
         }
-
-        const team = teams[0];
 
         // Update page with team data
         updateHeroSection(team);
@@ -145,6 +217,11 @@ async function loadPlayers(teamId) {
             const card = createPlayerCard(player);
             container.appendChild(card);
         });
+
+        // Wait a moment for DOM to be ready, then initialize card flip interactions
+        setTimeout(() => {
+            initializeCardFlipInteractions();
+        }, 100);
 
         // Re-initialize GSAP animations if available
         if (typeof gsap !== 'undefined') {
