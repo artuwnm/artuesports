@@ -190,35 +190,6 @@
 </head>
 <body>
     <div class="bg-[#050708] min-h-screen">
-        <header class="navbar">
-            <div class="nav-container">
-                <div class="nav-content">
-                    <!-- Logo -->
-                    <a href="index.html" class="logo-wordmark">
-                        <div class="logo-container">
-                            <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
-                        </div>
-                    </a>
-                    
-                    <!-- Navigation Menu -->
-                    <div class="frame">
-                        <div class="desktop-nav-menu">
-                            <a href="team.html" class="nav-item">TEAMS  ▾</a>
-                            <div class="nav-dropdown">
-                                <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
-                                <div class="dropdown-menu">
-                                    <a href="knightarcade.html" class="dropdown-item"><h2>Knight Arcade</h2></a>
-                                    <a href="boardgameroom.html" class="dropdown-item"><h2>Board Game Room</h2></a>
-                                </div>
-                            </div>
-                            <a href="events.html" class="nav-item">EVENTS  ▾</a>
-                            <a href="connect.html" class="nav-item">CONNECT  ▾</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <!-- Admin Container -->
         <div class="admin-container">
             <div id="alertContainer"></div>
@@ -230,6 +201,20 @@
             </div>
 
             <div id="mainContent" style="display: none;">
+                <!-- Admin Navigation Bar -->
+                <div style="background-color: #1d252c; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="nav-links">
+                        <a href="admin.html" class="nav-link active">Players</a>
+                        <a href="teams-admin.html" class="nav-link">Teams</a>
+                        <a href="events-admin.html" class="nav-link">Events</a>
+                        <a href="admins-admin.html" class="nav-link" id="adminsNavLink" style="display: none;">Admins</a>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span id="userEmail" style="color: #f2f2f2; font-size: 14px;"></span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-small">Logout</button>
+                    </div>
+                </div>
+
                 <div class="flex justify-between items-center mb-8">
                     <h1 class="font-pressio text-[#fcfcfc] text-[64px] uppercase">Players</h1>
                     <button id="addPlayerBtn" class="btn btn-primary">Add New Player</button>
@@ -270,14 +255,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="playerTeam">Team *</label>
-                        <select id="playerTeam" required>
-                            <option value="">Select Team</option>
-                            <option value="Overwatch">Overwatch</option>
-                            <option value="Valorant">Valorant</option>
-                            <option value="League of Legends">League of Legends</option>
-                            <option value="Rocket League">Rocket League</option>
+                        <label for="playerTeams">Teams * (Hold Ctrl/Cmd to select multiple)</label>
+                        <select id="playerTeams" multiple required style="min-height: 120px;">
+                            <!-- Teams will be loaded dynamically -->
                         </select>
+                        <small style="color: #f2f2f2; margin-top: 5px; display: block;">Select one or more teams for this player</small>
                     </div>
 
                     <div class="form-group">
@@ -301,8 +283,23 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="playerKD">K/D Ratio</label>
+                        <input type="number" id="playerKD" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="playerWinPercentage">Win Percentage</label>
+                        <input type="number" id="playerWinPercentage" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="playerHoursPlayed">Hours Played</label>
+                        <input type="number" id="playerHoursPlayed" step="1">
+                    </div>
+
+                    <div class="form-group">
                         <label for="playerImage">Player Image</label>
-                        <input type="file" id="playerImage" accept="image/jpeg,image/jpg,image/png,image/webp">
+                        <input type="file" id="playerImage" accept="image/jpeg,image/jpg,image/png,image/webp,image/avif">
                         <img id="imagePreview" class="image-preview" style="display: none;">
                     </div>
 
@@ -320,7 +317,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentEditingPlayer = null;
 
@@ -340,15 +337,50 @@
         // Initialize
         async function init() {
             // Check authentication
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (!session) {
                 // Not logged in, redirect to login page
                 window.location.href = 'admin-login.html';
                 return;
-            } else {
+            }
+
+            // Check if user is an admin
+            try {
+                const { data: adminUser, error } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .eq('email', session.user.email)
+                    .single();
+
+                if (error || !adminUser) {
+                    // User is authenticated but not an admin
+                    await supabaseClient.auth.signOut();
+                    window.location.href = 'admin-login.html';
+                    return;
+                }
+
+                // Show Admins link if super admin
+                if (adminUser.role === 'super_admin') {
+                    const adminsNavLink = document.getElementById('adminsNavLink');
+                    if (adminsNavLink) {
+                        adminsNavLink.style.display = 'inline-block';
+                    }
+                }
+
                 mainContent.style.display = 'block';
+
+                // Display user email
+                const userEmailEl = document.getElementById('userEmail');
+                if (userEmailEl && session.user) {
+                    userEmailEl.textContent = session.user.email;
+                }
+
                 loadPlayers();
+            } catch (error) {
+                console.error('Error checking admin status:', error);
+                await supabaseClient.auth.signOut();
+                window.location.href = 'admin-login.html';
             }
         }
 
@@ -358,7 +390,7 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', async () => {
                     try {
-                        const { error } = await supabase.auth.signOut();
+                        const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
                         window.location.href = 'admin-login.html';
                     } catch (error) {
@@ -381,19 +413,57 @@
             }, 5000);
         }
 
-        // Load all players
+        // Load all teams into dropdown
+        async function loadTeamsDropdown() {
+            try {
+                const { data: teams, error } = await supabaseClient
+                    .from('teams')
+                    .select('*')
+                    .order('name', { ascending: true });
+
+                if (error) throw error;
+
+                const teamsSelect = document.getElementById('playerTeams');
+                teamsSelect.innerHTML = '';
+
+                teams.forEach(team => {
+                    const option = document.createElement('option');
+                    option.value = team.id;
+                    option.textContent = team.name;
+                    teamsSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                showAlert('Failed to load teams: ' + error.message, 'error');
+            }
+        }
+
+        // Load all players with their teams
         async function loadPlayers() {
             loadingIndicator.classList.add('active');
 
             try {
-                const { data: players, error } = await supabase
+                const { data: players, error } = await supabaseClient
                     .from('players')
                     .select('*')
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
 
-                displayPlayers(players);
+                // Get team relationships for each player
+                const playersWithTeams = await Promise.all(players.map(async (player) => {
+                    const { data: playerTeams } = await supabaseClient
+                        .from('player_teams')
+                        .select('team_id, teams(name)')
+                        .eq('player_id', player.id);
+
+                    return {
+                        ...player,
+                        teams: playerTeams?.map(pt => pt.teams.name) || []
+                    };
+                }));
+
+                displayPlayers(playersWithTeams);
             } catch (error) {
                 console.error('Error loading players:', error);
                 showAlert('Failed to load players: ' + error.message, 'error');
@@ -413,36 +483,82 @@
 
             players.forEach(player => {
                 const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        ${player.picture_url
-                            ? `<img src="${player.picture_url}" class="player-image" alt="${player.name}">`
-                            : '<div class="player-image bg-gray-600"></div>'}
-                    </td>
-                    <td>${player.name}</td>
-                    <td>${player.team}</td>
-                    <td>${player.position || '-'}</td>
-                    <td>${player.major || '-'}</td>
-                    <td>${player.hometown || '-'}</td>
-                    <td>
-                        <div class="actions">
-                            <button class="btn btn-edit btn-small" onclick="editPlayer('${player.id}')">Edit</button>
-                            <button class="btn btn-danger btn-small" onclick="deletePlayer('${player.id}', '${player.picture_url || ''}')">Delete</button>
-                        </div>
-                    </td>
-                `;
+
+                // Image cell
+                const imgCell = document.createElement('td');
+                if (player.picture_url) {
+                    const img = document.createElement('img');
+                    img.className = 'player-image';
+                    img.src = player.picture_url;
+                    img.alt = player.name || '';
+                    imgCell.appendChild(img);
+                } else {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'player-image bg-gray-600';
+                    imgCell.appendChild(placeholder);
+                }
+
+                // Name cell
+                const nameCell = document.createElement('td');
+                nameCell.textContent = player.name;
+
+                // Teams cell
+                const teamsCell = document.createElement('td');
+                teamsCell.textContent = player.teams?.length > 0 ? player.teams.join(', ') : '-';
+
+                // Position cell
+                const positionCell = document.createElement('td');
+                positionCell.textContent = player.position || '-';
+
+                // Major cell
+                const majorCell = document.createElement('td');
+                majorCell.textContent = player.major || '-';
+
+                // Hometown cell
+                const hometownCell = document.createElement('td');
+                hometownCell.textContent = player.hometown || '-';
+
+                // Actions cell
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-edit btn-small';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editPlayer(player.id));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-small';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deletePlayer(player.id, player.picture_url || ''));
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                actionsCell.appendChild(actionsDiv);
+
+                // Append all cells to row
+                row.appendChild(imgCell);
+                row.appendChild(nameCell);
+                row.appendChild(teamsCell);
+                row.appendChild(positionCell);
+                row.appendChild(majorCell);
+                row.appendChild(hometownCell);
+                row.appendChild(actionsCell);
+
                 playersTableBody.appendChild(row);
             });
         }
 
         // Open modal for adding new player
-        addPlayerBtn.addEventListener('click', () => {
+        addPlayerBtn.addEventListener('click', async () => {
             currentEditingPlayer = null;
             document.getElementById('modalTitle').textContent = 'Add Player';
             playerForm.reset();
             document.getElementById('playerId').value = '';
             document.getElementById('existingImageUrl').value = '';
             imagePreview.style.display = 'none';
+            await loadTeamsDropdown();
             playerModal.classList.add('active');
         });
 
@@ -462,6 +578,15 @@
         imageInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
+                // Check file size (5MB limit)
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                if (file.size > maxSize) {
+                    showAlert('Image file size must be less than 5MB. Please choose a smaller file.', 'error');
+                    imageInput.value = ''; // Clear the file input
+                    imagePreview.style.display = 'none';
+                    return;
+                }
+
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     imagePreview.src = e.target.result;
@@ -477,14 +602,14 @@
             const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
             const filePath = fileName;
 
-            const { data, error } = await supabase.storage
+            const { data, error } = await supabaseClient.storage
                 .from('player-images')
                 .upload(filePath, file);
 
             if (error) throw error;
 
             // Get public URL
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl } } = supabaseClient.storage
                 .from('player-images')
                 .getPublicUrl(filePath);
 
@@ -500,7 +625,7 @@
                 const urlParts = imageUrl.split('/');
                 const fileName = urlParts[urlParts.length - 1];
 
-                const { error } = await supabase.storage
+                const { error } = await supabaseClient.storage
                     .from('player-images')
                     .remove([fileName]);
 
@@ -516,13 +641,22 @@
 
             const playerId = document.getElementById('playerId').value;
             const name = document.getElementById('playerName').value;
-            const team = document.getElementById('playerTeam').value;
+            const teamsSelect = document.getElementById('playerTeams');
+            const selectedTeamIds = Array.from(teamsSelect.selectedOptions).map(opt => opt.value);
             const position = document.getElementById('playerPosition').value;
             const major = document.getElementById('playerMajor').value;
             const hometown = document.getElementById('playerHometown').value;
             const quote = document.getElementById('playerQuote').value;
+            const kd = document.getElementById('playerKD').value;
+            const winPercentage = document.getElementById('playerWinPercentage').value;
+            const hoursPlayed = document.getElementById('playerHoursPlayed').value;
             const imageFile = imageInput.files[0];
             let imageUrl = document.getElementById('existingImageUrl').value;
+
+            if (selectedTeamIds.length === 0) {
+                showAlert('Please select at least one team', 'error');
+                return;
+            }
 
             try {
                 // Upload new image if selected
@@ -536,33 +670,56 @@
 
                 const playerData = {
                     name,
-                    team,
                     position: position || null,
                     major: major || null,
                     hometown: hometown || null,
                     quote: quote || null,
+                    k_d: kd ? parseFloat(kd) : null,
+                    win_percentage: winPercentage ? parseFloat(winPercentage) : null,
+                    hours_played: hoursPlayed ? parseInt(hoursPlayed) : null,
                     picture_url: imageUrl || null
                 };
 
+                let finalPlayerId = playerId;
+
                 if (playerId) {
                     // Update existing player
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('players')
                         .update(playerData)
                         .eq('id', playerId);
 
                     if (error) throw error;
-                    showAlert('Player updated successfully!');
+
+                    // Delete existing team relationships
+                    await supabaseClient
+                        .from('player_teams')
+                        .delete()
+                        .eq('player_id', playerId);
                 } else {
                     // Add new player
-                    const { error } = await supabase
+                    const { data, error } = await supabaseClient
                         .from('players')
-                        .insert([playerData]);
+                        .insert([playerData])
+                        .select();
 
                     if (error) throw error;
-                    showAlert('Player added successfully!');
+                    finalPlayerId = data[0].id;
                 }
 
+                // Insert new team relationships
+                const playerTeamsData = selectedTeamIds.map(teamId => ({
+                    player_id: finalPlayerId,
+                    team_id: teamId
+                }));
+
+                const { error: teamError } = await supabaseClient
+                    .from('player_teams')
+                    .insert(playerTeamsData);
+
+                if (teamError) throw teamError;
+
+                showAlert(playerId ? 'Player updated successfully!' : 'Player added successfully!');
                 playerModal.classList.remove('active');
                 loadPlayers();
             } catch (error) {
@@ -574,7 +731,7 @@
         // Edit player
         async function editPlayer(id) {
             try {
-                const { data: player, error } = await supabase
+                const { data: player, error } = await supabaseClient
                     .from('players')
                     .select('*')
                     .eq('id', id)
@@ -582,16 +739,37 @@
 
                 if (error) throw error;
 
+                // Load teams dropdown
+                await loadTeamsDropdown();
+
+                // Get player's current team assignments
+                const { data: playerTeams, error: teamError } = await supabaseClient
+                    .from('player_teams')
+                    .select('team_id')
+                    .eq('player_id', id);
+
+                if (teamError) throw teamError;
+
+                const currentTeamIds = playerTeams?.map(pt => pt.team_id) || [];
+
                 currentEditingPlayer = player;
                 document.getElementById('modalTitle').textContent = 'Edit Player';
                 document.getElementById('playerId').value = player.id;
                 document.getElementById('playerName').value = player.name;
-                document.getElementById('playerTeam').value = player.team;
                 document.getElementById('playerPosition').value = player.position || '';
                 document.getElementById('playerMajor').value = player.major || '';
                 document.getElementById('playerHometown').value = player.hometown || '';
                 document.getElementById('playerQuote').value = player.quote || '';
+                document.getElementById('playerKD').value = player.k_d || '';
+                document.getElementById('playerWinPercentage').value = player.win_percentage || '';
+                document.getElementById('playerHoursPlayed').value = player.hours_played || '';
                 document.getElementById('existingImageUrl').value = player.picture_url || '';
+
+                // Pre-select the player's teams
+                const teamsSelect = document.getElementById('playerTeams');
+                Array.from(teamsSelect.options).forEach(option => {
+                    option.selected = currentTeamIds.includes(option.value);
+                });
 
                 if (player.picture_url) {
                     imagePreview.src = player.picture_url;
@@ -615,7 +793,7 @@
 
             try {
                 // Delete the player record
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('players')
                     .delete()
                     .eq('id', id);

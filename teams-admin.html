@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Team Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #1d252c;
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fcfcfc;
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #405464;
+            background-color: #050708;
+            color: #fcfcfc;
+            font-family: 'Urbanist', sans-serif;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: #1d252c;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #405464;
+        }
+        th {
+            background-color: #050708;
+            color: #fcfcfc;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        td {
+            color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: rgba(237, 31, 51, 0.1);
+        }
+        .team-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Urbanist', sans-serif;
+        }
+        .btn-primary {
+            background-color: #ed1f33;
+            color: #fcfcfc;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        .btn-secondary {
+            background-color: #405464;
+            color: #fcfcfc;
+        }
+        .btn-secondary:hover {
+            background-color: #506474;
+        }
+        .btn-danger {
+            background-color: #d32f2f;
+            color: #fcfcfc;
+        }
+        .btn-danger:hover {
+            background-color: #b71c1c;
+        }
+        .btn-edit {
+            background-color: #1976d2;
+            color: #fcfcfc;
+            margin-right: 8px;
+        }
+        .btn-edit:hover {
+            background-color: #1565c0;
+        }
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .alert-success {
+            background-color: #4caf50;
+            color: white;
+        }
+        .alert-error {
+            background-color: #f44336;
+            color: white;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #fcfcfc;
+        }
+        .loading.active {
+            display: block;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-link {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #ed1f33;
+        }
+        .nav-link.active {
+            color: #ed1f33;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-[#050708] min-h-screen">
+        <!-- Admin Container -->
+        <div class="admin-container">
+            <div id="alertContainer"></div>
+            <div id="authContainer" style="display: none;">
+                <div class="text-center text-white">
+                    <h2 class="text-2xl font-bold mb-4">Please Sign In</h2>
+                    <p>You need to be authenticated to access the admin panel.</p>
+                </div>
+            </div>
+
+            <div id="mainContent" style="display: none;">
+                <!-- Admin Navigation Bar -->
+                <div style="background-color: #1d252c; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="nav-links">
+                        <a href="admin.html" class="nav-link">Players</a>
+                        <a href="teams-admin.html" class="nav-link active">Teams</a>
+                        <a href="events-admin.html" class="nav-link">Events</a>
+                        <a href="admins-admin.html" class="nav-link" id="adminsNavLink" style="display: none;">Admins</a>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span id="userEmail" style="color: #f2f2f2; font-size: 14px;"></span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-small">Logout</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mb-8">
+                    <h1 class="font-pressio text-[#fcfcfc] text-[64px] uppercase">Teams</h1>
+                    <button id="addTeamBtn" class="btn btn-primary">Add New Team</button>
+                </div>
+
+                <div class="loading" id="loadingIndicator">Loading teams...</div>
+
+                <table id="teamsTable">
+                    <thead>
+                        <tr>
+                            <th>Logo</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Players</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teamsTableBody">
+                        <!-- Teams will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add/Edit Team Modal -->
+        <div id="teamModal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalTitle" class="font-pressio text-[#fcfcfc] text-[32px] mb-6">Add Team</h2>
+                <form id="teamForm">
+                    <input type="hidden" id="teamId">
+                    <input type="hidden" id="existingLogoUrl">
+
+                    <div class="form-group">
+                        <label for="teamName">Team Name *</label>
+                        <input type="text" id="teamName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teamDescription">Description</label>
+                        <textarea id="teamDescription"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teamLogo">Team Logo</label>
+                        <input type="file" id="teamLogo" accept="image/jpeg,image/jpg,image/png,image/webp,image/avif">
+                        <img id="logoPreview" class="image-preview" style="display: none;">
+                    </div>
+
+                    <div class="flex gap-4 mt-6">
+                        <button type="submit" class="btn btn-primary flex-1">Save Team</button>
+                        <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Supabase client
+        const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
+
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // DOM Elements
+        const teamModal = document.getElementById('teamModal');
+        const teamForm = document.getElementById('teamForm');
+        const addTeamBtn = document.getElementById('addTeamBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const teamsTableBody = document.getElementById('teamsTableBody');
+        const logoInput = document.getElementById('teamLogo');
+        const logoPreview = document.getElementById('logoPreview');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const alertContainer = document.getElementById('alertContainer');
+        const authContainer = document.getElementById('authContainer');
+        const mainContent = document.getElementById('mainContent');
+
+        // Initialize
+        async function init() {
+            // Check authentication
+            const { data: { session } } = await supabaseClient.auth.getSession();
+
+            if (!session) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            // Check if user is an admin
+            try {
+                const { data: adminUser, error } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .eq('email', session.user.email)
+                    .single();
+
+                if (error || !adminUser) {
+                    await supabaseClient.auth.signOut();
+                    window.location.href = 'admin-login.html';
+                    return;
+                }
+
+                // Show Admins link if super admin
+                if (adminUser.role === 'super_admin') {
+                    const adminsNavLink = document.getElementById('adminsNavLink');
+                    if (adminsNavLink) {
+                        adminsNavLink.style.display = 'inline-block';
+                    }
+                }
+
+                mainContent.style.display = 'block';
+
+                // Display user email
+                const userEmailEl = document.getElementById('userEmail');
+                if (userEmailEl && session.user) {
+                    userEmailEl.textContent = session.user.email;
+                }
+
+                loadTeams();
+            } catch (error) {
+                console.error('Error checking admin status:', error);
+                await supabaseClient.auth.signOut();
+                window.location.href = 'admin-login.html';
+            }
+        }
+
+        // Handle logout
+        document.addEventListener('DOMContentLoaded', () => {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async () => {
+                    try {
+                        const { error } = await supabaseClient.auth.signOut();
+                        if (error) throw error;
+                        window.location.href = 'admin-login.html';
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                        showAlert('Failed to logout: ' + error.message, 'error');
+                    }
+                });
+            }
+        });
+
+        // Show alert message
+        function showAlert(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // Load all teams with player count
+        async function loadTeams() {
+            loadingIndicator.classList.add('active');
+
+            try {
+                // Get all teams
+                const { data: teams, error } = await supabaseClient
+                    .from('teams')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                // Get player counts for each team
+                const teamsWithCounts = await Promise.all(teams.map(async (team) => {
+                    const { count } = await supabaseClient
+                        .from('player_teams')
+                        .select('*', { count: 'exact', head: true })
+                        .eq('team_id', team.id);
+
+                    return { ...team, playerCount: count || 0 };
+                }));
+
+                displayTeams(teamsWithCounts);
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                showAlert('Failed to load teams: ' + error.message, 'error');
+            } finally {
+                loadingIndicator.classList.remove('active');
+            }
+        }
+
+        // Display teams in table
+        function displayTeams(teams) {
+            teamsTableBody.innerHTML = '';
+
+            if (teams.length === 0) {
+                teamsTableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No teams found. Add your first team!</td></tr>';
+                return;
+            }
+
+            teams.forEach(team => {
+                const createdDate = new Date(team.created_at).toLocaleDateString();
+                const row = document.createElement('tr');
+
+                // Logo cell
+                const logoCell = document.createElement('td');
+                if (team.logo_url) {
+                    const img = document.createElement('img');
+                    img.className = 'team-logo';
+                    img.src = team.logo_url;
+                    img.alt = team.name || '';
+                    logoCell.appendChild(img);
+                } else {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'team-logo bg-gray-600';
+                    logoCell.appendChild(placeholder);
+                }
+
+                // Name cell
+                const nameCell = document.createElement('td');
+                const nameStrong = document.createElement('strong');
+                nameStrong.textContent = team.name;
+                nameCell.appendChild(nameStrong);
+
+                // Description cell
+                const descCell = document.createElement('td');
+                descCell.textContent = team.description || '-';
+
+                // Player count cell
+                const countCell = document.createElement('td');
+                countCell.textContent = `${team.playerCount} ${team.playerCount === 1 ? 'player' : 'players'}`;
+
+                // Created date cell
+                const dateCell = document.createElement('td');
+                dateCell.textContent = createdDate;
+
+                // Actions cell
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-edit btn-small';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editTeam(team.id));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-small';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteTeam(team.id, team.logo_url || '', team.playerCount));
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                actionsCell.appendChild(actionsDiv);
+
+                // Append all cells to row
+                row.appendChild(logoCell);
+                row.appendChild(nameCell);
+                row.appendChild(descCell);
+                row.appendChild(countCell);
+                row.appendChild(dateCell);
+                row.appendChild(actionsCell);
+
+                teamsTableBody.appendChild(row);
+            });
+        }
+
+        // Open modal for adding new team
+        addTeamBtn.addEventListener('click', () => {
+            document.getElementById('modalTitle').textContent = 'Add Team';
+            teamForm.reset();
+            document.getElementById('teamId').value = '';
+            document.getElementById('existingLogoUrl').value = '';
+            logoPreview.style.display = 'none';
+            teamModal.classList.add('active');
+        });
+
+        // Close modal
+        cancelBtn.addEventListener('click', () => {
+            teamModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        teamModal.addEventListener('click', (e) => {
+            if (e.target === teamModal) {
+                teamModal.classList.remove('active');
+            }
+        });
+
+        // Logo preview
+        logoInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                // Check file size (5MB limit)
+                const maxSize = 5 * 1024 * 1024;
+                if (file.size > maxSize) {
+                    showAlert('Logo file size must be less than 5MB. Please choose a smaller file.', 'error');
+                    logoInput.value = '';
+                    logoPreview.style.display = 'none';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    logoPreview.src = e.target.result;
+                    logoPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Upload logo to Supabase Storage
+        async function uploadLogo(file) {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+            const filePath = fileName;
+
+            const { data, error } = await supabaseClient.storage
+                .from('team-logos')
+                .upload(filePath, file);
+
+            if (error) throw error;
+
+            // Get public URL
+            const { data: { publicUrl } } = supabaseClient.storage
+                .from('team-logos')
+                .getPublicUrl(filePath);
+
+            return publicUrl;
+        }
+
+        // Delete logo from Supabase Storage
+        async function deleteLogo(logoUrl) {
+            if (!logoUrl) return;
+
+            try {
+                const urlParts = logoUrl.split('/');
+                const fileName = urlParts[urlParts.length - 1];
+
+                const { error } = await supabaseClient.storage
+                    .from('team-logos')
+                    .remove([fileName]);
+
+                if (error) throw error;
+            } catch (error) {
+                console.error('Error deleting logo:', error);
+            }
+        }
+
+        // Submit form (add or edit team)
+        teamForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const teamId = document.getElementById('teamId').value;
+            const name = document.getElementById('teamName').value;
+            const description = document.getElementById('teamDescription').value;
+            const logoFile = logoInput.files[0];
+            let logoUrl = document.getElementById('existingLogoUrl').value;
+
+            try {
+                // Upload new logo if selected
+                if (logoFile) {
+                    // Delete old logo if editing
+                    if (teamId && logoUrl) {
+                        await deleteLogo(logoUrl);
+                    }
+                    logoUrl = await uploadLogo(logoFile);
+                }
+
+                const teamData = {
+                    name,
+                    description: description || null,
+                    logo_url: logoUrl || null
+                };
+
+                if (teamId) {
+                    // Update existing team
+                    const { error } = await supabaseClient
+                        .from('teams')
+                        .update(teamData)
+                        .eq('id', teamId);
+
+                    if (error) throw error;
+                    showAlert('Team updated successfully!');
+                } else {
+                    // Add new team
+                    const { error } = await supabaseClient
+                        .from('teams')
+                        .insert([teamData]);
+
+                    if (error) throw error;
+                    showAlert('Team added successfully!');
+                }
+
+                teamModal.classList.remove('active');
+                loadTeams();
+            } catch (error) {
+                console.error('Error saving team:', error);
+                showAlert('Failed to save team: ' + error.message, 'error');
+            }
+        });
+
+        // Edit team
+        async function editTeam(id) {
+            try {
+                const { data: team, error } = await supabaseClient
+                    .from('teams')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+
+                if (error) throw error;
+
+                document.getElementById('modalTitle').textContent = 'Edit Team';
+                document.getElementById('teamId').value = team.id;
+                document.getElementById('teamName').value = team.name;
+                document.getElementById('teamDescription').value = team.description || '';
+                document.getElementById('existingLogoUrl').value = team.logo_url || '';
+
+                if (team.logo_url) {
+                    logoPreview.src = team.logo_url;
+                    logoPreview.style.display = 'block';
+                } else {
+                    logoPreview.style.display = 'none';
+                }
+
+                teamModal.classList.add('active');
+            } catch (error) {
+                console.error('Error loading team:', error);
+                showAlert('Failed to load team: ' + error.message, 'error');
+            }
+        }
+
+        // Delete team
+        async function deleteTeam(id, logoUrl, playerCount) {
+            if (playerCount > 0) {
+                if (!confirm(`This team has ${playerCount} player${playerCount > 1 ? 's' : ''}. Deleting this team will remove these player assignments. Are you sure you want to delete this team?`)) {
+                    return;
+                }
+            } else {
+                if (!confirm('Are you sure you want to delete this team? This action cannot be undone.')) {
+                    return;
+                }
+            }
+
+            try {
+                // Delete the team record (player_teams will be deleted automatically via CASCADE)
+                const { error } = await supabaseClient
+                    .from('teams')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                // Delete the logo from storage
+                if (logoUrl) {
+                    await deleteLogo(logoUrl);
+                }
+
+                showAlert('Team deleted successfully!');
+                loadTeams();
+            } catch (error) {
+                console.error('Error deleting team:', error);
+                showAlert('Failed to delete team: ' + error.message, 'error');
+            }
+        }
+
+        // Make functions available globally
+        window.editTeam = editTeam;
+        window.deleteTeam = deleteTeam;
+
+        // Initialize on page load
+        init();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

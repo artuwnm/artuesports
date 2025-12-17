@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Admins</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #1d252c;
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fcfcfc;
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #405464;
+            background-color: #050708;
+            color: #fcfcfc;
+            font-family: 'Urbanist', sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: #1d252c;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #405464;
+        }
+        th {
+            background-color: #050708;
+            color: #fcfcfc;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        td {
+            color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: rgba(237, 31, 51, 0.1);
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .role-super-admin {
+            background-color: #ed1f33;
+            color: #fcfcfc;
+        }
+        .role-admin {
+            background-color: #1976d2;
+            color: #fcfcfc;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Urbanist', sans-serif;
+        }
+        .btn-primary {
+            background-color: #ed1f33;
+            color: #fcfcfc;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        .btn-secondary {
+            background-color: #405464;
+            color: #fcfcfc;
+        }
+        .btn-secondary:hover {
+            background-color: #506474;
+        }
+        .btn-danger {
+            background-color: #d32f2f;
+            color: #fcfcfc;
+        }
+        .btn-danger:hover {
+            background-color: #b71c1c;
+        }
+        .btn-edit {
+            background-color: #1976d2;
+            color: #fcfcfc;
+            margin-right: 8px;
+        }
+        .btn-edit:hover {
+            background-color: #1565c0;
+        }
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .alert-success {
+            background-color: #4caf50;
+            color: white;
+        }
+        .alert-error {
+            background-color: #f44336;
+            color: white;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #fcfcfc;
+        }
+        .loading.active {
+            display: block;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-link {
+            color: #f2f2f2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #ed1f33;
+        }
+        .nav-link.active {
+            color: #ed1f33;
+        }
+        .info-box {
+            background-color: rgba(237, 31, 51, 0.1);
+            border: 2px solid #ed1f33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #fcfcfc;
+        }
+        .info-box strong {
+            color: #ed1f33;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-[#050708] min-h-screen">
+        <!-- Admin Container -->
+        <div class="admin-container">
+            <div id="alertContainer"></div>
+
+            <div id="authContainer" style="display: none;">
+                <div class="text-center text-white">
+                    <h2 class="text-2xl font-bold mb-4">Access Denied</h2>
+                    <p>Only super admins can access this page.</p>
+                </div>
+            </div>
+
+            <div id="mainContent" style="display: none;">
+                <!-- Admin Navigation Bar -->
+                <div style="background-color: #1d252c; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="nav-links">
+                        <a href="admin.html" class="nav-link">Players</a>
+                        <a href="teams-admin.html" class="nav-link">Teams</a>
+                        <a href="events-admin.html" class="nav-link">Events</a>
+                        <a href="admins-admin.html" class="nav-link active">Admins</a>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span id="userEmail" style="color: #f2f2f2; font-size: 14px;"></span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-small">Logout</button>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>Note:</strong> When creating a new admin, you'll set their initial password. The admin will use this password to login at /admin-login.html
+                </div>
+
+                <div class="flex justify-between items-center mb-8">
+                    <h1 class="font-pressio text-[#fcfcfc] text-[64px] uppercase">Admins</h1>
+                    <button id="addAdminBtn" class="btn btn-primary">Add New Admin</button>
+                </div>
+
+                <div class="loading" id="loadingIndicator">Loading admins...</div>
+
+                <table id="adminsTable">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminsTableBody">
+                        <!-- Admins will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add/Edit Admin Modal -->
+        <div id="adminModal" class="modal">
+            <div class="modal-content">
+                <h2 id="modalTitle" class="font-pressio text-[#fcfcfc] text-[32px] mb-6">Add Admin</h2>
+                <form id="adminForm">
+                    <input type="hidden" id="adminId">
+
+                    <div class="form-group">
+                        <label for="adminEmail">Email *</label>
+                        <input type="email" id="adminEmail" required>
+                    </div>
+
+                    <div class="form-group" id="passwordGroup">
+                        <label for="adminPassword">Password *</label>
+                        <input type="password" id="adminPassword" minlength="6">
+                        <small style="color: #f2f2f2; font-size: 12px; margin-top: 5px; display: block;">
+                            Minimum 6 characters. The admin will use this to login.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adminRole">Role *</label>
+                        <select id="adminRole" required>
+                            <option value="">Select Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="super_admin">Super Admin</option>
+                        </select>
+                        <small style="color: #f2f2f2; font-size: 12px; margin-top: 5px; display: block;">
+                            Super Admins can manage other admins. Regular Admins can only manage players and events.
+                        </small>
+                    </div>
+
+                    <div class="flex gap-4 mt-6">
+                        <button type="submit" class="btn btn-primary flex-1">Save Admin</button>
+                        <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Supabase client
+        const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
+
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentEditingAdmin = null;
+        let currentUserRole = null;
+
+        // DOM Elements
+        const adminModal = document.getElementById('adminModal');
+        const adminForm = document.getElementById('adminForm');
+        const addAdminBtn = document.getElementById('addAdminBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const adminsTableBody = document.getElementById('adminsTableBody');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const alertContainer = document.getElementById('alertContainer');
+        const authContainer = document.getElementById('authContainer');
+        const mainContent = document.getElementById('mainContent');
+
+        // Initialize
+        async function init() {
+            // Check authentication
+            const { data: { session } } = await supabaseClient.auth.getSession();
+
+            if (!session) {
+                // Not logged in, redirect to login page
+                window.location.href = 'admin-login.html';
+                return;
+            }
+
+            // Check if user is a super admin
+            try {
+                const { data: adminUser, error } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .eq('email', session.user.email)
+                    .single();
+
+                if (error || !adminUser || adminUser.role !== 'super_admin') {
+                    // Not a super admin
+                    authContainer.style.display = 'block';
+                    showAlert('Access denied. Only super admins can manage admin users.', 'error');
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 2000);
+                    return;
+                }
+
+                currentUserRole = adminUser.role;
+                mainContent.style.display = 'block';
+
+                // Display user email
+                const userEmailEl = document.getElementById('userEmail');
+                if (userEmailEl) {
+                    userEmailEl.textContent = session.user.email;
+                }
+
+                loadAdmins();
+            } catch (error) {
+                console.error('Error checking admin status:', error);
+                showAlert('Error verifying admin status', 'error');
+                setTimeout(() => {
+                    window.location.href = 'admin.html';
+                }, 2000);
+            }
+        }
+
+        // Handle logout
+        document.addEventListener('DOMContentLoaded', () => {
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async () => {
+                    try {
+                        const { error } = await supabaseClient.auth.signOut();
+                        if (error) throw error;
+                        window.location.href = 'admin-login.html';
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                        showAlert('Failed to logout: ' + error.message, 'error');
+                    }
+                });
+            }
+        });
+
+        // Show alert message
+        function showAlert(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alertContainer.appendChild(alert);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // Load all admins
+        async function loadAdmins() {
+            loadingIndicator.classList.add('active');
+
+            try {
+                const { data: admins, error } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                displayAdmins(admins);
+            } catch (error) {
+                console.error('Error loading admins:', error);
+                showAlert('Failed to load admins: ' + error.message, 'error');
+            } finally {
+                loadingIndicator.classList.remove('active');
+            }
+        }
+
+        // Display admins in table
+        function displayAdmins(admins) {
+            adminsTableBody.innerHTML = '';
+
+            if (admins.length === 0) {
+                adminsTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No admins found. Add your first admin!</td></tr>';
+                return;
+            }
+
+            admins.forEach(admin => {
+                const row = document.createElement('tr');
+                const createdDate = new Date(admin.created_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                // Email cell
+                const emailCell = document.createElement('td');
+                emailCell.textContent = admin.email;
+
+                // Role cell
+                const roleCell = document.createElement('td');
+                const roleBadge = document.createElement('span');
+                roleBadge.className = `role-badge role-${admin.role.replace('_', '-')}`;
+                roleBadge.textContent = admin.role.replace('_', ' ');
+                roleCell.appendChild(roleBadge);
+
+                // Created date cell
+                const dateCell = document.createElement('td');
+                dateCell.textContent = createdDate;
+
+                // Actions cell
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-edit btn-small';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editAdmin(admin.id));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-small';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteAdmin(admin.id, admin.email));
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                actionsCell.appendChild(actionsDiv);
+
+                // Append all cells to row
+                row.appendChild(emailCell);
+                row.appendChild(roleCell);
+                row.appendChild(dateCell);
+                row.appendChild(actionsCell);
+
+                adminsTableBody.appendChild(row);
+            });
+        }
+
+        // Open modal for adding new admin
+        addAdminBtn.addEventListener('click', () => {
+            currentEditingAdmin = null;
+            document.getElementById('modalTitle').textContent = 'Add Admin';
+            adminForm.reset();
+            document.getElementById('adminId').value = '';
+
+            // Make email editable
+            document.getElementById('adminEmail').readOnly = false;
+
+            // Show password field for new admins
+            const passwordGroup = document.getElementById('passwordGroup');
+            const passwordInput = document.getElementById('adminPassword');
+            passwordGroup.style.display = 'block';
+            passwordInput.required = true;
+
+            adminModal.classList.add('active');
+        });
+
+        // Close modal
+        cancelBtn.addEventListener('click', () => {
+            adminModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside
+        adminModal.addEventListener('click', (e) => {
+            if (e.target === adminModal) {
+                adminModal.classList.remove('active');
+            }
+        });
+
+        // Submit form (add or edit admin)
+        adminForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const adminId = document.getElementById('adminId').value;
+            const email = document.getElementById('adminEmail').value.toLowerCase().trim();
+            const password = document.getElementById('adminPassword').value;
+            const role = document.getElementById('adminRole').value;
+
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+
+                if (adminId) {
+                    // Update existing admin (only role can be changed)
+                    const { error } = await supabaseClient
+                        .from('admin_users')
+                        .update({ role })
+                        .eq('id', adminId);
+
+                    if (error) throw error;
+                    showAlert('Admin updated successfully!');
+                } else {
+                    // Add new admin via Edge Function
+                    const response = await fetch(
+                        `${SUPABASE_URL}/functions/v1/create-admin-user`,
+                        {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${session.access_token}`,
+                                'apikey': SUPABASE_ANON_KEY
+                            },
+                            body: JSON.stringify({
+                                email,
+                                password,
+                                role
+                            })
+                        }
+                    );
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        throw new Error(result.error || 'Failed to create admin');
+                    }
+
+                    showAlert('Admin created successfully! They can now login with their email and password.');
+                }
+
+                adminModal.classList.remove('active');
+                loadAdmins();
+            } catch (error) {
+                console.error('Error saving admin:', error);
+                showAlert('Failed to save admin: ' + error.message, 'error');
+            }
+        });
+
+        // Edit admin
+        async function editAdmin(id) {
+            try {
+                const { data: admin, error } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+
+                if (error) throw error;
+
+                currentEditingAdmin = admin;
+                document.getElementById('modalTitle').textContent = 'Edit Admin';
+                document.getElementById('adminId').value = admin.id;
+                document.getElementById('adminEmail').value = admin.email;
+                document.getElementById('adminEmail').readOnly = true; // Can't change email
+                document.getElementById('adminRole').value = admin.role;
+
+                // Hide password field for editing (can't change password via this interface)
+                const passwordGroup = document.getElementById('passwordGroup');
+                const passwordInput = document.getElementById('adminPassword');
+                passwordGroup.style.display = 'none';
+                passwordInput.required = false;
+                passwordInput.value = '';
+
+                adminModal.classList.add('active');
+            } catch (error) {
+                console.error('Error loading admin:', error);
+                showAlert('Failed to load admin: ' + error.message, 'error');
+            }
+        }
+
+        // Delete admin
+        async function deleteAdmin(id, email) {
+            // Get current user email to prevent self-deletion
+            const { data: { session } } = await supabaseClient.auth.getSession();
+
+            if (session.user.email === email) {
+                showAlert('You cannot delete your own admin account.', 'error');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete admin: ${email}? This action cannot be undone.`)) {
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('admin_users')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                showAlert('Admin deleted successfully!');
+                loadAdmins();
+            } catch (error) {
+                console.error('Error deleting admin:', error);
+                showAlert('Failed to delete admin: ' + error.message, 'error');
+            }
+        }
+
+        // Make functions available globally
+        window.editAdmin = editAdmin;
+        window.deleteAdmin = deleteAdmin;
+
+        // Initialize on page load
+        init();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

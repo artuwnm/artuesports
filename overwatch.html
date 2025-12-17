@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body class="overwatch-page">
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <a href="index.html" class="logo-wordmark">
+                    <div class="logo-container">
+                        <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
+                    </div>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <div class="frame">
+                    <div class="desktop-nav-menu">
+                        <div class="nav-dropdown">
+                            <a href="teams.html" class="nav-item">TEAMS  ▾</a>
+                            <div class="dropdown-menu">
+                                <a href="overwatch.html" class="dropdown-item"><h2>Overwatch</h2></a>
+                                <a href="league-of-legends.html" class="dropdown-item"><h2>League of Legends</h2></a>
+                            </div>
+                        </div>
+                        <div class="nav-dropdown">
+                            <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
+                            <div class="dropdown-menu">
+                                <a href="knightarcade.html" class="dropdown-item"><h2>Knight Arcade</h2></a>
+                                <a href="boardgameroom.html" class="dropdown-item"><h2>Board Game Room</h2></a>
+                            </div>
+                        </div>
+                        <a href="events.html" class="nav-item">EVENTS</a>
+                        <a href="connect.html" class="nav-item">CONNECT</a>
+                    </div>
+                    <!-- Hamburger Menu Button (Tablet/Mobile) -->
+                    <button class="hamburger-menu-btn" aria-label="Open menu">
+                        <div class="hamburger-menu-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fcfcfc">
+                                <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    
+    <!-- Mobile Menu Panel -->
+    <div class="mobile-menu-panel" id="mobileMenuPanel">
+        <div class="mobile-menu-content">
+            <a href="index.html" class="mobile-menu-item">HOME</a>
+            <div class="mobile-menu-item-with-submenu">
+                <a href="teams.html" class="mobile-menu-item">TEAMS</a>
+                <button class="mobile-submenu-toggle" id="mobileTeamsMenu" aria-label="Toggle submenu">
+                    <span class="mobile-submenu-arrow">▾</span>
+                </button>
+            </div>
+            <div class="mobile-submenu" id="mobileTeamsSubmenu">
+                <a href="overwatch.html" class="mobile-submenu-item">Overwatch</a>
+                <a href="league-of-legends.html" class="mobile-submenu-item">League of Legends</a>
+            </div>
+            <div class="mobile-menu-item-with-submenu">
+                <a href="lounge.html" class="mobile-menu-item">LOUNGE</a>
+                <button class="mobile-submenu-toggle" id="mobileLoungeMenu" aria-label="Toggle submenu">
+                    <span class="mobile-submenu-arrow">▾</span>
+                </button>
+            </div>
+            <div class="mobile-submenu" id="mobileLoungeSubmenu">
+                <a href="knightarcade.html" class="mobile-submenu-item">Knight Arcade</a>
+                <a href="boardgameroom.html" class="mobile-submenu-item">Board Game Room</a>
+            </div>
+            <a href="events.html" class="mobile-menu-item">EVENTS</a>
+            <a href="connect.html" class="mobile-menu-item">CONNECT</a>
+        </div>
+    </div>
+    
+    <div class="page-container">
+        <!-- 01-hero-section -->
+        <section class="team-hero-section" data-name="01-hero-section" data-node-id="529:2509">
+            <div class="team-hero-image-placeholder" data-name="img-placeholder" data-node-id="529:2097"></div>
+            <div class="team-hero-title-container" data-name="title-container" data-node-id="529:2121">
+                <h1 class="team-hero-title font-pressio" data-name="team-title" data-node-id="529:2122">
+                    Overwatch
+                </h1>
+                <p class="team-hero-description" data-name="team-description" data-node-id="529:2123">
+                    Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
+                </p>
+            </div>
+        </section>
+
+        <!-- 01-pillars-section -->
+        <section class="pillars-section" data-name="01-pillars-section" data-node-id="1037:476">
+            <img src="img/pillars-logo-shield.png" alt="Logo Shield Mark" class="pillars-logo-shield" data-node-id="127:418" />
+            <p class="pillars-section-title" data-node-id="1006:1536">
+                Our three Pillars
+            </p>
+            <div class="pillars-words-container" data-node-id="1006:1535">
+                <h2 class="pillars-word" data-node-id="1006:1531">Teamwork. </h2>
+                <h2 class="pillars-word" data-node-id="1006:1533">Craft.</h2>
+                <h2 class="pillars-word" data-node-id="1006:1534">Community.</h2>
+            </div>
+            <p class="pillars-section-description p1" data-node-id="1006:1538">
+We compete to win, but we coach communication, preparation, and sportsmanship first. Our student-athletes train like designers—reviewing VODs, iterating on strategy, and learning to perform under pressure. Every player is part of a bigger
+            </p>
+        </section>
+
+        <!-- 02-varsity-section -->
+        <section class="varsity-section" data-name="02-varsity-section" data-node-id="529:2125">
+            <h2 class="varsity-section-title font-pressio" data-node-id="529:2126">
+                Varsity team
+            </h2>
+            <p class="varsity-section-description p1">
+                A team of players from different majors and all over the world
+            </p>
+            <div class="varsity-cards-container" data-name="player-cards-container" data-node-id="529:2317">
+                <!-- Row 1 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2431">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="img/players/justin.png" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
+                                <div class="varsity-player-name-overlay">
+                                    <h3 class="varsity-player-name-overlay-text font-pressio-medium">players name</h3>
+                                </div>
+                            </div>
+                            <div class="varsity-player-black-section">
+                                <div class="varsity-player-stats-row">
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">K/D:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">2.47</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Win %:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">.64</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Hours</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">1320</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-info-rows">
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">Visual Development</p>
+                                        <p class="varsity-player-info-right">Major</p>
+                                    </div>
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">United States</p>
+                                        <p class="varsity-player-info-right">Location</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-quote">
+                                    <p>I like playing games because I am deeply angry and it makes me feel good taking out opponents and t-bagging them."</p>
+                                </div>
+                            </div>
+                            <p class="varsity-player-role" data-node-id="529:2434">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2438">
+                                            players name
+                                        </h3>
+                                    </div>
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2440">
+                                            Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button class="btn-filled" data-name="Buttons-Desktop" data-node-id="529:2441">
+                                    Learn more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2432">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="img/players/justin.png" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
+                                <div class="varsity-player-name-overlay">
+                                    <h3 class="varsity-player-name-overlay-text font-pressio-medium">players name</h3>
+                                </div>
+                            </div>
+                            <div class="varsity-player-black-section">
+                                <div class="varsity-player-stats-row">
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">K/D:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">2.47</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Win %:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">.64</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Hours</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">1320</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-info-rows">
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">Visual Development</p>
+                                        <p class="varsity-player-info-right">Major</p>
+                                    </div>
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">United States</p>
+                                        <p class="varsity-player-info-right">Location</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-quote">
+                                    <p>I like playing games because I am deeply angry and it makes me feel good taking out opponents and t-bagging them."</p>
+                                </div>
+                            </div>
+                            <p class="varsity-player-role" data-node-id="529:2434">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2438">
+                                            players name
+                                        </h3>
+                                    </div>
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2440">
+                                            Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button class="btn-filled" data-name="Buttons-Desktop" data-node-id="529:2441">
+                                    Learn more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2433">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="img/players/justin.png" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
+                                <div class="varsity-player-name-overlay">
+                                    <h3 class="varsity-player-name-overlay-text font-pressio-medium">players name</h3>
+                                </div>
+                            </div>
+                            <div class="varsity-player-black-section">
+                                <div class="varsity-player-stats-row">
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">K/D:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">2.47</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Win %:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">.64</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Hours</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">1320</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-info-rows">
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">Visual Development</p>
+                                        <p class="varsity-player-info-right">Major</p>
+                                    </div>
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">United States</p>
+                                        <p class="varsity-player-info-right">Location</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-quote">
+                                    <p>I like playing games because I am deeply angry and it makes me feel good taking out opponents and t-bagging them."</p>
+                                </div>
+                            </div>
+                            <p class="varsity-player-role" data-node-id="529:2434">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2438">
+                                            players name
+                                        </h3>
+                                    </div>
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2440">
+                                            Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button class="btn-filled" data-name="Buttons-Desktop" data-node-id="529:2441">
+                                    Learn more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2437">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="img/players/justin.png" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
+                                <div class="varsity-player-name-overlay">
+                                    <h3 class="varsity-player-name-overlay-text font-pressio-medium">players name</h3>
+                                </div>
+                            </div>
+                            <div class="varsity-player-black-section">
+                                <div class="varsity-player-stats-row">
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">K/D:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">2.47</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Win %:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">.64</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Hours</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">1320</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-info-rows">
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">Visual Development</p>
+                                        <p class="varsity-player-info-right">Major</p>
+                                    </div>
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">United States</p>
+                                        <p class="varsity-player-info-right">Location</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-quote">
+                                    <p>I like playing games because I am deeply angry and it makes me feel good taking out opponents and t-bagging them."</p>
+                                </div>
+                            </div>
+                            <p class="varsity-player-role" data-node-id="529:2434">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2438">
+                                            players name
+                                        </h3>
+                                    </div>
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2440">
+                                            Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button class="btn-filled" data-name="Buttons-Desktop" data-node-id="529:2441">
+                                    Learn more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2438">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="img/players/justin.png" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
+                                <div class="varsity-player-name-overlay">
+                                    <h3 class="varsity-player-name-overlay-text font-pressio-medium">players name</h3>
+                                </div>
+                            </div>
+                            <div class="varsity-player-black-section">
+                                <div class="varsity-player-stats-row">
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">K/D:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">2.47</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Win %:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">.64</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Hours</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">1320</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-info-rows">
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">Visual Development</p>
+                                        <p class="varsity-player-info-right">Major</p>
+                                    </div>
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">United States</p>
+                                        <p class="varsity-player-info-right">Location</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-quote">
+                                    <p>I like playing games because I am deeply angry and it makes me feel good taking out opponents and t-bagging them."</p>
+                                </div>
+                            </div>
+                            <p class="varsity-player-role" data-node-id="529:2434">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2438">
+                                            players name
+                                        </h3>
+                                    </div>
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2440">
+                                            Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button class="btn-filled" data-name="Buttons-Desktop" data-node-id="529:2441">
+                                    Learn more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="varsity-player-card" data-name="Player-Card" data-node-id="529:2439">
+                    <div class="varsity-player-card-inner">
+                        <div class="varsity-player-card-content">
+                            <div class="varsity-player-image-wrapper">
+                                <img src="img/players/justin.png" alt="Player" class="varsity-player-image" />
+                                <div class="varsity-player-gradient-overlay"></div>
+                                <div class="varsity-player-name-overlay">
+                                    <h3 class="varsity-player-name-overlay-text font-pressio-medium">players name</h3>
+                                </div>
+                            </div>
+                            <div class="varsity-player-black-section">
+                                <div class="varsity-player-stats-row">
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">K/D:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">2.47</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Win %:</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">.64</p>
+                                    </div>
+                                    <div class="varsity-player-stat-item">
+                                        <p class="varsity-player-stat-label">Hours</p>
+                                        <p class="varsity-player-stat-value font-pressio-medium">1320</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-info-rows">
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">Visual Development</p>
+                                        <p class="varsity-player-info-right">Major</p>
+                                    </div>
+                                    <div class="varsity-player-info-row">
+                                        <p class="varsity-player-info-left">United States</p>
+                                        <p class="varsity-player-info-right">Location</p>
+                                    </div>
+                                </div>
+                                <div class="varsity-player-quote">
+                                    <p>I like playing games because I am deeply angry and it makes me feel good taking out opponents and t-bagging them."</p>
+                                </div>
+                            </div>
+                            <p class="varsity-player-role" data-node-id="529:2434">Support</p>
+                            <div class="varsity-player-info">
+                                <div class="varsity-player-details">
+                                    <div class="varsity-player-name-wrapper">
+                                        <h3 class="varsity-player-name font-pressio-medium" data-node-id="529:2438">
+                                            players name
+                                        </h3>
+                                    </div>
+                                    <div class="varsity-player-description-wrapper">
+                                        <p class="varsity-player-description" data-node-id="529:2440">
+                                            Dominating the arena with unmatched precision and calculated aggression. A master tactician and clutch performer.
+                                        </p>
+                                    </div>
+                                </div>
+                                <button class="btn-filled" data-name="Buttons-Desktop" data-node-id="529:2441">
+                                    Learn more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03-events-section -->
+        <section class="team-events-section" data-name="03-events-section" data-node-id="529:2510">
+            <div class="team-events-header">
+                <h2 class="team-events-section-title font-pressio" data-node-id="529:2511">
+                    Events
+                </h2>
+                <a href="events.html" class="btn-lined" data-name="Buttons-Mobile" data-node-id="354:254">
+                    See All
+                </a>
+            </div>
+            <p class="p1">Prepare for intense competition as our squads take on the best from other schools in our official Esports Events. Be sure to tune in to the live streams and cheer on your school as we battle our rivals for victory!</p>
+            <div class="events-grid" data-name="event-cards-container" data-node-id="529:2512">
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="529:2513">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I529:2513;260:209"></div>
+                        </div>
+                        <div class="event-card-black-section">
+                            <div class="event-card-body">
+                                <p class="event-card-date p1" data-node-id="I529:2513;260:211">
+                                    October 12th | 10/16/25
+                                </p>
+                                <h2 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="I529:2513;260:212;194:56">
+                                    Rocket League Event
+                                </h2>
+                                <p class="event-card-description p1">
+                                    Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="529:2514">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I529:2514;260:209"></div>
+                        </div>
+                        <div class="event-card-black-section">
+                            <div class="event-card-body">
+                                <p class="event-card-date p1" data-node-id="I529:2514;260:211">
+                                    October 12th | 10/16/25
+                                </p>
+                                <h2 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="I529:2514;260:212;194:56">
+                                    Rocket League Event
+                                </h2>
+                                <p class="event-card-description p1">
+                                    Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card" data-event-category="esports" data-name="event-card-esports" data-node-id="529:2532">
+                    <div class="event-card-content">
+                        <div class="event-card-image-wrapper">
+                            <div class="event-card-image" data-node-id="I529:2532;260:209"></div>
+                        </div>
+                        <div class="event-card-black-section">
+                            <div class="event-card-body">
+                                <p class="event-card-date p1" data-node-id="I529:2532;260:211">
+                                    October 12th | 10/16/25
+                                </p>
+                                <h2 class="event-card-title font-pressio-medium" data-name="event-title" data-node-id="I529:2532;260:212;194:56">
+                                    Rocket League Event
+                                </h2>
+                                <p class="event-card-description p1">
+                                    Academy of Art University is taking esports to another level. We are a proud sponsor of the San Francisco.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 04-game-lounge-section (duplicate) -->
+    <section class="events-game-lounge-section" data-name="04-game-lounge-section" data-node-id="1039:1119" style="margin-top: 48px; background-color: #405464;">
+        <div class="game-lounge-card-container" data-name="lounge-card-container" data-node-id="1008:2645">
+            <img src="img/players/team.jpg" alt="ARTU Esports team members playing Overwatch" class="game-lounge-card-image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;" />
+        </div>
+        <div class="game-lounge-content" data-node-id="1039:1120">
+            <h1 class="game-lounge-title font-pressio" data-node-id="1008:2646">Interested in joining a team?</h1>
+            <div class="game-lounge-description" data-node-id="1008:2647">
+                <p class="p1">Discover open positions and connect with our existing players to join the collegiate esports team and represent our school in competitive gaming. Take your skills to the next level and compete for university pride and glory!</p>
+            </div>
+            <a href="lounge.html" class="btn-lined" data-name="Buttons-Mobile" data-node-id="1008:2648">
+                <span data-node-id="1008:2649">Join Team</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 04-game-lounge-section -->
+    <section class="events-game-lounge-section" data-name="04-game-lounge-section" data-node-id="1039:1119" style="margin-top: 48px;">
+        <div class="game-lounge-content" data-node-id="1039:1120" style="margin-left: 36px;">
+            <h1 class="game-lounge-title font-pressio" data-node-id="1008:2646">Visit the game&nbsp;lounge</h1>
+            <div class="game-lounge-description" data-node-id="1008:2647">
+                <p class="p1">The ArtU Game Lounge (AKA: The Knight Arcade) is an on-campus hub for gamers of all levels; open play, team practices, watch parties, and varsity match days. The arena is located at the heart of the city at 180 New Montgomery St. Students, staff, and faculty, are welcome.</p>
+            </div>
+            <a href="lounge.html" class="btn-lined" data-name="Buttons-Mobile" data-node-id="1008:2648">
+                <span data-node-id="1008:2649">Learn more</span>
+            </a>
+        </div>
+        <div class="game-lounge-card-container" data-name="lounge-card-container" data-node-id="1008:2645">
+            <img src="img/loungingaround.jpg" alt="ARTU Game Lounge" class="game-lounge-card-image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;" />
+        </div>
+    </section>
+
+    <!-- 05-follow-us-section -->
+    <section class="events-follow-us-section" style="background-color: transparent; margin-top: 48px;">
+        <p class="p1 follow-us-text">Follow us and</p>
+        <h1 class="follow-us-title font-pressio">HOP ONLINE</h1>
+        <div class="social-icons">
+            <a href="https://discord.com/invite/artuesports" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <img src="img/icons/discord.svg" alt="Discord">
+            </a>
+            <a href="https://www.instagram.com/artuesports/" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <img src="img/icons/instagram.svg" alt="Instagram">
+            </a>
+            <a href="https://www.twitch.tv/artuesports" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <img src="img/icons/twitch.svg" alt="Twitch">
+            </a>
+            <a href="https://twitter.com/ArtUEsports" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <img src="img/icons/twitter.svg" alt="Twitter / X">
+            </a>
+            <a href="https://www.tiktok.com/@artuesports" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <img src="img/icons/tiktok.svg" alt="TikTok">
+            </a>
+            <a href="https://www.youtube.com/@ArtUEsports" class="social-icon" target="_blank" rel="noopener noreferrer">
+                <img src="img/icons/youtube.svg" alt="Youtube">
+            </a>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <div class="logo-container">
+                        <img src="img/Logo_White.png" alt="ARTU Esports Logo" class="logo-image">
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <a class="social-icon" href="https://discord.com/invite/artuesports" aria-label="Discord">
+                        <img src="img/icons/discord.svg" alt="Discord">
+                    </a>
+                    <a class="social-icon" href="https://www.instagram.com/artuesports/" aria-label="Instagram">
+                        <img src="img/icons/instagram.svg" alt="Instagram">
+                    </a>
+                    <a class="social-icon" href="https://www.twitch.tv/artuesports" aria-label="Twitch">
+                        <img src="img/icons/twitch.svg" alt="Twitch">
+                    </a>
+                    <a class="social-icon" href="https://twitter.com/ArtUEsports" aria-label="Twitter / X">
+                        <img src="img/icons/twitter.svg" alt="Twitter / X">
+                    </a>
+                    <a class="social-icon" href="https://www.tiktok.com/@artuesports" aria-label="TikTok">
+                        <img src="img/icons/tiktok.svg" alt="TikTok">
+                    </a>
+                    <a class="social-icon" href="https://www.youtube.com/@ArtUEsports" aria-label="Youtube">
+                        <img src="img/icons/youtube.svg" alt="Youtube">
+                    </a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-section">
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-links">
+                        <p class="footer-link">+(1)800-544-2787</p>
+                        <p class="footer-link">gamedev@art.edu</p>
+                        <a href="https://maps.app.goo.gl/9V4eq7qtFne22naN7" class="footer-link" target="_blank" rel="noopener noreferrer">Get Directions</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-heading">Explore</h3>
+                    <div class="footer-links">
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="lounge.html" class="footer-link">Lounge</a>
+                        <a href="events.html" class="footer-link">Events</a>
+                        <a href="connect.html" class="footer-link">Connect</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright p2">© 2025 Academy of Art University</p>
+            <div class="footer-legal">
+                <a href="privacy.html" class="footer-legal-link p2">Privacy</a>
+                <a href="#" class="footer-legal-link p2">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Event Overlay -->
+    <div class="event-overlay" id="event-overlay">
+        <div class="event-overlay-content">
+            <div class="event-overlay-hero">
+                <div class="event-overlay-title-container">
+                    <div class="event-overlay-title-wrapper">
+                        <h1 class="event-overlay-title font-pressio" id="event-overlay-title">Event Title</h1>
+                        <div class="event-overlay-title-content">
+                            <h2 class="event-overlay-subheading font-pressio-medium" id="event-overlay-subheading">Subheading</h2>
+                            <p class="event-overlay-description" id="event-overlay-description">Event description goes here.</p>
+                        </div>
+                    </div>
+                    <div class="event-overlay-right-container">
+                        <button class="event-overlay-close" id="event-overlay-close" aria-label="Close overlay"></button>
+                        <div class="event-overlay-right">
+                            <div class="event-overlay-datetime">
+                                <p class="event-overlay-date font-pressio" id="event-overlay-date">10/22/2025</p>
+                                <p class="event-overlay-time font-pressio" id="event-overlay-time">3:00pm</p>
+                            </div>
+                            <button class="btn-lined event-overlay-calendar-btn" id="event-overlay-calendar-btn">Add to your calendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="event-overlay-media">
+                <div class="event-overlay-datetime-tablet">
+                    <p class="event-overlay-date font-pressio" id="event-overlay-date-tablet">10/22/2025</p>
+                    <p class="event-overlay-time font-pressio" id="event-overlay-time-tablet">3:00pm</p>
+                </div>
+                <div class="event-overlay-image" id="event-overlay-image"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

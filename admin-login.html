@@ -26,10 +26,14 @@
         .logo-container {
             text-align: center;
             margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .logo-container img {
-            width: 180px;
-            margin: 0 auto;
+            max-width: 200px;
+            height: auto;
+            display: block;
         }
         .form-group {
             margin-bottom: 25px;
@@ -105,10 +109,11 @@
             font-family: 'Pressio', sans-serif;
             color: #fcfcfc;
             text-align: center;
-            font-size: 32px;
+            font-size: 24px;
             margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            white-space: nowrap;
         }
         .forgot-password {
             text-align: center;
@@ -122,6 +127,24 @@
             font-weight: 600;
             text-decoration: underline;
             font-family: 'Urbanist', sans-serif;
+            font-size: 14px;
+        }
+        .forgot-password button:hover {
+            color: #ff3347;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            .login-box {
+                padding: 40px 30px;
+            }
+            .title {
+                font-size: 20px;
+                letter-spacing: 1.5px;
+            }
+            .logo-container img {
+                max-width: 160px;
+            }
         }
     </style>
 </head>
@@ -129,10 +152,8 @@
     <div class="login-container">
         <div class="login-box">
             <div class="logo-container">
-                <img src="https://www.figma.com/api/mcp/asset/f6f53366-26ec-48b0-b3f8-4ccfca8cc602" alt="Art U Esports Logo">
+                <img src="img/logo_white.png" alt="Art U Esports Logo" onerror="this.style.display='none'">
             </div>
-
-            <h1 class="title">Admin Login</h1>
 
             <div id="alertContainer"></div>
 
@@ -163,7 +184,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const loginForm = document.getElementById('loginForm');
         const loginBtn = document.getElementById('loginBtn');
@@ -172,10 +193,29 @@
 
         // Check if already logged in
         async function checkAuth() {
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
             if (session) {
-                // Already logged in, redirect to admin
-                window.location.href = 'admin.html';
+                // Check if user is an admin
+                try {
+                    const { data: adminUser, error } = await supabaseClient
+                        .from('admin_users')
+                        .select('*')
+                        .eq('email', session.user.email)
+                        .single();
+
+                    if (error || !adminUser) {
+                        // User is authenticated but not an admin
+                        await supabaseClient.auth.signOut();
+                        showAlert('Access denied. You are not authorized as an admin.');
+                        return;
+                    }
+
+                    // Already logged in and is admin, redirect to admin panel
+                    window.location.href = 'admin.html';
+                } catch (error) {
+                    console.error('Error checking admin status:', error);
+                    await supabaseClient.auth.signOut();
+                }
             }
         }
 
@@ -203,12 +243,28 @@
             loginBtn.textContent = 'Signing in...';
 
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email,
                     password
                 });
 
                 if (error) throw error;
+
+                // Check if user is in admin_users table
+                const { data: adminUser, error: adminError } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .eq('email', email)
+                    .single();
+
+                if (adminError || !adminUser) {
+                    // User authenticated but not an admin
+                    await supabaseClient.auth.signOut();
+                    showAlert('Access denied. You are not authorized as an admin.');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Sign In';
+                    return;
+                }
 
                 showAlert('Login successful! Redirecting...', 'success');
 
@@ -235,7 +291,7 @@
             }
 
             try {
-                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
                     redirectTo: window.location.origin + '/admin-login.html'
                 });
 

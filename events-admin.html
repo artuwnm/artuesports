@@ -234,35 +234,6 @@
 </head>
 <body>
     <div class="bg-[#050708] min-h-screen">
-        <header class="navbar">
-            <div class="nav-container">
-                <div class="nav-content">
-                    <!-- Logo -->
-                    <a href="index.html" class="logo-wordmark">
-                        <div class="logo-container">
-                            <img src="img/logo_white.png" alt="ARTU Esports Logo" class="logo-image">
-                        </div>
-                    </a>
-                    
-                    <!-- Navigation Menu -->
-                    <div class="frame">
-                        <div class="desktop-nav-menu">
-                            <a href="team.html" class="nav-item">TEAMS  ▾</a>
-                            <div class="nav-dropdown">
-                                <a href="lounge.html" class="nav-item">LOUNGE  ▾</a>
-                                <div class="dropdown-menu">
-                                    <a href="knightarcade.html" class="dropdown-item"><h2>Knight Arcade</h2></a>
-                                    <a href="boardgameroom.html" class="dropdown-item"><h2>Board Game Room</h2></a>
-                                </div>
-                            </div>
-                            <a href="events.html" class="nav-item">EVENTS  ▾</a>
-                            <a href="connect.html" class="nav-item">CONNECT  ▾</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <!-- Admin Container -->
         <div class="admin-container">
             <div id="alertContainer"></div>
@@ -274,6 +245,20 @@
             </div>
 
             <div id="mainContent" style="display: none;">
+                <!-- Admin Navigation Bar -->
+                <div style="background-color: #1d252c; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="nav-links">
+                        <a href="admin.html" class="nav-link">Players</a>
+                        <a href="teams-admin.html" class="nav-link">Teams</a>
+                        <a href="events-admin.html" class="nav-link active">Events</a>
+                        <a href="admins-admin.html" class="nav-link" id="adminsNavLink" style="display: none;">Admins</a>
+                    </div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <span id="userEmail" style="color: #f2f2f2; font-size: 14px;"></span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-small">Logout</button>
+                    </div>
+                </div>
+
                 <div class="flex justify-between items-center mb-8">
                     <h1 class="font-pressio text-[#fcfcfc] text-[64px] uppercase">Events</h1>
                     <button id="addEventBtn" class="btn btn-primary">Add New Event</button>
@@ -285,6 +270,8 @@
                     <button class="filter-btn" data-filter="community">Community</button>
                     <button class="filter-btn" data-filter="upcoming">Upcoming</button>
                     <button class="filter-btn" data-filter="past">Past</button>
+                    <button class="filter-btn" data-filter="unassigned">Unassigned</button>
+                    <button class="filter-btn" data-filter="with-team">With Team</button>
                 </div>
 
                 <div class="loading" id="loadingIndicator">Loading events...</div>
@@ -295,6 +282,7 @@
                             <th>Image</th>
                             <th>Title</th>
                             <th>Type</th>
+                            <th>Team</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Location</th>
@@ -328,6 +316,15 @@
                             <option value="esports">Esports</option>
                             <option value="community">Community</option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventTeam">Associated Team (Optional)</label>
+                        <select id="eventTeam">
+                            <option value="">No specific team</option>
+                            <!-- Teams will be loaded dynamically -->
+                        </select>
+                        <small style="color: #f2f2f2; margin-top: 5px; display: block;">Link this event to a specific team</small>
                     </div>
 
                     <div class="form-group">
@@ -382,7 +379,7 @@
 
                     <div class="form-group">
                         <label for="eventImage">Event Image</label>
-                        <input type="file" id="eventImage" accept="image/jpeg,image/jpg,image/png,image/webp">
+                        <input type="file" id="eventImage" accept="image/jpeg,image/jpg,image/png,image/webp,image/avif">
                         <img id="imagePreview" class="image-preview" style="display: none;">
                     </div>
 
@@ -400,7 +397,7 @@
         const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentEditingEvent = null;
         let currentFilter = 'all';
@@ -423,15 +420,50 @@
         // Initialize
         async function init() {
             // Check authentication
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
             if (!session) {
                 // Not logged in, redirect to login page
                 window.location.href = 'admin-login.html';
                 return;
-            } else {
+            }
+
+            // Check if user is an admin
+            try {
+                const { data: adminUser, error } = await supabaseClient
+                    .from('admin_users')
+                    .select('*')
+                    .eq('email', session.user.email)
+                    .single();
+
+                if (error || !adminUser) {
+                    // User is authenticated but not an admin
+                    await supabaseClient.auth.signOut();
+                    window.location.href = 'admin-login.html';
+                    return;
+                }
+
+                // Show Admins link if super admin
+                if (adminUser.role === 'super_admin') {
+                    const adminsNavLink = document.getElementById('adminsNavLink');
+                    if (adminsNavLink) {
+                        adminsNavLink.style.display = 'inline-block';
+                    }
+                }
+
                 mainContent.style.display = 'block';
+
+                // Display user email
+                const userEmailEl = document.getElementById('userEmail');
+                if (userEmailEl && session.user) {
+                    userEmailEl.textContent = session.user.email;
+                }
+
                 loadEvents();
+            } catch (error) {
+                console.error('Error checking admin status:', error);
+                await supabaseClient.auth.signOut();
+                window.location.href = 'admin-login.html';
             }
         }
 
@@ -441,7 +473,7 @@
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', async () => {
                     try {
-                        const { error } = await supabase.auth.signOut();
+                        const { error } = await supabaseClient.auth.signOut();
                         if (error) throw error;
                         window.location.href = 'admin-login.html';
                     } catch (error) {
@@ -464,14 +496,40 @@
             }, 5000);
         }
 
+        // Load all teams into dropdown
+        async function loadTeamsDropdown() {
+            try {
+                const { data: teams, error } = await supabaseClient
+                    .from('teams')
+                    .select('*')
+                    .order('name', { ascending: true });
+
+                if (error) throw error;
+
+                const teamSelect = document.getElementById('eventTeam');
+                // Keep the first option ("No specific team")
+                teamSelect.innerHTML = '<option value="">No specific team</option>';
+
+                teams.forEach(team => {
+                    const option = document.createElement('option');
+                    option.value = team.id;
+                    option.textContent = team.name;
+                    teamSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                showAlert('Failed to load teams: ' + error.message, 'error');
+            }
+        }
+
         // Load all events
         async function loadEvents() {
             loadingIndicator.classList.add('active');
 
             try {
-                const { data: events, error } = await supabase
+                const { data: events, error } = await supabaseClient
                     .from('events')
-                    .select('*')
+                    .select('*, teams(name)')
                     .order('event_date', { ascending: false });
 
                 if (error) throw error;
@@ -504,6 +562,12 @@
                 case 'past':
                     filteredEvents = filteredEvents.filter(e => e.event_date < today);
                     break;
+                case 'unassigned':
+                    filteredEvents = filteredEvents.filter(e => !e.team_id);
+                    break;
+                case 'with-team':
+                    filteredEvents = filteredEvents.filter(e => e.team_id);
+                    break;
             }
 
             displayEvents(filteredEvents);
@@ -514,7 +578,7 @@
             eventsTableBody.innerHTML = '';
 
             if (events.length === 0) {
-                eventsTableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No events found. Add your first event!</td></tr>';
+                eventsTableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No events found. Add your first event!</td></tr>';
                 return;
             }
 
@@ -533,26 +597,80 @@
                     })
                     : '-';
 
-                row.innerHTML = `
-                    <td>
-                        ${event.picture_url
-                            ? `<img src="${event.picture_url}" class="event-image" alt="${event.title}">`
-                            : '<div class="event-image bg-gray-600"></div>'}
-                    </td>
-                    <td>${event.title}</td>
-                    <td>
-                        <span class="event-type-badge event-type-${event.type}">${event.type}</span>
-                    </td>
-                    <td>${eventDate}</td>
-                    <td>${eventTime}</td>
-                    <td>${event.location || '-'}</td>
-                    <td>
-                        <div class="actions">
-                            <button class="btn btn-edit btn-small" onclick="editEvent('${event.id}')">Edit</button>
-                            <button class="btn btn-danger btn-small" onclick="deleteEvent('${event.id}', '${event.picture_url || ''}')">Delete</button>
-                        </div>
-                    </td>
-                `;
+                const teamName = event.teams?.name || 'Unassigned';
+                const teamStyle = event.teams?.name ? 'color: #fcfcfc;' : 'color: #ff9800; font-style: italic;';
+
+                // Image cell
+                const imgCell = document.createElement('td');
+                if (event.picture_url) {
+                    const img = document.createElement('img');
+                    img.className = 'event-image';
+                    img.src = event.picture_url;
+                    img.alt = event.title || '';
+                    imgCell.appendChild(img);
+                } else {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'event-image bg-gray-600';
+                    imgCell.appendChild(placeholder);
+                }
+
+                // Title cell
+                const titleCell = document.createElement('td');
+                titleCell.textContent = event.title;
+
+                // Type cell
+                const typeCell = document.createElement('td');
+                const typeBadge = document.createElement('span');
+                typeBadge.className = `event-type-badge event-type-${event.type}`;
+                typeBadge.textContent = event.type;
+                typeCell.appendChild(typeBadge);
+
+                // Team cell
+                const teamCell = document.createElement('td');
+                teamCell.style.cssText = teamStyle;
+                teamCell.textContent = teamName;
+
+                // Date cell
+                const dateCell = document.createElement('td');
+                dateCell.textContent = eventDate;
+
+                // Time cell
+                const timeCell = document.createElement('td');
+                timeCell.textContent = eventTime;
+
+                // Location cell
+                const locationCell = document.createElement('td');
+                locationCell.textContent = event.location || '-';
+
+                // Actions cell
+                const actionsCell = document.createElement('td');
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'actions';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-edit btn-small';
+                editBtn.textContent = 'Edit';
+                editBtn.addEventListener('click', () => editEvent(event.id));
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-small';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteEvent(event.id, event.picture_url || ''));
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                actionsCell.appendChild(actionsDiv);
+
+                // Append all cells to row
+                row.appendChild(imgCell);
+                row.appendChild(titleCell);
+                row.appendChild(typeCell);
+                row.appendChild(teamCell);
+                row.appendChild(dateCell);
+                row.appendChild(timeCell);
+                row.appendChild(locationCell);
+                row.appendChild(actionsCell);
+
                 eventsTableBody.appendChild(row);
             });
         }
@@ -568,7 +686,7 @@
         });
 
         // Open modal for adding new event
-        addEventBtn.addEventListener('click', () => {
+        addEventBtn.addEventListener('click', async () => {
             currentEditingEvent = null;
             document.getElementById('modalTitle').textContent = 'Add Event';
             eventForm.reset();
@@ -579,6 +697,9 @@
             // Set default date to today
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('eventDate').value = today;
+
+            // Load teams dropdown
+            await loadTeamsDropdown();
 
             eventModal.classList.add('active');
         });
@@ -599,6 +720,15 @@
         imageInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
+                // Check file size (5MB limit)
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                if (file.size > maxSize) {
+                    showAlert('Image file size must be less than 5MB. Please choose a smaller file.', 'error');
+                    imageInput.value = ''; // Clear the file input
+                    imagePreview.style.display = 'none';
+                    return;
+                }
+
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     imagePreview.src = e.target.result;
@@ -614,14 +744,14 @@
             const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
             const filePath = fileName;
 
-            const { data, error } = await supabase.storage
+            const { data, error } = await supabaseClient.storage
                 .from('event-images')
                 .upload(filePath, file);
 
             if (error) throw error;
 
             // Get public URL
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl } } = supabaseClient.storage
                 .from('event-images')
                 .getPublicUrl(filePath);
 
@@ -637,7 +767,7 @@
                 const urlParts = imageUrl.split('/');
                 const fileName = urlParts[urlParts.length - 1];
 
-                const { error } = await supabase.storage
+                const { error } = await supabaseClient.storage
                     .from('event-images')
                     .remove([fileName]);
 
@@ -654,6 +784,7 @@
             const eventId = document.getElementById('eventId').value;
             const title = document.getElementById('eventTitle').value;
             const type = document.getElementById('eventType').value;
+            const teamId = document.getElementById('eventTeam').value;
             const description = document.getElementById('eventDescription').value;
             const eventDate = document.getElementById('eventDate').value;
 
@@ -690,6 +821,7 @@
                 const eventData = {
                     title,
                     type,
+                    team_id: teamId || null,
                     description: description || null,
                     event_date: eventDate,
                     event_time: eventTime || null,
@@ -699,7 +831,7 @@
 
                 if (eventId) {
                     // Update existing event
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('events')
                         .update(eventData)
                         .eq('id', eventId);
@@ -708,7 +840,7 @@
                     showAlert('Event updated successfully!');
                 } else {
                     // Add new event
-                    const { error } = await supabase
+                    const { error } = await supabaseClient
                         .from('events')
                         .insert([eventData]);
 
@@ -727,7 +859,7 @@
         // Edit event
         async function editEvent(id) {
             try {
-                const { data: event, error } = await supabase
+                const { data: event, error } = await supabaseClient
                     .from('events')
                     .select('*')
                     .eq('id', id)
@@ -735,11 +867,15 @@
 
                 if (error) throw error;
 
+                // Load teams dropdown
+                await loadTeamsDropdown();
+
                 currentEditingEvent = event;
                 document.getElementById('modalTitle').textContent = 'Edit Event';
                 document.getElementById('eventId').value = event.id;
                 document.getElementById('eventTitle').value = event.title;
                 document.getElementById('eventType').value = event.type;
+                document.getElementById('eventTeam').value = event.team_id || '';
                 document.getElementById('eventDescription').value = event.description || '';
                 document.getElementById('eventDate').value = event.event_date;
                 document.getElementById('eventLocation').value = event.location || '';
@@ -790,7 +926,7 @@
 
             try {
                 // Delete the event record
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('events')
                     .delete()
                     .eq('id', id);

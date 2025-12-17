@@ -1,0 +1,13 @@
+{
+  "name": "artuesports",
+  "version": "1.0.0",
+  "description": "Art U Esports - Academy of Art University Esports Program",
+  "scripts": {
+    "start": "http-server -p 8000 -o",
+    "dev": "http-server -p 8000",
+    "serve": "http-server"
+  },
+  "keywords": ["esports", "static-site"],
+  "author": "",
+  "license": "ISC"
+}

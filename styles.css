@@ -22,6 +22,7 @@
     --color-bg-900: #050708;
     --color-bg-800: #1d252c;
     --color-bg-600: #405464;
+    --color-bg-400:#6C8293;
     --color-core-50: #fcfcfc;
     --color-core-100: #f2f2f2;
     
@@ -41,8 +42,8 @@
     --font-pressio-medium-condensed: 'pressio-condensed', 'Arial Black', sans-serif; /* No. 43 Medium Condensed */
     
     /* Spacing */
-    --spacing-section: 37px;
-    --spacing-container: 36px;
+    --spacing-section: 48px;
+    --spacing-container: 36px; /* Desktop: 36px */
 }
 
 /* ============================================
@@ -68,40 +69,64 @@
 body {
     margin: 0;
     padding: 0;
+    padding-top: 106px; /* Account for fixed navbar height (24px top + 57.828px logo + 24px bottom) */
     font-size: 100%;
     font-family: var(--font-urbanist);
     color: var(--color-core-50);
     background-color: var(--color-bg-900);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+}
+
+html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* Typography - Desktop (default) */
+/* H1: Desktop - 128px */
 h1 {
     font-family: "pressio-condensed", sans-serif;
-    font-size: 128px !important; /* Desktop */
+    font-size: 128px !important;
     color: var(--color-core-50);
+    margin: 0;
+    line-height: 1;
 }
 
+/* H2: Desktop - 72px */
 h2 {
     font-family: "pressio-condensed", sans-serif;
-    font-size: 72px; /* Desktop */
+    font-size: 72px;
     color: var(--color-core-50);
 }
 
+/* H3: Desktop - 64px */
 h3 {
     font-family: "pressio-condensed", sans-serif;
-    font-size: 64px; /* Desktop */
+    font-size: 64px;
     color: var(--color-core-50);
 }
 
 /* Paragraph Type Styles */
-.p1 {
-    font-family: "urbanist", sans-serif;
-    font-size: 26px; /* Desktop */
+/* Global paragraph default - 0 tracking */
+p {
+    letter-spacing: 0;
 }
 
+/* P1: Desktop - 26px */
+.p1 {
+    font-family: "urbanist", sans-serif;
+    font-size: 26px;
+    letter-spacing: 0;
+}
+
+/* P2: Desktop - 20px */
 .p2 {
     font-family: "urbanist", sans-serif;
-    font-size: 20px; /* Desktop */
+    font-size: 20px;
+    letter-spacing: 0;
 }
 
 a {
@@ -135,9 +160,13 @@ a:hover {
 /* Navbar (from style.css - main nav bar) */
 .navbar {
     background-color: var(--color-bg-800);
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
     box-sizing: border-box;
+    z-index: 1002;
 }
 
 .nav-container {
@@ -156,7 +185,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 36px;
+    padding: 24px var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
 }
@@ -224,11 +253,224 @@ a:hover {
     flex-shrink: 0;
 }
 
+/* Hamburger Menu Button - Hidden on desktop */
+.hamburger-menu-btn {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.hamburger-menu-btn:hover {
+    opacity: 0.8;
+}
+
+.hamburger-menu-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.hamburger-menu-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Mobile Menu Overlay - Hidden on desktop */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    z-index: 9998;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
+    display: none;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    background-color: rgba(64, 84, 100, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* Mobile Menu Panel - Hidden on desktop */
+.mobile-menu-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 66.67%;
+    max-width: 333px;
+    background-color: var(--color-bg-800);
+    z-index: 9999;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    box-shadow: none;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.mobile-menu-panel.active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    box-shadow: -327px -39px 92px 0px rgba(176, 176, 176, 0),
+                -209px -25px 84px 0px rgba(176, 176, 176, 0.01),
+                -118px -14px 71px 0px rgba(176, 176, 176, 0.05),
+                -52px -6px 53px 0px rgba(176, 176, 176, 0.09),
+                -13px -2px 29px 0px rgba(176, 176, 176, 0.1);
+}
+
+/* Mobile Menu Content */
+.mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    height: 100%;
+}
+
+/* Mobile Menu Items */
+.mobile-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    color: var(--color-core-50);
+    text-decoration: none;
+    font-family: 'pressio-condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.mobile-menu-item:hover,
+.mobile-menu-item:focus {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.mobile-menu-item.active {
+    color: var(--color-primary);
+}
+
+/* Mobile Menu Item with Submenu */
+.mobile-menu-item.has-submenu {
+    justify-content: space-between;
+}
+
+.mobile-menu-item.has-submenu::after {
+    content: '▾';
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.mobile-menu-item.has-submenu.expanded::after {
+    transform: rotate(180deg);
+}
+
+/* Mobile Menu Item with Submenu Container */
+.mobile-menu-item-with-submenu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.mobile-menu-item-with-submenu .mobile-menu-item {
+    flex: 1;
+    padding-right: 0;
+}
+
+.mobile-submenu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--color-core-50);
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.mobile-submenu-toggle:hover,
+.mobile-submenu-toggle:focus {
+    color: var(--color-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-submenu-arrow {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+    display: block;
+}
+
+.mobile-submenu-toggle.expanded .mobile-submenu-arrow {
+    transform: rotate(180deg);
+}
+
+/* Mobile Submenu */
+.mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.mobile-submenu.active {
+    max-height: 500px;
+}
+
+.mobile-submenu-item {
+    display: block;
+    padding: 12px 24px 12px 48px;
+    color: var(--color-core-50);
+    text-decoration: none;
+    font-family: 'pressio-condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mobile-submenu-item:hover,
+.mobile-submenu-item:focus {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
 /* Desktop Navigation Menu */
 .desktop-nav-menu {
     display: flex;
     gap: 48px;
-    align-items: center;
+    align-items: baseline;
     font-family: 'pressio-condensed', sans-serif;
     font-size: 28px;
     font-weight: 700;
@@ -246,6 +488,9 @@ a:hover {
     font-weight: 700;
     text-decoration: none;
     color: inherit;
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 1;
 }
 
 .nav-item:hover {
@@ -276,7 +521,7 @@ a:hover {
     min-width: 200px;
     padding: 8px 0 12px 0;
     margin-top: 0;
-    border-radius: 8px;
+    border-radius: 16px;
     display: none;
     flex-direction: column;
     gap: 0;
@@ -315,6 +560,7 @@ a:hover {
 .dropdown-item:hover {
     background-color: var(--color-bg-600);
     color: var(--color-primary);
+    text-decoration: none;
 }
 
 .dropdown-item:hover h2 {
@@ -364,7 +610,28 @@ a:hover {
     align-items: center;
     position: relative;
     padding: 0;
+    margin-top: 30px; /* Gap between navbar and carousel */
     box-sizing: border-box;
+}
+
+/* Lounge page: match index carousel side padding */
+.page-carousel,
+.lounge-carousel {
+    padding: 0 var(--spacing-container);
+}
+
+@media screen and (max-width: 768px) {
+    .page-carousel,
+    .lounge-carousel {
+        padding: 0 var(--spacing-container);
+    }
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .carousel-content-wrapper {
@@ -379,7 +646,7 @@ a:hover {
 
 .carousel-deck {
     width: 100%;
-    height: 971px;
+    aspect-ratio: 1920 / 1080; /* 16:9 aspect ratio */
     position: relative;
     overflow: hidden;
     border-radius: 16px;
@@ -427,6 +694,42 @@ a:hover {
     color: #666;
 }
 
+.carousel-slide-content.carousel-logo-slide {
+    background-color: #1a1a1a; /* Dark charcoal grey background to match hexagon logo design */
+    background-image: 
+        repeating-linear-gradient(60deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+        repeating-linear-gradient(-60deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+    /* Subtle hexagonal pattern effect */
+}
+
+.carousel-logo-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Community carousel slide content - ensure full height and proper positioning */
+.carousel-slide [data-name="lounge-card-container"] {
+    min-height: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+/* Ensure carousel slide content is visible */
+.carousel-slide > div {
+    overflow: visible;
+}
+
+/* Ensure Community title is visible */
+.carousel-slide [data-name="game-lounge-title"] h1 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
 .carousel-arrow {
     position: absolute;
     width: 48px;
@@ -470,30 +773,68 @@ a:hover {
 
 .carousel-pagination {
     display: flex;
-    gap: 8px;
+    gap: 32px;
     align-items: center;
     justify-content: center;
 }
 
 .carousel-paginate {
-    width: 8px;
-    height: 8px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background-color: var(--color-core-100);
     border: none;
     cursor: pointer;
     padding: 0;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     outline: none;
+    opacity: 0.5;
+}
+
+.carousel-paginate:nth-child(1):not(.active) {
+    opacity: 0.9;
+}
+
+.carousel-paginate:nth-child(2):not(.active) {
+    opacity: 0.7;
+}
+
+.carousel-paginate:nth-child(3):not(.active) {
+    opacity: 0.5;
+}
+
+.carousel-paginate:nth-child(4):not(.active) {
+    opacity: 0.3;
+}
+
+.carousel-paginate:nth-child(5):not(.active) {
+    opacity: 0.2;
 }
 
 .carousel-paginate.active {
     background-color: var(--color-primary);
+    opacity: 1;
+}
+
+.carousel-paginate.distance-1 {
+    background-color: #D9D9D9;
+}
+
+.carousel-paginate.distance-2 {
+    background-color: rgba(217, 217, 217, 0.80);
+}
+
+.carousel-paginate.distance-3 {
+    background-color: rgba(217, 217, 217, 0.60);
+}
+
+.carousel-paginate.distance-4 {
+    background-color: rgba(217, 217, 217, 0.40);
 }
 
 .carousel-paginate:hover {
     background-color: var(--color-primary);
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 /* ============================================
@@ -503,12 +844,25 @@ a:hover {
 .content-section {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 30px;
     align-items: flex-start;
     padding: 0 var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
     color: var(--color-core-50);
+}
+
+/* Limit content-section body width on desktop */
+.content-section > .section-text {
+    width: 50%;
+    max-width: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+    .content-section > .section-text {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 .section-title {
@@ -533,6 +887,232 @@ a:hover {
     color: var(--color-core-50);
     margin: 0;
     width: 100%;
+}
+
+/* Equipment Specs Section */
+.equipment-specs-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 var(--spacing-container);
+    box-sizing: border-box;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.equipment-specs-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2px; /* minimal spacing between text and image */
+    width: 100%;
+    max-width: 100%;
+}
+
+.equipment-specs-text {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: flex-start;
+    width: 55%;
+    max-width: 55%;
+    flex-shrink: 0;
+}
+
+.equipment-specs-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 64px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -1.28px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.equipment-specs-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    color: var(--color-text-primary);
+}
+
+.equipment-specs-subtitle {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500;
+    font-size: 32px;
+    line-height: normal;
+    letter-spacing: -0.64px;
+    color: var(--color-text-primary);
+    margin: 0 0 14px 0;
+}
+
+.equipment-specs-list {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.equipment-specs-list li {
+    margin: 0;
+    line-height: normal;
+}
+
+.equipment-specs-list li:last-child {
+    margin-bottom: 0;
+}
+
+.spec-label {
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.spec-value {
+    color: var(--color-text-primary);
+}
+
+.equipment-specs-additional {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    color: var(--color-text-primary);
+    margin: 4px 0 0 0;
+}
+
+.equipment-specs-image {
+    width: 45%;
+    max-width: 45%;
+    height: auto;
+    aspect-ratio: 819 / 461;
+    flex-shrink: 1;
+    align-self: flex-start; /* align image top with title */
+}
+
+/* Equipment Specs: stack and enlarge image on tablet / small desktop */
+@media screen and (max-width: 1280px) {
+    .equipment-specs-content {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 24px;
+        width: 100%;
+    }
+
+    .equipment-specs-text {
+        width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+        order: 1;
+    }
+
+    .equipment-specs-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        min-height: 280px;
+        align-self: stretch;
+        flex-shrink: 0;
+        order: 2;
+        display: block;
+    }
+}
+
+.equipment-specs-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #d9d9d9;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+/* Game Night Section */
+.game-night-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 var(--spacing-container);
+    box-sizing: border-box;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.game-night-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 4px; /* tighter gap between text and image */
+    width: 100%;
+    max-width: 100%;
+}
+
+.game-night-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-section);
+    align-items: flex-start;
+    width: 55%;
+    max-width: 55%;
+    flex-shrink: 0;
+}
+
+.game-night-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -1.28px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.game-night-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.52px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.game-night-time {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: normal;
+    letter-spacing: -0.56px;
+    text-decoration: underline;
+    text-underline-position: from-font;
+    text-decoration-thickness: auto;
+}
+
+.game-night-image {
+    width: 45%;
+    max-width: 45%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 1;
+}
+
+.game-night-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #d9d9d9;
+    border-radius: 16px;
+    object-fit: cover;
 }
 
 /* Section Headings */
@@ -631,6 +1211,7 @@ a:hover {
     align-items: flex-start;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 48px;
 }
 
 .footer-top {
@@ -638,7 +1219,7 @@ a:hover {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 16px 36px;
+    padding: 16px var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
 }
@@ -709,15 +1290,16 @@ a:hover {
     object-fit: contain;
     object-position: center;
     transition: filter 0.3s ease;
+    filter: brightness(0) invert(1); /* Makes icons white (--color-core-50) */
 }
 
 .social-icon:hover img {
-    filter: drop-shadow(0 0 8px var(--color-primary));
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px var(--color-primary));
 }
 
 .social-icon-primary {
     background-color: var(--color-primary);
-    border-radius: 40px;
+    border-radius: 16px;
     padding: 6px;
     box-sizing: border-box;
     width: 36px;
@@ -732,6 +1314,29 @@ a:hover {
     height: 24px;
     object-fit: contain;
     object-position: center;
+    filter: brightness(0) invert(1); /* Makes icons white (--color-core-50) */
+}
+
+/* Apply red circle background to all social icons in footer */
+.footer .social-icons .social-icon {
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: filter 0.3s ease;
+}
+
+.footer .social-icons .social-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    object-position: center;
+    filter: brightness(0) invert(1); /* Makes icons white (--color-core-50) */
+    transition: filter 0.3s ease;
+}
+
+.footer .social-icons .social-icon:hover img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px var(--color-primary));
 }
 
 .social-icon-standard {
@@ -808,11 +1413,10 @@ a:hover {
 }
 
 .footer-copyright {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     line-height: normal;
-    color: var(--color-core-100);
+    color: var(--color-bg-400);
     margin: 0;
     letter-spacing: -0.4px;
     text-align: center;
@@ -827,11 +1431,10 @@ a:hover {
 }
 
 .footer-legal-link {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     line-height: normal;
-    color: var(--color-core-100);
+    color: var(--color-bg-400);
     margin: 0;
     letter-spacing: -0.4px;
     text-align: center;
@@ -881,6 +1484,61 @@ a:hover {
 /* ============================================
    Common Button Styles
    ============================================ */
+
+/* Base button styles - can be used with <button> or <a> */
+.btn-filled,
+.btn-lined {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 54px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: none;
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 14px; /* P1 Desktop */
+    line-height: 1;
+    letter-spacing: -0.28px;
+    white-space: nowrap;
+    width: auto;
+    height: auto;
+}
+
+/* Filled Button - Red background with white text */
+.btn-filled {
+    background-color: var(--color-primary);
+    color: var(--color-core-50);
+    border: none;
+}
+
+.btn-filled:hover {
+    background-color: var(--color-core-50);
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Lined Button - Transparent background with white border */
+.btn-lined {
+    background-color: transparent;
+    border: 1.5px solid var(--color-text-primary);
+    color: var(--color-text-primary);
+}
+
+.btn-lined:hover {
+    background-color: var(--color-core-50);
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Legacy button classes - kept for backward compatibility but deprecated */
 .btn-primary {
     border: 3px solid var(--color-text-primary);
     box-sizing: border-box;
@@ -889,7 +1547,7 @@ a:hover {
     gap: 20px;
     align-items: center;
     justify-content: center;
-    padding: 16px 36px;
+    padding: 16px var(--spacing-container);
     border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -939,28 +1597,7 @@ a:hover {
     color: var(--color-bg-primary);
 }
 
-.btn-learn-more {
-    background-color: var(--color-primary);
-    border: none;
-    border-radius: 16px;
-    padding: 12px 54px;
-    font-family: var(--font-urbanist);
-    font-weight: 500;
-    font-size: 26px;
-    line-height: normal;
-    letter-spacing: -0.52px;
-    color: var(--color-text-primary);
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-}
-
-.btn-learn-more:hover {
-    opacity: 0.9;
-}
+/* .btn-learn-more removed - replaced by .btn-filled */
 
 /* ============================================
    Common Card Styles
@@ -975,13 +1612,20 @@ a:hover {
 .card-image-placeholder {
     aspect-ratio: 478 / 260;
     background-color: var(--color-placeholder);
-    border-radius: 8px;
+    border-radius: 16px;
     width: 100%;
 }
 
 /* ============================================
    Utility Classes
    ============================================ */
+/* Responsive container padding */
+[data-name="home-desktop"],
+.connect-page-container {
+    padding-left: var(--spacing-container);
+    padding-right: var(--spacing-container);
+}
+
 .page-container {
     background-color: var(--color-bg-primary);
     box-sizing: border-box;
@@ -1114,6 +1758,40 @@ img {
     background-clip: text;
 }
 
+/* Academic Opportunities title - exact typography */
+.academic-opportunities-title-text,
+.connect-page-container [data-node-id="549:2246"] {
+    color: var(--Core-50, #FCFCFC);
+    text-align: center;
+    font-family: Pressio, sans-serif;
+    font-size: var(--Type-Display-H1-Size, 128px);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    align-self: stretch;
+    margin-top: 30px;
+}
+
+/* Academic Opportunities paragraph text - exact Figma styling */
+.academic-opportunities-text,
+.connect-page-container [data-node-id="549:2248"],
+[data-node-id="354:285"] {
+    text-align: center;
+    font-family: Urbanist, sans-serif;
+    font-size: 26px; /* Desktop: 26px */
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.48px;
+    background: linear-gradient(180deg, #F2F2F2 0%, #050708 122.14%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    align-self: stretch;
+}
+
 /* ============================================
    Component-Specific Styles
    ============================================ */
@@ -1198,9 +1876,9 @@ img {
 }
 
 .equipment-specs-list {
-    list-style-type: disc;
-    margin-bottom: 0;
-    white-space: pre-wrap;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
 }
 
 .equipment-specs-item {
@@ -1259,7 +1937,7 @@ img {
     background-color: #fcfcfc;
     height: 29px;
     width: 30px;
-    border-radius: 6px;
+    border-radius: 16px;
 }
 
 /* Overlay Section Styles */
@@ -1284,7 +1962,7 @@ img {
     max-width: 100%;
     left: 0;
     top: 0;
-    border-radius: 8px;
+    border-radius: 16px;
     border: 1.5px solid #405464;
     backdrop-filter: blur(12.5px);
 }
@@ -1409,7 +2087,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 72px;
-    padding: 0 24px;
+    padding: 0 var(--spacing-container);
     width: 100%;
     margin: 0;
     background-color: var(--color-bg-900);
@@ -1420,9 +2098,11 @@ img {
 .news-events-section {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 48px;
     align-items: flex-start;
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .title-filter-container {
@@ -1430,7 +2110,7 @@ img {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    gap: 0;
+    gap: 36px;
 }
 
 .title-news-events-container {
@@ -1441,6 +2121,11 @@ img {
     justify-content: center;
     width: 100%;
     margin-bottom: 0;
+}
+
+/* Hide tablet break by default (desktop) */
+.tablet-break {
+    display: none;
 }
 
 .news-events-title {
@@ -1476,7 +2161,7 @@ img {
 .events-page .events-filter-chip {
     font-family: var(--font-urbanist);
     font-weight: 500;
-    font-size: 40px;
+    font-size: 28px;
     line-height: 1;
     color: var(--color-core-100);
     background: none;
@@ -1549,7 +2234,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     width: 100%;
 }
@@ -1612,6 +2297,174 @@ img {
     overflow: hidden;
 }
 
+/* Game Lounge Section */
+.events-game-lounge-section {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    align-items: center;
+    padding: 48px var(--spacing-container);
+    background-color: var(--color-bg-800);
+    border-radius: 0;
+    width: 100vw;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+.page-container .events-game-lounge-section {
+    margin-top: 48px;
+}
+
+.game-lounge-card-container {
+    flex: 1 0 0;
+    min-height: 400px;
+    min-width: 400px;
+    background-color: var(--color-core-100);
+    border-radius: 16px;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    margin-left: 20px;
+    margin-top: 0;
+}
+
+.game-lounge-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+}
+
+.events-game-lounge-section .game-lounge-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    flex-shrink: 1;
+    width: 634px;
+    max-width: 100%;
+    min-width: 0;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 24px;
+    box-sizing: border-box;
+    padding-right: 24px;
+}
+
+.events-game-lounge-section .game-lounge-title {
+    /* Inherit H1 properties */
+    font-family: "pressio-condensed", sans-serif;
+    font-weight: 700;
+    font-size: 128px !important; /* H1 Desktop - 128px */
+    line-height: 1;
+    letter-spacing: -2.56px; /* H1 letter-spacing */
+    text-transform: uppercase;
+    color: var(--color-core-100); /* Override H1 default color to match design */
+    margin: 0;
+    white-space: normal;
+    width: 100%;
+    text-align: left;
+    position: static;
+}
+
+.events-game-lounge-section .game-lounge-description {
+    font-family: var(--font-urbanist);
+    font-weight: 400;
+    color: var(--color-core-50);
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.events-game-lounge-section .game-lounge-description p {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.5;
+    letter-spacing: 0;
+    max-width: 100%;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+}
+
+/* .game-lounge-btn removed - uses standard .btn-lined class */
+
+/* Event Section */
+section.event {
+    padding: 36px;
+}
+
+/* Follow Us Section */
+.events-follow-us-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 72px 24px;
+    gap: 12px;
+    background-color: transparent;
+}
+
+.page-container .events-follow-us-section {
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+/* Connect page: Add grey-800 background to hop online section */
+.connect-page-container .events-follow-us-section {
+    background-color: var(--color-bg-800);
+}
+
+.page-container .events-follow-us-section .social-icons {
+    margin-bottom: 0;
+}
+
+.follow-us-text {
+    margin: 0;
+    color: var(--color-core-50);
+}
+
+.follow-us-title {
+    margin: 0;
+    text-align: center;
+    color: var(--color-core-50);
+}
+
+.events-follow-us-section .social-icons {
+    margin-top: 12px;
+    margin-bottom: 72px;
+    justify-content: center;
+}
+
+.events-follow-us-section .social-icon {
+    text-decoration: none;
+    background-color: var(--color-primary);
+    border-radius: 16px;
+    padding: 6px;
+    box-sizing: border-box;
+    width: 36px;
+    height: 36px;
+}
+
+.events-follow-us-section .social-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    object-position: center;
+    filter: brightness(0) invert(1); /* Makes icons white (--color-core-50) */
+}
+
 /* Team Hero Section */
 .team-hero-section {
     display: flex;
@@ -1619,6 +2472,7 @@ img {
     gap: 36px;
     align-items: flex-start;
     width: 100%;
+    margin-top: 16px;
 }
 
 .team-hero-image-placeholder {
@@ -1656,11 +2510,110 @@ img {
     font-weight: 500;
     font-size: 26px; /* P1 Desktop */
     line-height: 1;
-    letter-spacing: -0.52px;
+    letter-spacing: 0;
     color: var(--color-text-primary);
     margin: 0;
     width: 727px;
     max-width: 100%;
+}
+
+.team-hero-twitch-icon {
+    width: 36px;
+    height: 36px;
+    margin-top: 16px;
+    display: block;
+    filter: brightness(0) invert(1); /* Makes icon white */
+    transition: filter 0.3s ease;
+}
+
+.team-hero-twitch-icon:hover {
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px var(--color-primary));
+}
+
+/* ============================================
+   Pillars Section
+   ============================================ */
+.pillars-section {
+    background-color: var(--color-bg-800);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% + 2 * var(--spacing-container));
+    margin-left: calc(-1 * var(--spacing-container));
+    margin-right: calc(-1 * var(--spacing-container));
+    box-sizing: border-box;
+    margin-top: 48px;
+    min-height: 500px;
+    padding: 80px var(--spacing-container);
+    gap: 40px;
+    overflow: hidden;
+}
+
+.pillars-logo-shield {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    opacity: 0.2;
+    object-fit: cover;
+    object-position: 50% 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pillars-section-title {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: normal;
+    color: var(--color-core-50);
+    margin: 0;
+    text-align: center;
+    z-index: 1;
+    position: relative;
+}
+
+.pillars-words-container {
+    display: flex;
+    gap: 124px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    z-index: 1;
+    position: relative;
+}
+
+.pillars-word {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500;
+    font-size: 72px; /* H2 Desktop */
+    line-height: 1;
+    letter-spacing: -1.44px;
+    color: var(--color-core-50);
+    margin: 0;
+    white-space: nowrap;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.pillars-section-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    font-size: 14px; /* Type/Paragraph/P1 from Figma */
+    line-height: normal;
+    letter-spacing: -0.28px;
+    color: var(--color-core-50);
+    text-align: center;
+    width: 727px;
+    max-width: 100%;
+    margin: 0;
+    white-space: pre-wrap;
+    z-index: 1;
+    position: relative;
 }
 
 /* ============================================
@@ -1672,7 +2625,7 @@ img {
     gap: 10px;
     align-items: flex-start;
     width: 100%;
-    margin-top: 72px;
+    margin-top: 48px;
 }
 
 .varsity-section-title {
@@ -1686,8 +2639,18 @@ img {
     margin: 0;
 }
 
+.varsity-section-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0;
+    margin-bottom: 24px;
+    max-width: 600px;
+}
+
 .varsity-cards-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     align-items: center;
     width: 100%;
@@ -1697,7 +2660,8 @@ img {
     background-color: var(--color-primary);
     box-sizing: border-box;
     display: flex;
-    flex: 1 0 0;
+    flex: 0 0 calc((100% - 32px) / 3);
+    max-width: calc((100% - 32px) / 3);
     flex-direction: column;
     gap: 10px;
     height: 700px;
@@ -1707,6 +2671,67 @@ img {
     min-width: 0;
     padding: 14px 16px;
     position: relative;
+    border-radius: 16px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.varsity-player-card:hover {
+    transform: scale(1.02);
+}
+
+/* Figma-style simple player card */
+.figma-player-card {
+    background-color: var(--color-primary);
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 calc((100% - 32px) / 3);
+    max-width: calc((100% - 32px) / 3);
+    flex-direction: column;
+    gap: 7px;
+    height: 700px;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 0;
+    min-width: 0;
+    padding: 12px;
+    position: relative;
+    border-radius: 16px;
+    flex-shrink: 0;
+}
+
+.figma-player-card-image-container {
+    position: relative;
+    width: 100%;
+    flex: 0.2 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+.figma-player-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    max-width: none;
+    pointer-events: none;
+}
+
+.figma-player-gradient-overlay {
+    position: absolute;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
+    inset: 0;
+    border-radius: 16px;
+    z-index: 1;
+}
+
+.figma-player-card-black-section {
+    background-color: var(--color-bg-900);
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
     border-radius: 16px;
     flex-shrink: 0;
 }
@@ -1727,6 +2752,14 @@ img {
     width: 100%;
 }
 
+.varsity-player-card.image-shrunk .varsity-player-card-inner {
+    background: transparent;
+}
+
+.varsity-player-card-content.image-shrunk {
+    background: transparent;
+}
+
 .varsity-player-card-content {
     box-sizing: border-box;
     display: flex;
@@ -1742,31 +2775,229 @@ img {
     flex-shrink: 0;
     width: 100%;
     height: 100%;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.varsity-player-card-content.image-shrunk {
+    justify-content: flex-start;
+    gap: 7px;
+    padding: 12px;
+    background: transparent;
 }
 
 .varsity-player-image-wrapper {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     pointer-events: none;
     border-radius: 16px;
     overflow: hidden;
+    transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                bottom 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    height: 100%;
+}
+
+.varsity-player-card-content.image-shrunk .varsity-player-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc((100% - 24px - 7px) * 0.48);
+    bottom: auto;
 }
 
 .varsity-player-image {
     position: absolute;
+    top: 0;
+    left: 0;
     max-width: none;
     object-position: 50% 50%;
     object-fit: cover;
     border-radius: 16px;
     width: 100%;
     height: 100%;
+    transition: object-position 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                object-fit 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.varsity-player-card-content.image-shrunk .varsity-player-image {
+    object-position: 50% 0%;
+    object-fit: cover;
+}
+
+.varsity-player-black-section {
+    background-color: var(--color-bg-900);
+    width: 100%;
+    border-radius: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(100% - calc((100% - 24px - 7px) * 0.48) - 7px);
+    transform-origin: bottom center;
+    transform: scaleY(0);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    padding: 20px 12px;
+    box-sizing: border-box;
+}
+
+.varsity-player-card-content.image-shrunk .varsity-player-black-section {
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Stats Row */
+.varsity-player-stats-row {
+    display: flex;
+    gap: 53px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 49px;
+}
+
+.varsity-player-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    text-align: center;
+}
+
+.varsity-player-stat-label {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-text-primary);
+    margin: 0;
+    height: 19px;
+}
+
+.varsity-player-stat-value {
+    font-family: var(--font-pressio-medium-condensed);
+    font-size: 24px;
+    color: var(--color-text-primary);
+    margin: 0;
+    height: 26px;
+}
+
+/* Info Rows */
+.varsity-player-info-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.varsity-player-info-row {
+    display: flex;
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-text-primary);
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.varsity-player-info-left {
+    margin: 0;
+}
+
+.varsity-player-info-right {
+    margin: 0;
+}
+
+/* Quote */
+.varsity-player-quote {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    width: 100%;
+    min-height: 71px;
+}
+
+.varsity-player-quote p {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-text-primary);
+    margin: 0;
+    flex: 1 0 0;
+    line-height: normal;
+}
+
+.varsity-player-card-content.image-shrunk .varsity-player-role,
+.varsity-player-card-content.image-shrunk .varsity-player-details {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.varsity-player-role,
+.varsity-player-details {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.varsity-player-card-content.image-shrunk .btn-filled {
+    opacity: 1;
+    visibility: visible;
+    z-index: 3;
+}
+
+.varsity-player-card-content.image-shrunk .varsity-player-image-wrapper {
+    overflow: hidden;
+}
+
+/* Player name overlay on small image */
+.varsity-player-name-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.varsity-player-card-content.image-shrunk .varsity-player-name-overlay {
+    opacity: 1;
+}
+
+.varsity-player-name-overlay-text {
+    font-family: var(--font-pressio-medium-condensed);
+    font-size: 24px;
+    color: var(--color-text-primary);
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .varsity-player-gradient-overlay {
     position: absolute;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9));
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     border-radius: 16px;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .varsity-player-role {
@@ -1839,33 +3070,7 @@ img {
     min-width: 0;
 }
 
-.varsity-learn-more-btn {
-    background-color: var(--color-primary);
-    border: none;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: 44px;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 54px;
-    border-radius: 16px;
-    flex-shrink: 0;
-    width: 154px;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    font-family: var(--font-urbanist);
-    font-weight: 500;
-    font-size: 14px; /* P1 Desktop */
-    line-height: 1;
-    letter-spacing: -0.28px;
-    color: var(--color-text-primary);
-}
-
-.varsity-learn-more-btn:hover {
-    opacity: 0.9;
-}
+/* .varsity-learn-more-btn removed - replaced by .btn-filled */
 
 /* ============================================
    Team Events Section
@@ -1876,7 +3081,16 @@ img {
     gap: 10px;
     align-items: flex-start;
     width: 100%;
-    margin-top: 72px;
+    margin-top: 48px;
+}
+
+.team-events-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 24px;
 }
 
 .team-events-section-title {
@@ -1888,6 +3102,18 @@ img {
     text-transform: uppercase;
     color: var(--color-text-primary);
     margin: 0;
+    flex-shrink: 0;
+}
+
+.team-events-header .btn-lined {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.team-events-section-title + p,
+.team-events-header + p {
+    margin-top: -5px;
+    width: 50%;
 }
 
 .team-events-cards-container {
@@ -1909,14 +3135,14 @@ img {
     min-width: 0;
     padding: 12px 14px;
     position: relative;
-    border-radius: 12px;
+    border-radius: 16px;
     flex-shrink: 0;
 }
 
 .team-event-card-image {
     aspect-ratio: 190 / 110;
     background-color: var(--color-placeholder);
-    border-radius: 8px;
+    border-radius: 16px;
     flex-shrink: 0;
     width: 100%;
 }
@@ -2053,7 +3279,7 @@ img {
     margin: 0;
     font-family: var(--font-urbanist);
     font-weight: 500;
-    font-size: 40px;
+    font-size: 28px;
     line-height: 1;
     color: var(--color-text-secondary);
     cursor: pointer;
@@ -2070,23 +3296,32 @@ img {
     color: var(--color-primary);
 }
 
-.events-grid {
+.events-grid,
+.index-events-grid,
+.events-recaps-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px 10px;
     align-items: stretch;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: var(--spacing-container);
+    padding-right: var(--spacing-container);
+    box-sizing: border-box;
 }
 
 .event-card {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 14px 12px;
-    border-radius: 12px;
+    padding: 17px 15px; /* Updated to match Figma design */
+    border-radius: 16px;
     border: 4px solid var(--color-bg-primary);
     background-color: var(--color-primary);
     color: var(--color-text-primary);
-    height: auto;
+    height: 100%; /* Stretch to match tallest card in column */
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease, display 0.3s ease;
 }
@@ -2124,7 +3359,7 @@ img {
 .event-card-content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px; /* Updated to match Figma design */
 }
 
 .event-card-image-wrapper {
@@ -2138,7 +3373,7 @@ img {
     height: auto !important; /* Force override any fixed height */
     min-height: 0; /* Allow height to shrink */
     aspect-ratio: 190 / 110; /* Maintains aspect ratio across all breakpoints */
-    border-radius: 8px;
+    border-radius: 16px;
     background-color: var(--color-placeholder);
     object-fit: cover; /* Ensure image fills the container while maintaining aspect ratio */
 }
@@ -2155,7 +3390,7 @@ img {
     font-size: 20px; /* P2 Desktop */
     line-height: 1;
     letter-spacing: -0.4px;
-    border-radius: 4px;
+    border-radius: 16px;
     text-transform: uppercase;
     z-index: 1;
 }
@@ -2163,7 +3398,7 @@ img {
 .event-card-body {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 8px; /* Desktop/Tablet spacing */
 }
 
 .event-card-date {
@@ -2172,15 +3407,18 @@ img {
     font-size: 20px; /* P2 Desktop */
     letter-spacing: -0.4px;
     margin: 0;
-    color: var(--color-text-primary);
+    color: #fcfcfc; /* Updated to match Figma */
+    line-height: 1;
 }
 
-.event-card-title {
-    font-size: 72px;
+.event-card-title,
+h2.event-card-title {
+    font-size: 48px !important; /* Override h2 default (72px) for event cards */
     letter-spacing: -1.44px;
     margin: 0;
-    color: var(--color-text-primary);
+    color: #fcfcfc; /* Updated to match Figma */
     overflow-wrap: anywhere;
+    line-height: 1;
 }
 
 .event-card-title.font-pressio-medium {
@@ -2192,11 +3430,88 @@ img {
     font-family: var(--font-urbanist);
     font-weight: 500;
     font-size: 26px;
-    letter-spacing: -0.52px;
+    letter-spacing: 0;
     line-height: 1;
     margin: 0;
-    color: var(--color-text-primary);
+    color: #f2f2f2; /* Updated to match Figma */
     overflow-wrap: anywhere;
+}
+
+/* New design event card with black rectangle - Figma implementation - Applied to all event cards */
+.event-card .event-card-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Fill the card height */
+    flex: 1; /* Grow to fill available space */
+}
+
+.event-card .event-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.event-card .event-card-image {
+    height: 263px; /* Figma: h-[263px] */
+    width: 100%;
+    border-radius: 8px; /* Figma: rounded-[8px] */
+    background-color: #f2f2f2; /* Figma: bg-[#f2f2f2] */
+    object-fit: cover; /* Ensure image covers the area while maintaining aspect ratio */
+}
+
+.event-card .event-card-black-section {
+    background-color: #050708; /* Figma: bg-[#050708] */
+    border-radius: 8px; /* Figma: rounded-[8px] */
+    padding: 16px 11px; /* Figma: py-[16px] px-[11px] */
+    width: 100%;
+    flex: 1; /* Grow to fill remaining space, matching tallest card in column */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Figma: gap-[10px] */
+    box-sizing: border-box;
+}
+
+.event-card .event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Desktop/Tablet spacing */
+    width: 100%;
+}
+
+.event-card .event-card-date {
+    font-family: var(--font-urbanist);
+    font-weight: 600; /* SemiBold */
+    font-size: 20px; /* Figma: text-[length:var(--type\/paragraph\/p2,20px)] */
+    letter-spacing: -0.4px; /* Figma: tracking-[-0.4px] */
+    color: #fcfcfc; /* Figma: text-[#fcfcfc] */
+    line-height: 1;
+    margin: 0;
+}
+
+/* Override for event-card-date with p1 class - use p1 sizing */
+.event-card .event-card-date.p1 {
+    font-size: 26px; /* P1 Desktop */
+    letter-spacing: 0;
+}
+
+.event-card .event-card-title,
+.event-card h2.event-card-title {
+    font-size: 48px !important; /* Override h2 default (72px) for event cards */
+    letter-spacing: -1.44px; /* Figma: tracking-[-1.44px] */
+    color: #fcfcfc; /* Figma: text-[#fcfcfc] */
+    line-height: 1;
+    margin: 0;
+}
+
+.event-card .event-card-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500; /* Medium */
+    font-size: 26px; /* Figma: text-[length:var(--type\/paragraph\/p1,26px)] */
+    letter-spacing: 0;
+    color: #f2f2f2; /* Figma: text-[#f2f2f2] */
+    line-height: 1;
+    margin: 0;
 }
 
 .event-card-footer {
@@ -2226,7 +3541,7 @@ img {
     gap: 15px;
     align-items: center;
     width: 100%;
-    margin-top: 72px;
+    margin-top: 48px;
 }
 
 .game-lounge-card {
@@ -2297,7 +3612,7 @@ img {
     width: 100%;
     padding: 0 var(--spacing-container);
     box-sizing: border-box;
-    margin-top: 37px;
+    margin-top: 48px;
 }
 
 .room-cards-container {
@@ -2317,6 +3632,7 @@ img {
     min-width: 0;
     position: relative;
     transition: opacity 0.3s ease;
+    border-radius: 16px; /* Match border-radius for hover effect */
 }
 
 .room-card-link {
@@ -2327,13 +3643,14 @@ img {
     height: 100%;
     border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease;
 }
 
 .room-card-link:hover {
     transform: translateY(-4px);
     box-shadow: 0 0 20px rgba(237, 31, 51, 0.6), 0 0 40px rgba(237, 31, 51, 0.4), 0 8px 24px rgba(0, 0, 0, 0.4);
     text-decoration: none;
+    border-radius: 16px; /* Explicitly maintain border-radius on hover */
 }
 
 .room-card-link:hover .room-card-title {
@@ -2362,6 +3679,18 @@ img {
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.5;
+    border-radius: 16px; /* Match team-card-bg border-radius */
+}
+
+.room-card-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.5;
+    border-radius: 16px; /* Match team-card-bg border-radius */
 }
 
 .room-card-overlay {
@@ -2386,13 +3715,12 @@ img {
 .room-card-title {
     font-family: var(--font-pressio-medium-condensed);
     font-weight: 500;
-    font-size: 144px;
+    font-size: 72px; /* H2: Desktop - 72px */
     line-height: 1;
-    letter-spacing: -2.88px;
+    letter-spacing: -1.44px; /* H2: Desktop - -1.44px */
     text-align: center;
     color: var(--color-text-primary);
     margin: 0;
-    text-transform: uppercase;
     position: relative;
     z-index: 3;
 }
@@ -2401,18 +3729,336 @@ img {
     margin-bottom: 0;
 }
 
-.game-lounge-btn {
+/* ============================================
+   Teams Cards Styles
+   ============================================ */
+.teams-page-title {
+    align-self: flex-start;
+    text-align: left;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 48px;
+    margin-bottom: 36px;
+}
+
+.teams-cards-container {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+/* Teams cards stack vertically at 1280px */
+@media screen and (max-width: 1280px) {
+    .teams-cards-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .team-card {
+        width: 100%;
+        flex: none;
+    }
+}
+
+.team-card {
+    flex: 1 1 0;
+    min-width: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 697px;
+    align-items: center;
+    justify-content: center;
+    min-height: 697px;
+    padding: 0;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 20px rgba(237, 31, 51, 0.6), 0 0 40px rgba(237, 31, 51, 0.4), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.team-card-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: center center;
+    opacity: 0.5;
+    pointer-events: none;
+    border-radius: 16px;
+}
+
+.team-card-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1.44px; /* H2: Desktop - -1.44px */
+    text-align: center;
+    color: var(--color-core-50);
+    font-size: 72px; /* H2: Desktop - 72px */
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    white-space: normal;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+}
+
+.team-card-title span {
+    margin: 0;
+    text-align: center;
+    display: block;
+}
+
+.team-card-title .mb-0 {
+    margin-bottom: 0;
+}
+
+.team-card-title p {
+    margin: 0;
+    line-height: 1;
+}
+
+.team-card-title p:not(.mb-0) {
+    margin-top: 0.1em;
+}
+
+/* Placeholder background for team cards without images */
+.team-card-bg.placeholder {
+    background: linear-gradient(135deg, #1d252c 0%, #050708 100%);
+    opacity: 0.3;
+}
+
+.team-card-bg.placeholder::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ed1f33" opacity="0.3"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Event Card Placeholder Styles */
+.event-card-image.placeholder {
+    background: linear-gradient(135deg, #1d252c 0%, #050708 100%);
+    opacity: 0.5;
+}
+
+.event-card-image.placeholder::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ed1f33" opacity="0.3"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Community Section Styles */
+.community-section-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    padding: 0 var(--spacing-container);
+}
+
+.community-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.community-card-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.community-card {
+    background-color: var(--color-placeholder);
+    box-sizing: border-box;
+    display: flex;
+    height: 971px;
+    padding: 72px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 17px;
+    align-self: stretch;
+    border-radius: 16px;
+    width: 100%;
+}
+
+.community-title-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-shrink: 0;
+    margin-bottom: 0;
+}
+
+.community-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-bg-primary);
+    margin: 0;
+    text-align: right;
+    width: auto;
+    max-width: 100%;
+}
+
+.community-description-wrapper {
+    font-family: var(--font-urbanist);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.4;
+    letter-spacing: -0.48px;
+    color: var(--color-bg-secondary);
+    text-transform: capitalize;
+    width: 646px;
+    max-width: 100%;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.community-description-text {
+    margin: 0;
+    line-height: 1.4;
+    color: var(--color-bg-secondary);
+    font-size: 24px;
+    letter-spacing: -0.48px;
+}
+
+.community-description-text:first-child {
+    margin-bottom: 0;
+}
+
+/* .community-button removed - replaced by .btn-lined */
+/* .btn-connect-us removed - replaced by .btn-lined */
+
+.community-pagination {
+    height: 20px;
+    position: relative;
+    width: 228px;
     flex-shrink: 0;
 }
 
-.game-lounge-btn .btn-text {
-    font-size: 24px;
-    letter-spacing: -0.48px;
-    color: var(--color-bg-primary);
+/* .btn-visit-lounge removed - replaced by .btn-lined */
+
+/* Academic Opportunities Section */
+.academic-section {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+    padding: 0 12px;
+    position: relative;
+    width: 100%;
 }
 
-.game-lounge-btn:hover .btn-text {
-    color: var(--color-text-secondary);
+.academic-title {
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
+}
+
+/* Academic Opportunities Title - allows wrapping on tablet */
+.academic-opportunities-title {
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+    max-width: 100%;
+}
+
+/* News and Events Title - responsive wrapping */
+.news-events-title-responsive {
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/* Allow wrapping on tablet and mobile */
+@media screen and (max-width: 1200px) {
+    .academic-opportunities-title {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+    }
+
+    .news-events-title-responsive {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+}
+
+.academic-content {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.academic-description {
+    min-width: 100%;
+    text-align: center;
+    white-space: pre-wrap;
+    width: min-content;
+}
+
+/* .game-lounge-btn removed - replaced by .btn-lined */
+
+.game-lounge-btn[data-name="Buttons-Mobile"] .btn-text {
+    font-size: 16px;
+}
+
+/* Overwatch page - P1 text size experiment */
+.overwatch-page .p1 {
+    font-size: 26px; /* P1 Desktop - will be overridden by responsive .p1 rules */
 }
 
 .events-recaps {
@@ -2429,12 +4075,7 @@ img {
     margin: 0;
 }
 
-.events-recaps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    align-items: stretch;
-}
+/* .events-recaps-grid is now defined with .events-grid above - removed duplicate */
 
 .events-calendar {
     display: flex;
@@ -2476,7 +4117,7 @@ img {
     background-color: rgba(5, 7, 8, 0.85);
     color: var(--color-text-primary);
     border: 1px solid rgba(242, 242, 242, 0.2);
-    border-radius: 12px;
+    border-radius: 16px;
     font-family: var(--font-urbanist);
     font-size: 14px;
     z-index: 9999;
@@ -2511,7 +4152,7 @@ img {
     background-color: #ed1f33;
     width: 30px;
     height: 30px;
-    border-radius: 40px;
+    border-radius: 16px;
     left: 0;
     top: 0;
 }
@@ -2536,10 +4177,13 @@ img {
     display: flex;
     gap: 15px;
     align-items: flex-start;
-    padding: 0 36px;
+    padding: 0 var(--spacing-container);
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
-    margin-top: 37px;
+    margin-top: var(--spacing-section);
+    overflow-x: hidden;
+    min-width: 0;
 }
 
 .location-content {
@@ -2564,6 +4208,60 @@ img {
     width: 100%;
 }
 
+.location-section-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    text-transform: capitalize;
+}
+
+.location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: normal;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.location-info .section-text {
+    font-size: 26px;
+    letter-spacing: -0.52px;
+}
+
+.hours-section .section-text {
+    font-size: 26px;
+    letter-spacing: -0.52px;
+}
+
+.hours-section {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 0;
+}
+
+.hours-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    line-height: normal;
+    height: auto;
+}
+
+.hours-column-left {
+    width: 394px;
+    max-width: 100%;
+}
+
+.hours-column-right {
+    width: 358px;
+    max-width: 100%;
+}
+
+/* Legacy classes for backward compatibility */
 .location-hours-container {
     display: flex;
     gap: 16px;
@@ -2580,6 +4278,11 @@ img {
     line-height: normal;
 }
 
+.location-column {
+    width: 394px;
+    max-width: 100%;
+}
+
 .location-hours-column-left {
     width: 394px;
     max-width: 100%;
@@ -2591,9 +4294,9 @@ img {
 }
 
 .location-label {
-    font-family: 'pressio-condensed', sans-serif;
+    font-family: var(--font-pressio-medium-condensed);
     font-size: 72px;
-    font-weight: 700;
+    font-weight: 500;
     line-height: normal;
     letter-spacing: -1.44px;
     color: var(--color-core-50);
@@ -2607,13 +4310,16 @@ img {
 }
 
 .location-map {
-    height: 652px;
     width: 805px;
     max-width: 100%;
+    min-width: 0;
+    height: auto;
     border-radius: 16px;
-    flex-shrink: 0;
+    flex-shrink: 1;
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
+    aspect-ratio: 805 / 652;
 }
 
 .location-map-embed {
@@ -2630,10 +4336,10 @@ img {
     flex-direction: column;
     gap: 30px;
     align-items: flex-start;
-    padding: 0 36px;
+    padding: 0 var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
-    margin-top: 37px;
+    margin-top: 48px;
 }
 
 .tour-video-section .section-title {
@@ -2654,6 +4360,300 @@ img {
     height: 100%;
     border: 0;
     display: block;
+    border: none;
+    border-radius: 0;
+}
+
+/* News and Events Section */
+.news-events-section {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.news-events-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.news-events-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 128px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Teams Section */
+.teams-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 var(--spacing-container); /* Match news-events-section padding */
+    margin-top: 48px; /* Gap from previous section */
+    margin-bottom: 48px;
+}
+
+.teams-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.teams-section-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 128px; /* H1 Desktop */
+    line-height: 1;
+    letter-spacing: -2.56px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Community Section */
+.community-section {
+    display: flex;
+    flex-direction: column;
+    gap: 29px;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 var(--spacing-container); /* Match other sections */
+    margin-top: 48px; /* Gap from previous section */
+    margin-bottom: 48px;
+}
+
+.community-section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 29.75px;
+    align-items: flex-end;
+    width: 100%;
+    padding: 0;
+}
+
+.community-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.community-section-title {
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 700;
+    font-size: 64px; /* H1 Desktop - smaller than teams title */
+    line-height: 1;
+    letter-spacing: -1.28px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0;
+    white-space: nowrap;
+}
+
+.community-section-description {
+    font-family: var(--font-urbanist);
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.52px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.community-carousel-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    width: 100%;
+    padding-top: 27px;
+}
+
+.news-events-see-all-btn {
+    border: 3px solid var(--color-text-primary);
+    background: transparent;
+    padding: 16px var(--spacing-container);
+    border-radius: 16px;
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 24px; /* P2 Desktop */
+    line-height: 1;
+    letter-spacing: -0.48px;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.news-events-see-all-btn:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+}
+
+.news-events-filter-bar {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    width: 100%;
+}
+
+.news-events-filter-chip {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-urbanist);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    text-align: center;
+}
+
+.news-events-filter-chip:hover,
+.news-events-filter-chip:focus {
+    color: var(--color-primary);
+    outline: none;
+}
+
+.news-events-filter-chip.is-active {
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+.news-events-cards-container {
+    display: flex;
+    gap: 18px;
+    align-items: stretch;
+    width: 100%;
+}
+
+/* When news-events-cards-container has events-grid class, use grid layout */
+.news-events-cards-container.events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px 10px;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+}
+
+.news-events-cards-container .event-card {
+    flex: 0 0 calc((100% - 36px) / 3); /* Fixed width: 3 cards with 2 gaps of 18px */
+    min-width: 0;
+    padding: 12px 14px;
+    border: none; /* Remove border for news-events section */
+}
+
+/* Reset flex properties when using grid */
+.news-events-cards-container.events-grid .event-card {
+    flex: none;
+    width: auto;
+}
+
+.news-events-cards-container .event-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+}
+
+.news-events-cards-container:not(.events-grid) .event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+/* When news-events-cards-container uses events-grid, use standard spacing */
+.news-events-cards-container.events-grid .event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Desktop/Tablet spacing - match standard event-card-body */
+    flex: 1;
+}
+
+.news-events-cards-container .event-card-date {
+    font-family: var(--font-urbanist);
+    font-weight: 600;
+    font-size: 12px; /* P2 Desktop from Figma */
+    line-height: 1;
+    letter-spacing: -0.24px;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.news-events-cards-container .event-card-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+.news-events-cards-container:not(.events-grid) .event-card-title {
+    font-family: var(--font-pressio-medium-condensed);
+    font-weight: 500;
+    font-size: 32px; /* H3 Desktop from Figma - for old structure only */
+    line-height: 1;
+    letter-spacing: -0.64px;
+    color: var(--color-text-primary);
+    margin: 0;
+    width: 100%;
+}
+
+.news-events-cards-container .event-card-icon {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.news-events-cards-container .event-card-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* White icon for dark cards */
+}
+
+.news-events-cards-container .event-card[data-event-category="community"] .event-card-icon img {
+    filter: brightness(0) invert(1); /* White icon for red community cards */
+}
+
+.news-events-cards-container .event-card[data-event-category="esports"] .event-card-icon img {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(94%) saturate(7158%) hue-rotate(346deg) brightness(93%) contrast(92%); /* Red icon for dark esports cards */
 }
 
 /* Links Section */
@@ -2661,11 +4661,11 @@ img {
     display: flex;
     gap: 16px;
     align-items: flex-start;
-    padding: 0 36px;
+    padding: 0 var(--spacing-container);
     width: 100%;
     box-sizing: border-box;
-    margin-top: 37px;
-    margin-bottom: 37px;
+    margin-top: 48px;
+    margin-bottom: 48px;
 }
 
 .links-section .event-card {
@@ -2709,7 +4709,7 @@ img {
     inset: 0;
     backdrop-filter: blur(12.5px);
     border: 1.5px solid var(--color-core-700);
-    border-radius: 8px;
+    border-radius: 16px;
     z-index: 1;
     display: flex;
     align-items: center;
@@ -2746,17 +4746,7 @@ img {
     margin: 0;
 }
 
-.links-section .btn-learn-more {
-    font-size: 14px;
-    letter-spacing: -0.28px;
-    padding: 12px 54px;
-    height: 44px;
-    width: 154px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-}
+/* .links-section .btn-learn-more removed - replaced by .btn-filled */
 
 .links-card-description {
     color: var(--color-core-50);
@@ -2905,7 +4895,7 @@ img {
     height: 12px;
     left: 12px;
     right: 12px;
-    border-radius: 4px;
+    border-radius: 16px;
 }
 
 .video-timeline-bar {
@@ -2913,7 +4903,7 @@ img {
     height: 4px;
     left: 0;
     right: 0;
-    border-radius: 4px;
+    border-radius: 16px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -3033,34 +5023,46 @@ img {
     visibility: visible;
 }
 
+.event-overlay.is-open .event-overlay-close {
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+}
+
 .event-overlay-close {
-    position: fixed;
-    top: 24px;
-    right: 36px;
+    position: relative;
+    top: 0;
+    right: 0;
     width: 48px;
     height: 48px;
-    background: none;
+    background-color: var(--color-bg-primary);
     border: 3px solid var(--color-text-primary);
     border-radius: 50%;
     color: var(--color-text-primary);
-    font-size: 32px;
+    font-size: 36px;
     line-height: 1;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 1004;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
     padding: 0;
     margin: 0;
     font-weight: 300;
     font-family: Arial, sans-serif;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
 }
 
 .event-overlay-close::before {
     content: "×";
     display: block;
     line-height: 1;
+    color: var(--color-text-primary);
+    font-weight: 300;
 }
 
 .event-overlay-close:hover {
@@ -3076,7 +5078,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 70px;
-    padding: 35px 36px;
+    padding: 140px var(--spacing-container) 35px;
     max-width: 100%;
     min-height: 100vh;
     align-items: center;
@@ -3085,16 +5087,67 @@ img {
 .event-overlay-hero {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 0px;
     width: 100%;
 }
 
 .event-overlay-title-container {
     display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.event-overlay-right-container {
+    display: flex;
     flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    flex-shrink: 0;
+    margin-right: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+    align-self: flex-end;
+    justify-content: flex-end;
+}
+
+.event-overlay-right-container > .event-overlay-right {
+    margin-top: 0;
+    align-self: flex-end;
+}
+
+.event-overlay-title-container .event-overlay-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+}
+
+.event-overlay-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+    align-items: flex-start;
+}
+
+.event-overlay-title-container .event-overlay-right {
+    align-self: flex-end;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.event-overlay-title-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     width: 100%;
 }
 
@@ -3107,10 +5160,11 @@ img {
     text-transform: uppercase;
     color: var(--color-text-primary);
     margin: 0;
-    width: 657px;
+    flex: 1;
+    min-width: 0;
     max-width: 100%;
-    white-space: pre-wrap;
-    text-align: center;
+    white-space: normal;
+    text-align: left;
 }
 
 .event-overlay-main {
@@ -3124,7 +5178,7 @@ img {
 .event-overlay-left {
     display: flex;
     flex-direction: column;
-    gap: 31px;
+    gap: 16px;
     flex: 1;
     max-width: 1076px;
 }
@@ -3137,7 +5191,14 @@ img {
     letter-spacing: -1.44px;
     color: var(--color-text-primary);
     margin: 0;
+    margin-top: 0;
+    padding-top: 0;
     width: min-content;
+    white-space: nowrap;
+}
+
+.event-overlay-title-content .event-overlay-subheading {
+    width: auto;
 }
 
 .event-overlay-description {
@@ -3153,21 +5214,31 @@ img {
     overflow-wrap: break-word;
 }
 
+.event-overlay-title-content .event-overlay-description {
+    width: 100%;
+    max-width: 763px;
+}
+
 .event-overlay-right {
     display: flex;
     flex-direction: column;
-    gap: 54px;
+    gap: 24px;
     align-items: flex-end;
-    width: 305px;
+    width: auto;
     flex-shrink: 0;
+    margin-right: 0;
+    padding-right: 0;
+    justify-content: flex-end;
+    box-sizing: border-box;
 }
 
 .event-overlay-datetime {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 14px;
-    align-items: flex-end;
-    width: 202px;
+    align-items: center;
+    width: auto;
+    justify-content: flex-end;
 }
 
 .event-overlay-date,
@@ -3179,31 +5250,13 @@ img {
     letter-spacing: -0.96px;
     color: var(--color-text-primary);
     margin: 0;
+    padding: 0;
     text-align: right;
-    width: 100%;
+    width: auto;
+    white-space: nowrap;
 }
 
-.event-overlay-calendar-btn {
-    border: 3px solid var(--color-text-primary);
-    background: transparent;
-    padding: 16px 36px;
-    border-radius: 16px;
-    font-family: var(--font-urbanist);
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 1;
-    letter-spacing: -0.8px;
-    color: var(--color-text-primary);
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    width: 100%;
-    text-align: center;
-}
-
-.event-overlay-calendar-btn:hover {
-    background-color: var(--color-text-primary);
-    color: var(--color-bg-primary);
-}
+/* .event-overlay-calendar-btn removed - uses standard .btn-lined class */
 
 .event-overlay-media {
     display: flex;
@@ -3211,6 +5264,10 @@ img {
     gap: 32px;
     align-items: center;
     width: 100%;
+}
+
+.event-overlay-datetime-tablet {
+    display: none;
 }
 
 .event-overlay-image {
@@ -3259,7 +5316,7 @@ img {
     width: 100%;
     height: 350px;
     overflow: hidden;
-    border-radius: 16px 16px 0 0;
+    border-radius: 16px;
 }
 
 .player-card-image-wrapper {
@@ -3452,27 +5509,295 @@ img {
    Responsive Typography & Media Queries
    ============================================ */
 
+/* Extra Large Desktop Breakpoint (min-width: 2561px) */
+@media screen and (min-width: 2561px) {
+    /* Location Section - Extra Large Desktop */
+    .location-map {
+        width: 1000px;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        aspect-ratio: 1000 / 800;
+    }
+}
+
+/* Large Desktop Breakpoint (min-width: 1921px) and (max-width: 2560px) */
+@media screen and (min-width: 1921px) and (max-width: 2560px) {
+    /* Location Section - Large Desktop */
+    .location-section {
+        padding: 0 var(--spacing-container);
+        gap: 20px;
+    }
+    
+    .location-content {
+        width: 1000px;
+        gap: 35px;
+    }
+    
+    .location-heading {
+        font-size: 80px;
+        letter-spacing: -1.6px;
+        height: 140px;
+    }
+    
+    .location-label {
+        font-size: 88px;
+        letter-spacing: -1.76px;
+    }
+    
+    .location-spacer {
+        font-size: 36px;
+    }
+    
+    .location-column {
+        width: 450px;
+    }
+    
+    .hours-column {
+        width: 450px;
+    }
+    
+    .location-hours-column-left {
+        width: 450px;
+    }
+    
+    .location-hours-column-right {
+        width: 410px;
+    }
+    
+    .location-map {
+        width: 900px;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        aspect-ratio: 900 / 750;
+    }
+}
+
+/* Medium-Large Desktop Breakpoint (min-width: 1681px) and (max-width: 1920px) */
+@media screen and (min-width: 1681px) and (max-width: 1920px) {
+    /* Location Section - Medium-Large Desktop */
+    .location-map {
+        width: 875px;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        aspect-ratio: 875 / 725;
+    }
+}
+
+/* Medium Desktop Breakpoint (min-width: 1441px) and (max-width: 1680px) */
+@media screen and (min-width: 1441px) and (max-width: 1680px) {
+    /* Location Section - Medium Desktop */
+    .location-section {
+        padding: 0 var(--spacing-container);
+        gap: 18px;
+    }
+    
+    .location-content {
+        width: 920px;
+        gap: 32px;
+    }
+    
+    .location-heading {
+        font-size: 72px;
+        letter-spacing: -1.44px;
+        height: 130px;
+    }
+    
+    .location-label {
+        font-size: 80px;
+        letter-spacing: -1.6px;
+    }
+    
+    .location-spacer {
+        font-size: 34px;
+    }
+    
+    .location-column {
+        width: 420px;
+    }
+    
+    .hours-column {
+        width: 420px;
+    }
+    
+    .location-hours-column-left {
+        width: 420px;
+    }
+    
+    .location-hours-column-right {
+        width: 380px;
+    }
+    
+    .location-map {
+        width: 850px;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        aspect-ratio: 850 / 700;
+    }
+}
+
+/* Small-Medium Desktop Breakpoint (min-width: 1281px) and (max-width: 1440px) */
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    /* Location Section - Small-Medium Desktop */
+    .location-section {
+        padding: 0 var(--spacing-container);
+        gap: 16px;
+    }
+    
+    .location-content {
+        width: 880px;
+        gap: 30px;
+    }
+    
+    .location-heading {
+        font-size: 68px;
+        letter-spacing: -1.36px;
+        height: 125px;
+    }
+    
+    .location-label {
+        font-size: 76px;
+        letter-spacing: -1.52px;
+    }
+    
+    .location-spacer {
+        font-size: 33px;
+    }
+    
+    .location-column {
+        width: 407px;
+    }
+    
+    .hours-column {
+        width: 407px;
+    }
+    
+    .location-hours-column-left {
+        width: 407px;
+    }
+    
+    .location-hours-column-right {
+        width: 369px;
+    }
+    
+    .location-map {
+        width: 825px;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        aspect-ratio: 825 / 675;
+    }
+}
+
+/* Desktop Breakpoint (min-width: 1025px) - Ensure news-events section has proper side margins */
+@media screen and (min-width: 1025px) {
+    .news-events-section {
+    }
+}
+
+/* Small Desktop Breakpoint (min-width: 1025px) and (max-width: 1280px) */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+    /* Location Section - Small Desktop */
+    .location-section {
+        padding: 0 var(--spacing-container);
+        gap: 15px;
+    }
+    
+    .location-content {
+        width: 840px;
+        gap: 29px;
+    }
+    
+    .location-heading {
+        font-size: 64px;
+        letter-spacing: -1.28px;
+        height: 120px;
+    }
+    
+    .location-label {
+        font-size: 72px;
+        letter-spacing: -1.44px;
+    }
+    
+    .location-spacer {
+        font-size: 32px;
+    }
+    
+    .location-column {
+        width: 394px;
+    }
+    
+    .hours-column {
+        width: 394px;
+    }
+    
+    .location-hours-column-left {
+        width: 394px;
+    }
+    
+    .location-hours-column-right {
+        width: 358px;
+    }
+    
+    .location-map {
+        width: 805px;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        aspect-ratio: 805 / 652;
+    }
+}
+
 /* Tablet Breakpoint (max-width: 1024px) */
 @media screen and (max-width: 1024px) {
+    /* Show line break after NEWS on tablet */
+    .tablet-break {
+        display: block;
+    }
+    
+    /* H1: Tablet - 128px */
     h1 {
-        font-size: 128px !important; /* Tablet: 128px */
+        font-size: 128px !important;
     }
     
+    /* H2: Tablet - 48px */
     h2 {
-        font-size: 48px; /* Tablet: 48px */
+        font-size: 48px;
     }
     
+    /* H3: Tablet - 48px */
     h3 {
-        font-size: 48px; /* Tablet: 48px */
+        font-size: 48px;
     }
     
+    /* P1: Tablet - 20px */
     .p1 {
+        font-size: 20px;
+        letter-spacing: 0;
+    }
+
+    .overwatch-page .p1 {
+        font-size: 20px; /* P1 Tablet - override .overwatch-page .p1 */
+    }
+
+    /* Academic opportunities text - Tablet: 20px (matching responsive size) */
+    .academic-opportunities-text,
+    .connect-page-container [data-node-id="549:2248"],
+    [data-node-id="354:285"] {
         font-size: 20px; /* Tablet: 20px */
     }
+
     
+    /* P2: Tablet - 18px */
     .p2 {
-        font-size: 18px; /* Tablet: 18px */
+        font-size: 18px;
+        letter-spacing: 0;
     }
+    
+    /* .btn-learn-more removed - replaced by .btn-filled */
     
     .section-title {
         font-size: 128px;
@@ -3494,29 +5819,633 @@ img {
         font-size: 18px;
         gap: 24px;
     }
+    
+    /* Tablet Navbar Styles */
+    .nav-content {
+        padding: 14px 24px;
+    }
+    
+    /* Adjust body padding for tablet navbar height */
+    body {
+        padding-top: 86px; /* Account for fixed navbar height (14px top + 57.828px logo + 14px bottom) */
+    }
+    
+    /* Hide desktop navigation menu on tablet */
+    .desktop-nav-menu {
+        display: none !important;
+    }
+    
+    /* Hide desktop dropdown menu on tablet */
+    .dropdown-menu {
+        display: none !important;
+    }
+    
+    /* Disable nav-dropdown hover effects on tablet */
+    .nav-dropdown {
+        pointer-events: none;
+    }
+    
+    /* Show hamburger menu button on tablet */
+    .hamburger-menu-btn {
+        display: flex;
+    }
+    
+    /* Show mobile menu on tablet */
+    .mobile-menu-overlay,
+    .mobile-menu-panel {
+        display: block;
+    }
+    
+    /* Location Section - Tablet */
+    .location-section {
+        display: flex;
+        flex-direction: column;
+        gap: 72px; /* Figma: gap between heading and content/map row */
+        padding: 0 24px;
+        margin-top: 48px; /* Figma: gap between major sections */
+        align-items: flex-start;
+        position: relative;
+    }
+    
+    .location-content {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 72px; /* Figma: gap between heading and hours/map row */
+    }
+    
+    .location-heading {
+        font-size: 128px;
+        letter-spacing: -2.56px;
+        height: 115px; /* Figma: heading height */
+        width: 100%;
+        margin-bottom: 0;
+    }
+    
+    /* Tablet: Create a flex row for hours and map */
+    .location-section {
+        position: relative;
+    }
+    
+    /* After the heading, create a flex row container */
+    .location-content::after {
+        content: '';
+        display: none;
+    }
+    
+    /* Position hours container and map side by side */
+    .location-section-content {
+        width: 100%;
+        gap: 0;
+    }
+    
+    .location-info {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    
+    .hours-section {
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .hours-column-left,
+    .hours-column-right {
+        width: 100%;
+    }
+    
+    .location-hours-container {
+        flex-direction: column; /* Hours columns stack vertically */
+        gap: 0;
+        width: 285px; /* Figma: content width */
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-shrink: 0;
+    }
+    
+    .location-hours-column {
+        height: auto;
+        width: 100%;
+    }
+    
+    .location-column {
+        width: 100%;
+    }
+    
+    .hours-column {
+        width: 100%;
+    }
+    
+    .location-hours-column-left {
+        width: 100%;
+    }
+    
+    .location-hours-column-right {
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .location-label {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+        font-weight: 500;
+        font-family: 'pressio-condensed', sans-serif;
+    }
+    
+    .location-spacer {
+        font-size: 14px;
+    }
+    
+    /* Tablet: Position map next to hours container using absolute positioning */
+    /* The HTML structure has map as sibling of location-content, so we use absolute positioning */
+    .location-map {
+        position: absolute;
+        right: 24px;
+        top: calc(115px + 72px); /* After heading + gap */
+        width: 485px; /* Figma: map width */
+        height: 393px; /* Figma: map height */
+        max-width: calc(100% - 48px); /* Account for padding */
+        flex-shrink: 0;
+        border-radius: 16px;
+    }
+    
+    .location-hours-container {
+        width: 285px; /* Figma: content width */
+    }
+
+    /* Room Cards Section - Tablet */
+    .room-cards-section {
+        padding: 0 var(--spacing-container);
+        align-items: center;
+        margin-top: 48px; /* Figma: gap between major sections */
+        width: 100%;
+    }
+
+    .room-cards-container {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+        gap: 30px; /* Figma: gap between cards */
+        margin: 0;
+    }
+
+    .room-card {
+        width: 100%;
+    }
+
+    .room-card-link {
+        border-radius: 0; /* Remove border-radius for edge-to-edge on tablet */
+    }
+
+    .room-card-image-wrapper {
+        aspect-ratio: 416 / 256.42; /* Figma: aspect ratio */
+        border-radius: 0; /* Remove border-radius for edge-to-edge on tablet */
+    }
+
+    .room-card-content {
+        padding: 94px 24px; /* Figma: py-[94px] px-[24px] */
+    }
+
+    .room-card-title {
+        font-size: 48px; /* H2: Tablet - 48px */
+        letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
+        height: auto; /* Remove fixed height */
+    }
+
+    /* Tour Video Section - Tablet */
+    .tour-video-section {
+        padding: 0 24px;
+        gap: 30px; /* Figma: gap between title and video */
+        margin-top: 48px; /* Figma: gap between major sections */
+    }
+
+    .tour-video-section .section-title {
+        font-size: 128px;
+        letter-spacing: -2.56px;
+        height: 116px; /* Figma: title height */
+        width: 729px; /* Figma: title width */
+        max-width: 100%;
+    }
+
+    .tour-video-container {
+        aspect-ratio: 1062 / 708; /* Figma: aspect ratio */
+        width: 100%;
+        border-radius: 16px;
+    }
+
+    /* News and Events Section - Tablet */
+    .news-events-section {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        gap: 36px;
+        margin-top: 48px;
+    }
+    
+    /* Event grid inside news-events-section should respect parent padding on tablet */
+    .news-events-section .news-events-cards-container.events-grid {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Teams Section - Tablet */
+    .teams-section {
+        padding: 0 24px;
+        gap: 15px;
+        margin-top: 48px;
+        margin-bottom: 48px;
+    }
+
+    .teams-section-title {
+        font-size: 128px; /* H1 Tablet */
+        letter-spacing: -2.56px;
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+    /* Community Section - Tablet */
+    .community-section {
+        padding: 0 24px;
+        gap: 29px;
+        margin-top: 48px;
+        margin-bottom: 48px;
+    }
+
+    .community-section-header {
+        gap: 29.75px;
+    }
+
+    .community-section-title {
+        font-size: 64px; /* H1 Tablet */
+        letter-spacing: -1.28px;
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+
+    .community-carousel-container {
+        padding-top: 27px;
+    }
+
+    .news-events-title {
+        font-size: 128px; /* H1 Tablet */
+        letter-spacing: -2.56px;
+    }
+
+    .news-events-see-all-btn {
+        font-size: 24px; /* P2 Tablet */
+        letter-spacing: -0.48px;
+        padding: 16px var(--spacing-container);
+    }
+
+    .news-events-filter-bar {
+        gap: 48px;
+    }
+
+    .news-events-filter-chip {
+        font-size: 40px;
+    }
+
+    .news-events-cards-container {
+        gap: 18px;
+    }
+
+    .news-events-cards-container .event-card {
+        flex: 0 0 calc((100% - 36px) / 3); /* Fixed width: 3 cards with 2 gaps of 18px */
+    }
+
+    .news-events-cards-container .event-card-date {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+    }
+
+    .news-events-cards-container:not(.events-grid) .event-card-title {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+    }
+
+    /* Links Section - Tablet */
+    .links-section {
+        padding: 0 24px;
+        flex-direction: column;
+        align-items: center;
+        gap: 72px; /* Figma: gap between event card and teams/community */
+        margin-top: 48px; /* Figma: gap between major sections */
+    }
+
+    .links-section .event-card {
+        width: 786px; /* Figma: event card width */
+        max-width: 100%;
+        height: 724px; /* Figma: event card height */
+        padding: 17px 15px; /* Figma: py-[17px] px-[15px] */
+        flex-shrink: 0;
+    }
+
+    .links-section .links-cards-container {
+        width: 768px; /* Figma: teams section width */
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 29.75px; /* Figma: gap between teams and community */
+        height: auto; /* Remove fixed height for tablet */
+    }
+
+    .links-section .links-teams-card {
+        width: 100%; /* Full width of container */
+        height: auto; /* Remove fixed height for tablet */
+        min-height: 391px; /* Minimum height from Figma */
+    }
+
+    .links-section .links-community-card {
+        width: 786px; /* Figma: community card width */
+        max-width: 100%;
+        height: auto; /* Remove fixed height for tablet */
+        min-height: 490.584px; /* Figma: community card height */
+    }
+    
+    /* Footer - Tablet */
+    .footer-top {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 16px var(--spacing-container); /* Figma: py-[16px] px-[36px] */
+        gap: 0; /* No gap, using justify-between */
+    }
+    
+    .footer-left {
+        width: 252px; /* Figma: fixed width */
+        gap: 160px; /* Figma: gap between logo and social icons */
+        flex-shrink: 0;
+        align-items: flex-start;
+    }
+    
+    .footer-logo {
+        width: 252px;
+        max-width: 252px;
+    }
+    
+    .social-icons {
+        gap: 8px; /* Figma: gap between social icons */
+    }
+    
+    .social-icon {
+        width: 36px; /* Figma: size-[36px] */
+        height: 36px;
+        background-color: var(--color-primary);
+        border-radius: 16px;
+        padding: 6px;
+        box-sizing: border-box;
+    }
+    
+    .social-icon img {
+        width: 24px; /* Adjust icon size within 36px container */
+        height: 24px;
+        filter: brightness(0) invert(1); /* Makes icons white (--color-core-50) */
+    }
+    
+    .social-icon-primary {
+        width: 36px;
+        height: 36px;
+        padding: 8px 6px; /* Figma: py-[8px] px-[6px] */
+    }
+    
+    .footer-right {
+        width: 207px; /* Figma: fixed width */
+        flex-shrink: 0;
+        justify-content: flex-start;
+        gap: 0;
+    }
+    
+    /* Hide Explore section on tablet */
+    .footer-right .footer-section:last-child {
+        display: none;
+    }
+    
+    .footer-section {
+        gap: 24px; /* Figma: gap between heading and links */
+        padding-top: 16px; /* Figma: pt-[16px] */
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .footer-heading {
+        font-size: 32px; /* Figma: H3 size */
+        letter-spacing: -0.64px; /* Figma: tracking-[-0.64px] */
+        font-family: 'pressio-condensed', sans-serif;
+        font-weight: 600; /* Medium Condensed */
+    }
+    
+    .footer-links {
+        gap: 12px; /* Figma: gap-[12px] */
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .footer-link {
+        font-size: 14px; /* Figma: P1 size */
+        letter-spacing: -0.28px; /* Figma: tracking-[-0.28px] */
+        font-family: 'Urbanist', sans-serif;
+        font-weight: 500; /* Medium */
+        color: var(--color-core-100); /* Figma: #F2F2F2 */
+    }
+    
+    .footer-bottom {
+        padding: 21px 35px; /* Figma: py-[21px] px-[35px] */
+    }
+    
+    .footer-copyright {
+        letter-spacing: -0.24px; /* Figma: tracking-[-0.24px] */
+        font-weight: 600; /* SemiBold */
+        color: var(--color-bg-400);
+    }
+    
+    .footer-legal {
+        gap: 12px; /* Figma: gap-[12px] */
+    }
+    
+    .footer-legal-link {
+        letter-spacing: -0.24px; /* Figma: tracking-[-0.24px] */
+        font-weight: 600; /* SemiBold */
+        color: var(--color-bg-400);
+    }
+
+    /* Button Styles - Tablet */
+    .btn-filled,
+    .btn-lined {
+        font-size: 14px; /* P1 Tablet - same as desktop */
+        letter-spacing: -0.28px;
+        padding: 12px 54px;
+    }
+}
+
+/* Tablet breakpoint (769px to 1024px) - 2 columns for event cards */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+    :root {
+        --spacing-container: 24px;
+    }
+    
+    /* Event cards grid - 2 columns on tablet */
+    .index-events-grid,
+    .events-grid,
+    .events-recaps-grid,
+    .news-events-cards-container.events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    /* Game Lounge Section - Tablet */
+    .events-game-lounge-section {
+        flex-direction: column;
+        gap: 48px;
+        padding: 36px 24px;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: 0;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    .events-game-lounge-section .game-lounge-card-container {
+        width: calc(100vw - 48px);
+        min-width: calc(100vw - 48px);
+        max-width: calc(100vw - 48px);
+        min-height: 300px;
+        aspect-ratio: 16 / 9;
+        flex: none;
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+
+    .events-game-lounge-section .game-lounge-content {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 0;
+        margin-left: 0 !important;
+        margin-right: 0;
+        padding: 0;
+        padding-right: 0 !important;
+        box-sizing: border-box;
+    }
+
+    .events-game-lounge-section .game-lounge-description p {
+        font-size: 18px;
+    }
+
+    .events-game-lounge-section .game-lounge-title {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+
+    /* .game-lounge-btn removed - uses standard .btn-lined class */
+}
+
+/* Smooth transition breakpoint (769px) - prepare for mobile */
+@media screen and (max-width: 769px) {
+    /* Smooth transition for filter bar */
+    [data-name="filter-bar-container"] {
+        flex-wrap: wrap;
+    }
+
+    /* Smooth transition for buttons */
+    [data-name="Buttons-Mobile"] {
+        padding: 14px 28px !important;
+    }
 }
 
 /* Mobile Breakpoint (max-width: 768px) */
+/* Mobile breakpoint - 12px margins */
 @media screen and (max-width: 768px) {
+    :root {
+        --spacing-container: 12px;
+    }
+    
+    /* Ensure full width on mobile - no gaps */
+    body, html {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
+    /* Main container - full width with proper padding */
+    [data-name="home-desktop"] {
+        width: 100%;
+        max-width: 100vw;
+        padding-left: var(--spacing-container) !important;
+        padding-right: var(--spacing-container) !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box;
+    }
+
+    /* Ensure all child elements respect container width */
+    [data-name="home-desktop"] > * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* H1: Mobile - 64px */
     h1 {
-        font-size: 64px !important; /* Mobile: 64px */
+        font-size: 64px !important;
     }
     
+    /* H2: Mobile - 40px */
     h2 {
-        font-size: 40px; /* Mobile: 40px */
+        font-size: 40px;
     }
     
+    /* H3: Mobile - 32px */
     h3 {
-        font-size: 32px; /* Mobile: 32px */
+        font-size: 32px;
     }
     
+    /* H4: Mobile - 24px */
+    h4 {
+        font-family: "pressio-condensed", sans-serif;
+        font-size: 24px;
+        color: var(--color-core-50);
+        margin: 0;
+        line-height: 1;
+        letter-spacing: -0.48px;
+    }
+    
+    /* P1: Mobile - 14px */
     .p1 {
+        font-size: 14px;
+        letter-spacing: 0;
+    }
+
+    .overwatch-page .p1 {
+        font-size: 14px; /* P1 Mobile - override .overwatch-page .p1 */
+    }
+
+    /* Academic opportunities text - Mobile: 14px (matching P1 mobile size) */
+    .academic-opportunities-text,
+    .connect-page-container [data-node-id="549:2248"],
+    [data-node-id="354:285"] {
         font-size: 14px; /* Mobile: 14px */
     }
+
     
+    /* P2: Mobile - 12px */
     .p2 {
-        font-size: 12px; /* Mobile: 12px */
+        font-size: 12px;
+        letter-spacing: 0;
     }
+    
+    /* .btn-learn-more removed - replaced by .btn-filled */
     
     .section-title {
         font-size: 64px;
@@ -3525,12 +6454,478 @@ img {
     .section-text {
         font-size: 14px;
     }
+
+    /* Location Section - Mobile: text rows horizontal */
+    .location-section {
+        flex-direction: column;
+        gap: 16px;
+        padding: 0 12px;
+        margin-top: 48px;
+        margin-bottom: 0;
+        align-items: flex-start;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .location-content {
+        width: 100%;
+        max-width: 100%;
+        gap: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .location-heading {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+        line-height: 1.05;
+        margin: 0;
+        width: 100%;
+    }
+    
+    .location-section-content {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        align-items: flex-start;
+    }
+    
+    .location-info {
+        width: 100%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin: 0;
+    }
+    
+    .hours-section {
+        width: 100%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0;
+    }
+
+    .location-label {
+        font-size: 24px;
+        letter-spacing: -0.48px;
+        font-weight: 600;
+        line-height: 1.1;
+        margin: 0;
+    }
+    
+    .location-map {
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 3 / 2;
+        border-radius: 16px;
+        margin: 8px 0 0 0 !important;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+/* Equipment Specs Section - Tablet */
+    .equipment-specs-section {
+        padding: 0 24px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    .equipment-specs-content {
+        flex-direction: column; /* tablet: stack text above image (Figma) */
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 24px; /* Figma spacing between text block and image */
+        width: 100%;
+    }
+
+    .equipment-specs-text {
+        order: 1;
+        width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+    }
+
+    .equipment-specs-title {
+        font-size: 64px;
+    }
+
+    .equipment-specs-image {
+        order: 2;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 2;
+        min-height: 260px;
+        align-self: stretch;
+        flex-shrink: 0;
+    }
+
+    /* Game Night Section - Tablet */
+    .game-night-section {
+        padding: 0 24px;
+        margin-top: 48px;
+        margin-bottom: 48px;
+    }
+
+    .game-night-content {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 24px;
+    }
+
+    .game-night-text {
+        width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+        order: 1;
+    }
+
+    .game-night-title {
+        font-size: 64px;
+    }
+
+    .game-night-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        flex-shrink: 0;
+        order: 2;
+    }
+}
+
+/* Mobile Navbar Styles (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .nav-content {
+        padding: 14px 12px;
+    }
+    
+    /* Adjust body padding for mobile navbar height */
+    body {
+        padding-top: 86px; /* Account for fixed navbar height (14px top + 57.828px logo + 14px bottom) */
+    }
+    
+    /* Hide desktop navigation menu on mobile */
+    .desktop-nav-menu {
+        display: none !important;
+    }
+    
+    /* Hide desktop dropdown menu on mobile */
+    .dropdown-menu {
+        display: none !important;
+    }
+    
+    /* Disable nav-dropdown hover effects on mobile */
+    .nav-dropdown {
+        pointer-events: none;
+    }
+    
+    /* Show hamburger menu button on mobile */
+    .hamburger-menu-btn {
+        display: flex;
+    }
+    
+    /* Show mobile menu on mobile */
+    .mobile-menu-overlay,
+    .mobile-menu-panel {
+        display: block;
+    }
+}
+
+/* Game Night Section - Small Desktop / Large Tablet (≤1280px) */
+@media screen and (max-width: 1280px) and (min-width: 1025px) {
+    .game-night-content {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 24px;
+        width: 100%;
+    }
+
+    .game-night-text {
+        width: 100%;
+        max-width: 100%;
+        flex-shrink: 0;
+        order: 1;
+    }
+
+    .game-night-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        flex-shrink: 0;
+        order: 2;
+    }
+}
+
+/* Teams Cards Stack Vertically at 1280px */
+@media screen and (max-width: 1280px) {
+    .teams-cards-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .team-card {
+        width: 100%;
+        flex: none;
+    }
+}
+
+/* Tablet Breakpoint (834px - iPad Pro portrait, etc.) */
+@media screen and (min-width: 769px) and (max-width: 900px) {
+    /* Navigation adjustments for tablet */
+    .nav-content {
+        padding: 20px 24px;
+    }
+    
+    /* Adjust body padding for tablet navbar height */
+    body {
+        padding-top: 98px; /* Account for fixed navbar height (20px top + 57.828px logo + 20px bottom) */
+    }
+
+    .desktop-nav-menu {
+        gap: 32px;
+        font-size: 24px;
+    }
+
+    .frame {
+        gap: 64px;
+    }
+
+    /* Room Cards - Keep side by side on tablet */
+    .room-cards-container {
+        flex-direction: row;
+        gap: 12px;
+    }
+
+    .room-card-title {
+        font-size: 48px; /* H2: Tablet - 48px */
+        letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
+    }
+
+    .room-card-content {
+        padding: 32px 24px;
+    }
+
+    /* Teams Cards - Stack vertically at 1280px and below */
+    .teams-cards-container {
+        flex-direction: column;
+        gap: 16px;
+        padding: 0;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .team-card {
+        width: 100%;
+        flex: none;
+    }
+
+    .team-card {
+        flex: 1 1 0;
+        height: 550px;
+        min-height: 550px;
+        border-radius: 16px;
+    }
+
+    .team-card .team-card-bg {
+        border-radius: 16px;
+    }
+
+    .team-card-title {
+        font-size: 48px; /* H2: Tablet - 48px */
+        letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
+    }
+
+    /* Content section padding - Tablet */
+    .content-section {
+        padding: 0 24px;
+        gap: 30px; /* Figma: gap between title and text */
+        margin-top: 48px; /* Figma: gap between major sections */
+    }
+
+    .content-section .section-title {
+        height: 117px; /* Figma: title height */
+    }
+
+    /* Carousel adjustments - Tablet */
+    .carousel {
+        padding: 0 24px;
+        gap: 15px; /* Figma: gap between carousel and pagination */
+    }
+
+    .carousel-deck {
+        height: 971px; /* Figma: carousel height */
+        aspect-ratio: auto; /* Override aspect ratio with fixed height */
+        border-radius: 16px;
+    }
+
+    /* Community carousel content adjustments for tablet */
+    .carousel-slide [data-name="lounge-card-container"] {
+        padding: 48px var(--spacing-container);
+        gap: 16px;
+    }
+
+    .carousel-slide [data-name="game-lounge-title"] {
+        width: 675px;
+        max-width: 100%;
+    }
+
+    .carousel-slide [data-name="game-lounge-title"] h1 {
+        font-size: 48px;
+        text-align: center;
+        display: block !important;
+        position: relative;
+        left: auto;
+        transform: none;
+        width: 100%;
+    }
+
+    .carousel-slide [data-name="lounge-card-container"] > div:nth-child(2) {
+        width: 646px;
+        max-width: 100%;
+        height: auto;
+        min-height: 304px;
+    }
+
+    .carousel-slide [data-name="lounge-card-container"] > div:nth-child(2) p {
+        font-size: 20px;
+        text-align: left;
+    }
+
+    /* Footer adjustments */
+    .footer-top {
+        padding: 16px 24px;
+    }
+
+    .footer-left {
+        gap: 120px;
+    }
+
+    /* Event cards grid */
+    .index-events-grid,
+    .events-grid,
+    .events-recaps-grid,
+    .news-events-cards-container.events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    /* Game lounge card */
+    .game-lounge-card {
+        padding: 56px 48px;
+    }
+
+    .game-lounge-title {
+        font-size: 96px;
+        letter-spacing: -1.92px;
+    }
+
+    .game-lounge-description {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    /* Main container and section spacing */
+    [data-name="home-desktop"] {
+        gap: 32px;
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+
+    /* Hero section adjustments */
+    [data-name="01-hero-section"] {
+        gap: 32px;
+    }
+
+    /* News and events section */
+    [data-name="02-news-events-section"] {
+        gap: 32px;
+    }
+
+    /* Teams section */
+    [data-name="03-teams-section"] {
+        gap: 12px;
+    }
+
+    /* Lounge section */
+    [data-name="04-lounge-section"] {
+        gap: 12px;
+    }
+
+    /* Academic opportunities section */
+    [data-name="05-academic-opportunities-section"] {
+        padding-left: 12px;
+        padding-right: 12px;
+        gap: 20px;
+    }
+}
+
+/* Academic Opportunities main container - exact layout */
+.academic-opportunities-container,
+.connect-page-container [data-node-id="549:2245"] {
+    display: flex;
+    padding: 0 12px;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    align-self: stretch;
+}
+
+/* Community card section */
+[data-name="04-community-card-section"] {
+    gap: 12px;
+}
+
+/* Filter bar adjustments */
+[data-name="filter-bar-container"] {
+    gap: 36px;
+}
+
+.index-filter-chip {
+    font-size: 18px;
+}
+
+/* Academic Opportunities Title - wrap to 2 rows on tablet */
+.academic-opportunities-title {
+    white-space: normal;
+    line-height: 1.1;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+/* News and Events Title - wrap to 2 rows on tablet */
+.news-events-title-responsive {
+    white-space: normal;
+    line-height: 1.1;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+/* Hide 4th card on index.html when screen width is 1201px or above */
+@media screen and (min-width: 1201px) {
+    .index-events-grid .event-card:nth-child(4) {
+        display: none;
+    }
 }
 
 /* Responsive Adjustments */
 @media (max-width: 1200px) {
     .events-grid,
-    .events-recaps-grid {
+    .events-recaps-grid,
+    .index-events-grid,
+    .news-events-cards-container.events-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -3547,7 +6942,6 @@ img {
     }
 
     /* H2 - Tablet: 48px */
-    .event-card-title,
     .event-overlay-subheading,
     .event-overlay-date,
     .event-overlay-time,
@@ -3555,14 +6949,32 @@ img {
         font-size: 48px;
         letter-spacing: -0.96px;
     }
+    
+    /* event-card-title font-size for tablet */
+    .event-card-title,
+    h2.event-card-title {
+        font-size: 40px !important; /* Tablet size - smaller than h2 (48px) */
+        letter-spacing: -0.96px;
+    }
 
     /* P1 - Tablet: 20px */
     .event-card-description,
+    .event-card-description.p1,
+    .event-card .event-card-description.p1,
     .event-overlay-description,
     .team-hero-description {
         font-size: 20px;
-        letter-spacing: -0.4px;
+        letter-spacing: 0;
     }
+    
+    /* Ensure event-card-date with p1 class uses p1 sizing on tablet */
+    .event-card-date.p1,
+    .event-card .event-card-date.p1 {
+        font-size: 20px;
+        letter-spacing: 0;
+    }
+
+    /* .event-overlay-calendar-btn removed - uses standard .btn-lined class */
 
     /* P2 - Tablet: 18px */
     .event-card-date,
@@ -3579,7 +6991,8 @@ img {
     }
 
     .varsity-player-card {
-        flex: 1 1 calc(50% - 8px);
+        flex: 0 0 calc((100% - 16px) / 2);
+        max-width: calc((100% - 16px) / 2);
         min-width: 0;
     }
 
@@ -3608,19 +7021,54 @@ img {
         width: 100%;
     }
 
-    /* Room Cards Section - Tablet */
-    .room-cards-container {
-        flex-direction: column;
-        gap: 16px;
-    }
+    /* Room Cards Section - Tablet (only for smaller tablets) */
+    @media (max-width: 900px) {
+        .room-cards-container {
+            flex-direction: column;
+            gap: 16px;
+        }
 
-    .room-card-title {
-        font-size: 96px;
-        letter-spacing: -1.92px;
-    }
+        .room-card-title {
+            font-size: 48px; /* H2: Tablet - 48px */
+            letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
+        }
 
-    .room-card-content {
-        padding: 36px;
+        .room-card-content {
+            padding: var(--spacing-container);
+        }
+
+        /* Teams Cards Section - Smaller tablets */
+        .teams-cards-container {
+            flex-direction: column;
+            gap: 16px;
+            padding: 0;
+            width: 100%;
+            max-width: 100vw;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .team-card {
+            width: 100%;
+            height: 500px;
+            min-height: 500px;
+            padding: 0;
+            flex: none;
+            border-radius: 16px;
+        }
+
+        .team-card .team-card-bg {
+            border-radius: 16px;
+        }
+
+        .team-card:last-child {
+            padding: 0;
+        }
+
+        .team-card-title {
+            font-size: 48px; /* H2: Tablet - 48px */
+            letter-spacing: -0.96px; /* H2: Tablet - -0.96px */
+        }
     }
 
     .game-lounge-title {
@@ -3636,12 +7084,188 @@ img {
     .player-cards-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    /* Event Overlay - Tablet */
+    .event-overlay-content {
+        gap: 90px;
+        padding: 120px 12px 0;
+        align-items: flex-start;
+    }
+
+    .event-overlay-hero {
+        gap: 24px;
+        width: 100%;
+    }
+
+    .event-overlay-title-container {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .event-overlay-title-container .event-overlay-right {
+        margin-top: 0;
+    }
+    
+    .event-overlay-title-wrapper {
+        width: 100%;
+    }
+
+    .event-overlay-title {
+        width: 100%;
+    }
+    
+    .event-overlay-title-content {
+        width: 100%;
+    }
+
+    .event-overlay-subheading {
+        width: 100%;
+    }
+    
+    .event-overlay-description {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .event-overlay-description {
+        width: 100%;
+        font-weight: 500;
+    }
+
+    .event-overlay-right-container {
+        width: 100%;
+        align-items: flex-start;
+        align-self: flex-start;
+    }
+
+    .event-overlay-right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: flex-start;
+        gap: 16px;
+        margin-top: 0;
+    }
+
+    .event-overlay-calendar-btn {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: auto;
+    }
+
+    .event-overlay-datetime {
+        display: none;
+    }
+
+    .event-overlay-media {
+        gap: 16px;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .event-overlay-datetime-tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 0;
+        height: 35px;
+    }
+
+    .event-overlay-datetime-tablet .event-overlay-date,
+    .event-overlay-datetime-tablet .event-overlay-time {
+        text-align: left;
+        width: auto;
+    }
+
+    .event-overlay-image {
+        aspect-ratio: 779 / 1168;
+        height: auto;
+    }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+    .pillars-section {
+        min-height: 450px;
+        padding: 60px 120px;
+        gap: 32px;
+    }
+
+    .pillars-logo-shield {
+        width: 400px;
+        height: 400px;
+    }
+
+    .pillars-words-container {
+        gap: 60px;
+    }
+
+    .pillars-word {
+        font-size: 36px;
+    }
+
+    .pillars-section-description {
+        width: 600px;
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-container {
+        padding: 0 12px;
+    }
+
     .events-page {
-        padding: 48px 16px 72px;
+        padding: 48px var(--spacing-container) 72px;
         gap: 48px;
+    }
+
+    .pillars-section {
+        min-height: 500px;
+        padding: 60px 12px;
+        margin-top: 48px;
+        width: calc(100% + 24px);
+        margin-left: -12px;
+        margin-right: -12px;
+        gap: 32px;
+    }
+
+    .pillars-logo-shield {
+        width: 300px;
+        height: 300px;
+    }
+
+    .pillars-section-title {
+        font-size: 24px;
+        width: 100%;
+        text-align: center;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+
+    .pillars-words-container {
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+
+    .pillars-word {
+        font-size: 40px; /* H2 Mobile */
+        letter-spacing: -0.8px;
+    }
+
+    .pillars-section-description {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        font-size: 14px;
     }
 
     /* H1 - Mobile: 64px */
@@ -3666,27 +7290,43 @@ img {
         letter-spacing: -0.8px;
     }
 
-    /* H3 - Mobile: 32px (event card titles) */
-    .event-card-title,
+    /* H2 - Mobile: 40px (event card titles) */
     .team-event-card-title {
-        font-size: 32px;
-        letter-spacing: -0.64px;
+        font-size: 40px;
+        letter-spacing: -0.8px;
+    }
+    
+    /* event-card-title font-size for mobile */
+    .event-card-title,
+    h2.event-card-title {
+        font-size: 32px !important; /* Mobile size - smaller than h2 (40px) */
+        letter-spacing: -0.8px;
     }
 
     /* P1 - Mobile: 14px */
     .event-overlay-description,
     .team-hero-description {
         font-size: 14px;
-        letter-spacing: -0.28px;
+        letter-spacing: 0;
     }
 
     /* Hide event card description on mobile */
     .event-card-description {
         display: none;
     }
+    
+    /* P1 - Mobile: 14px for p1 elements in event cards */
+    .event-card-description.p1,
+    .event-card .event-card-description.p1,
+    .event-card-date.p1,
+    .event-card .event-card-date.p1 {
+        font-size: 14px;
+        letter-spacing: 0;
+    }
 
     /* P2 - Mobile: 12px */
-    .event-card-date,
+    .event-card-date:not(.p1),
+    .event-card .event-card-date:not(.p1),
     .event-card-tag,
     .varsity-player-description,
     .team-event-card-date {
@@ -3701,23 +7341,45 @@ img {
 
     .varsity-cards-container {
         flex-direction: column;
+        gap: 16px;
     }
 
     .varsity-player-card {
-        flex: 1 1 auto;
+        flex: 0 0 100%;
+        max-width: 100%;
         width: 100%;
         height: auto;
-        min-height: 500px;
+        min-height: 700px;
     }
 
-    .varsity-learn-more-btn {
-        width: 100%;
-        max-width: 200px;
-    }
+    /* .varsity-learn-more-btn removed - replaced by .btn-filled */
 
     /* Team Events Section - Mobile */
     .team-events-section {
         margin-top: 48px;
+        padding: 0 12px;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: calc(50% - 50vw);
+        box-sizing: border-box;
+    }
+
+    .team-events-header {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .team-events-header .btn-lined {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .team-events-section-title + p,
+    .team-events-header + p {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
     }
 
     .team-events-cards-container {
@@ -3759,25 +7421,150 @@ img {
         letter-spacing: -0.36px;
     }
 
-    .game-lounge-btn .btn-text {
-        font-size: 18px;
-        letter-spacing: -0.36px;
+    /* .game-lounge-btn removed - replaced by .btn-lined */
+
+    /* Lounge Page Mobile Spacing - Based on Figma */
+    /* 23px gap between navbar and first section, 50px between major sections */
+    
+    /* Carousel - Mobile */
+    .carousel {
+        margin-top: 30px; /* Gap between navbar and first section */
+        gap: 15px;
+        margin-bottom: 0;
+        width: 100%;
+    }
+    
+    /* Ensure page-carousel and lounge-carousel maintain padding on mobile */
+    .page-carousel,
+    .lounge-carousel {
+        padding: 0 var(--spacing-container) !important;
+    }
+    
+    /* Hero description and lounge description - full width (margin to margin) on mobile */
+    [data-node-id="354:249"],
+    [data-node-id="549:5098"],
+    [data-node-id="549:2136"] {
+        width: calc(100% + 2 * var(--spacing-container)) !important;
+        max-width: calc(100% + 2 * var(--spacing-container)) !important;
+        flex: 1 1 100% !important;
+        margin-left: calc(-1 * var(--spacing-container)) !important;
+        margin-right: calc(-1 * var(--spacing-container)) !important;
+        padding-left: var(--spacing-container) !important;
+        padding-right: var(--spacing-container) !important;
+        box-sizing: border-box !important;
+    }
+    
+    .carousel-deck {
+        aspect-ratio: 779 / 1168; /* Match Figma mobile design */
+        border-radius: 0; /* Remove border-radius for edge-to-edge on mobile */
+    }
+
+    .carousel-slide-content {
+        border-radius: 0; /* Remove border-radius for edge-to-edge on mobile */
+    }
+
+    .carousel-slide-content.carousel-logo-slide {
+        border-radius: 0; /* Remove border-radius for edge-to-edge on mobile */
+    }
+    
+    /* Content Section - Mobile */
+    .content-section {
+        margin-top: 48px !important; /* Gap between major sections */
+        padding: 0 12px;
+        gap: 18px;
+        margin-bottom: 0;
+    }
+
+    /* Equipment Specs Section - Mobile */
+    .equipment-specs-section {
+        padding: 0 12px;
+        margin-top: 48px;
+        margin-bottom: 50px;
+    }
+
+    .equipment-specs-content {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 18px;
+        width: 100%;
+    }
+
+    .equipment-specs-text {
+        width: 100%;
+        max-width: 100%;
+        order: 1;
+        gap: 12px;
+    }
+
+    .equipment-specs-title {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+
+    .equipment-specs-subtitle {
+        font-size: 24px;
+        letter-spacing: -0.48px;
+    }
+
+    .equipment-specs-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        min-height: 220px;
+        order: 2;
+        display: block;
+    }
+
+    /* Game Night Section - Mobile */
+    .game-night-section {
+        padding: 0 12px;
+        margin-top: 48px;
+        margin-bottom: 50px;
+    }
+
+    .game-night-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .game-night-text {
+        width: 100%;
+    }
+
+    .game-night-title {
+        font-size: 64px;
+        letter-spacing: -1.28px;
+    }
+
+    .game-night-time {
+        font-size: 24px;
+        letter-spacing: -0.48px;
+    }
+
+    .game-night-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 818 / 460;
     }
 
     /* Room Cards Section - Mobile */
     .room-cards-section {
-        padding: 0 16px;
-        margin-top: 24px;
+        padding: 0 var(--spacing-container);
+        margin-top: 48px; /* Gap between major sections */
+        gap: 18px;
+        margin-bottom: 0;
     }
 
     .room-cards-container {
         flex-direction: column;
-        gap: 16px;
+        gap: 18px;
     }
 
     .room-card-title {
-        font-size: 64px;
-        letter-spacing: -1.28px;
+        font-size: 40px; /* H2: Mobile - 40px */
+        letter-spacing: -0.8px; /* H2: Mobile - -0.8px */
     }
 
     .room-card-content {
@@ -3788,19 +7575,84 @@ img {
         aspect-ratio: 16 / 9;
     }
 
+    /* Teams Cards Section - Mobile */
+    .teams-cards-container {
+        flex-direction: column;
+        gap: 16px;
+        padding: 0;
+        width: 100%;
+        max-width: 100vw;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .team-card {
+        width: 100%;
+        height: 400px;
+        min-height: 400px;
+        padding: 0;
+        flex: none;
+        border-radius: 16px;
+    }
+
+    .team-card .team-card-bg {
+        border-radius: 16px;
+    }
+
+    .team-card:last-child {
+        padding: 0;
+    }
+
+    .team-card-title {
+        font-size: 40px; /* H2: Mobile - 40px */
+        letter-spacing: -0.8px; /* H2: Mobile - -0.8px */
+    }
+
     .events-filter {
         gap: 24px;
     }
 
     .events-filter-chip {
-        font-size: 24px;
+        font-size: 28px;
     }
 
-    /* Mobile: 2-column layout for event cards */
+    /* Mobile: 2-column layout for event cards - ensure proper alignment */
+    .index-events-grid,
     .events-grid,
-    .events-recaps-grid {
+    .events-recaps-grid,
+    .news-events-cards-container.events-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
+        gap: 6px;
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        padding-left: var(--spacing-container);
+        padding-right: var(--spacing-container);
+        box-sizing: border-box;
+    }
+
+    /* Event cards - ensure they fit properly */
+    .event-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 9px 8px; /* Half of 17px 15px */
+        gap: 5px; /* Half of 10px */
+    }
+    
+    .event-card .event-card-content {
+        gap: 6px; /* Half of 12px */
+    }
+    
+    .event-card .event-card-black-section {
+        padding: 8px 6px; /* Half of 16px 11px */
+        gap: 5px; /* Half of 10px */
+    }
+    
+    .event-card .event-card-body {
+        gap: 5px; /* Mobile spacing */
     }
 
     .events-calendar-container {
@@ -3831,31 +7683,52 @@ img {
     }
     
     .event-overlay-content {
-        padding: 24px 16px;
+        padding: 120px 16px 24px;
         gap: 40px;
     }
 
     .event-overlay-title {
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .event-overlay-title-container {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    
+    .event-overlay-title-wrapper {
+        width: 100%;
+    }
+    
+    .event-overlay-title-content {
         width: 100%;
     }
 
-    .event-overlay-main {
-        flex-direction: column;
+    .event-overlay-right-container {
+        width: 100%;
         align-items: flex-start;
-    }
-
-    .event-overlay-left {
-        max-width: 100%;
+        align-self: flex-start;
     }
 
     .event-overlay-right {
         width: 100%;
         align-items: flex-start;
+        margin-top: 0;
+        display: flex;
+    }
+
+    .event-overlay-calendar-btn {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: auto;
+        margin-top: 16px;
     }
 
     .event-overlay-datetime {
-        width: 100%;
-        align-items: flex-start;
+        display: none;
     }
 
     .event-overlay-date,
@@ -3865,6 +7738,22 @@ img {
 
     .event-overlay-description {
         max-width: 100%;
+    }
+
+    .event-overlay-datetime-tablet {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 0;
+        height: 35px;
+    }
+
+    .event-overlay-datetime-tablet .event-overlay-date,
+    .event-overlay-datetime-tablet .event-overlay-time {
+        text-align: left;
+        width: auto;
     }
 
     .event-overlay-image {
@@ -3891,14 +7780,11 @@ img {
         letter-spacing: -0.64px;
     }
 
-    .event-overlay-calendar-btn {
-        font-size: 24px;
-        padding: 12px 24px;
-    }
+    /* .event-overlay-calendar-btn removed - uses standard .btn-lined class */
 
     .event-overlay-close {
-        top: 16px;
-        right: 16px;
+        top: 0;
+        right: 0;
         width: 40px;
         height: 40px;
         font-size: 24px;
@@ -3906,7 +7792,7 @@ img {
 
     /* Events Page Responsive */
     .events-page {
-        padding: 48px 16px 72px;
+        padding: 48px var(--spacing-container) 72px;
         gap: 48px;
     }
 
@@ -3917,19 +7803,76 @@ img {
         letter-spacing: -1.28px;
     }
 
+    /* News and Events Title - wrap on mobile */
+    .news-events-title-responsive {
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+    /* Section containers - ensure proper padding */
+    [data-name="02-news-events-section"] {
+        padding: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Filter bar - ensure it doesn't break */
+    [data-name="filter-bar-container"] {
+        width: 100%;
+        max-width: 100%;
+        overflow: visible;
+    }
+
+    /* Ensure buttons don't overflow */
+    [data-name="Buttons-Mobile"] {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
     .filter-sorting-container {
         flex-direction: column;
         align-items: flex-start;
         gap: 24px;
     }
 
+    /* Filter bar container - ensure proper alignment */
+    [data-name="filter-bar-container"] {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 0;
+    }
+
+    [data-name="filter-bar-container"] > div {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .index-filter-chip {
+        font-size: 16px;
+        white-space: nowrap;
+    }
+
+    /* Buttons - ensure proper sizing and alignment */
+    [data-name="Buttons-Mobile"] {
+        padding: 12px 24px !important;
+        min-width: auto;
+        flex-shrink: 1;
+    }
+
+    [data-name="Buttons-Mobile"] p {
+        font-size: 14px !important;
+        white-space: nowrap;
+    }
+
     .filter-bar-container {
-        gap: 24px;
-        font-size: 24px;
+        gap: 16px;
+        font-size: 16px;
     }
 
     .events-page .events-filter-chip {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     .sorting-groups-container {
@@ -3960,63 +7903,420 @@ img {
         height: 400px;
     }
 
+    /* Game Lounge Section - Mobile */
+    .events-game-lounge-section {
+        flex-direction: column;
+        gap: 12px;
+        padding: 24px 12px;
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+        margin-right: 0;
+        overflow-x: hidden;
+    }
+
+    .events-game-lounge-section .game-lounge-content {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0;
+        margin-top: 0;
+        padding: 0 12px;
+        gap: 16px;
+        box-sizing: border-box;
+    }
+
+    .events-game-lounge-section .game-lounge-card-container {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 250px;
+        aspect-ratio: 16 / 9;
+        flex: none;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .events-game-lounge-section .game-lounge-description p {
+        font-size: 16px;
+    }
+
+    .events-game-lounge-section .game-lounge-title {
+        font-size: 40px !important; /* H1 mobile size */
+        letter-spacing: -0.8px;
+        width: 100%;
+        position: static;
+    }
+
+    /* .game-lounge-btn removed - uses standard .btn-lined class */
+
     /* Location Section - Mobile */
     .location-section {
         flex-direction: column;
         gap: 24px;
-        padding: 0 16px;
+        padding: 0 12px;
+        margin-top: 48px;
+        margin-bottom: 0;
+        align-items: flex-start;
+        position: relative !important;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
 
     .location-content {
         width: 100%;
+        max-width: 100%;
+        gap: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        z-index: 1;
+        margin-bottom: 0;
+        box-sizing: border-box;
     }
 
     .location-heading {
-        font-size: 64px;
+        font-size: 48px;
+        letter-spacing: -0.96px;
         height: auto;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        line-height: 1.05;
+        flex-shrink: 0;
+        display: block;
     }
-
-    .location-hours-container {
+    
+    .location-section-content {
+        width: 100%;
+        gap: 16px;
+        display: flex;
         flex-direction: column;
-        gap: 24px;
+    }
+    
+    .location-info {
+        width: 100%;
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .location-info .location-label {
+        margin-bottom: 0;
+    }
+    
+    .location-info .section-text {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .hours-section {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .hours-column-left,
+    .hours-column-right {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0; /* No gap between label and text within each column */
+    }
+    
+    .hours-column-left .location-label,
+    .hours-column-right .location-label {
+        margin-bottom: 0;
+    }
+    
+    .hours-column-left .section-text,
+    .hours-column-right .section-text {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .location-hours-container {
+        flex-direction: row;
+        gap: 0;
+        width: 100%;
+        max-width: 100%;
+        align-items: flex-start;
+        justify-content: space-between;
+        height: auto;
+        min-height: 136px;
+        margin: 0;
+        margin-top: 18px; /* Explicit spacing from heading */
+        padding: 0;
+        box-sizing: border-box;
+        flex-shrink: 0; /* Prevent container from shrinking */
+        display: flex; /* Ensure flex is applied */
     }
 
     .location-hours-column {
         height: auto;
-        width: 100%;
+        box-sizing: border-box;
     }
 
-    .location-hours-column-left,
+    .location-column {
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 33.33%;
+        height: auto;
+        min-height: 121px;
+        padding-right: 8px; /* Small gap between columns */
+    }
+    
+    .hours-column {
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 33.33%;
+        height: auto;
+        min-height: 121px;
+        padding-right: 8px; /* Small gap between columns */
+    }
+
+    .location-hours-column-left {
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 50%;
+        height: auto;
+        min-height: 121px;
+        padding-right: 8px; /* Small gap between columns */
+    }
+
     .location-hours-column-right {
-        width: 100%;
+        flex: 0 1 auto;
+        min-width: 0;
+        width: auto;
+        max-width: 33.33%;
+        height: auto;
+        min-height: 120px;
+        margin: 0;
+        padding-left: 8px; /* Small gap between columns */
     }
 
+    .location-label {
+        font-family: "pressio-condensed", sans-serif;
+        font-size: 24px;
+        letter-spacing: -0.48px;
+        font-weight: 600;
+        color: var(--color-core-50);
+        margin: 0;
+        line-height: 1.1;
+    }
+    
+    .location-spacer {
+        font-size: 14px;
+    }
+    
+    /* Mobile: Override section-text with p1 styling in location section */
+    .location-info .section-text.p1,
+    .hours-section .section-text.p1 {
+        font-size: 14px; /* p1 mobile font size */
+        letter-spacing: -0.28px; /* p1 mobile letter spacing */
+        font-family: "urbanist", sans-serif; /* p1 font family */
+        font-weight: 500; /* Match section-text weight */
+    }
+    
     .location-map {
         width: 100%;
-        height: 400px;
+        max-width: 100%;
+        aspect-ratio: 3 / 2;
+        position: static !important;
+        margin: 0 !important;
+        border-radius: 16px;
+        z-index: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    .location-map-embed {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+        box-sizing: border-box;
     }
 
     /* Tour Video Section - Mobile */
     .tour-video-section {
-        padding: 0 16px;
-        gap: 24px;
+        padding: 0 12px;
+        gap: 18px;
+        margin-top: 48px; /* Gap between major sections */
+        margin-bottom: 0;
     }
 
     .tour-video-container {
-        height: 400px;
+        aspect-ratio: 1062 / 708; /* Match Figma design */
+        width: 100%;
+        height: auto;
     }
 
     /* Links Section - Mobile */
+    /* News and Events Section - Mobile */
+    .news-events-section {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        gap: 36px;
+        margin-top: 48px;
+        margin-bottom: 0;
+    }
+    
+    /* Event grid inside news-events-section should respect parent padding on mobile */
+    .news-events-section .news-events-cards-container.events-grid {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Teams Section - Mobile */
+    .teams-section {
+        padding: 0 12px;
+        gap: 15px;
+        margin-top: 48px;
+        margin-bottom: 50px;
+    }
+
+    .teams-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        width: 100%;
+    }
+
+    .teams-section-title {
+        font-size: 64px; /* H1 Mobile */
+        letter-spacing: -1.28px;
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+    /* Community Section - Mobile */
+    .community-section {
+        padding: 0 12px;
+        gap: 29px;
+        margin-top: 48px;
+        margin-bottom: 50px;
+    }
+
+    .community-section-header {
+        gap: 29.75px;
+    }
+
+    .community-header-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        width: 100%;
+    }
+
+    .community-section-title {
+        font-size: 64px; /* H1 Mobile */
+        letter-spacing: -1.28px;
+        white-space: normal;
+        line-height: 1.1;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+
+    .community-carousel-container {
+        padding-top: 27px;
+    }
+
+    .news-events-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        width: 100%;
+    }
+
+    .news-events-title {
+        font-size: 64px; /* H1 Mobile */
+        letter-spacing: -1.28px;
+        white-space: normal;
+        width: 100%;
+    }
+
+    .news-events-see-all-btn {
+        font-size: 24px; /* P2 Mobile */
+        letter-spacing: -0.48px;
+        padding: 16px var(--spacing-container);
+        width: auto;
+    }
+
+    .news-events-filter-bar {
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .news-events-filter-chip {
+        font-size: 24px;
+    }
+
+    .news-events-cards-container:not(.events-grid) {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .news-events-cards-container:not(.events-grid) .event-card {
+        width: 100%;
+        flex: none;
+    }
+
+    /* When news-events-cards-container has events-grid class, use 2-column grid on mobile */
+    .news-events-cards-container.events-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+    }
+
+    .news-events-cards-container .event-card-date {
+        font-size: 12px;
+        letter-spacing: -0.24px;
+    }
+
+    .news-events-cards-container:not(.events-grid) .event-card-title {
+        font-size: 32px;
+        letter-spacing: -0.64px;
+    }
+
     .links-section {
         flex-direction: column;
-        gap: 24px;
-        padding: 0 16px;
+        gap: 16px;
+        padding: 0 12px;
+        margin-top: 48px; /* Gap between major sections */
+        margin-bottom: 0;
+    }
+    
+    .links-section .event-card {
+        gap: 16px;
+    }
+    
+    /* Teams section in links - Mobile */
+    .links-section .links-cards-container {
+        margin-top: 30px; /* Approximately 29.75px gap between heading and content */
     }
 
     .links-section .event-card {
         width: 100%;
         height: auto;
         min-height: 500px;
+        padding: 17px 15px; /* Match Figma: py-[17px] px-[15px] */
     }
 
     .links-cards-container {
@@ -4043,5 +8343,507 @@ img {
 
     .links-community-description {
         height: auto;
+    }
+
+    /* Button Styles - Mobile */
+    .btn-filled,
+    .btn-lined {
+        font-size: 14px; /* P1 Mobile - same as desktop */
+        letter-spacing: -0.28px;
+        padding: 12px 54px;
+    }
+    
+    /* Footer - Mobile */
+    .footer-top {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 14px 12px;
+        gap: 28px; /* Gap between left section and contact section */
+    }
+    
+    .footer-left {
+        width: 116px;
+        flex-shrink: 0;
+        align-items: flex-start;
+        gap: 52px;
+    }
+    
+    .footer-logo {
+        width: 116px;
+        max-width: 116px;
+        align-items: flex-start;
+    }
+    
+    .footer-logo .logo-container {
+        width: 100%;
+        max-width: 116px;
+    }
+    
+    .social-icons {
+        justify-content: flex-start;
+        width: auto;
+        gap: 10px;
+    }
+    
+    .social-icon {
+        width: 30px;
+        height: 30px;
+        background-color: var(--color-primary);
+        border-radius: 12px;
+        padding: 6px;
+        box-sizing: border-box;
+    }
+    
+    .social-icon img {
+        width: 18px;
+        height: 18px;
+        min-width: 18px;
+        min-height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        filter: brightness(0) invert(1); /* Makes icons white (--color-core-50) */
+    }
+    
+    .social-icon-primary {
+        width: 30px;
+        height: 30px;
+        padding: 6px;
+    }
+    
+    .footer-right {
+        width: auto;
+        flex-shrink: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        justify-content: flex-start;
+        margin-left: auto; /* Push to the right */
+    }
+    
+    /* Hide Explore section on mobile */
+    .footer-right .footer-section:last-child {
+        display: none;
+    }
+    
+    .footer-section {
+        width: auto;
+        align-items: flex-start;
+        padding-top: 6px;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        gap: 8px;
+    }
+    
+    .footer-heading {
+        font-size: 14px;
+        font-weight: 500; /* Medium */
+        font-family: 'Urbanist', sans-serif;
+        letter-spacing: -0.28px;
+        text-align: left;
+        white-space: normal;
+        margin: 0;
+        line-height: 100%;
+        color: var(--color-core-50); /* #FCFCFC */
+        min-width: 100%;
+    }
+    
+    .footer-links {
+        align-items: flex-start;
+        gap: 8px; /* 8px gap between contact items */
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .footer-link {
+        font-size: 12px;
+        font-weight: 600; /* SemiBold */
+        font-family: 'Urbanist', sans-serif;
+        letter-spacing: -0.24px;
+        text-align: left;
+        white-space: normal;
+        line-height: 100%;
+        margin: 0;
+        color: var(--color-core-100); /* #F2F2F2 */
+        min-width: 100%;
+        display: block;
+    }
+    
+    .footer-bottom {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        height: 26px;
+        min-height: 26px;
+        gap: 0;
+    }
+    
+    .footer-copyright {
+        font-weight: 400; /* Regular */
+        letter-spacing: 0;
+        text-align: center;
+        white-space: pre;
+        line-height: normal;
+        margin: 0;
+        color: var(--color-bg-400);
+    }
+    
+    .footer-legal {
+        flex-direction: row;
+        gap: 12px;
+        align-items: center;
+    }
+    
+    .footer-legal-link {
+        font-weight: 400; /* Regular */
+        letter-spacing: 0;
+        text-align: center;
+        white-space: pre;
+        line-height: normal;
+        margin: 0;
+        color: var(--color-bg-400);
+    }
+}
+
+/* ============================================
+   Connect Page Styles
+   ============================================ */
+
+/* Connect page container */
+.connect-page-container {
+    background-color: var(--color-bg-900);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 37px;
+    align-items: center;
+    padding: 0 var(--spacing-container) 0;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Ensure connect page hero section has 37px gap */
+.connect-page-container [data-name="01-hero-section"] {
+    gap: 37px !important;
+}
+
+/* Hero image placeholder for connect page */
+[data-name="lounge-card-container"] {
+    background-color: var(--color-core-100);
+    border-radius: 16px;
+    width: 100%;
+}
+
+/* Connect page team cards container */
+.connect-teams-cards {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+/* Connect page team cards - specific height from Figma (711px) */
+.connect-team-card {
+    position: relative;
+    height: 711px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.connect-overwatch-card {
+    width: 596px;
+    flex-shrink: 0;
+}
+
+.connect-valorant-card {
+    width: 592px;
+    flex-shrink: 0;
+}
+
+.connect-team-card-mask-group {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-team-card-mask-inner {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-team-card-bg-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #d9d9d9;
+    opacity: 0.5;
+    border-radius: 16px;
+}
+
+.connect-team-card-bg-image {
+    position: absolute;
+    opacity: 0.5;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.connect-overwatch-card .connect-team-card-bg-image {
+    height: 720.709px;
+    left: -113px;
+    top: -4px;
+    width: 826.64px;
+}
+
+.connect-overwatch-card .connect-team-card-bg-image img {
+    position: absolute;
+    height: 114.7%;
+    left: 0;
+    top: -14.7%;
+    width: 100%;
+    max-width: none;
+}
+
+.connect-valorant-card .connect-team-card-bg-image {
+    height: 794.593px;
+    left: -398.73px;
+    top: -35.84px;
+    width: 1412.61px;
+    mask-image: url('https://www.figma.com/api/mcp/asset/e08dfda0-281d-42ab-8ffb-38f418ef643f');
+    mask-size: 592px 711px;
+    mask-position: 398.727px 35.843px;
+    mask-repeat: no-repeat;
+}
+
+.connect-valorant-card .connect-team-card-bg-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: 50% 50%;
+    pointer-events: none;
+}
+
+.connect-team-card-overlay {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.5;
+}
+
+.connect-overwatch-card .connect-team-card-overlay {
+    left: 36px;
+    top: 94px;
+    width: 524px;
+    height: 524px;
+}
+
+.connect-overwatch-card .connect-team-card-overlay img {
+    display: block;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-valorant-card .connect-team-card-overlay {
+    inset: 24.19% 12% 24.19% 12.16%;
+}
+
+.connect-valorant-card .connect-team-card-overlay img {
+    display: block;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+}
+
+.connect-team-card-title {
+    position: absolute;
+    z-index: 10;
+    font-family: var(--font-pressio-bold-condensed);
+    font-weight: 900;
+    font-size: 96px;
+    line-height: normal;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--color-core-50);
+    margin: 0;
+}
+
+.connect-overwatch-card .connect-team-card-title {
+    left: 91px;
+    top: 304px;
+}
+
+.connect-valorant-card .connect-team-card-title {
+    position: absolute;
+    inset: 42.76% 19.26% 42.62% 19.26%;
+    text-align: center;
+}
+
+
+/* Teams section header alignment */
+.connect-page-container [data-node-id="549:2210"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.connect-page-container [data-node-id="549:2210"] h1 {
+    margin: 0;
+    line-height: 1;
+}
+
+.connect-page-container [data-node-id="549:2212"] {
+    align-self: center;
+    display: inline-flex;
+}
+/* Connect page sections padding */
+.connect-page-container > div {
+    max-width: 100%;
+    width: 100%;
+}
+
+.connect-page-container [data-name="hero-text-container"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.connect-page-container [data-name="03-discord-section"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.connect-page-container [data-node-id="549:2309"] {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.connect-page-container [data-node-id="549:2209"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Academic opportunities text gradient */
+
+/* Discord section container */
+.connect-page-container [data-name="03-discord-container"] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+}
+
+/* Responsive styles for connect page */
+@media screen and (max-width: 1280px) {
+    .connect-teams-cards {
+        flex-direction: column;
+    }
+    
+    .connect-team-card {
+        width: 100%;
+        height: 500px;
+        min-height: 500px;
+    }
+    
+    .connect-team-card-title {
+        font-size: 64px;
+        letter-spacing: -1.28px;
+    }
+    
+    .connect-overwatch-card .connect-team-card-overlay {
+        left: 10%;
+        top: 10%;
+        width: 80%;
+        height: 80%;
+    }
+    
+    .connect-overwatch-card .connect-team-card-title {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .connect-valorant-card .connect-team-card-title {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
+        bottom: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    [data-name="lounge-card-container"] {
+        height: 400px !important;
+    }
+    
+    .connect-team-card {
+        height: 400px;
+        min-height: 400px;
+    }
+    
+    .connect-team-card-title {
+        font-size: 48px;
+        letter-spacing: -0.96px;
+    }
+    
+    .connect-page-container [data-name="hero-text-container"] h1,
+    .connect-page-container [data-name="03-discord-section"] h1,
+    .connect-page-container [data-node-id="549:2211"],
+    .connect-page-container [data-node-id="549:2311"],
+    .connect-page-container [data-node-id="549:2246"] {
+        font-size: 64px !important;
+        letter-spacing: -1.28px !important;
+    }
+    
+    .connect-page-container [data-name="hero-text-container"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .connect-page-container [data-name="03-discord-section"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .connect-page-container [data-node-id="549:2309"] {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .connect-page-container [data-node-id="549:2209"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    
+    .connect-page-container {
+        padding: 0 16px 0;
+        gap: 24px;
+    }
+    
+    .connect-overwatch-card .connect-team-card-overlay,
+    .connect-valorant-card .connect-team-card-overlay {
+        left: 5%;
+        top: 5%;
+        width: 90%;
+        height: 90%;
+    }
+    
+    .connect-overwatch-card .connect-team-card-title,
+    .connect-valorant-card .connect-team-card-title {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        right: auto;
+        bottom: auto;
     }
 }
