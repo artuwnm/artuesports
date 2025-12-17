@@ -270,6 +270,8 @@
                     <button class="filter-btn" data-filter="community">Community</button>
                     <button class="filter-btn" data-filter="upcoming">Upcoming</button>
                     <button class="filter-btn" data-filter="past">Past</button>
+                    <button class="filter-btn" data-filter="unassigned">Unassigned</button>
+                    <button class="filter-btn" data-filter="with-team">With Team</button>
                 </div>
 
                 <div class="loading" id="loadingIndicator">Loading events...</div>
@@ -280,6 +282,7 @@
                             <th>Image</th>
                             <th>Title</th>
                             <th>Type</th>
+                            <th>Team</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Location</th>
@@ -530,7 +533,7 @@
             try {
                 const { data: events, error } = await supabaseClient
                     .from('events')
-                    .select('*')
+                    .select('*, teams(name)')
                     .order('event_date', { ascending: false });
 
                 if (error) throw error;
@@ -573,7 +576,7 @@
             eventsTableBody.innerHTML = '';
 
             if (events.length === 0) {
-                eventsTableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No events found. Add your first event!</td></tr>';
+                eventsTableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No events found. Add your first event!</td></tr>';
                 return;
             }
 
@@ -592,6 +595,9 @@
                     })
                     : '-';
 
+                const teamName = event.teams?.name || 'Unassigned';
+                const teamStyle = event.teams?.name ? 'color: #fcfcfc;' : 'color: #ff9800; font-style: italic;';
+
                 row.innerHTML = `
                     <td>
                         ${event.picture_url
@@ -602,6 +608,7 @@
                     <td>
                         <span class="event-type-badge event-type-${event.type}">${event.type}</span>
                     </td>
+                    <td style="${teamStyle}">${teamName}</td>
                     <td>${eventDate}</td>
                     <td>${eventTime}</td>
                     <td>${event.location || '-'}</td>
