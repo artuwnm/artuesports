@@ -3,7 +3,7 @@ const SUPABASE_URL = 'https://ueyhnpazdbtwstkcyedu.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVleWhucGF6ZGJ0d3N0a2N5ZWR1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NjM3NzYsImV4cCI6MjA3ODAzOTc3Nn0.leC8cE_Tlj9UvOkov1IhfPdJ0ppeWJtAX2zS1tyZyPg';
 
 // Initialize Supabase client
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Placeholder image fallback
 const PLACEHOLDER_IMAGE = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>';
@@ -17,7 +17,7 @@ async function loadTeams() {
 
     try {
         // Fetch teams sorted alphabetically
-        const { data: teams, error } = await supabase
+        const { data: teams, error } = await supabaseClient
             .from('teams')
             .select('id, name, logo_url, page_url')
             .order('name', { ascending: true });
