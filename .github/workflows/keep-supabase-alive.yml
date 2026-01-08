@@ -1,0 +1,39 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Runs every 5 days (well before the 7-day inactivity threshold)
+    - cron: '0 0 */5 * *'
+  workflow_dispatch:  # Allows manual trigger for testing
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          echo "Pinging Supabase teams table to prevent inactivity pause..."
+
+          # Query the teams table with a limit of 1 row
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/teams?limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+
+          echo "Response code: $response"
+
+          # Success if we get 200 (OK) or 206 (Partial Content)
+          if [ "$response" -eq 200 ] || [ "$response" -eq 206 ]; then
+            echo "✓ Supabase is alive - teams table queried successfully (HTTP $response)"
+            exit 0
+          else
+            echo "✗ Failed to query teams table: HTTP $response"
+            exit 1
+          fi
+
+      - name: Workflow Summary
+        if: always()
+        run: |
+          echo "### Supabase Keep-Alive Status" >> $GITHUB_STEP_SUMMARY
+          echo "Timestamp: $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "Next scheduled run: In 5 days" >> $GITHUB_STEP_SUMMARY
