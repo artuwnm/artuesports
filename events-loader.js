@@ -13,11 +13,16 @@ async function loadEvents() {
     const loadingIndicator = container.querySelector('.loading-events');
 
     try {
-        // Fetch 3 most recent events sorted by created_at DESC
+        // Get today's date
+        const today = new Date().toISOString().split('T')[0];
+
+        // Fetch 3 upcoming events, excluding recurring parent events (show instances only)
         const { data: events, error } = await supabaseEvents
             .from('events')
-            .select('id, type, title, description, event_date, event_time, location, picture_url, event_url, created_at')
-            .order('created_at', { ascending: false })
+            .select('id, type, title, description, start_date, end_date, start_time, end_time, event_date, event_time, location, picture_url, event_url, created_at, is_recurring, is_instance')
+            .or('is_recurring.is.null,is_recurring.eq.false')
+            .gte('start_date', today)
+            .order('start_date', { ascending: true })
             .limit(3);
 
         if (error) {
@@ -114,10 +119,14 @@ function createEventCard(event) {
     const body = document.createElement('div');
     body.className = 'event-card-body';
 
-    // Create date element
+    // Create date element - use start_date/end_date if available, fall back to event_date
     const dateElement = document.createElement('p');
     dateElement.className = 'event-card-date p1';
-    dateElement.textContent = formatEventDate(event.event_date, event.event_time);
+    dateElement.textContent = formatEventDate(
+        event.start_date || event.event_date,
+        event.end_date,
+        event.start_time || event.event_time
+    );
 
     // Create title element
     const title = document.createElement('h2');
@@ -143,36 +152,70 @@ function createEventCard(event) {
 
 /**
  * Format date to match existing pattern: "October 12th | 10/16/25"
- * @param {string} dateString - ISO date string from database (YYYY-MM-DD)
+ * For date ranges: "October 12th - 14th | 10/12/25"
+ * @param {string} startDateString - ISO date string from database (YYYY-MM-DD)
+ * @param {string} endDateString - ISO date string from database (YYYY-MM-DD), optional
  * @param {string} timeString - Time string from database (HH:MM:SS, nullable)
  * @returns {string} Formatted date string
  */
-function formatEventDate(dateString, timeString) {
-    if (!dateString) {
+function formatEventDate(startDateString, endDateString, timeString) {
+    // Handle old signature (dateString, timeString)
+    if (typeof endDateString === 'string' && endDateString && endDateString.includes(':')) {
+        // Second arg is actually timeString (old format)
+        timeString = endDateString;
+        endDateString = null;
+    }
+
+    if (!startDateString) {
         return 'Date TBA';
     }
 
     try {
-        const date = new Date(dateString);
+        const startDate = new Date(startDateString);
 
         // Check for invalid date
-        if (isNaN(date.getTime())) {
+        if (isNaN(startDate.getTime())) {
             return 'Date TBA';
         }
 
-        // Part 1: Month name + ordinal day
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
                            'July', 'August', 'September', 'October', 'November', 'December'];
-        const month = monthNames[date.getMonth()];
-        const day = date.getDate();
-        const ordinal = getOrdinalSuffix(day);
 
-        // Part 2: MM/DD/YY format
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const dd = String(date.getDate()).padStart(2, '0');
-        const yy = String(date.getFullYear()).slice(-2);
+        const startMonth = monthNames[startDate.getMonth()];
+        const startDay = startDate.getDate();
+        const startOrdinal = getOrdinalSuffix(startDay);
 
-        return `${month} ${day}${ordinal} | ${mm}/${dd}/${yy}`;
+        // Check if we have a different end date
+        const hasEndDate = endDateString && endDateString !== startDateString;
+
+        if (hasEndDate) {
+            const endDate = new Date(endDateString);
+            if (!isNaN(endDate.getTime())) {
+                const endDay = endDate.getDate();
+                const endOrdinal = getOrdinalSuffix(endDay);
+                const endMonth = monthNames[endDate.getMonth()];
+
+                // Format: MM/DD/YY for start date
+                const mm = String(startDate.getMonth() + 1).padStart(2, '0');
+                const dd = String(startDate.getDate()).padStart(2, '0');
+                const yy = String(startDate.getFullYear()).slice(-2);
+
+                if (startDate.getMonth() === endDate.getMonth()) {
+                    // Same month: "October 12th - 14th | 10/12/25"
+                    return `${startMonth} ${startDay}${startOrdinal} - ${endDay}${endOrdinal} | ${mm}/${dd}/${yy}`;
+                } else {
+                    // Different months: "October 30th - November 2nd | 10/30/25"
+                    return `${startMonth} ${startDay}${startOrdinal} - ${endMonth} ${endDay}${endOrdinal} | ${mm}/${dd}/${yy}`;
+                }
+            }
+        }
+
+        // Single day event
+        const mm = String(startDate.getMonth() + 1).padStart(2, '0');
+        const dd = String(startDate.getDate()).padStart(2, '0');
+        const yy = String(startDate.getFullYear()).slice(-2);
+
+        return `${startMonth} ${startDay}${startOrdinal} | ${mm}/${dd}/${yy}`;
     } catch (error) {
         console.error('Error formatting date:', error);
         return 'Date TBA';
