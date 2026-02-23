@@ -259,7 +259,7 @@ carousel.pauseTimer = function () {
 	carousel.init();
 }
 $(function(){
-	$(".carousel").each(function(){
+	$(".carousel").not("[data-dynamic]").each(function(){
 		new Carousel(this);
 	})
 })
